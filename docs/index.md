@@ -8,7 +8,7 @@ This site covers the technical documentation for AppVentiX.
 
 ## Quickstart
 
-Prepare a Windows machine for AppVentiX client deployment: physical, VDI persistent, or non-persistent master image.
+Get AppVentiX up and running in about 10 minutes. This guide covers setting up the configuration store, installing the agent, and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
 
 [Get started with client deployment](quickstart/index.md)
 

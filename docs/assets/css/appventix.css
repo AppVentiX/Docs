@@ -117,6 +117,11 @@
 .md-typeset table:not([class]) th {
   background-color: var(--avx-blue);
   color: #ffffff;
+  padding: 0.4em 0.8em;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.55em 0.8em;
 }
 
 [data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
@@ -157,7 +162,13 @@ html {
 }
 
 .md-typeset hr {
-  margin: 1em 0;
+  margin: 1.8em 0 0.6em;
+}
+
+.md-typeset hr + h2,
+.md-typeset hr + h3,
+.md-typeset hr + h4 {
+  margin-top: 0.8em;
 }
 
 .md-content__inner {
