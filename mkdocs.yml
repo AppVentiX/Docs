@@ -1,0 +1,192 @@
+site_name: AppVentiX Documentation
+site_description: Technical documentation for AppVentiX - Modern Workspace Control for Microsoft environments
+site_url: https://docs.appventix.com
+site_author: AppVentiX
+
+repo_url: https://github.com/AppVentiX/Docs
+repo_name: AppVentiX/Docs
+edit_uri: ""
+
+theme:
+  name: material
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
+  language: en
+  font:
+    text: Open Sans
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+
+extra_css:
+  - assets/css/appventix.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/AppVentiX
+      name: AppVentiX on X
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/appventix
+      name: AppVentiX on LinkedIn
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@appventix
+      name: AppVentiX on YouTube
+  homepage: https://appventix.com
+
+copyright: Copyright &copy; AppVentiX
+
+plugins:
+  - search:
+      lang: en
+
+markdown_extensions:
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.snippets
+
+nav:
+  - Home: index.md
+  - Quickstart:
+    - quickstart/index.md
+    - Config Share Setup: quickstart/config-share.md
+    - Install AppVentiX Agent: quickstart/agent-installation.md
+    - Optimize the Workspace: quickstart/optimization-script.md
+    - Verify the Agent: quickstart/verify-agent.md
+  - Admin Guide:
+    - admin-guide/index.md
+    - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
+    - AppVentiX Components:
+      - Agent Service: admin-guide/agent-service.md
+      - Agent GUI: admin-guide/agent-gui.md
+      - Central View Console: admin-guide/central-view.md
+      - Machine Group Agent Settings: admin-guide/agent-settings.md
+      - Manage Machines: admin-guide/manage-machines.md
+    - Package Management:
+      - Manage Content and Publishing Tasks: admin-guide/manage-content.md
+      - MSIX and MSIX App Attach: admin-guide/msix.md
+      - MSIX Certificate Management: admin-guide/msix-certificates.md
+      - Application Overview: admin-guide/application-overview.md
+    - Security and Access Control:
+      - FSLogix App Masking: admin-guide/app-masking.md
+      - App Control (WDAC): admin-guide/app-control.md
+      - Limit Access to Central View: admin-guide/access-control.md
+      - Audit Trail: admin-guide/audit-trail.md
+    - User Settings: admin-guide/user-settings.md
+    - Integrations:
+      - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop.md
+      - Azure AD / Entra ID: admin-guide/entra-id.md
+      - Azure File Share: admin-guide/azure-file-share.md
+      - QUIC Share (Port 443): admin-guide/quic-share.md
+    - Advanced Configuration:
+      - Share Permissions and Configuration: admin-guide/share-permissions.md
+      - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced.md
+      - Supported Operating Systems: admin-guide/supported-os.md
+      - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles.md
+      - Automated Image Building: admin-guide/automated-image-building.md
+      - Firewall and Communication Ports: admin-guide/firewall-ports.md
+      - Example Agent Configurations: admin-guide/example-configurations.md
+  - HowTo Guides:
+    - howto/index.md
+    - Import from App-V Management Database: howto/Import-packages-from-AppV-Management-Database.md
+  - PowerShell Module:
+    - powershell-module/index.md
+    - Command Reference:
+      - powershell-module/commands/index.md
+      - Configuration Commands:
+        - Get-AppVentiXConfigShare: powershell-module/commands/Get-AppVentiXConfigShare.md
+        - Set-AppVentiXConfigShare: powershell-module/commands/Set-AppVentiXConfigShare.md
+        - Get-AppVentiXModuleVariable: powershell-module/commands/Get-AppVentiXModuleVariable.md
+        - Set-AppVentiXADCredential: powershell-module/commands/Set-AppVentiXADCredential.md
+        - Clear-AppVentiXADCredential: powershell-module/commands/Clear-AppVentiXADCredential.md
+      - License Commands:
+        - Get-AppVentiXLicence: powershell-module/commands/Get-AppVentiXLicence.md
+        - Test-AppVentiXIsLicensed: powershell-module/commands/Test-AppVentiXIsLicensed.md
+        - Update-AppVentixLicense: powershell-module/commands/Update-AppVentixLicense.md
+      - Machine Group Commands:
+        - Get-AppVentiXMachineGroup: powershell-module/commands/Get-AppVentiXMachineGroup.md
+      - Package Commands:
+        - Add-AppVentiXPackage: powershell-module/commands/Add-AppVentiXPackage.md
+        - Get-AppVentiXContentSharePackages: powershell-module/commands/Get-AppVentiXContentSharePackages.md
+        - New-AppVentiXConnectionGroup: powershell-module/commands/New-AppVentiXConnectionGroup.md
+      - Publishing Task Commands:
+        - Get-AppVentiXPublishingTask: powershell-module/commands/Get-AppVentiXPublishingTask.md
+        - New-AppVentiXPublishingTask: powershell-module/commands/New-AppVentiXPublishingTask.md
+        - Set-AppVentiXPublishingTask: powershell-module/commands/Set-AppVentiXPublishingTask.md
+        - Copy-AppVentiXPublishingTask: powershell-module/commands/Copy-AppVentiXPublishingTask.md
+        - Remove-AppVentiXPublishingTask: powershell-module/commands/Remove-AppVentiXPublishingTask.md
+        - Export-AppVentiXPublishingTaskReport: powershell-module/commands/Export-AppVentiXPublishingTaskReport.md
+      - Seamless Publishing Commands:
+        - Enable-AppVentiXSeamlessPublishing: powershell-module/commands/Enable-AppVentiXSeamlessPublishing.md
+        - Disable-AppVentiXSeamlessPublishing: powershell-module/commands/Disable-AppVentiXSeamlessPublishing.md
+        - Get-AppVentiXSeamlessPublishCommand: powershell-module/commands/Get-AppVentiXSeamlessPublishCommand.md
+        - Export-AppVentiXSeamlessApplicationsReport: powershell-module/commands/Export-AppVentiXSeamlessApplicationsReport.md
+      - User Settings Commands:
+        - Get-AppVentiXUserSettings: powershell-module/commands/Get-AppVentiXUserSettings.md
+        - New-AppVentiXDriveMappingUserSetting: powershell-module/commands/New-AppVentiXDriveMappingUserSetting.md
+        - New-AppVentiXEnvironmentVariableUserSetting: powershell-module/commands/New-AppVentiXEnvironmentVariableUserSetting.md
+        - New-AppVentiXGroupPolicyUserSetting: powershell-module/commands/New-AppVentiXGroupPolicyUserSetting.md
+        - New-AppVentiXPrinterMappingUserSetting: powershell-module/commands/New-AppVentiXPrinterMappingUserSetting.md
+        - New-AppVentiXRegistryUserSetting: powershell-module/commands/New-AppVentiXRegistryUserSetting.md
+        - New-AppVentiXShortcutUserSetting: powershell-module/commands/New-AppVentiXShortcutUserSetting.md
+        - Set-AppVentiXUserSettingFolder: powershell-module/commands/Set-AppVentiXUserSettingFolder.md
+        - Set-AppVentiXUserSettingsAssignment: powershell-module/commands/Set-AppVentiXUserSettingsAssignment.md
+      - Migration Commands:
+        - Test-AppVManagementSQLConnection: powershell-module/commands/Test-AppVManagementSQLConnection.md
+        - Get-AppVManagementPackage: powershell-module/commands/Get-AppVManagementPackage.md
+        - Get-AppVManagementConnectionGroup: powershell-module/commands/Get-AppVManagementConnectionGroup.md
+        - Import-AppVManagementPackage: powershell-module/commands/Import-AppVManagementPackage.md
+        - Import-AppVManagementConnectionGroup: powershell-module/commands/Import-AppVManagementConnectionGroup.md
+      - Ivanti Workspace Control Migration:
+        - Get-AdmxPolicySetting: powershell-module/commands/Get-AdmxPolicySetting.md
+        - Get-IvantiWCApplication: powershell-module/commands/Get-IvantiWCApplication.md
+        - Get-IvantiWCEnvironmentVariable: powershell-module/commands/Get-IvantiWCEnvironmentVariable.md
+        - Get-IvantiWCNetworkDrive: powershell-module/commands/Get-IvantiWCNetworkDrive.md
+        - Get-IvantiWCPolicy: powershell-module/commands/Get-IvantiWCPolicy.md
+        - Get-IvantiWCPrinterMapping: powershell-module/commands/Get-IvantiWCPrinterMapping.md
+        - Get-IvantiWCRegistry: powershell-module/commands/Get-IvantiWCRegistry.md
+        - Import-IvantiWCApplication: powershell-module/commands/Import-IvantiWCApplication.md
+        - Import-IvantiWCEnvironmentVariable: powershell-module/commands/Import-IvantiWCEnvironmentVariable.md
+        - Import-IvantiWCNetworkDrive: powershell-module/commands/Import-IvantiWCNetworkDrive.md
+        - Import-IvantiWCPolicy: powershell-module/commands/Import-IvantiWCPolicy.md
+        - Import-IvantiWCPrinterMapping: powershell-module/commands/Import-IvantiWCPrinterMapping.md
+        - Import-IvantiWCRegistry: powershell-module/commands/Import-IvantiWCRegistry.md
+        - Import-IvantiWCShortcut: powershell-module/commands/Import-IvantiWCShortcut.md
+  - Support: support.md

@@ -1,0 +1,166 @@
+/* AppVentiX brand colors */
+:root {
+  --avx-blue: #3D5A9E;
+  --avx-blue-light: #4A6FB5;
+  --avx-blue-dark: #2E4480;
+  --avx-orange: #FF7027;
+  --avx-orange-dark: #E05C1A;
+}
+
+/* Primary color overrides - light mode */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #3D5A9E;
+  --md-primary-fg-color--light: #4A6FB5;
+  --md-primary-fg-color--dark:  #2E4480;
+  --md-accent-fg-color:         #FF7027;
+  --md-typeset-a-color:         #3D5A9E;
+}
+
+/* Primary color overrides - dark mode */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #4A6FB5;
+  --md-primary-fg-color--light: #6088C8;
+  --md-primary-fg-color--dark:  #3D5A9E;
+  --md-accent-fg-color:         #FF7027;
+  --md-typeset-a-color:         #6088C8;
+}
+
+/* Header */
+.md-header {
+  background-color: var(--avx-blue);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background-color: #1e2433;
+  border-bottom: 1px solid #2e3a55;
+}
+
+/* Navigation tabs */
+.md-tabs {
+  background-color: var(--avx-blue-dark);
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: #171e2e;
+}
+
+/* Active tab and nav highlight */
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Sidebar active item */
+.md-nav__item--active > .md-nav__link {
+  color: var(--avx-blue);
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .md-nav__item--active > .md-nav__link {
+  color: #6088C8;
+}
+
+/* Search bar */
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Footer */
+.md-footer {
+  background-color: var(--avx-blue-dark);
+}
+
+[data-md-color-scheme="slate"] .md-footer {
+  background-color: #171e2e;
+}
+
+/* Admonition color - note uses blue */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--avx-blue);
+}
+
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+  background-color: rgba(61, 90, 158, 0.1);
+}
+
+.md-typeset .note > .admonition-title::before,
+.md-typeset .note > summary::before {
+  background-color: var(--avx-blue);
+}
+
+/* Buttons */
+.md-typeset .md-button {
+  border-color: var(--avx-blue);
+  color: var(--avx-blue);
+}
+
+.md-typeset .md-button:hover,
+.md-typeset .md-button--primary {
+  background-color: var(--avx-blue);
+  border-color: var(--avx-blue);
+  color: #ffffff;
+}
+
+/* Code blocks - keep syntax highlighting readable */
+.md-typeset code {
+  font-size: 0.85em;
+}
+
+/* Table styling */
+.md-typeset table:not([class]) th {
+  background-color: var(--avx-blue);
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: #2e3a55;
+  color: #cdd6f4;
+}
+
+/* Logo sizing */
+.md-header__button.md-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* Version badge removed - keep title clean */
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Compact typography - slightly smaller base font and tighter spacing */
+html {
+  font-size: 20px;
+}
+
+.md-typeset {
+  line-height: 1.5;
+}
+
+.md-typeset p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.md-typeset ul,
+.md-typeset ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+.md-typeset hr {
+  margin: 1em 0;
+}
+
+.md-content__inner {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
