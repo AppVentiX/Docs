@@ -70,4 +70,4 @@ To work around the issue:
 | Manually update the CRL | Download and install the latest CRL manually. |
 | Enable internet access | Allow outbound connections for certificate validation. |
 
-> **Note:** AppVentiX does not make any internet (outbound) connections at all, so internet access is not needed for AppVentiX to work. Also make sure to check the connection to the central configuration share. The further the Central View console is placed from the central configuration share, the longer it can take to retrieve the configuration.
+> **Note:** AppVentiX does not make any internet (outbound) connections at all, so internet access is not needed for AppVentiX to work. Also make sure to check the connection to the central configuration store. The further the Central View console is placed from the central configuration store, the longer it can take to retrieve the configuration.

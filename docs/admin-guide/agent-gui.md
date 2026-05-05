@@ -23,7 +23,7 @@ Example screenshots of the Agent GUI:
 
 The AppVentiX agent is configured centrally in the Central View console. There are a couple of settings you can configure when you click on the **Configure Service** button:
 
-In the agent configuration you can change/update the configuration share. You can also provide a user account which the service will use to access the configuration share and content share(s). By default the service will use integrated authentication.
+In the agent configuration you can change/update the configuration store. You can also provide a user account which the service will use to access the configuration store and content share(s). By default the service will use integrated authentication.
 
 **Debug mode** will log more information to the event log for troubleshooting purposes. Make sure to disable this option after troubleshooting.
 

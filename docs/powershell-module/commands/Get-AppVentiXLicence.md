@@ -15,7 +15,7 @@ Get-AppVentiXLicence
 
 ## Description
 
-The `Get-AppVentiXLicence` function retrieves the details of the AppVentiX license. It can retrieve the license details from a specified license file or from the default configuration share. The function returns license information including the licensed organization, expiry date, license type, and assigned machines.
+The `Get-AppVentiXLicence` function retrieves the details of the AppVentiX license. It can retrieve the license details from a specified license file or from the default configuration store. The function returns license information including the licensed organization, expiry date, license type, and assigned machines.
 
 If the license is a trial license, a warning is displayed indicating the trial expiry date.
 
@@ -35,13 +35,13 @@ Specifies the full path to the AppVentiX license file (.lic). The file name must
 
 ## Examples
 
-### Example 1: Retrieve license details from the default configuration share
+### Example 1: Retrieve license details from the default configuration store
 
 ```powershell
 Get-AppVentiXLicence
 ```
 
-Retrieves the license details from the currently configured AppVentiX configuration share.
+Retrieves the license details from the currently configured AppVentiX configuration store.
 
 ### Example 2: Retrieve license details from a specific file
 
@@ -51,13 +51,13 @@ Get-AppVentiXLicence -Filename "C:\Temp\AppVentiX.lic"
 
 Retrieves license details from the specified license file.
 
-### Example 3: Retrieve license details from a configuration share
+### Example 3: Retrieve license details from a configuration store
 
 ```powershell
 Get-AppVentiXLicence -ConfigShare "\\fileserver.lab.local\config"
 ```
 
-Retrieves the license details from the specified configuration share.
+Retrieves the license details from the specified configuration store.
 
 ## Notes
 

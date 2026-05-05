@@ -1,24 +1,24 @@
 # Install the AppVentiX Agent
 
-The AppVentiX Agent handles application delivery on the client machine. It connects to the config share to retrieve its configuration and publishing tasks.
+The AppVentiX Agent handles application delivery on the client machine. It connects to the configuration store to retrieve its configuration and publishing tasks.
 
 ## Prerequisites
 
 Before installing the agent, ensure the following:
 
 - A supported version of Windows is installed on the machine or master image
-- The AppVentiX config share is accessible from the machine
+- The AppVentiX configuration store is accessible from the machine
 - You have sufficient permissions to install software (local administrator)
 
 ## Locating the Installer
 
-The agent installer is located on the AppVentiX config share:
+The agent installer is located on the AppVentiX configuration store:
 
 ```
 \\fileserver.domain.local\config\Agent\AppVentiX Agent.msi
 ```
 
-Replace `\\fileserver.domain.local\config` with the actual path to your config share.
+Replace `\\fileserver.domain.local\config` with the actual path to your configuration store.
 
 ## Installation
 
@@ -46,11 +46,11 @@ Click **"I accept the Terms..."** to agree and click **Install** to continue to 
 
 ![Accept Terms and Install](images/agent-installation/agent-installation-003.png)
 
-Enter the full path to your config share and click **Next** to start the installation.
+Enter the full path to your configuration store and click **Next** to start the installation.
 
-> **Note:** Replace `\\fileserver.domain.local\config` with the actual path to your config share.
+> **Note:** Replace `\\fileserver.domain.local\config` with the actual path to your configuration store.
 
-![Enter config share](images/agent-installation/agent-installation-004.png)
+![Enter configuration store](images/agent-installation/agent-installation-004.png)
 
 Uncheck the **"Open AppVentiX Agent GUI"** to close or leave checked to open the Agent GUI after the installation.
 Click **Finish** to complete the installation.
@@ -65,7 +65,7 @@ For scripted or image-based deployments, use the following command:
 msiexec /i "AppVentiX Agent.msi" /quiet CONFIGURATIONSHARE="\\fileserver.domain.local\config"
 ```
 
-Replace `\\fileserver.domain.local\config` with the actual path to your config share.
+Replace `\\fileserver.domain.local\config` with the actual path to your configuration store.
 
 The `/quiet` switch suppresses all UI. The `CONFIGURATIONSHARE` parameter tells the agent where to find its configuration. This is the only required parameter beyond the standard MSI switches.
 
@@ -73,6 +73,6 @@ The `/quiet` switch suppresses all UI. The `CONFIGURATIONSHARE` parameter tells 
 
 ## After Installation
 
-Once installed, the agent connects to the config share and retrieves its configuration automatically. No further manual configuration is required on the client.
+Once installed, the agent connects to the configuration store and retrieves its configuration automatically. No further manual configuration is required on the client.
 
 Proceed to [Step 4: Verify the Agent](../quickstart/verify-agent.md) or optionally [Optimize the Workspace](../quickstart/optimization-script.md) before verifying.

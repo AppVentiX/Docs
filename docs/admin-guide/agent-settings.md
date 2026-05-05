@@ -24,7 +24,7 @@ Here you can enable App-V and/or MSIX. You can also enable them both to use them
 | Allow AppVentiX to register packages containing a service | MSIX packages containing a service can only be added with elevated permissions. AppVentiX can add the package to allow the service to install and will then register it for a normal user account. |
 | Prevent package cleanup by Windows | When you use FSLogix or another profile container solution and a user logs off, the profile is removed from the machine. Windows can detect that a package is no longer needed and removes it. With this setting the package will stay on the machine when the user logs off. AppVentiX will then remove packages using the balance cache feature when they are no longer on a content share. |
 | MSIX data roaming | Configures the profile solution you are using. By default the profile container option is enabled, making package deployment compatible with container-based profile solutions. The "retain user settings stored in the systemappdata folder" option makes sure these settings persist as well. |
-| Inventory App Control events | Enables inventory and logging for App Control block and audit events. Events are stored centrally in the Inventory folder of the configuration share. In Central View, click the App Control Log button to view the logs and create App Control policies directly. |
+| Inventory App Control events | Enables inventory and logging for App Control block and audit events. Events are stored centrally in the Inventory folder of the configuration store. In Central View, click the App Control Log button to view the logs and create App Control policies directly. |
 | Number of days to retain App Control block and audit history | Specifies the number of days that block and audit events are collected and stored before being overwritten by newer events. |
 | Interval to check for new App Control block and audit events | Specifies the interval for checking new audit and block events. Only events newer than the previous inventory are processed, ensuring efficient, low-impact checks. During learning mode, configure a shorter interval to collect events more quickly. |
 | Interval to update the user settings cache | The time interval when the user settings cache is updated. When an assigned user setting is not found in the cache it will be retrieved online automatically. Optionally you can redirect the cache location to another drive in the advanced settings. |
@@ -106,7 +106,7 @@ With client settings you can configure the App-V and/or MSIX client. No GPOs are
 
 ## Inventory Settings
 
-In the Inventory tab you can enable or disable the remote inventory feature and configure another share to store the inventory data. By default the inventory data is stored on the configuration share. Please note that the machines need write permissions to the inventory location to be able to save the inventory data. The configuration share only needs read permissions.
+In the Inventory tab you can enable or disable the remote inventory feature and configure another share to store the inventory data. By default the inventory data is stored on the configuration store. Please note that the machines need write permissions to the inventory location to be able to save the inventory data. The configuration store only needs read permissions.
 
 ---
 

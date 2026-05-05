@@ -8,8 +8,8 @@ Commands for configuring the AppVentiX module and its connection settings:
 
 | Command | Description |
 |---------|-------------|
-| [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md) | Retrieves the AppVentiX configuration share if defined |
-| [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md) | Sets the path to the AppVentiX configuration share |
+| [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md) | Retrieves the AppVentiX configuration store if defined |
+| [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md) | Sets the path to the AppVentiX configuration store |
 | [Get-AppVentiXModuleVariable](Get-AppVentiXModuleVariable.md) | Retrieves the variables from the AppVentiX module |
 | [Set-AppVentiXADCredential](Set-AppVentiXADCredential.md) | Sets the Active Directory credentials used by AppVentiX services for directory lookups |
 | [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md) | Clears Active Directory credentials from the current PowerShell session |
@@ -22,7 +22,7 @@ Commands for managing the AppVentiX license:
 |---------|-------------|
 | [Get-AppVentiXLicence](Get-AppVentiXLicence.md) | Retrieves the details of the AppVentiX license |
 | [Test-AppVentiXIsLicensed](Test-AppVentiXIsLicensed.md) | Checks if the AppVentiX license is valid |
-| [Update-AppVentixLicense](Update-AppVentixLicense.md) | Updates the AppVentiX license file on the configuration share |
+| [Update-AppVentixLicense](Update-AppVentixLicense.md) | Updates the AppVentiX license file on the configuration store |
 
 ## Machine Group Commands
 
@@ -48,7 +48,7 @@ Commands for managing AppVentiX publishing tasks:
 
 | Command | Description |
 |---------|-------------|
-| [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md) | Retrieves the publishing tasks from the AppVentiX configuration share |
+| [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md) | Retrieves the publishing tasks from the AppVentiX configuration store |
 | [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md) | Creates a new AppVentiX publishing task |
 | [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md) | Updates the properties of an AppVentiX publishing task |
 | [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md) | Copies AppVentiX publishing tasks to a new machine group with optional Azure Virtual Desktop seamless publishing |

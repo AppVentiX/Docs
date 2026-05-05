@@ -15,7 +15,7 @@ Set-AppVentiXADCredential
 
 ## Description
 
-The `Set-AppVentiXADCredential` function configures the Active Directory credentials that AppVentiX uses when performing AD group lookups. The credentials are stored in the current session and used for subsequent AD queries. Optionally, the credentials can also be applied to authenticate the AppVentiX configuration share.
+The `Set-AppVentiXADCredential` function configures the Active Directory credentials that AppVentiX uses when performing AD group lookups. The credentials are stored in the current session and used for subsequent AD queries. Optionally, the credentials can also be applied to authenticate the AppVentiX configuration store.
 
 ## Parameters
 
@@ -57,7 +57,7 @@ The LDAP port to use when connecting to Active Directory.
 
 ### -AuthenticateConfigShare
 
-When specified, the provided credentials are also used to authenticate access to the AppVentiX configuration share.
+When specified, the provided credentials are also used to authenticate access to the AppVentiX configuration store.
 
 | | |
 |---|---|
@@ -85,7 +85,7 @@ $cred = Get-Credential -UserName "DOMAIN\svc-appventix"
 Set-AppVentiXADCredential -Credential $cred -Server "dc01.domain.local" -AuthenticateConfigShare
 ```
 
-Sets AD credentials pointing to a specific domain controller and uses the same credentials to access the configuration share.
+Sets AD credentials pointing to a specific domain controller and uses the same credentials to access the configuration store.
 
 ### Example 3: Set a different domain and connect with current credentials
 

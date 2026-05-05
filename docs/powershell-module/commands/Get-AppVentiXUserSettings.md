@@ -1,6 +1,6 @@
 # Get-AppVentiXUserSettings
 
-Retrieves AppVentiX user settings from the configuration share.
+Retrieves AppVentiX user settings from the configuration store.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Get-AppVentiXUserSettings
 
 ## Description
 
-The `Get-AppVentiXUserSettings` function retrieves AppVentiX user settings (drive mappings, environment variables, printer mappings, etc.) from the configuration share. It reads all user setting XML files and returns them as structured objects. You can filter results by setting type using the `-Setting` parameter.
+The `Get-AppVentiXUserSettings` function retrieves AppVentiX user settings (drive mappings, environment variables, printer mappings, etc.) from the configuration store. It reads all user setting XML files and returns them as structured objects. You can filter results by setting type using the `-Setting` parameter.
 
 ## Parameters
 
@@ -36,7 +36,7 @@ Specifies the type of user settings to retrieve. Valid values are: All, DriveMap
 Get-AppVentiXUserSettings
 ```
 
-Retrieves all user settings from the configuration share.
+Retrieves all user settings from the configuration store.
 
 ### Example 2: Retrieve only drive mapping settings
 

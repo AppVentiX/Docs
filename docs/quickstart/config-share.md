@@ -2,7 +2,7 @@
 
 The following steps will help you to get up and running quickly.
 
-## 1. Create a Configuration Share
+## 1. Create a Configuration Store
 
 Create a new file share or use an existing one. This share will be used to store the central configuration. You can use a normal Windows file share or a DFS share to make the share highly available (for example `\\yourdomain.local\appventix\config`). Also Azure file shares (domain integrated or stand-alone) and shares on storage vendors like Nutanix/NetApp/Dell/HP file shares are supported. AppVentiX also supports QUIC shares, which are shares that can be accessed over port 443 using highly encrypted TLS. You can read more about setting up a [QUIC share](../admin-guide/quic-share.md) or [Azure file share](../admin-guide/azure-file-share.md) in this admin guide.
 
@@ -16,8 +16,8 @@ With integrated authentication the Agent will access the share(s) with the compu
 File permissions needed for this option (make sure to verify both share and file permissions):
 
 - **User group** performing management in Central View: **Read\Write** permissions on configurations share and content share(s)
-- **Domain Computers group** (or group containing the machine accounts): **Read** permissions on configuration share and content share(s)
-- **Domain Computers group** (or group containing the machine accounts): **Read\Write** permissions in inventory folder on configuration share
+- **Domain Computers group** (or group containing the machine accounts): **Read** permissions on configuration store and content share(s)
+- **Domain Computers group** (or group containing the machine accounts): **Read\Write** permissions in inventory folder on configuration store
 
 > **Tip**: You can configure another inventory share in the agent settings for the machine group
 
@@ -27,9 +27,9 @@ When an account is configured in the Central View console, the account will be u
 When an account is configured in the Agent the account will be used to access the share(s).
 Share permissions needed for this option:
 
-- **Configured account** in Central View: **Read\write** permissions on configuration share and content share(s)
-- **Configured account** in the Agent: **Read** permissions on configuration share and content share(s)
-- **Configured account** in the Agent: **Read\Write** permissions in inventory folder on configuration share
+- **Configured account** in Central View: **Read\write** permissions on configuration store and content share(s)
+- **Configured account** in the Agent: **Read** permissions on configuration store and content share(s)
+- **Configured account** in the Agent: **Read\Write** permissions in inventory folder on configuration store
 
 > **Tip**: You can silently install the agent to use the same account.
 
@@ -97,7 +97,7 @@ Configure the account as follows:
 
 ## 2. Create a Content Share
 
-Create a content share (for example `\\yourdomain.local\appventix\content`). This share will be used to store the packages. You can also create a folder on the same share as the configuration share created in Step 1. The share permissions are the same as in Step 1.
+Create a content share (for example `\\yourdomain.local\appventix\content`). This share will be used to store the packages. You can also create a folder on the same share as the configuration store created in Step 1. The share permissions are the same as in Step 1.
 
 For integrated authentication (default), configure the following permissions for the content share:
 
@@ -140,7 +140,7 @@ In this example we will create a machine group based on OU. Select an OU and cli
 
 ![OU selection](images/config-share/quick-start-05.png)
 
-Provide an easy-to-remember friendly name like "RDS Production" or name it the same as the Citrix Delivery group, AVD Session Host pool, or group of physical machines. The content share is automatically pre-populated with the same share as the configuration share. The content share is where the packages/containers are stored. Check if the content share is accessible and configure multiple content shares if you wish.
+Provide an easy-to-remember friendly name like "RDS Production" or name it the same as the Citrix Delivery group, AVD Session Host pool, or group of physical machines. The content share is automatically pre-populated with the same share as the configuration store. The content share is where the packages/containers are stored. Check if the content share is accessible and configure multiple content shares if you wish.
 
 ![Machine group name and content share](images/config-share/quick-start-06.png)
 

@@ -1,6 +1,6 @@
 # Set-AppVentiXConfigShare
 
-Sets the AppVentiX configuration share path for the current session.
+Sets the AppVentiX configuration store path for the current session.
 
 ## Syntax
 
@@ -23,13 +23,13 @@ Set-AppVentiXConfigShare
 
 ## Description
 
-The `Set-AppVentiXConfigShare` function sets the path to the AppVentiX configuration share. All subsequent AppVentiX cmdlets in the session use this configuration share path. Optionally, credentials can be provided to authenticate access to the share.
+The `Set-AppVentiXConfigShare` function sets the path to the AppVentiX configuration store. All subsequent AppVentiX cmdlets in the session use this configuration store path. Optionally, credentials can be provided to authenticate access to the share.
 
 ## Parameters
 
 ### -ConfigShare
 
-The UNC path or local path to the AppVentiX configuration share.
+The UNC path or local path to the AppVentiX configuration store.
 
 | | |
 |---|---|
@@ -41,7 +41,7 @@ The UNC path or local path to the AppVentiX configuration share.
 
 ### -Credential
 
-A PSCredential object used to authenticate access to the configuration share. Required when accessing a share that requires different credentials from the current user.
+A PSCredential object used to authenticate access to the configuration store. Required when accessing a share that requires different credentials from the current user.
 
 | | |
 |---|---|
@@ -53,7 +53,7 @@ A PSCredential object used to authenticate access to the configuration share. Re
 
 ### -WhatIf
 
-Shows what would happen if the command runs without actually changing the configuration share.
+Shows what would happen if the command runs without actually changing the configuration store.
 
 | | |
 |---|---|
@@ -65,7 +65,7 @@ Shows what would happen if the command runs without actually changing the config
 
 ### -Confirm
 
-Prompts for confirmation before changing the configuration share.
+Prompts for confirmation before changing the configuration store.
 
 | | |
 |---|---|
@@ -77,26 +77,26 @@ Prompts for confirmation before changing the configuration share.
 
 ## Examples
 
-### Example 1: Set the configuration share
+### Example 1: Set the configuration store
 
 ```powershell
 Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config"
 ```
 
-Sets the AppVentiX configuration share for the current session.
+Sets the AppVentiX configuration store for the current session.
 
-### Example 2: Set the configuration share with credentials
+### Example 2: Set the configuration store with credentials
 
 ```powershell
 $cred = Get-Credential
 Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config" -Credential $cred
 ```
 
-Sets the configuration share and authenticates with the provided credentials.
+Sets the configuration store and authenticates with the provided credentials.
 
 ## Notes
 
-- The configuration share path is stored in the current session and must be set each session unless a default is configured
+- The configuration store path is stored in the current session and must be set each session unless a default is configured
 - Use `Get-AppVentiXConfigShare` to view the currently configured share path
 
 ## Related Links

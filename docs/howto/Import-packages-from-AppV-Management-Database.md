@@ -23,9 +23,9 @@ Install-Module AppVentiX [-Scope CurrentUser] [-Force] [-AllowClobber]
 Import-Module AppVentiX
 
 # If custom credentials are required, you can run the following command to connect
-# E.g. if the current user does not have permissions to access the config share
+# E.g. if the current user does not have permissions to access the configuration store
 
-$Credential = Get-Credential -Message "Enter AppVentiX Config Share credentials"
+$Credential = Get-Credential -Message "Enter AppVentiX Configuration Store credentials"
 $ConfigShare = "\\fileserver.domain.local\config$"
 Set-AppVentiXConfigShare -ConfigShare $ConfigShare -Credential $Credential
 

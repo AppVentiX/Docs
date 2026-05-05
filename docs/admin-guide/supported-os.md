@@ -37,6 +37,6 @@ Please check the MSIX and MSIX App Attach compatibility with the OS you are usin
 
 ## Upgrade from an Earlier Version of AppVentiX
 
-The upgrade from an earlier AppVentiX version to the latest version is straightforward. The components are upgraded in place (no need to uninstall first). Before upgrading, create a copy/backup of the configuration share.
+The upgrade from an earlier AppVentiX version to the latest version is straightforward. The components are upgraded in place (no need to uninstall first). Before upgrading, create a copy/backup of the configuration store.
 
 Upgrade the Central View console first, then the agents. The version of the agent is always 1 major version backward compatible with the Central View console. This means you do not have to upgrade all agents at once, but it is recommended to keep this period as short as possible.

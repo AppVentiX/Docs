@@ -11,7 +11,7 @@ Get-AppVentiXModuleVariable
 
 ## Description
 
-The `Get-AppVentiXModuleVariable` function retrieves the internal module variables from the AppVentiX module and returns them. This is useful for inspecting the current module configuration, including the configured configuration share path, publishing task filenames, and other internal settings.
+The `Get-AppVentiXModuleVariable` function retrieves the internal module variables from the AppVentiX module and returns them. This is useful for inspecting the current module configuration, including the configured configuration store path, publishing task filenames, and other internal settings.
 
 ## Parameters
 

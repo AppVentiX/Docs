@@ -1,6 +1,6 @@
 # Get-AppVentiXPublishingTask
 
-Retrieves the publishing tasks from the AppVentiX configuration share.
+Retrieves the publishing tasks from the AppVentiX configuration store.
 
 ## Syntax
 
@@ -27,7 +27,7 @@ Get-AppVentiXPublishingTask
 
 ## Description
 
-The `Get-AppVentiXPublishingTask` function retrieves the publishing tasks from the specified AppVentiX configuration share. It checks if AppVentiX is licensed and if the publishing tasks file exists. By default, it retrieves user publishing tasks.
+The `Get-AppVentiXPublishingTask` function retrieves the publishing tasks from the specified AppVentiX configuration store. It checks if AppVentiX is licensed and if the publishing tasks file exists. By default, it retrieves user publishing tasks.
 
 ## Parameters
 
@@ -99,15 +99,15 @@ Filters publishing tasks by the specified machine group friendly name. Has alias
 Get-AppVentiXPublishingTask
 ```
 
-Retrieves all user publishing tasks from the default AppVentiX configuration share.
+Retrieves all user publishing tasks from the default AppVentiX configuration store.
 
-### Example 2: Retrieve publishing tasks from a specific configuration share
+### Example 2: Retrieve publishing tasks from a specific configuration store
 
 ```powershell
 Get-AppVentiXPublishingTask -ConfigShare "\\fileserver.domain.local\config"
 ```
 
-Retrieves user publishing tasks from the specified AppVentiX configuration share.
+Retrieves user publishing tasks from the specified AppVentiX configuration store.
 
 ### Example 3: Retrieve all publishing tasks (global and user)
 

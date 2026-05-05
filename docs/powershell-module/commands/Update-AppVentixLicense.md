@@ -1,6 +1,6 @@
 # Update-AppVentixLicense
 
-Applies a new AppVentiX license file to the configuration share.
+Applies a new AppVentiX license file to the configuration store.
 
 ## Syntax
 
@@ -13,7 +13,7 @@ Update-AppVentixLicense
 
 ## Description
 
-The `Update-AppVentixLicense` function installs or updates the AppVentiX license by copying the specified license file to the AppVentiX configuration share. Use the `-Force` parameter to overwrite an existing license without confirmation.
+The `Update-AppVentixLicense` function installs or updates the AppVentiX license by copying the specified license file to the AppVentiX configuration store. Use the `-Force` parameter to overwrite an existing license without confirmation.
 
 ## Parameters
 
@@ -49,7 +49,7 @@ When specified, overwrites the existing license file without prompting for confi
 Update-AppVentixLicense -LicenseFilename "C:\Licenses\AppVentiX.lic"
 ```
 
-Installs the specified license file into the AppVentiX configuration share.
+Installs the specified license file into the AppVentiX configuration store.
 
 ### Example 2: Overwrite an existing license
 
@@ -59,17 +59,17 @@ Update-AppVentixLicense -LicenseFilename "C:\Licenses\AppVentiX_Renewed.lic" -Fo
 
 Overwrites the existing license with the renewed license file without prompting.
 
-### Example 3: Install a new license on a specific configuration share
+### Example 3: Install a new license on a specific configuration store
 
 ```powershell
 Update-AppVentixLicense -LicenseFilename "C:\Licenses\AppVentiX_Renewed.lic" -ConfigShare '\\fileserver.domain.local\config'
 ```
 
-Installs the license on the specified configuration share.
+Installs the license on the specified configuration store.
 
 ## Notes
 
-- Requires write access to the AppVentiX configuration share
+- Requires write access to the AppVentiX configuration store
 - After updating the license, use `Test-AppVentiXIsLicensed` to verify the new license is valid
 - The actual function name in the module is `Update-AppVentiXLicence` (British spelling)
 

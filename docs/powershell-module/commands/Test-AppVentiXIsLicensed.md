@@ -13,13 +13,13 @@ Test-AppVentiXIsLicensed
 
 ## Description
 
-The `Test-AppVentiXIsLicensed` function checks whether AppVentiX is licensed by validating the license stored in the configuration share. Returns `$true` if the license is valid, or `$false` if no valid license is found. Use the `-Force` parameter to bypass any cached license validation result and re-check the license.
+The `Test-AppVentiXIsLicensed` function checks whether AppVentiX is licensed by validating the license stored in the configuration store. Returns `$true` if the license is valid, or `$false` if no valid license is found. Use the `-Force` parameter to bypass any cached license validation result and re-check the license.
 
 ## Parameters
 
 ### -ConfigShare
 
-The path to the AppVentiX configuration share. If not specified, the currently configured configuration share is used.
+The path to the AppVentiX configuration store. If not specified, the currently configured configuration store is used.
 
 | | |
 |---|---|
@@ -57,13 +57,13 @@ Test-AppVentiXIsLicensed
 
 Returns `$true` or `$false` depending on whether a valid AppVentiX license is present.
 
-### Example 2: Test license with a specific config share
+### Example 2: Test license with a specific configuration store
 
 ```powershell
 Test-AppVentiXIsLicensed -ConfigShare "\\fileserver.domain.local\config" -Force
 ```
 
-Tests the license on the specified configuration share, bypassing any cached result.
+Tests the license on the specified configuration store, bypassing any cached result.
 
 ### Example 3: Use in a conditional check
 

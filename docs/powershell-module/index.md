@@ -17,21 +17,21 @@ Install-Module -Name AppVentiX -Force
 Import-Module AppVentiX
 ```
 
-## Connecting to the Config Share
+## Connecting to the Configuration Store
 
-Before using the module, a connection must be made to the config share. When the AppVentiX PowerShell module is installed on the same machine as the AppVentiX Central Management Console, it will automatically detect the config share when configured correctly.
+Before using the module, a connection must be made to the configuration store. When the AppVentiX PowerShell module is installed on the same machine as the AppVentiX Central Management Console, it will automatically detect the configuration store when configured correctly.
 
 You can also configure the share manually if auto-detection does not succeed, or when running from a different machine:
 
 ```powershell
-# Set the configuration share path (not needed if detected automatically)
+# Set the configuration store path (not needed if detected automatically)
 Set-AppVentiXConfigShare -Path "\\fileserver.domain.com\config$"
 ```
 
-If credentials are required to connect to the config share:
+If credentials are required to connect to the configuration store:
 
 ```powershell
-$Credential = Get-Credential -Message "Enter AppVentiX Config Share credentials"
+$Credential = Get-Credential -Message "Enter AppVentiX Configuration Store credentials"
 $ConfigShare = "\\fileserver.domain.local\config$"
 Set-AppVentiXConfigShare -ConfigShare $ConfigShare -Credential $Credential
 ```

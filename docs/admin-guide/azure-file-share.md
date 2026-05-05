@@ -94,7 +94,7 @@ Create a group and add the machine accounts to the group, give this group read p
 
 ![Group-based permissions](images/azure-file-share/azure-file-share-12.png)
 
-Make sure this group has read/write permissions in the inventory folder on the configuration share, or else the remote inventory will not work. You can leave the integrated authentication checkbox enabled.
+Make sure this group has read/write permissions in the inventory folder on the configuration store, or else the remote inventory will not work. You can leave the integrated authentication checkbox enabled.
 
 **Option 2: Service account authentication**
 

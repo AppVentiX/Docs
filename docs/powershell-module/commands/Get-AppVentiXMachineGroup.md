@@ -15,7 +15,7 @@ Get-AppVentiXMachineGroup
 
 ## Description
 
-The `Get-AppVentiXMachineGroup` function retrieves the machine groups from the AppVentiX configuration share. It can retrieve all machine groups or a specific machine group by name.
+The `Get-AppVentiXMachineGroup` function retrieves the machine groups from the AppVentiX configuration store. It can retrieve all machine groups or a specific machine group by name.
 
 ## Parameters
 
