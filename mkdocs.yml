@@ -92,6 +92,7 @@ nav:
     - Verify the Agent: quickstart/verify-agent.md
   - Admin Guide:
     - admin-guide/index.md
+    - Technical Architecture: admin-guide/architecture.md
     - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
     - AppVentiX Components:
       - Agent Service: admin-guide/agent-service.md

@@ -6,6 +6,14 @@ The Central View console can be installed on any management machine and does not
 
 ---
 
+## Architecture
+
+| Topic | Description |
+|-------|-------------|
+| [Technical Architecture](architecture.md) | System topology diagram and overview of all AppVentiX components |
+
+---
+
 ## Quick Start
 
 | Topic | Description |
