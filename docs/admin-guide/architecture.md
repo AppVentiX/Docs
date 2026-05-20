@@ -4,7 +4,8 @@ AppVentiX follows a file-share-based architecture with no SQL back-end. A centra
 
 The diagram below shows a typical multi-site deployment. A single-site deployment is equally supported - the multi-site replication component is optional.
 
-![AppVentiX Technical Architecture](images/architecture/technical-architecture.png)
+[![AppVentiX Technical Architecture](images/architecture/technical-architecture.png)](images/architecture/technical-architecture.png){target="_blank"}
+
 
 ---
 
