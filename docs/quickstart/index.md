@@ -27,7 +27,7 @@ AppVentiX Central View is a GUI management console for User Settings and applica
 
 ## Step 2: The (initial) Configuration Store setup
 
-The Configuration Store is the main location of an AppVentiX deployment. It holds all configuration files for user settings and packages, and handles agent communication. Configuring the share correctly is essential for AppVentiX to function as expected.
+The Configuration Store is the main location of an AppVentiX deployment. It holds all configuration files for User Settings and packages, and handles agent communication. Configuring the share correctly is essential for AppVentiX to function as expected.
 
 [Configuration Store setup](config-share.md)
 

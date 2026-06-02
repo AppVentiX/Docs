@@ -1,6 +1,6 @@
 # AppVentiX Technical Documentation
 
-AppVentiX is a platform for centrally managing and publishing packages (MSIX, App-V, App Attach) and user settings from one or more content shares, with targeted delivery to users and machines.
+AppVentiX is a platform for centrally managing User Settings and publishing packages (MSIX, App-V, App Attach) from one or more content shares, with targeted delivery to users and machines.
 
 This site covers the technical documentation for AppVentiX.
 
