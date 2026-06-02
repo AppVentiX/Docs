@@ -1,0 +1,65 @@
+# AppVentiX Central View Installation
+
+## Requirements
+
+Before installing, ensure the following requirements are met:
+
+- The machine must have a 64-bit OS (Server OS or Client OS)
+- The configuration and content share must be accessible and configured correctly
+- The machine may not be a Domain Controller
+
+## Download
+
+Download the latest version directly from [https://download.appventix.com/latest](http://download.appventix.com/latest),
+or click the **Download** button in the top-right corner of the [AppVentiX website](https://appventix.com).
+
+![Download AppVentiX](images/appventix-central-view-installation/appventix-central-view-installation-01.png)
+
+## Install AppVentiX Central View
+
+Extract `AppVentiX Central View.msi` from the downloaded zip file, then open it to start the installer.
+
+Click **Next** to begin.
+
+![Begin with the installation](images/appventix-central-view-installation/appventix-central-view-installation-02.png)
+
+Accept the license terms and click **Install** to continue.
+
+![Accept Terms and Install](images/appventix-central-view-installation/appventix-central-view-installation-03.png)
+
+Click **Install** to start the installation.
+
+![Start the actual installation](images/appventix-central-view-installation/appventix-central-view-installation-04.png)
+
+Approve the UAC prompt if it appears.
+
+![Approve UAC prompt](images/appventix-central-view-installation/appventix-central-view-installation-05.png)
+
+Click **Finish** to complete the installation.
+
+![Finalize the installation](images/appventix-central-view-installation/appventix-central-view-installation-06.png)
+
+## Start the Central View Console
+
+Launch AppVentiX Central View from the shortcut added to your Start Menu.
+
+![Open AppVentiX Central View in the Start Menu](images/appventix-central-view-installation/appventix-central-view-installation-07.png)
+
+On first launch (no existing configuration), the Central View settings window will open.
+
+![Central View settings window](images/appventix-central-view-installation/appventix-central-view-installation-08.png)
+
+If you already have a Configuration Store path, enter it and click **Save**.
+If you need to set one up first, follow [2. Configuration Store setup](config-share.md).
+
+> **Note:** The default Central View settings are sufficient in most cases. Additional settings can be configured when needed - see this guide for details.
+
+> **IMPORTANT**: Verify that permissions are configured correctly before continuing. Incorrect permissions will cause issues during configuration.
+
+You can optionally enter a site name. When all details are complete, click **Save**.
+
+![Save the Central View settings](images/appventix-central-view-installation/appventix-central-view-installation-09.png)
+
+AppVentiX Central View is now ready to use.
+
+![AppVentiX Central View](images/appventix-central-view-installation/appventix-central-view-installation-10.png)

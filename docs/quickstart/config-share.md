@@ -104,27 +104,15 @@ For integrated authentication (default), configure the following permissions for
 - **Domain computers group**: Read permissions on the share
 - **Central View Admins** (a group with users that performs the management): Read/Write permissions
 
-When using a (service) account, you can use the permissions from the screenshot in Step 1.
+When using a (service) account, you can use the permissions from the description in Step 1.
 
 ![Content share configuration](images/config-share/quick-start-02.png)
 
 ---
 
-## 3. Install the Central View Console
+## 3. Configure the Central View Console
 
-Install the AppVentiX Central View console on any machine you like, keeping the following in mind:
-
-- The machine must have a 64-bit OS (Server OS or Client OS)
-- The configuration and content share must be accessible
-- The machine cannot be a Domain Controller
-
-After installing the Central View console, click on the icon to start the console. The first-time configuration window will open.
-
-Configure the share you created in Step 1. You can enter any UNC path you like.
-
-> **Note:** Most of the time the default Central View settings are sufficient. Optionally you can configure additional settings when needed. You will find more information about the settings in this guide.
-
-Click **Save**.
+If you have configured the share permission add the path to the Central View settings window and click **Save**.
 
 ---
 

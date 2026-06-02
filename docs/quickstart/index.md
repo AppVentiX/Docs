@@ -1,6 +1,6 @@
 # Quickstart
 
-Get AppVentiX up and running in about 10 minutes by following the steps below. This guide covers everything from setting up the configuration store to installing the agent and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
+Get AppVentiX up and running in about 10 minutes by following the steps below. This guide covers everything from setting up the Configuration Store to installing the agent and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
 
 ---
 
@@ -10,31 +10,40 @@ Follow these steps in order to prepare a client machine for AppVentiX.
 
 | Step | Description |
 |------|-------------|
-| [**1. The (initial) configuration store setup**](#step-1-the-initial-configuration-store-setup) | This Configuration store is the heart of an AppVentiX deployment where the configuration files are located and where the agents depends on. |
-| [**2. Install AppVentiX Agent**](#step-2-install-the-appventix-agent) | Install the AppVentiX Agent MSI from the configuration store, pointing it to the configuration store during installation. |
-| [**3. Verify the agent**](#step-3-verify-the-agent) | Check the setup if everything is communicating as it should. |
+| [**1. AppVentiX Central View Installation**](#step-1-download-and-install-appventix-central-view) | The Central View console is the place where you can configure your user settings as well as manage the packages |
+| [**2. The (initial) Configuration Store setup**](#step-2-the-initial-configuration-store-setup) | This Configuration Store is the heart of an AppVentiX deployment where the configuration files are located and where the agents depends on. |
+| [**3. Install AppVentiX Agent**](#step-3-install-the-appventix-agent) | Install the AppVentiX Agent MSI from the Configuration Store, pointing it to the Configuration Store during installation. |
+| [**4. Verify the agent**](#step-4-verify-the-agent) | Check the setup if everything is communicating as it should. |
 
 ---
 
-## Step 1: The (initial) configuration store setup
+## Step 1: Download and install AppVentiX Central View
 
-The configuration store is the main location for the configuration of AppVentiX. Here the Agent configuration and communication is arranged as well as the configuration for packages and user settings. It's important co configure the share correctly to allow AppVentiX to work as expected.
+AppVentiX Central View is a unified GUI management console for User Settings and application delivery. It enables administrators to configure Drivemaps, GPOs, and other user settings, while also deploying, configuring, and monitoring App-V, MSIX, and AppAttach packages across persistent, VDI, and RDS environments - all from a single location.
 
-[Config share setup](config-share.md)
-
----
-
-## Step 2: Install the AppVentiX Agent
-
-AppVentiX uses a lightweight agent installed on each target machine alongside the App-V and MSIX (app attach) client. The agent runs on virtual machines (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops. Installation is straightforward - the Central View console provides a ready-to-use silent install command that you can copy and paste directly.
-
-[Install the AppVentiX Agent](agent-installation.md) on the machine. The agent connects to the configuration store and handles application delivery.
+[AppVentiX Central View Installation](appventix-central-view-installation.md)
 
 ---
 
-## Step 3: Verify the agent
+## Step 2: The (initial) Configuration Store setup
 
-With this final step you can validate if the Agent is communicating with the Config share.
+The Configuration Store is the main location for the configuration of AppVentiX. Here the Agent configuration and communication is arranged as well as the configuration for user settings and packages. It's important to configure the share correctly to allow AppVentiX to work as expected.
+
+[Configuration Store setup](config-share.md)
+
+---
+
+## Step 3: Install the AppVentiX Agent
+
+AppVentiX uses a lightweight agent installed on each target machine. The agent runs on virtual machines (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops. Installation is straightforward - the AppVentiX Central View console provides a ready-to-use silent install command that you can copy and paste directly.
+
+[Install the AppVentiX Agent](agent-installation.md) on the machine. The agent connects to the Configuration Store and handles application delivery.
+
+---
+
+## Step 4: Verify the agent
+
+With this final step you can validate if the Agent is communicating with the Configuration Store.
 
 [Verify the Agent](verify-agent.md)
 

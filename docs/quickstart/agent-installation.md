@@ -39,6 +39,7 @@ The agent will now be installed or upgraded automatically.
 ### Option B: GUI Installation
 
 Run `AppVentiX Agent.msi` by double-clicking it.
+Click **Next** to start the installation.
 
 ![Install AppVentiX Agent.msi](images/agent-installation/agent-installation-002.png)
 
