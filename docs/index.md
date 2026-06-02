@@ -8,9 +8,9 @@ This site covers the technical documentation for AppVentiX.
 
 ## Quickstart
 
-Get AppVentiX up and running in about 10 minutes. This guide covers setting up the configuration store, installing the agent, and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
+Get AppVentiX up and running in about 10 minutes. This guide covers installing Central View, setting up the configuration store, installing the agent, and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
 
-[Get started with client deployment](quickstart/index.md)
+[Get started with the AppVentiX deployment](quickstart/index.md)
 
 ---
 
