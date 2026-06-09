@@ -1,6 +1,6 @@
-# Config share (initial) configuration
+# SMB Share Configuration
 
-The following steps will help you to get up and running quickly.
+The following steps will help you configure an SMB share as the AppVentiX configuration store.
 
 ## 1. Create a Configuration Store
 
@@ -35,7 +35,7 @@ Share permissions needed for this option:
 
 The silent install parameter can be found in the Central View console (agent ribbon).
 
-#### User PowerShell to create the permissions
+#### Use PowerShell to configure permissions
 
 You can use PowerShell to configure the above described permissions. Either specify the necessary Group or (Service)User account.
 
@@ -106,7 +106,7 @@ For integrated authentication (default), configure the following permissions for
 
 When using a (service) account, you can use the permissions from the description in Step 1.
 
-![Content share configuration](images/config-share/quick-start-02.png)
+![Content share configuration](images/smb-share/smb-share-02.png)
 
 ---
 
@@ -122,19 +122,19 @@ Now create a Machine Group. You can use machine groups to implement DTAP (test, 
 
 Select the option where the machines you want to manage are located.
 
-![Machine group type selection](images/config-share/quick-start-04.png)
+![Machine group type selection](images/smb-share/smb-share-04.png)
 
 In this example we will create a machine group based on OU. Select an OU and click **Ok**.
 
-![OU selection](images/config-share/quick-start-05.png)
+![OU selection](images/smb-share/smb-share-05.png)
 
 Provide an easy-to-remember friendly name like "RDS Production" or name it the same as the Citrix Delivery group, AVD Session Host pool, or group of physical machines. The content share is automatically pre-populated with the same share as the configuration store. The content share is where the packages/containers are stored. Check if the content share is accessible and configure multiple content shares if you wish.
 
-![Machine group name and content share](images/config-share/quick-start-06.png)
+![Machine group name and content share](images/smb-share/smb-share-06.png)
 
-When the **pre-cache** checkbox is enabled, the agent will preload (App-V) / prestage (MSIX) packages in the cache when the machine boots or when the refresh cycle is triggered. If you disable pre-cache, packages will be added on the fly whenever a user needs the package, making it a real dynamic delivery mechanism. You can use a combination of both approaches: pre-cache certain packages and dynamically deliver others by creating two content shares, one with pre-cache enabled and another with pre-cache disabled. The **Skip application inventory** checkbox will hide applications from this content share in the Central View applications overview window.
+When the **pre-cache** checkbox is enabled, the agent will preload (App-V) / pre-stage (MSIX) packages in the cache when the machine boots or when the refresh cycle is triggered. If you disable pre-cache, packages will be added on the fly whenever a user needs the package, making it a real dynamic delivery mechanism. You can use a combination of both approaches: pre-cache certain packages and dynamically deliver others by creating two content shares, one with pre-cache enabled and another with pre-cache disabled. The **Skip application inventory** checkbox will hide applications from this content share in the Central View applications overview window.
 
-![Content share options](images/config-share/quick-start-07.png)
+![Content share options](images/smb-share/smb-share-07.png)
 
 After configuring the content share(s), click **Configure Agent Settings**. Enable the feature(s) you want to use and click **Done**. In this quick start guide we will use the default settings for each feature. Please check the [Agent Settings](../admin-guide/agent-settings.md) chapter for an explanation of all agent settings.
 

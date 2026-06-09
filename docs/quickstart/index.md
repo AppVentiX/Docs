@@ -11,9 +11,8 @@ Follow these steps in order to prepare a client machine for AppVentiX.
 | Step | Description |
 |------|-------------|
 | [**1. AppVentiX Central View Installation**](#step-1-download-and-install-appventix-central-view) | Install the GUI console used to configure user settings and manage packages. |
-| [**2. Configuration Store setup**](#step-2-the-initial-configuration-store-setup) | Set up the central share that holds all configuration files and serves as the communication hub for agents. |
-| [**3. Install AppVentiX Agent**](#step-3-install-the-appventix-agent) | Install the AppVentiX Agent MSI on each target machine, pointing it to the Configuration Store. |
-| [**4. Verify the agent**](#step-4-verify-the-agent) | Confirm the agent is communicating correctly with the Configuration Store. |
+| [**2. Install AppVentiX Agent**](#step-2-install-the-appventix-agent) | Install the AppVentiX Agent MSI on each target machine, pointing it to the Configuration Store. |
+| [**3. Verify the agent**](#step-3-verify-the-agent) | Confirm the agent is communicating correctly with the Configuration Store. |
 
 ---
 
@@ -25,15 +24,7 @@ AppVentiX Central View is a GUI management console for User Settings and applica
 
 ---
 
-## Step 2: The (initial) Configuration Store setup
-
-The Configuration Store is the main location of an AppVentiX deployment. It holds all configuration files for User Settings and packages, and handles agent communication. Configuring the share correctly is essential for AppVentiX to function as expected.
-
-[Configuration Store setup](config-share.md)
-
----
-
-## Step 3: Install the AppVentiX Agent
+## Step 2: Install the AppVentiX Agent
 
 AppVentiX uses a lightweight agent installed on each target machine. The agent runs on virtual machines (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops. Installation is straightforward - the AppVentiX Central View console provides a ready-to-use silent install command that you can copy and paste directly.
 
@@ -41,7 +32,7 @@ AppVentiX uses a lightweight agent installed on each target machine. The agent r
 
 ---
 
-## Step 4: Verify the agent
+## Step 3: Verify the agent
 
 Validate that the agent is communicating correctly with the Configuration Store.
 

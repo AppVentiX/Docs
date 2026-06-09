@@ -14,13 +14,13 @@ The Central View console can be installed on any management machine and does not
 
 ---
 
-## Quick Start
+## Central View Configuration
 
 | Topic | Description |
 |-------|-------------|
 | [Quick Start](../quickstart/index.md) | Get up and running with AppVentiX in minutes |
-| [Deploy, Update and Remove Applications](deploy-update-remove.md) | Approaches for managing application lifecycle |
-
+| [Azure Blob Storage Configuration](../admin-guide/azure-blob-storage.md) | Setup a Azure Blob Storage automatically or manually |
+| [Limit Access to Central View](access-control.md) | RBAC roles and share-based access |
 ---
 
 ## AppVentiX Components
@@ -42,6 +42,7 @@ The Central View console can be installed on any management machine and does not
 | [MSIX and MSIX App Attach](msix.md) | MSIX delivery, shared containers, app attach |
 | [MSIX Certificate Management](msix-certificates.md) | Certificate deployment and management |
 | [Application Overview](application-overview.md) | Package management, import from Microsoft Store |
+| [Deploy, Update and Remove Applications](deploy-update-remove.md) | Approaches for managing application lifecycle |
 
 ---
 
@@ -51,7 +52,6 @@ The Central View console can be installed on any management machine and does not
 |-------|-------------|
 | [FSLogix App Masking](app-masking.md) | Managing FSLogix App Masking rules |
 | [App Control (WDAC)](app-control.md) | Microsoft App Control for Business setup and best practices |
-| [Limit Access to Central View](access-control.md) | RBAC roles and share-based access |
 | [Audit Trail](audit-trail.md) | Configuration audit logging |
 
 ---

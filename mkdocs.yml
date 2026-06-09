@@ -86,7 +86,7 @@ nav:
   - Home: index.md
   - Quickstart:
     - quickstart/index.md
-    - Config Share Setup: quickstart/config-share.md
+    - Central View Installation: quickstart/appventix-central-view-installation.md
     - Install AppVentiX Agent: quickstart/agent-installation.md
     - Optimize the Workspace: quickstart/optimization-script.md
     - Verify the Agent: quickstart/verify-agent.md
@@ -95,6 +95,7 @@ nav:
     - Technical Architecture: admin-guide/architecture.md
     - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
     - AppVentiX Components:
+      - Central View Installation: quickstart/appventix-central-view-installation.md
       - Agent Service: admin-guide/agent-service.md
       - Agent GUI: admin-guide/agent-gui.md
       - Central View Console: admin-guide/central-view.md
@@ -116,6 +117,11 @@ nav:
       - Azure AD / Entra ID: admin-guide/entra-id.md
       - Azure File Share: admin-guide/azure-file-share.md
       - QUIC Share (Port 443): admin-guide/quic-share.md
+      - SMB Share: admin-guide/smb-share.md
+      - Azure Blob Storage: admin-guide/azure-blob-storage.md
+      - Azure Storage Account (Manual Setup): admin-guide/azure-manual-sa-creation.md
+      - Custom App Registration: admin-guide/custom-app-registration.md
+      - Client Certificate: admin-guide/client-certificate.md
     - Advanced Configuration:
       - Share Permissions and Configuration: admin-guide/share-permissions.md
       - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced.md

@@ -23,7 +23,7 @@ Click **Next** to begin.
 
 ![Begin with the installation](images/appventix-central-view-installation/appventix-central-view-installation-02.png)
 
-Accept the license terms and click **Install** to continue.
+Read the End-User License and click **Next** to continue.
 
 ![Accept Terms and Install](images/appventix-central-view-installation/appventix-central-view-installation-03.png)
 
@@ -49,12 +49,10 @@ On first launch (no existing configuration), the Central View settings window wi
 
 ![Central View settings window](images/appventix-central-view-installation/appventix-central-view-installation-08.png)
 
-If you already have a Configuration Store path, enter it and click **Save**.
-If you need to set one up first, follow [2. Configuration Store setup](config-share.md).
+Choose the configuration store type that matches your setup:
 
-> **Note:** The default Central View settings are sufficient in most cases. Additional settings can be configured when needed - see this guide for details.
-
-> **IMPORTANT**: Verify that permissions are configured correctly before continuing. Incorrect permissions will cause issues during configuration.
+* [Azure Blob Storage](../admin-guide/azure-blob-storage.md) - no Active Directory dependency, accessible outside your network
+* [SMB Share](../admin-guide/smb-share.md) - standard Windows file share, DFS, or storage vendor share
 
 You can optionally enter a site name. When all details are complete, click **Save**.
 
