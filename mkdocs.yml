@@ -86,16 +86,16 @@ nav:
   - Home: index.md
   - Quickstart:
     - quickstart/index.md
-    - Central View Installation: quickstart/appventix-central-view-installation.md
-    - Install AppVentiX Agent: quickstart/agent-installation.md
-    - Optimize the Workspace: quickstart/optimization-script.md
-    - Verify the Agent: quickstart/verify-agent.md
+    - 1. Central View Installation: quickstart/appventix-central-view-installation.md
+    - 2. Create Machine Group(s): quickstart/create-machine-groups.md
+    - 3. Install AppVentiX Agent: quickstart/agent-installation.md
+    - 4. Verify the Agent: quickstart/verify-agent.md
+    - (Optional) Optimize the Workspace: quickstart/optimization-script.md
   - Admin Guide:
     - admin-guide/index.md
     - Technical Architecture: admin-guide/architecture.md
     - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
     - AppVentiX Components:
-      - Central View Installation: quickstart/appventix-central-view-installation.md
       - Agent Service: admin-guide/agent-service.md
       - Agent GUI: admin-guide/agent-gui.md
       - Central View Console: admin-guide/central-view.md

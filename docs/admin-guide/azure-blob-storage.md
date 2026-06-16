@@ -7,12 +7,19 @@ To start the (initial) configuration, click the **Setup Wizard**
 
 ![Azure Blob storage configuration](images/azure-blob-storage/azure-blob-storage-01.png)
 
-You have two options for configuring, by default **Automatic - ...** is selected. The manual option is also available.
+You have two options for configuring:
+
+* [Create New](#create-new)
+* [Connect to Existing](#connect-to-existing)
+
+## Create New
+
+With the create new you have two options, by default **Automatic - ...** is selected. The manual option is also available.
 
 * [Automatic setup](#automatic)
 * [Manual setup](#manual)
 
-## Automatic
+### Automatic
 
 With the automatic option, AppVentiX will do all the configuration for you.
 
@@ -38,7 +45,7 @@ Click **Accept** to continue.
 
 ![Accept permissions](images/azure-blob-storage/azure-blob-storage-automatic-04.png)
 
-When login is successful, you can close the browser and continue in AppVentiX.
+When login is successful, you can close the browser and continue in AppVentiX Central View.
 
 ![Close the browser](images/azure-blob-storage/azure-blob-storage-automatic-05.png)
 
@@ -119,6 +126,8 @@ When the login is successful, a popup may appear, click **Close**
 
 You are now ready for the next step.
 
-## Manual
+### Manual
 
 ... More info will follow soon ...
+
+## Connect to Existing

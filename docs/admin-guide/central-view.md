@@ -30,7 +30,7 @@ Do not enable pre-cache for a content share if you want packages to be deployed 
 
 ## PowerShell Module
 
-A PowerShell module is available to automate the creation of publishing tasks. You can install the module on the same machine as Central View using the button in the console, or install it from the PowerShell Gallery:
+[A PowerShell module is available](../powershell-module/index.md) to automate the creation of publishing tasks. You can install the module on the same machine as Central View using the button in the console, or install it from the PowerShell Gallery:
 
 ```powershell
 Install-Module -Name AppVentiX
