@@ -4,7 +4,7 @@ Machine Groups are an important part of the AppVentiX environment. They scope yo
 
 Create your first Machine Group by clicking the **Create Machine Group** button.
 
-![Manage Machine Groups window](images/create-machine-groups/create-machine-groups-01.png)
+![AppVentiX welcome screen with Create Machine Group button](images/create-machine-groups/create-machine-groups-01.png)
 
 ---
 
@@ -50,7 +50,7 @@ Click **Click here to copy** to apply the selected settings.
 
 ## Machine Group Details
 
-A dropdown will appear asking you to choose the type of Machine Group. Select what the Machine Group is based on. AppVentiX supports three types:
+Select what the Machine Group is based on. AppVentiX supports three types:
 
 ![Add new Machine Group - type selection](images/create-machine-groups/create-machine-groups-02.png)
 
@@ -70,11 +70,11 @@ The AD group must contain the computer accounts of the machines you want to assi
 
 ![AD Group members showing computer accounts](images/create-machine-groups/create-machine-groups-04.png)
 
-Enter a **Friendly Name** to identify this Machine Group in Central View. Choose something descriptive, like "RDS Production" or "Laptops".
+Enter a **Friendly Name** to identify this Machine Group in Central View. Choose something descriptive, like "RDS Production" or "VDI Test".
 
 ![Machine Group details with AD Group and Friendly Name](images/create-machine-groups/create-machine-groups-05.png)
 
-[Continue to Content Store configuration](#content-stores)
+[Continue to Content Store(s) configuration](#content-stores)
 
 ### Active Directory OU
 
@@ -86,7 +86,9 @@ Select the OU where the machine accounts are located and click **Done** when fin
 
 ![Select OU dialog](images/create-machine-groups/create-machine-groups-06.png)
 
-Enter a **Friendly Name** to identify this Machine Group in Central View. Check **Include machines in sub OUs** if you also want to target machines in child OUs beneath the selected OU.
+> **NOTE**: If you have nested OUs under the selected OU and want to include machines from those as well, make sure to check the **Include machines in sub OU's** option.
+
+Enter a **Friendly Name** to identify this Machine Group in Central View.
 
 ![Machine Group details with OU and Friendly Name](images/create-machine-groups/create-machine-groups-07.png)
 
