@@ -18,10 +18,10 @@ You can find the Agent easily from Central View by clicking the **Browse Agent**
 
 The agent installer is available from two locations depending on your configuration store type:
 
-* [Azure Blob Storage - Central View server](#1-appventix-central-view-server)
+* [Central View machine](#1-appventix-central-machine)
 * [SMB file share](#2-smb-file-share)
 
-### 1. AppVentiX Central View server
+### 1. AppVentiX Central machine
 
 If you have configured an Azure Blob Storage account, the agent is located on the machine where Central View is installed:
 
@@ -95,7 +95,7 @@ msiexec /i "AppVentiX Agent.msi" /quiet CONNECTIONSTRING="<Connection string val
 
 The `/quiet` switch suppresses all UI. The `CONNECTIONSTRING` parameter tells the agent where to find its configuration and how to authenticate if this is required. This is the only required parameter beyond the standard MSI switches.
 
-> **Note:** For non-persistent VDI and SBC environments, run the silent installation on the master image before sealing it. Depending on the configuration certain tasks can run before the image is sealed.
+> **Note:** For non-persistent single or multi session environments, run the silent installation on the master image before sealing it. Depending on the configuration certain tasks can run before the image is sealed.
 
 ## After Installation
 

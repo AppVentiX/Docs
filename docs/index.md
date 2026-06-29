@@ -1,6 +1,6 @@
 # AppVentiX Technical Documentation
 
-AppVentiX is a platform for centrally managing User Settings and publishing packages (MSIX, App-V, App Attach) from one or more content shares, with targeted delivery to users and machines.
+AppVentiX. One platform for application delivery and workspace control across your Microsoft environment. Continue using App-V, adopt MSIX at your own pace, and replace legacy workspace tools with a simpler, more secure approach.
 
 This site covers the technical documentation for AppVentiX.
 
@@ -8,7 +8,7 @@ This site covers the technical documentation for AppVentiX.
 
 ## Quickstart
 
-Get AppVentiX up and running in about 10 minutes. This guide covers installing Central View, setting up the configuration store, installing the agent, and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
+Get AppVentiX up and running in about 10 minutes. This guide covers installing Central View, setting up the configuration store, installing the agent, and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent single or multi session environments.
 
 [Get started with the AppVentiX deployment](quickstart/index.md)
 

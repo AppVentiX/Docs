@@ -5,7 +5,7 @@
 Before installing, ensure the following requirements are met:
 
 - The machine must have a 64-bit OS (Server OS or Client OS)
-- The configuration and content share must be accessible and configured correctly
+- The configuration and content store must be accessible and configured correctly
 - The machine may not be a Domain Controller
 
 ## Download

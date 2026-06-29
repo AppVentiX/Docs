@@ -2,10 +2,9 @@
 
 The following steps will help you configure an SMB share as the AppVentiX configuration store.
 
-## 1. Create a Configuration Store
+## Create a Configuration Store
 
 Create a new file share or use an existing one. This share will be used to store the central configuration. You can use a normal Windows file share or a DFS share to make the share highly available (for example `\\yourdomain.local\appventix\config`). Also Azure file shares (domain integrated or stand-alone) and shares on storage vendors like Nutanix/NetApp/Dell/HP file shares are supported. AppVentiX also supports QUIC shares, which are shares that can be accessed over port 443 using highly encrypted TLS. You can read more about setting up a [QUIC share](../admin-guide/quic-share.md) or [Azure file share](../admin-guide/azure-file-share.md) in this admin guide.
-
 
 ### Windows file share, Storage vendor file share or Azure file share that is Active Directory integrated
 
@@ -95,7 +94,7 @@ Configure the account as follows:
 
 ---
 
-## 2. Create a Content Share
+## Create a Content Share
 
 Create a content share (for example `\\yourdomain.local\appventix\content`). This share will be used to store the packages. You can also create a folder on the same share as the configuration store created in Step 1. The share permissions are the same as in Step 1.
 
@@ -108,43 +107,4 @@ When using a (service) account, you can use the permissions from the description
 
 ![Content share configuration](images/smb-share/smb-share-02.png)
 
----
-
-## 3. Configure the Central View Console
-
-If you have configured the share permission add the path to the Central View settings window and click **Save**.
-
----
-
-## 4. Create a Machine Group
-
-Now create a Machine Group. You can use machine groups to implement DTAP (test, acceptance, production environment) or separate your deployment for hybrid use cases (laptops/virtual desktops, etc.). A machine group is just a reference to an AD OU, AD Group, or Azure AD tenant. There is no need to update these groups manually.
-
-Select the option where the machines you want to manage are located.
-
-![Machine group type selection](images/smb-share/smb-share-04.png)
-
-In this example we will create a machine group based on OU. Select an OU and click **Ok**.
-
-![OU selection](images/smb-share/smb-share-05.png)
-
-Provide an easy-to-remember friendly name like "RDS Production" or name it the same as the Citrix Delivery group, AVD Session Host pool, or group of physical machines. The content share is automatically pre-populated with the same share as the configuration store. The content share is where the packages/containers are stored. Check if the content share is accessible and configure multiple content shares if you wish.
-
-![Machine group name and content share](images/smb-share/smb-share-06.png)
-
-When the **pre-cache** checkbox is enabled, the agent will preload (App-V) / pre-stage (MSIX) packages in the cache when the machine boots or when the refresh cycle is triggered. If you disable pre-cache, packages will be added on the fly whenever a user needs the package, making it a real dynamic delivery mechanism. You can use a combination of both approaches: pre-cache certain packages and dynamically deliver others by creating two content shares, one with pre-cache enabled and another with pre-cache disabled. The **Skip application inventory** checkbox will hide applications from this content share in the Central View applications overview window.
-
-![Content share options](images/smb-share/smb-share-07.png)
-
-After configuring the content share(s), click **Configure Agent Settings**. Enable the feature(s) you want to use and click **Done**. In this quick start guide we will use the default settings for each feature. Please check the [Agent Settings](../admin-guide/agent-settings.md) chapter for an explanation of all agent settings.
-
-Most of the time the default agent settings are a good starting point. For MSIX it is only important to choose the correct profile setting: for profile containers like FSLogix keep the default setting; if your machine group is for a fat client/laptop environment, select **local profile**.
-
-Click **Save Machine Group** and close the Manage Machine Groups window.
-
-The first-time inventory of the content share is now executed. If no content is found, you are asked if you want to import some packages to get started.
-
-You can now click through the console and check if you can see the content and if the machines are visible when you select the machine group in the Manage Machines window.
-
----
 

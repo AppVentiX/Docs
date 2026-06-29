@@ -6,8 +6,8 @@ AppVentiX supports Windows file shares (both direct and DFS), Azure file shares 
 
 | Share | AppVentiX Agent | AppVentiX Central View |
 |-------|----------------|------------------------|
-| Configuration share | Read | Read/Write* |
-| Configuration share (inventory folder) | Read/Write | Read/Write |
+| Configuration store | Read | Read/Write* |
+| Configuration store (inventory folder) | Read/Write | Read/Write |
 | Content share(s) | Read | Read* |
 
 > **Note:** Central View needs also Write permissions if you want to convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the Content Share directly from the console. For other management activities, only Read permissions are needed. This means you can provide the console to helpdesk/admins to operate the deployment but not change any configurations.

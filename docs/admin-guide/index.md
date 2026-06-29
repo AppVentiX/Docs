@@ -19,8 +19,10 @@ The Central View console can be installed on any management machine and does not
 | Topic | Description |
 |-------|-------------|
 | [Quick Start](../quickstart/index.md) | Get up and running with AppVentiX in minutes |
+| [Supported Operating Systems](supported-os.md) | Supported OS versions for agent and Central View |
 | [Azure Blob Storage Configuration](../admin-guide/azure-blob-storage.md) | Setup a Azure Blob Storage automatically or manually |
 | [Limit Access to Central View](access-control.md) | RBAC roles and share-based access |
+| [Upgrading AppVentiX](supported-os.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
 ---
 
 ## AppVentiX Components
@@ -31,6 +33,7 @@ The Central View console can be installed on any management machine and does not
 | [Agent GUI](agent-gui.md) | The AppVentiX Agent GUI and Refresh Shortcut |
 | [Central View Console](central-view.md) | Machine Groups, Manage Machines, and console overview |
 | [Machine Group Agent Settings](agent-settings.md) | All agent settings explained per category |
+| [Manage Machines](manage-machines.md) | Adding, organizing, and managing machines in machine groups |
 
 ---
 
@@ -52,6 +55,7 @@ The Central View console can be installed on any management machine and does not
 |-------|-------------|
 | [FSLogix App Masking](app-masking.md) | Managing FSLogix App Masking rules |
 | [App Control (WDAC)](app-control.md) | Microsoft App Control for Business setup and best practices |
+| [App Control Code Sign Certificate Creation](app-control-create-certificate.md) | Certificate creation for signing App Control policies and packages |
 | [Audit Trail](audit-trail.md) | Configuration audit logging |
 
 ---
@@ -60,7 +64,8 @@ The Central View console can be installed on any management machine and does not
 
 | Topic | Description |
 |-------|-------------|
-| [Configuring User Settings](user-settings.md) | Registry, drive mappings, printers, group policies, shortcuts |
+| [Configuring User Settings](user-settings-general.md) | Introduction and how to enable User Settings for a machine group |
+| [User Settings Reference](user-settings-detailed.md) | Detailed configuration of each User Setting type |
 
 ---
 
@@ -72,6 +77,10 @@ The Central View console can be installed on any management machine and does not
 | [Azure AD / Entra ID](entra-id.md) | Entra ID machine groups and application registration |
 | [Azure File Share](azure-file-share.md) | Setting up Azure file shares for AppVentiX |
 | [QUIC Share (Port 443)](quic-share.md) | SMB over HTTPS for share access over port 443 |
+| [SMB Share](smb-share.md) | Configuring an SMB share as the AppVentiX Configuration Store |
+| [Azure Storage Account (Manual Setup)](azure-manual-sa-creation.md) | Manual Azure blob storage account setup and required permissions |
+| [Custom App Registration](custom-app-registration.md) | Creating your own Entra ID app registration for AppVentiX |
+| [Client Certificate](client-certificate.md) | Client certificate setup and rotation |
 
 ---
 
@@ -81,8 +90,6 @@ The Central View console can be installed on any management machine and does not
 |-------|-------------|
 | [Share Permissions and Configuration](share-permissions.md) | Share and NTFS permission setup |
 | [Central View Inventory and Advanced Settings](central-view-advanced.md) | Inventory storage, LDAPS, WinRM over SSL |
-| [Supported Operating Systems](supported-os.md) | Supported OS versions for agent and Central View |
-| [Upgrading AppVentiX](supported-os.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
 | [FSLogix and Roaming Profiles](fslogix-profiles.md) | FSLogix integration and roaming profile settings |
 | [Automated Image Building](automated-image-building.md) | Image build events, PowerShell commands |
 | [Firewall and Communication Ports](firewall-ports.md) | Required ports and firewall configuration |
