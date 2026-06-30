@@ -29,7 +29,7 @@ MSIX and App Attach packages can be deployed and published to users even when th
 
 By default, the registration for MSIX packages will be removed when the user logs off. This is done by the AppVentiX LogOff Handler (when the "persist MSIX app data" agent setting is enabled). This process is needed when used in combination with FSLogix profile management and you want to roam the application data of the package between sessions. When you roam the profile of the user, the "persist MSIX app data" setting is needed (enabled by default). When you have persistent machines per user (laptops, etc.) you can disable this setting. AppVentiX will take care of the whole process and supports both situations where the profile is roaming and non-roaming.
 
-Old versions of packages that you remove from the content share(s) will be removed from the agents automatically, making it a fully managed deployment solution.
+Old versions of packages that you remove from the content store(s) will be removed from the agents automatically, making it a fully managed deployment solution.
 
 ---
 

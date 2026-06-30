@@ -61,6 +61,27 @@
   color: #6088C8;
 }
 
+/* Sidebar section headers (e.g. "AppVentiX Components", "Central View Configuration") */
+.md-nav__item--section > .md-nav__link,
+.md-nav__item--section > .md-nav__link.md-nav__link--section,
+.md-nav__item--nested > label.md-nav__link {
+  color: var(--avx-orange) !important;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  border-top: 1px solid rgba(255, 112, 39, 0.25);
+  padding-top: 0.5em;
+  margin-top: 0.9em;
+  margin-bottom: 0.1em;
+}
+
+[data-md-color-scheme="slate"] .md-nav__item--section > .md-nav__link,
+[data-md-color-scheme="slate"] .md-nav__item--section > .md-nav__link.md-nav__link--section,
+[data-md-color-scheme="slate"] .md-nav__item--nested > label.md-nav__link {
+  color: var(--avx-orange) !important;
+  border-top-color: rgba(255, 112, 39, 0.35);
+}
+
 /* Search bar */
 .md-search__input {
   background-color: rgba(255, 255, 255, 0.15);

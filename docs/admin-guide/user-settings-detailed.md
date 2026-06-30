@@ -118,9 +118,9 @@ This setting type works differently from the others. File Type Associations are 
 
 ![File Type Association](images/user-settings-detailed/user-settings-detailed-11.png)
 
-If you have multiple Content Shares configured, select the location where the package should be created and click **Continue**.
+If you have multiple content stores configured, select the location where the package should be created and click **Continue**.
 
-![Select Content Share](images/user-settings-detailed/user-settings-detailed-12.png)
+![Select content store](images/user-settings-detailed/user-settings-detailed-12.png)
 
 Enter a name for the package in the **Package name** field. Make sure the name does not contain spaces. Optionally change the version at **Package version**. Click on the **Create new shortcut** menu item and choose **Executable**.
 
@@ -175,7 +175,7 @@ When **Delete** is selected, only a single field is shown to enter the path or f
 
 Group Policy lets you apply Group Policy settings to your users and assign policy sets to all users or to specific groups.
 
-To get started, click **Browse** and select an ADMX file. Make sure the corresponding ADML file is in the same folder or in a language subfolder. The selected ADMX file will be uploaded to the content share. For subsequent policies from the same ADMX file, you can select it from the existing ADMX list.
+To get started, click **Browse** and select an ADMX file. Make sure the corresponding ADML file is in the same folder or in a language subfolder. The selected ADMX file will be uploaded to the content store. For subsequent policies from the same ADMX file, you can select it from the existing ADMX list.
 
 > **TIP:** You can find the Windows ADMX/ADML files in the following locations:
 >
@@ -249,9 +249,9 @@ For each entry you have the following options:
 
 ### MSIX Shortcuts
 
-To create an MSIX shortcut, click **Create Package**. The current window will close and a new window will open where you can select the Content Share where the package will be created.
+To create an MSIX shortcut, click **Create Package**. The current window will close and a new window will open where you can select the content store where the package will be created.
 
-![Select Content Share for MSIX Shortcuts](images/user-settings-detailed/user-settings-detailed-27.png)
+![Select content store for MSIX Shortcuts](images/user-settings-detailed/user-settings-detailed-27.png)
 
 In the next screen, provide a name for the package. Optionally uncheck **Enable Registry Virtualization** and **Enable File System Virtualization**. Click **Create new Shortcut** and select your shortcut target. In this example we are using an **Executable**.
 

@@ -42,7 +42,7 @@ Do {
 } While (!$allpackagesloadedevent)
 ```
 
-> **Note for MSIX App Attach:** It is not recommended to place App Attach packages on a content share configured for a machine group where the build VM is a member. App Attach packages are not needed to pre-cache in the image because they are virtual disks attached to the VM at runtime.
+> **Note for MSIX App Attach:** It is not recommended to place App Attach packages on a content store configured for a machine group where the build VM is a member. App Attach packages are not needed to pre-cache in the image because they are virtual disks attached to the VM at runtime.
 
 ---
 

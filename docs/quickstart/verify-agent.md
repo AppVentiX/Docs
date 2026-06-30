@@ -12,7 +12,7 @@ By default, user publishing is refreshed when the user logs in, and user publish
 
 You are now ready to deploy packages, shortcuts, user settings, App Masking rules, and/or App Control policies, and manage your deployment.
 
-Return to the Central View console to see how easy it is to inventory and manage machines by clicking the eye icon. During these quick steps, you configured a content share for the machine group. If the Pre-cache checkbox is enabled, packages from the content share will be preloaded onto the machine(s) when you click the **Refresh Cycle** button. If it is disabled (default), packages will be delivered based on the publishing tasks you configure. The Refresh Cycle (blue circle) updates publishing for currently logged-in users, pre-caches new packages, and automatically removes packages that are no longer in the content share. No manual cleanup is required.
+Return to the Central View console to see how easy it is to inventory and manage machines by clicking the eye icon. During these quick steps, you configured a content store for the machine group. If the Pre-cache checkbox is enabled, packages from the content store will be preloaded onto the machine(s) when you click the **Refresh Cycle** button. If it is disabled (default), packages will be delivered based on the publishing tasks you configure. The Refresh Cycle (blue circle) updates publishing for currently logged-in users, pre-caches new packages, and automatically removes packages that are no longer in the content store. No manual cleanup is required.
 
 ![Machine inventory view](images/verify-agent/verify-agent-003.jpg)
 

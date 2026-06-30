@@ -8,6 +8,6 @@ When creating a certificate you can provide the following information:
 
 The certificate is stored as PFX and imported in the personal certificate store so it can be easily selected when converting packages from App-V to MSIX, for example.
 
-The .CER file will be stored on the content share you select and will be deployed to the machines automatically. The certificate is also visible in the content overview:
+The .CER file will be stored on the content store you select and will be deployed to the machines automatically. The certificate is also visible in the content overview:
 
 ![Certificate in content overview](images/msix-certificates/msix-certificates-02.png)

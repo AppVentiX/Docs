@@ -82,11 +82,10 @@ With the **Active Directory OU** option you target all machines whose computer a
 
 In a multi-domain environment, select the correct domain first. In a single-domain environment the domain is already pre-selected.
 
-Select the OU where the machine accounts are located and click **Done** when finished.
+Select one or more OU's where the machine accounts are located. If you have nested OUs under the selected OU that you want to include, check **Include sub-OU's**.
+Click **Done** when finished.
 
 ![Select OU dialog](images/create-machine-groups/create-machine-groups-06.png)
-
-> **NOTE**: If you have nested OUs under the selected OU and want to include machines from those as well, make sure to check the **Include machines in sub OU's** option.
 
 Enter a **Friendly Name** to identify this Machine Group in Central View.
 
