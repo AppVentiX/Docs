@@ -3,6 +3,7 @@
 AppVentiX works with a lightweight agent running on the same machine as the App-V and MSIX (app attach) client (part of Windows). This can either be a virtual machine (Microsoft RDS/AVD Hostpool/Windows365, Citrix VDI (PVS/MCS), VMware Horizon, etc) or physical machine (PC or Laptop). The agent can be pushed from the Central View console or easily installed silently.
 
 The Central View console can be installed on any machine and does not need any (SQL) back-end. AppVentiX only requires a file share or an Azure storage blob for the configuration. A wide range of file share types are supported: Windows file shares (direct or DFS), Azure file shares (domain integrated and stand-alone), Azure Storage Blob, Nutanix and NetApp file shares, and QUIC shares accessed over port 443.
+
 ---
 
 ## Architecture
@@ -26,6 +27,7 @@ The Central View console can be installed on any machine and does not need any (
 | [Azure Blob Storage Configuration](../admin-guide/azure-blob-storage.md) | Setup a Azure Blob Storage automatically or manually |
 | [Upgrading AppVentiX](supported-os.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
 | [PowerShell Module](powershell-module.md) | The AppVentiX PowerShell module |
+
 ---
 
 ## AppVentiX Agent
