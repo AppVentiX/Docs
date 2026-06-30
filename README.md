@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Start the local dev server with live reload:
 
 ```powershell
-python -m mkdocs serve
+python -m mkdocs serve --livereload
 ```
 
 The site is available at `http://127.0.0.1:8000`.

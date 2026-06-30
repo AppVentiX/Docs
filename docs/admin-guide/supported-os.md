@@ -4,8 +4,8 @@
 
 The following operating systems are supported by the AppVentiX agent:
 
-- Windows Server 2016 (64-bit)
-- Windows Server 2019 (64-bit) (App-V and MSIX client are embedded in Server 2019)
+- Windows Server 2016 (64-bit) **_(*1)_**
+- Windows Server 2019 (64-bit) (App-V and MSIX client are embedded in Server 2019) **_(*1)_**
 - Windows Server 2022 (64-bit) (App-V and MSIX client are embedded in Server 2022)
 - Windows Server 2025 (64-bit) (App-V and MSIX client are embedded in Server 2025)
 - Windows 7, 10 and 11 (64-bit) (App-V and MSIX client are embedded in Win10/11)
@@ -14,11 +14,13 @@ The following operating systems are supported by the AppVentiX agent:
 
 The following operating systems are supported by the AppVentiX Central View console:
 
-- Windows Server 2019 (64-bit)
+- Windows Server 2019 (64-bit) **_(*1)_**
 - Windows Server 2022 (64-bit)
 - Windows Server 2025 (64-bit)
 - Windows 10 (64-bit)
 - Windows 11 (64-bit)
+
+> **(*1)** AppControl does not work and is not supported on Server 2019 and lower. This is a Microsoft limitation.
 
 ## .NET Requirement
 

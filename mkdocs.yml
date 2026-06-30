@@ -86,14 +86,18 @@ nav:
   - Home: index.md
   - Quickstart:
     - quickstart/index.md
-    - Config Share Setup: quickstart/config-share.md
-    - Install AppVentiX Agent: quickstart/agent-installation.md
-    - Optimize the Workspace: quickstart/optimization-script.md
-    - Verify the Agent: quickstart/verify-agent.md
+    - 1. Central View Installation: quickstart/appventix-central-view-installation.md
+    - 2. Create Machine Group(s): quickstart/create-machine-groups.md
+    - 3. Install AppVentiX Agent: quickstart/agent-installation.md
+    - 4. Verify the Agent: quickstart/verify-agent.md
+    - (Optional) Optimize the Workspace: quickstart/optimization-script.md
   - Admin Guide:
     - admin-guide/index.md
     - Technical Architecture: admin-guide/architecture.md
-    - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
+    - Central View Configuration:
+      - Azure Blob Storage Configuration: admin-guide/azure-blob-storage.md
+      - Limit Access to Central View: admin-guide/access-control.md
+      - Supported Operating Systems: admin-guide/supported-os.md
     - AppVentiX Components:
       - Agent Service: admin-guide/agent-service.md
       - Agent GUI: admin-guide/agent-gui.md
@@ -105,21 +109,27 @@ nav:
       - MSIX and MSIX App Attach: admin-guide/msix.md
       - MSIX Certificate Management: admin-guide/msix-certificates.md
       - Application Overview: admin-guide/application-overview.md
+      - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
     - Security and Access Control:
       - FSLogix App Masking: admin-guide/app-masking.md
       - App Control (WDAC): admin-guide/app-control.md
-      - Limit Access to Central View: admin-guide/access-control.md
+      - App Control Signing Certificate: admin-guide/app-control-create-certificate.md
       - Audit Trail: admin-guide/audit-trail.md
-    - User Settings: admin-guide/user-settings.md
+    - User Settings:
+      - Configuring User Settings: admin-guide/user-settings-general.md
+      - User Settings Reference: admin-guide/user-settings-detailed.md
     - Integrations:
       - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop.md
       - Azure AD / Entra ID: admin-guide/entra-id.md
       - Azure File Share: admin-guide/azure-file-share.md
       - QUIC Share (Port 443): admin-guide/quic-share.md
+      - SMB Share: admin-guide/smb-share.md
+      - Azure Storage Account (Manual Setup): admin-guide/azure-manual-sa-creation.md
+      - Custom App Registration: admin-guide/custom-app-registration.md
+      - Client Certificate: admin-guide/client-certificate.md
     - Advanced Configuration:
       - Share Permissions and Configuration: admin-guide/share-permissions.md
       - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced.md
-      - Supported Operating Systems: admin-guide/supported-os.md
       - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles.md
       - Automated Image Building: admin-guide/automated-image-building.md
       - Firewall and Communication Ports: admin-guide/firewall-ports.md

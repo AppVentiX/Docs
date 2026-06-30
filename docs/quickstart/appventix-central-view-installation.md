@@ -5,7 +5,7 @@
 Before installing, ensure the following requirements are met:
 
 - The machine must have a 64-bit OS (Server OS or Client OS)
-- The configuration and content share must be accessible and configured correctly
+- The configuration and content store must be accessible and configured correctly
 - The machine may not be a Domain Controller
 
 ## Download
@@ -23,7 +23,7 @@ Click **Next** to begin.
 
 ![Begin with the installation](images/appventix-central-view-installation/appventix-central-view-installation-02.png)
 
-Accept the license terms and click **Install** to continue.
+Read the End-User License and click **Next** to continue.
 
 ![Accept Terms and Install](images/appventix-central-view-installation/appventix-central-view-installation-03.png)
 
@@ -49,12 +49,12 @@ On first launch (no existing configuration), the Central View settings window wi
 
 ![Central View settings window](images/appventix-central-view-installation/appventix-central-view-installation-08.png)
 
-If you already have a Configuration Store path, enter it and click **Save**.
-If you need to set one up first, follow [2. Configuration Store setup](config-share.md).
+Choose the configuration store type that matches your setup:
 
-> **Note:** The default Central View settings are sufficient in most cases. Additional settings can be configured when needed - see this guide for details.
+* [Azure Blob Storage](../admin-guide/azure-blob-storage.md) - no Active Directory dependency, accessible outside your network
+* [SMB Share](../admin-guide/smb-share.md) - standard Windows file share, DFS, or storage vendor share
 
-> **IMPORTANT**: Verify that permissions are configured correctly before continuing. Incorrect permissions will cause issues during configuration.
+> **NOTE**: Make sure you have configured either one of the above configuration stores before continuing with the next steps.
 
 You can optionally enter a site name. When all details are complete, click **Save**.
 
@@ -63,3 +63,5 @@ You can optionally enter a site name. When all details are complete, click **Sav
 AppVentiX Central View is now ready to use.
 
 ![AppVentiX Central View](images/appventix-central-view-installation/appventix-central-view-installation-10.png)
+
+> [QuickStart: Continue with the Machine Group](create-machine-groups.md)

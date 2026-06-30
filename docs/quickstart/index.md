@@ -1,17 +1,17 @@
 # Quickstart
 
-Get AppVentiX up and running in about 10 minutes by following the steps below. This guide covers everything from setting up the Configuration Store to installing the agent and verifying your deployment - whether you are targeting physical machines, persistent VDI, or non-persistent SBC/VDI environments.
+Get AppVentiX up and running in about 10 minutes by following the steps below.
 
 ---
 
 ## Deployment Steps
 
-Follow these steps in order to prepare a client machine for AppVentiX.
+Follow the below steps in order to configure AppVentiX smoothly.
 
 | Step | Description |
 |------|-------------|
-| [**1. AppVentiX Central View Installation**](#step-1-download-and-install-appventix-central-view) | Install the GUI console used to configure user settings and manage packages. |
-| [**2. Configuration Store setup**](#step-2-the-initial-configuration-store-setup) | Set up the central share that holds all configuration files and serves as the communication hub for agents. |
+| [**1. AppVentiX Central View Installation**](#step-1-download-and-install-appventix-central-view) | Install Central View used to manage packages and configure user settings. |
+| [**2. Create Machine Group(s)**](#step-2-create-machine-groups) | Target a set of machines by AD OU, AD Group, or EntraID tenant to scope package delivery and agent settings. |
 | [**3. Install AppVentiX Agent**](#step-3-install-the-appventix-agent) | Install the AppVentiX Agent MSI on each target machine, pointing it to the Configuration Store. |
 | [**4. Verify the agent**](#step-4-verify-the-agent) | Confirm the agent is communicating correctly with the Configuration Store. |
 
@@ -19,25 +19,26 @@ Follow these steps in order to prepare a client machine for AppVentiX.
 
 ## Step 1: Download and install AppVentiX Central View
 
-AppVentiX Central View is a GUI management console for User Settings and application delivery. It enables administrators to configure Drivemaps, GPOs, and other user settings, while also deploying, configuring, and monitoring App-V, MSIX, and AppAttach packages across persistent, VDI, and RDS environments - all from a single location.
+AppVentiX Central View is an easy to use management console for Application Delivery and User Settings. It can run on any supported Windows OS, physical or virtual without the need for a backend infrastructure. It can be used by multiple admins simultaneous.
 
-[AppVentiX Central View Installation](appventix-central-view-installation.md)
+
+[Click here to start the AppVentiX Central View Installation](appventix-central-view-installation.md)
 
 ---
+## Step 2: Create Machine group(s)
 
-## Step 2: The (initial) Configuration Store setup
+Machine Groups define the scope of your deployment and allow you to segment it by environment or machine type, such as Production, Test or by machine collection (AVD\Citrix), or Entra ID laptops.
+A Machine Group is built dynamically from an OU or group in Active Directory, or from Entra ID machines. For each Machine Group, you can configure agent settings and content stores.
 
-The Configuration Store is the main location of an AppVentiX deployment. It holds all configuration files for User Settings and packages, and handles agent communication. Configuring the share correctly is essential for AppVentiX to function as expected.
-
-[Configuration Store setup](config-share.md)
+[Create (your first) Machine Group(s)](create-machine-groups.md)
 
 ---
 
 ## Step 3: Install the AppVentiX Agent
 
-AppVentiX uses a lightweight agent installed on each target machine. The agent runs on virtual machines (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops. Installation is straightforward - the AppVentiX Central View console provides a ready-to-use silent install command that you can copy and paste directly.
+AppVentiX uses a lightweight agent to handle the application deployment and workspace settings. The agent can run on a virtual machine (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops (Entra ID joined is also supported). The agent has an advanced cache mechanism which keeps the configuration running even when the machine is offline and the configuration store is not accessible.
 
-[Install the AppVentiX Agent](agent-installation.md) on the machine. The agent connects to the Configuration Store and handles application delivery.
+[Click here to view the installation steps for the AppVentiX Agent](agent-installation.md).
 
 ---
 
@@ -54,8 +55,8 @@ Validate that the agent is communicating correctly with the Configuration Store.
 Before deploying the AppVentiX Agent, ensure the target machine is running a supported version of Windows. This applies to:
 
 - Physical desktops and laptops
-- Persistent VDI or SBC session hosts
-- Non-persistent VDI or SBC master images
+- Persistent single or multi session machines
+- Non-persistent single or multi session master images
 
 Apply Windows updates and install any required applications before proceeding. OS preparation is outside the scope of AppVentiX and is handled by the administrator or image engineer.
 

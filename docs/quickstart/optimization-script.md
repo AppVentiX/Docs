@@ -2,7 +2,7 @@
 
 The workspace optimization removes unnecessary built-in apps, disables unused services and scheduled tasks, and applies performance and reliability settings suited to managed environments. It is driven by a PowerShell script and an XML configuration template.
 
-> **Note:** For physical desktops and laptops, run this optimization once during initial setup and again after significant application changes. For non-persistent VDI and SBC environments, run it on the master image before sealing.
+> **Note:** For physical desktops and laptops, run this optimization once during initial setup and again after significant application changes. For non-persistent single and multi session environments, run it on the master image before sealing.
 
 ## Prerequisites
 
