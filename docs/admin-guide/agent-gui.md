@@ -9,13 +9,21 @@ The AppVentiX Agent GUI can be used for:
 
 Example screenshots of the Agent GUI:
 
-![Agent GUI - service state view](images/agent-gui/agent-gui-01.png)
+**General view**
 
-![Agent GUI - packages view](images/agent-gui/agent-gui-02.png)
+![Agent GUI - General view](images/agent-gui/agent-gui-01.png)
 
-![Agent GUI - detail view](images/agent-gui/agent-gui-03.png)
+**App-V view**
 
-![Agent GUI - additional view](images/agent-gui/agent-gui-04.png)
+![Agent GUI - App-V view](images/agent-gui/agent-gui-02.png)
+
+**MSIX view**
+
+![Agent GUI - MSIX view](images/agent-gui/agent-gui-03.png)
+
+**App Mask view**
+
+![Agent GUI - App Mask view](images/agent-gui/agent-gui-04.png)
 
 ---
 
@@ -33,7 +41,7 @@ You can export these settings to a registry file to import on other machines. Th
 
 ---
 
-## AppVentiX Agent GUI shortcut
+## Agent GUI shortcut
 
 By default no shortcut is created for the agent GUI. There is an option available to add this so you can assign this to certain users.
 Typically not all users need this.
