@@ -23,7 +23,7 @@ Example screenshots of the Agent GUI:
 
 The AppVentiX agent is configured centrally in the Central View console. There are a couple of settings you can configure when you click on the **Configure Service** button:
 
-In the agent configuration you can change/update the configuration store. You can also provide a user account which the service will use to access the configuration store and content share(s). By default the service will use integrated authentication.
+In the agent configuration you can change/update the configuration store. You can also provide a user account which the service will use to access the configuration store and content store(s). By default the service will use integrated authentication.
 
 **Debug mode** will log more information to the event log for troubleshooting purposes. Make sure to disable this option after troubleshooting.
 
@@ -33,16 +33,39 @@ You can export these settings to a registry file to import on other machines. Th
 
 ---
 
-## Refresh Shortcut
+## AppVentiX Agent GUI shortcut
 
-The following shortcut is placed in the Start menu. The user can click on this refresh shortcut to execute a refresh:
+By default no shortcut is created for the agent GUI. There is an option available to add this so you can assign this to certain users.
+Typically not all users need this.
 
-![Refresh Workspace shortcut](images/agent-gui/agent-gui-05.jpg)
+To add, you can retrieve the package from the AppVentix Store.
+This can be done via the **Applications** tab or the **Packages** tab.
 
-A refresh progress notification will be displayed:
+Click The **AppVentiX Store** button in the toolbar.
 
-![Refresh progress](images/agent-gui/agent-gui-06.png)
+![AppVentiX Store](images/agent-gui/agent-gui-08.png)
 
-![Refresh completion](images/agent-gui/agent-gui-07.png)
+Select the **AppVentiXAgentGUI..._x64.msix** package and click the **Import selected packages** button.
 
-This refresh updates applications, App Masking rules, App Control policies, and user settings.
+![click the Import selected packages button](images/agent-gui/agent-gui-09.png)
+
+Click **Close**.
+
+![Click Close](images/agent-gui/agent-gui-10.png)
+
+On the **Packages** tab, find the **AppVentiXAgentGUI** package and click the **Publish** button to publish the application.
+
+![Publish package](images/agent-gui/agent-gui-11.png)
+
+Choose a group to publish the Package to and when finished click **Save publishing task**.
+
+![Select Users and Publish](images/agent-gui/agent-gui-12.png)
+
+Click **Close**.
+
+![Click Close](images/agent-gui/agent-gui-13.png)
+
+When an entitled user logs in, the Agent GUI shortcut will be available.
+
+![Agent GUI shortcut](images/agent-gui/agent-gui-14.png)
+

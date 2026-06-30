@@ -1,6 +1,6 @@
 # Manage Content and Publishing Tasks
 
-The Manage Content page allows you to inventory the content share(s) and manage the central configuration. Click on the eye icon next to the content share to inventory the share, or click the **Refresh Content** button in the top ribbon. Here you will find a lot of information about the packages. Do not forget to select the **Show All/Hidden Columns** checkbox to see even more information, like package size.
+The Manage Content page allows you to inventory the content store(s) and manage the central configuration. Click on the eye icon next to the content store to inventory the share, or click the **Refresh Content** button in the top ribbon. Here you will find a lot of information about the packages. Do not forget to select the **Show All/Hidden Columns** checkbox to see even more information, like package size.
 
 Double-click on a package (or select the package and click on the **Configure Package** button in the selected item actions ribbon menu) to open the package options.
 

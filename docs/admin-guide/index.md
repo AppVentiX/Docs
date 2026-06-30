@@ -2,38 +2,40 @@
 
 AppVentiX works with a lightweight agent running on the same machine as the App-V and MSIX (app attach) client (part of Windows). This can either be a virtual machine (Microsoft RDS/AVD Hostpool/Windows365, Citrix VDI (PVS/MCS), VMware Horizon, etc) or physical machine (PC or Laptop). The agent can be pushed from the Central View console or easily installed silently.
 
-The Central View console can be installed on any management machine and does not need any (SQL) back-end. AppVentiX only requires a file share. A wide range of file share types are supported: Windows file shares (direct or DFS), Azure file shares (domain integrated and stand-alone), Nutanix and NetApp file shares, and QUIC shares accessed over port 443. The AppVentiX solution is easy to implement and will give you complete control and insight in under 10 minutes.
-
+The Central View console can be installed on any machine and does not need any (SQL) back-end. AppVentiX only requires a file share or an Azure storage blob for the configuration. A wide range of file share types are supported: Windows file shares (direct or DFS), Azure file shares (domain integrated and stand-alone), Azure Storage Blob, Nutanix and NetApp file shares, and QUIC shares accessed over port 443.
 ---
 
 ## Architecture
 
 | Topic | Description |
 |-------|-------------|
-| [Technical Architecture](architecture.md) | System topology diagram and overview of all AppVentiX components |
+| [Technical Architecture](technical-architecture.md) | System topology diagram and overview of all AppVentiX components |
 
 ---
 
-## Central View Configuration
+## AppVentiX Central View
 
 | Topic | Description |
 |-------|-------------|
 | [Quick Start](../quickstart/index.md) | Get up and running with AppVentiX in minutes |
+| [Central View Console](central-view.md) | Machine Groups, Manage Machines, and console overview |
 | [Supported Operating Systems](supported-os.md) | Supported OS versions for agent and Central View |
+| [Agent Settings](agent-settings.md) | All agent settings explained per category |
+| [Machine Groups](machine-groups.md) | Configure Machine Groups |
+| [Manage Machines](manage-machines.md) | Adding, organizing, and managing machines in machine groups |
 | [Azure Blob Storage Configuration](../admin-guide/azure-blob-storage.md) | Setup a Azure Blob Storage automatically or manually |
-| [Limit Access to Central View](access-control.md) | RBAC roles and share-based access |
 | [Upgrading AppVentiX](supported-os.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
+| [PowerShell Module](powershell-module.md) | The AppVentiX PowerShell module |
 ---
 
-## AppVentiX Components
+## AppVentiX Agent
 
 | Topic | Description |
 |-------|-------------|
+| [Agent](agent.md) | What is the AppVentiX Agent |
 | [Agent Service](agent-service.md) | The AppVentiX Agent Service, event log, and refresh cycle |
 | [Agent GUI](agent-gui.md) | The AppVentiX Agent GUI and Refresh Shortcut |
-| [Central View Console](central-view.md) | Machine Groups, Manage Machines, and console overview |
-| [Machine Group Agent Settings](agent-settings.md) | All agent settings explained per category |
-| [Manage Machines](manage-machines.md) | Adding, organizing, and managing machines in machine groups |
+| [Refresh shortcut](agent-refresh-shortcut.md) | Refresh settings in your session |
 
 ---
 
@@ -41,7 +43,7 @@ The Central View console can be installed on any management machine and does not
 
 | Topic | Description |
 |-------|-------------|
-| [Manage Content and Publishing Tasks](manage-content.md) | Content shares, publishing tasks, package options |
+| [Manage Content and Publishing Tasks](manage-content.md) | content stores, publishing tasks, package options |
 | [MSIX and MSIX App Attach](msix.md) | MSIX delivery, shared containers, app attach |
 | [MSIX Certificate Management](msix-certificates.md) | Certificate deployment and management |
 | [Application Overview](application-overview.md) | Package management, import from Microsoft Store |
@@ -66,6 +68,7 @@ The Central View console can be installed on any management machine and does not
 |-------|-------------|
 | [Configuring User Settings](user-settings-general.md) | Introduction and how to enable User Settings for a machine group |
 | [User Settings Reference](user-settings-detailed.md) | Detailed configuration of each User Setting type |
+| [User Settings Filters](user-settings-filters.md) | Create Fiters you can use for scoping User Settings |
 
 ---
 

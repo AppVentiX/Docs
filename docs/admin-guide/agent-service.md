@@ -14,7 +14,7 @@ The AppVentiX Agent event log can be found directly under **Applications and Ser
 
 You can open the event log very easily from the Agent GUI with the **Open Agent log** button.
 
-![Open agent log from GUI](images/agent-service/agent-service-02.jpg)
+![Open agent log from GUI](images/agent-service/agent-service-04.png)
 
 You can also inventory the log remotely from the Central View console by clicking on the log icon next to a machine.
 
@@ -26,7 +26,7 @@ The agent service is event-driven and the actions can be configured with Agent S
 
 ## The Refresh Cycle
 
-The refresh cycle handles the deployment of new packages by comparing which ones are already present in the cache with the ones on the content share(s). New packages will be cached when the pre-cache option is enabled for the content share. The refresh cycle runs at machine startup and while the machine is running it can be triggered in multiple ways:
+The refresh cycle handles the deployment of new packages by comparing which ones are already present in the cache with the ones on the content store(s). New packages will be cached when the pre-cache option is enabled for the content store. The refresh cycle runs at machine startup and while the machine is running it can be triggered in multiple ways:
 
 - Through a configurable timer (in the Agent Settings)
 - Manually on the machine through the AppVentiX Agent GUI (Run Refresh cycle button)
@@ -36,14 +36,14 @@ The refresh cycle handles the deployment of new packages by comparing which ones
 
 You can recognize the Refresh Cycle by the blue circle:
 
-![Refresh cycle blue circle](images/agent-service/agent-service-04.png)
+![Refresh cycle blue circle](images/agent-service/agent-service-02.jpg)
 
 In Central View you can invoke the refresh cycle for a single machine (blue circle next to the machine) or for the whole machine group (machine group actions).
 
 ### What the Refresh Cycle Does
 
-1. Pre-cache packages from content shares (only when pre-cache is enabled for the content share) (App-V and MSIX)
-2. Remove packages from the cache that are no longer on one of the configured content shares (when this setting is enabled in the agent settings). This setting is enabled by default. (App-V and MSIX)
+1. Pre-cache packages from content stores (only when pre-cache is enabled for the content store) (App-V and MSIX)
+2. Remove packages from the cache that are no longer on one of the configured content stores (when this setting is enabled in the agent settings). This setting is enabled by default. (App-V and MSIX)
 3. Execute global publishing tasks (App-V only)
 4. Execute user publishing tasks for currently logged-in users (App-V and MSIX), deploy App Masking rules, App Control policies, and refresh user settings
 
@@ -54,7 +54,7 @@ The following PowerShell commands can be used to initiate the refresh cycle, for
 | Action | PowerShell Command |
 |--------|-------------------|
 | Refresh both cache and user publishing tasks (default) | `(Get-Service 'AppVentiXService').ExecuteCommand(252)` |
-| Refresh only cache: balance cache to remove old packages, pre-cache packages when enabled for a content share, process package drain tasks | `(Get-Service 'AppVentiXService').ExecuteCommand(242)` |
+| Refresh only cache: balance cache to remove old packages, pre-cache packages when enabled for a content store, process package drain tasks | `(Get-Service 'AppVentiXService').ExecuteCommand(242)` |
 | Refresh only user publishing tasks for currently logged-in users and refresh global publishing tasks (App-V) | `(Get-Service 'AppVentiXService').ExecuteCommand(241)` |
 
 ![Refresh cycle in Central View](images/agent-service/agent-service-05.png)

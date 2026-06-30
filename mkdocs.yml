@@ -93,31 +93,37 @@ nav:
     - (Optional) Optimize the Workspace: quickstart/optimization-script.md
   - Admin Guide:
     - admin-guide/index.md
-    - Technical Architecture: admin-guide/architecture.md
-    - Central View Configuration:
-      - Azure Blob Storage Configuration: admin-guide/azure-blob-storage.md
-      - Limit Access to Central View: admin-guide/access-control.md
-      - Supported Operating Systems: admin-guide/supported-os.md
-    - AppVentiX Components:
-      - Agent Service: admin-guide/agent-service.md
-      - Agent GUI: admin-guide/agent-gui.md
+    - Architecture:
+      - Technical Architecture: admin-guide/technical-architecture.md
+    - AppVentiX Central View:
       - Central View Console: admin-guide/central-view.md
+      - Supported Operating Systems: admin-guide/supported-os.md
+      - Machine Groups: admin-guide/machine-groups.md
       - Machine Group Agent Settings: admin-guide/agent-settings.md
       - Manage Machines: admin-guide/manage-machines.md
+      - Azure Blob Storage Configuration: admin-guide/azure-blob-storage.md
+      - PowerShell Module: admin-guide/powershell-module.md
+    - AppVentiX Agent:
+      - Agent: admin-guide/agent.md
+      - Agent Service: admin-guide/agent-service.md
+      - Agent GUI: admin-guide/agent-gui.md
+      - Refresh shortcut: admin-guide/agent-refresh-shortcut.md
     - Package Management:
       - Manage Content and Publishing Tasks: admin-guide/manage-content.md
       - MSIX and MSIX App Attach: admin-guide/msix.md
       - MSIX Certificate Management: admin-guide/msix-certificates.md
       - Application Overview: admin-guide/application-overview.md
       - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
+    - User Settings:
+      - Configuring User Settings: admin-guide/user-settings-general.md
+      - User Settings Reference: admin-guide/user-settings-detailed.md
+      - User Settings Filters: admin-guide/user-settings-filters.md
     - Security and Access Control:
+      - Limit Access to Central View: admin-guide/access-control.md
       - FSLogix App Masking: admin-guide/app-masking.md
       - App Control (WDAC): admin-guide/app-control.md
       - App Control Signing Certificate: admin-guide/app-control-create-certificate.md
       - Audit Trail: admin-guide/audit-trail.md
-    - User Settings:
-      - Configuring User Settings: admin-guide/user-settings-general.md
-      - User Settings Reference: admin-guide/user-settings-detailed.md
     - Integrations:
       - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop.md
       - Azure AD / Entra ID: admin-guide/entra-id.md

@@ -130,7 +130,7 @@ Open the **App Control** tab and click **Create new policy**.
 
 Choose a **Rule Type** (Publisher, File or Path, File Attributes, File Hash, Certificate, or Folder Scan).
 
-For a packaged app (for example an MSIX application) it is easiest to add it with the Publisher method. Select **Publisher** from the **Rule Type** list, then select a reference file (`.exe`, `.dll`, or `.sys`). For a packaged app, select **Select a Publisher from the Package Content**. This list shows all unique publishers extracted from signed packages on the content shares.
+For a packaged app (for example an MSIX application) it is easiest to add it with the Publisher method. Select **Publisher** from the **Rule Type** list, then select a reference file (`.exe`, `.dll`, or `.sys`). For a packaged app, select **Select a Publisher from the Package Content**. This list shows all unique publishers extracted from signed packages on the content stores.
 
 ![Select a Publisher from the package content](images/app-control/app-control-10.png)
 

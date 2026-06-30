@@ -6,7 +6,7 @@ The following roles can be assigned to users or groups:
 
 ![RBAC roles overview](images/access-control/access-control-01.png)
 
-Below is a typical integrated authentication configuration for accessing the configuration and content shares.
+Below is a typical integrated authentication configuration for accessing the configuration and content stores.
 
 ---
 

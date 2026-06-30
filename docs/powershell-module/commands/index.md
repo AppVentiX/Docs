@@ -38,9 +38,9 @@ Commands for managing App-V and MSIX packages:
 
 | Command | Description |
 |---------|-------------|
-| [Add-AppVentiXPackage](Add-AppVentiXPackage.md) | Adds an App-V or MSIX package to an AppVentiX machine group content share |
-| [Get-AppVentiXContentSharePackages](Get-AppVentiXContentSharePackages.md) | Retrieves packages from the AppVentiX content shares |
-| [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md) | Creates a new App-V Connection Group XML file (.appg) from specified App-V packages and saves it to a content share |
+| [Add-AppVentiXPackage](Add-AppVentiXPackage.md) | Adds an App-V or MSIX package to an AppVentiX machine group content store |
+| [Get-AppVentiXContentSharePackages](Get-AppVentiXContentSharePackages.md) | Retrieves packages from the AppVentiX content stores |
+| [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md) | Creates a new App-V Connection Group XML file (.appg) from specified App-V packages and saves it to a content store |
 
 ## Publishing Task Commands
 

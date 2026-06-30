@@ -50,8 +50,8 @@ This deployment mode gives you the best of both worlds in large VDI deployments:
 
 - Keep the cache on the default location
 - Enable the detect image state option and configure to load all packages in the cache in private mode
-- Place all MSIX packages on a content share with the pre-cache option enabled
-- Place MSIX App Attach packages on a content share with pre-cache disabled
+- Place all MSIX packages on a content store with the pre-cache option enabled
+- Place MSIX App Attach packages on a content store with pre-cache disabled
 
 In this deployment mode, when the image is booted in private mode (during Windows update or build update), all the latest MSIX packages will be loaded in the cache automatically. An event will be logged when the pre-cache operation is done.
 
@@ -65,7 +65,7 @@ This deployment mode gives you the best of both worlds in large VDI deployments:
 - Do not clean the cache at machine reboot
 - Configure the AppVentiX agent to remove packages that are no longer on the source share (keep cache in balance with source). This is enabled by default.
 - You can use a combination of normal MSIX deployment and MSIX App Attach:
-  - Use normal MSIX delivery to have less pressure on the content share (packages are loaded in the cache and published from there to users). Also when the share goes down there is less downtime (App Attach needs constant availability to the content share). Because packages are published from the local cache of the machine, the application might work faster.
+  - Use normal MSIX delivery to have less pressure on the content store (packages are loaded in the cache and published from there to users). Also when the share goes down there is less downtime (App Attach needs constant availability to the content store). Because packages are published from the local cache of the machine, the application might work faster.
   - Use App Attach to save disk space on the machines and speed up the registration of bigger packages (the package does not have to be loaded on the machine; package data will be accessed over the network through the attached disk).
 
 ---

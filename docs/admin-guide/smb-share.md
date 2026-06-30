@@ -14,8 +14,8 @@ With integrated authentication the Central View console will access the share(s)
 With integrated authentication the Agent will access the share(s) with the computer account.
 File permissions needed for this option (make sure to verify both share and file permissions):
 
-- **User group** performing management in Central View: **Read\Write** permissions on configurations share and content share(s)
-- **Domain Computers group** (or group containing the machine accounts): **Read** permissions on configuration store and content share(s)
+- **User group** performing management in Central View: **Read\Write** permissions on configurations share and content store(s)
+- **Domain Computers group** (or group containing the machine accounts): **Read** permissions on configuration store and content store(s)
 - **Domain Computers group** (or group containing the machine accounts): **Read\Write** permissions in inventory folder on configuration store
 
 > **Tip**: You can configure another inventory share in the agent settings for the machine group
@@ -26,8 +26,8 @@ When an account is configured in the Central View console, the account will be u
 When an account is configured in the Agent the account will be used to access the share(s).
 Share permissions needed for this option:
 
-- **Configured account** in Central View: **Read\write** permissions on configuration store and content share(s)
-- **Configured account** in the Agent: **Read** permissions on configuration store and content share(s)
+- **Configured account** in Central View: **Read\write** permissions on configuration store and content store(s)
+- **Configured account** in the Agent: **Read** permissions on configuration store and content store(s)
 - **Configured account** in the Agent: **Read\Write** permissions in inventory folder on configuration store
 
 > **Tip**: You can silently install the agent to use the same account.
@@ -94,17 +94,17 @@ Configure the account as follows:
 
 ---
 
-## Create a Content Share
+## Create a content store
 
-Create a content share (for example `\\yourdomain.local\appventix\content`). This share will be used to store the packages. You can also create a folder on the same share as the configuration store created in Step 1. The share permissions are the same as in Step 1.
+Create a content store (for example `\\yourdomain.local\appventix\content`). This share will be used to store the packages. You can also create a folder on the same share as the configuration store created in Step 1. The share permissions are the same as in Step 1.
 
-For integrated authentication (default), configure the following permissions for the content share:
+For integrated authentication (default), configure the following permissions for the content store:
 
 - **Domain computers group**: Read permissions on the share
 - **Central View Admins** (a group with users that performs the management): Read/Write permissions
 
 When using a (service) account, you can use the permissions from the description in Step 1.
 
-![Content share configuration](images/smb-share/smb-share-02.png)
+![content store configuration](images/smb-share/smb-share-02.png)
 
 

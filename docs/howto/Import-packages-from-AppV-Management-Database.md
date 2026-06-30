@@ -9,7 +9,7 @@ Before you begin, ensure you have:
 - AppVentiX PowerShell module installed and configured
 - Network access to the SQL Server hosting the App-V Management database
 - Appropriate permissions to read from the App-V Management database
-- Content shares already configured in AppVentiX (Machine Groups) that match your App-V package locations
+- content stores already configured in AppVentiX (Machine Groups) that match your App-V package locations
 
 ## Step 1: Verify AppVentiX Configuration
 
@@ -97,7 +97,7 @@ This opens a dialog where you can select specific packages to import:
 
 ### Option C: Import with Machine Group Matching
 
-To automatically assign packages to the correct machine groups based on their content share location and with explicit SQL credentials:
+To automatically assign packages to the correct machine groups based on their content store location and with explicit SQL credentials:
 
 ```powershell
 $SQLCredential = Get-Credential -Message "Enter SQL Server credentials"
@@ -144,11 +144,11 @@ On the tab "Packages" click "All Publishing Tasks" to see all, including the new
 
 ## Common Issues and Solutions
 
-### Issue: Package not found in content share
+### Issue: Package not found in content store
 
 **Symptom:** Import reports that a package cannot be found.
 
-**Solution:** Ensure the content share path is accessible and the package files exist at the expected location. Verify the content share is configured in AppVentiX.
+**Solution:** Ensure the content store path is accessible and the package files exist at the expected location. Verify the content store is configured in AppVentiX.
 
 ### Issue: Authentication failed
 
@@ -169,7 +169,7 @@ On the tab "Packages" click "All Publishing Tasks" to see all, including the new
 ## Best Practices
 
 1. **Test First:** Always use the `-GUI` parameter initially to review which packages will be imported
-2. **Verify Content Shares:** Ensure all content shares are configured in AppVentiX before importing
+2. **Verify content stores:** Ensure all content stores are configured in AppVentiX before importing
 3. **Import in Batches:** For large environments, consider importing packages in smaller batches
 
 ## Next Steps
