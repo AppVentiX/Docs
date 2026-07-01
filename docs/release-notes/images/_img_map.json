@@ -1,0 +1,119 @@
+{
+  "5-0": {
+    "https://appventix.com/wp-content/uploads/2026/01/Buddies-rafiki-500x500.png": "release-5-0-26-01.png",
+    "https://appventix.com/wp-content/uploads/2026/01/New-Functions-rafiki-500x500.png": "release-5-0-26-02.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Working-rafiki-500x500.png": "release-5-0-26-03.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Website-Creator-rafiki-500x500.png": "release-5-0-26-04.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Usersettings-1.png": "release-5-0-26-05.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Externaltasks.png": "release-5-0-26-06.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Drivemappings.png": "release-5-0-26-07.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Printermappings.png": "release-5-0-26-08.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Registrykeys.png": "release-5-0-26-09.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Grouppolicies.png": "release-5-0-26-10.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Embeddedscripts.png": "release-5-0-26-11.png",
+    "https://appventix.com/wp-content/uploads/2026/01/CreateShortcut.png": "release-5-0-26-12.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Shortcutinstartmenu.png": "release-5-0-26-13.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AppControl.png": "release-5-0-26-14.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AppControlPublisherRule.png": "release-5-0-26-15.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AppcontrolAuditEvents.png": "release-5-0-26-16.png",
+    "https://appventix.com/wp-content/uploads/2026/01/App-Control-Block-popup-1.png": "release-5-0-26-17.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AppcontrolBlockEvent.png": "release-5-0-26-18.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AppMask-1.png": "release-5-0-26-19.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Devices-pana-500x500.png": "release-5-0-26-20.png",
+    "https://appventix.com/wp-content/uploads/2026/01/RBAC-1.png": "release-5-0-26-21.png",
+    "https://appventix.com/wp-content/uploads/2026/01/AuditTrail.png": "release-5-0-26-22.png",
+    "https://appventix.com/wp-content/uploads/2026/01/WorkspaceRefreshShortcut.png": "release-5-0-26-23.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Workspace-Refresh-1.png": "release-5-0-26-24.png",
+    "https://appventix.com/wp-content/uploads/2026/01/Refresh-at-login-1.png": "release-5-0-26-25.png",
+    "https://appventix.com/wp-content/uploads/2026/01/MachineInventory.png": "release-5-0-26-26.png",
+    "https://appventix.com/wp-content/uploads/2026/01/EventInventory-scaled.png": "release-5-0-26-27.png"
+  },
+  "4-0": {
+    "https://appventix.com/wp-content/uploads/2024/12/Shortcut-Management.jpg": "release-4-0-26-01.jpg",
+    "https://appventix.com/wp-content/uploads/2024/12/1-1.png": "release-4-0-26-02.png",
+    "https://appventix.com/wp-content/uploads/2024/12/Bulk-re-sign-packages.png": "release-4-0-26-03.png",
+    "https://appventix.com/wp-content/uploads/2024/12/Auto-Start.png": "release-4-0-26-04.png",
+    "https://appventix.com/wp-content/uploads/2024/12/Integration-with-TMurgent.png": "release-4-0-26-05.png",
+    "https://appventix.com/wp-content/uploads/2024/12/Progress-Agent-GUI-2.png": "release-4-0-26-06.png",
+    "https://appventix.com/wp-content/uploads/2024/12/Refresh-Application.png": "release-4-0-26-07.png"
+  },
+  "3-7": {
+    "https://appventix.com/wp-content/uploads/2024/01/ContentPage.png": "release-3-7-25-01.png",
+    "https://appventix.com/wp-content/uploads/2024/01/MachineInventory_Dark.png": "release-3-7-25-02.png",
+    "https://appventix.com/wp-content/uploads/2024/01/Content-Dark.png": "release-3-7-25-03.png",
+    "https://appventix.com/wp-content/uploads/2024/01/ImportButtons.png": "release-3-7-25-04.png",
+    "https://appventix.com/wp-content/uploads/2024/01/Publish.png": "release-3-7-25-06.png",
+    "https://appventix.com/wp-content/uploads/2024/01/Import_AppVentiX.png": "release-3-7-25-07.png",
+    "https://appventix.com/wp-content/uploads/2024/01/ApplicationRefresh.png": "release-3-7-25-08.png",
+    "https://appventix.com/wp-content/uploads/2024/01/PowerShellModule.png": "release-3-7-25-09.png",
+    "https://appventix.com/wp-content/uploads/2024/01/autodetach.png": "release-3-7-25-10.png",
+    "https://appventix.com/wp-content/uploads/2024/01/selectivepublishingtasks.png": "release-3-7-25-11.png",
+    "https://appventix.com/wp-content/uploads/2024/01/PackageDrain.png": "release-3-7-25-12.png",
+    "https://appventix.com/wp-content/uploads/2024/01/PackageDetails.png": "release-3-7-25-13.png"
+  },
+  "3-6": {
+    "https://appventix.com/wp-content/uploads/2023/10/AzureADmachines.png": "release-3-6-36-01.png",
+    "https://appventix.com/wp-content/uploads/2023/10/AzureADGroupselection.png": "release-3-6-36-02.png",
+    "https://appventix.com/wp-content/uploads/2023/10/userinventory.png": "release-3-6-36-03.png",
+    "https://appventix.com/wp-content/uploads/2023/10/MachineInventory.png": "release-3-6-36-04.png",
+    "https://appventix.com/wp-content/uploads/2023/10/appvinventory.png": "release-3-6-36-05.png",
+    "https://appventix.com/wp-content/uploads/2023/10/EventInventory.png": "release-3-6-36-06.png",
+    "https://appventix.com/wp-content/uploads/2023/10/share.png": "release-3-6-36-07.png",
+    "https://appventix.com/wp-content/uploads/2023/10/Group_Access.png": "release-3-6-36-08.png",
+    "https://appventix.com/wp-content/uploads/2023/10/AgentVersion.png": "release-3-6-36-09.png",
+    "https://appventix.com/wp-content/uploads/2023/10/silent_install.png": "release-3-6-36-10.png",
+    "https://appventix.com/wp-content/uploads/2023/10/Package-Details.png": "release-3-6-36-11.png"
+  },
+  "3-5": {
+    "https://appventix.com/wp-content/uploads/2023/02/Housekeeping.png": "release-3-5-23-01.png",
+    "https://appventix.com/wp-content/uploads/2023/02/ImportExistingAppAttach.png": "release-3-5-23-02.png",
+    "https://appventix.com/wp-content/uploads/2023/02/ConfigureIcon.png": "release-3-5-23-03.png",
+    "https://appventix.com/wp-content/uploads/2023/02/contentinventory.png": "release-3-5-23-04.png",
+    "https://appventix.com/wp-content/uploads/2023/02/MSIXroaming.png": "release-3-5-23-05.png",
+    "https://appventix.com/wp-content/uploads/2023/02/Agent.png": "release-3-5-23-06.png"
+  },
+  "3-4": {
+    "https://appventix.com/wp-content/uploads/2022/12/PushAgent.png": "release-3-4-32-01.png",
+    "https://appventix.com/wp-content/uploads/2022/12/OUpicker.png": "release-3-4-32-02.png",
+    "https://appventix.com/wp-content/uploads/2022/12/MultiMachine.png": "release-3-4-32-03.png",
+    "https://appventix.com/wp-content/uploads/2022/12/packagesize.png": "release-3-4-32-04.png",
+    "https://appventix.com/wp-content/uploads/2022/12/SeamlessPublish.png": "release-3-4-32-05.png"
+  },
+  "3-3": {
+    "https://appventix.com/wp-content/uploads/2021/12/Content.png": "release-3-3-23-01.png",
+    "https://appventix.com/wp-content/uploads/2021/12/Copy-settings.png": "release-3-3-23-02.png",
+    "https://appventix.com/wp-content/uploads/2021/12/msixbundle.png": "release-3-3-23-03.png",
+    "https://appventix.com/wp-content/uploads/2021/12/upgrade.png": "release-3-3-23-04.png"
+  },
+  "3-2": {
+    "https://appventix.com/wp-content/uploads/2021/07/User-Inventory-1.png": "release-3-2-24-01.png",
+    "https://appventix.com/wp-content/uploads/2021/07/Process_Inventory-1.png": "release-3-2-24-02.png",
+    "https://appventix.com/wp-content/uploads/2021/07/AppMask-Inventory-1.png": "release-3-2-24-03.png",
+    "https://appventix.com/wp-content/uploads/2021/07/Certificate-1.png": "release-3-2-24-04.png",
+    "https://appventix.com/wp-content/uploads/2021/07/Create-Shared-Container-1.png": "release-3-2-24-05.png",
+    "https://appventix.com/wp-content/uploads/2021/07/Agent-MSIX-shared-container-1.png": "release-3-2-24-06.png",
+    "https://appventix.com/wp-content/uploads/2021/07/Content-Inventory-1.png": "release-3-2-24-07.png"
+  },
+  "3-1": {
+    "https://appventix.com/wp-content/uploads/2021/03/Convert_appattach.png": "release-3-1-24-01.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Content-Inventory.png": "release-3-1-24-02.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Machine-Inventory.png": "release-3-1-24-03.png",
+    "https://appventix.com/wp-content/uploads/2021/03/MSIX_agent_settings.png": "release-3-1-24-04.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Seamless_Publish1.png": "release-3-1-24-05.png",
+    "https://appventix.com/wp-content/uploads/2021/03/WVD_Settings.png": "release-3-1-24-06.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Seamless_Publish2.2.png": "release-3-1-24-07.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Remote_App_Overview.png": "release-3-1-24-08.png",
+    "https://appventix.com/wp-content/uploads/2021/03/Content_inventory_actions.png": "release-3-1-24-09.png"
+  },
+  "3-0": {
+    "https://appventix.com/wp-content/uploads/2020/07/Manage-Machine-Groups.png": "release-3-0-27-01.png",
+    "https://appventix.com/wp-content/uploads/2020/07/App-V-Publishing-Task.png": "release-3-0-27-02.png",
+    "https://appventix.com/wp-content/uploads/2020/07/App-V-Package-Options.png": "release-3-0-27-03.png",
+    "https://appventix.com/wp-content/uploads/2020/07/MSIX-Inventory.png": "release-3-0-27-04.png",
+    "https://appventix.com/wp-content/uploads/2020/07/App-V-Inventory.png": "release-3-0-27-05.png",
+    "https://appventix.com/wp-content/uploads/2020/07/Online-filter.png": "release-3-0-27-06.png",
+    "https://appventix.com/wp-content/uploads/2020/07/Agent-GUI-General.png": "release-3-0-27-07.png",
+    "https://appventix.com/wp-content/uploads/2020/07/Agent-GUI-APPV.png": "release-3-0-27-08.png",
+    "https://appventix.com/wp-content/uploads/2020/07/Agent-GUI-MSIX.png": "release-3-0-27-09.png"
+  }
+}

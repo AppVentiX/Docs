@@ -206,4 +206,50 @@ nav:
         - Import-IvantiWCPrinterMapping: powershell-module/commands/Import-IvantiWCPrinterMapping.md
         - Import-IvantiWCRegistry: powershell-module/commands/Import-IvantiWCRegistry.md
         - Import-IvantiWCShortcut: powershell-module/commands/Import-IvantiWCShortcut.md
+  - Release Notes:
+    - release-notes/index.md
+    - AppVentiX 5.2:
+      - "5.2.53": release-notes/appventix-5-2-53.md
+    - AppVentiX 5.1:
+      - "5.1.44": release-notes/appventix-5-1-44.md
+      - "5.1.36": release-notes/appventix-5-1-36.md
+      - "5.1.32": release-notes/appventix-5-1-32.md
+    - AppVentiX 5.0:
+      - "5.0.26": release-notes/appventix-5-0-26.md
+    - AppVentiX 4.1:
+      - "4.1.27": release-notes/appventix-4-1-27.md
+    - AppVentiX 4.0:
+      - "4.0.26": release-notes/appventix-4-0-26.md
+    - AppVentiX 3.8:
+      - "3.8.28": release-notes/appventix-3-8-28.md
+      - "3.8.27": release-notes/appventix-3-8-27.md
+      - "3.8.24": release-notes/appventix-3-8-24.md
+    - AppVentiX 3.7:
+      - "3.7.31": release-notes/appventix-3-7-31.md
+      - "3.7.28": release-notes/appventix-3-7-28.md
+      - "3.7.27": release-notes/appventix-3-7-27.md
+      - "3.7.26": release-notes/appventix-3-7-26.md
+      - "3.7.25": release-notes/appventix-3-7-25.md
+    - AppVentiX 3.6:
+      - "3.6.36": release-notes/appventix-3-6-36.md
+    - AppVentiX 3.5:
+      - "3.5.24": release-notes/appventix-3-5-24.md
+      - "3.5.23": release-notes/appventix-3-5-23.md
+    - AppVentiX 3.4:
+      - "3.4.32": release-notes/appventix-3-4-32.md
+    - AppVentiX 3.3:
+      - "3.3.29": release-notes/appventix-3-3-29.md
+      - "3.3.28": release-notes/appventix-3-3-28.md
+      - "3.3.23": release-notes/appventix-3-3-23.md
+    - AppVentiX 3.2:
+      - "3.2.24": release-notes/appventix-3-2-24.md
+    - AppVentiX 3.1:
+      - "3.1.27": release-notes/appventix-3-1-27.md
+      - "3.1.26": release-notes/appventix-3-1-26.md
+      - "3.1.25": release-notes/appventix-3-1-25.md
+      - "3.1.24": release-notes/appventix-3-1-24.md
+    - AppVentiX 3.0:
+      - "3.0.29": release-notes/appventix-3-0-29.md
+      - "3.0.28": release-notes/appventix-3-0-28.md
+      - "3.0.27": release-notes/appventix-3-0-27.md
   - Support: support.md
