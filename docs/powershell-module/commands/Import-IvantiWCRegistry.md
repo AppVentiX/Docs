@@ -1,88 +1,153 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Import-IvantiWCRegistry
+---
+
 # Import-IvantiWCRegistry
+
+## SYNOPSIS
 
 Imports registry settings from Ivanti Workspace Control XML configuration into AppVentiX.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Import-IvantiWCRegistry
-    -XmlFilePath <String>
-    [-MachineGroupFriendlyName <String>]
-    [-GUI]
-    [<CommonParameters>]
+### __AllParameterSets
+
+```
+Import-IvantiWCRegistry [-XmlFilePath] <string> [[-MachineGroupFriendlyName] <string>]
+ [[-ConfigShare] <string>] [-GUI] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Import-IvantiWCRegistry` function extracts registry setting definitions from an Ivanti Workspace Control XML file and creates corresponding AppVentiX UserSetting XML files. It processes Active Directory group assignments and places imported items in the 'Migrated User Settings' folder.
+This cmdlet has the following aliases,
 
-The function optionally presents a GUI for selective import.
+## DESCRIPTION
 
-## Parameters
+Extracts registry setting definitions from an Ivanti WC XML file and creates corresponding
+AppVentiX UserSetting XML files.
+Optionally presents a GUI for selective import.
+Processes Active Directory group assignments and places imported items in the
+'Migrated User Settings' folder.
+
+## EXAMPLES
+
+## PARAMETERS
+
+### -ConfigShare
+
+Path to the AppVentiX config share.
+Defaults to the module variable.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -GUI
+
+When specified, displays a graphical selection grid for interactive selection.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -MachineGroupFriendlyName
+
+Friendly name of the machine group to assign the imported settings to.
+Defaults to 'All Machine Groups'.
+
+```yaml
+Type: System.String
+DefaultValue: All Machine Groups
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -XmlFilePath
 
 Path to the Ivanti Workspace Control XML configuration file.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-Friendly name of the machine group to assign the imported settings to.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -GUI
-
-When specified, displays a graphical selection grid for interactive selection of which registry entries to import.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Import all registry settings
-
-```powershell
-Import-IvantiWCRegistry -XmlFilePath "C:\Config\IvantiBB.xml"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Imports all registry settings from the Ivanti XML file into AppVentiX.
+### CommonParameters
 
-### Example 2: Import with GUI selection and specific machine group
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Import-IvantiWCRegistry -XmlFilePath "C:\Config\IvantiBB.xml" -MachineGroupFriendlyName "Production" -GUI
-```
+## INPUTS
 
-Opens a GUI for selective import and assigns registry settings to the Production machine group.
+## OUTPUTS
 
-## Notes
+## NOTES
 
-- Requires a valid AppVentiX license
-- User-type assignments are skipped; only group assignments are processed
-- Imported settings are automatically placed in the 'Migrated User Settings' folder
+Function  : Import-IvantiWCRegistry
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
 
-## Related Links
+
+## RELATED LINKS
 
 - [Get-IvantiWCRegistry](Get-IvantiWCRegistry.md)
-- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
-- [Import-IvantiWCPolicy](Import-IvantiWCPolicy.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

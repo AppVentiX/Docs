@@ -1,183 +1,383 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXShortcutUserSetting
+---
+
 # New-AppVentiXShortcutUserSetting
 
-Creates a new AppVentiX shortcut user setting XML file.
+## SYNOPSIS
 
-## Syntax
+Creates an AppVentiX UserSetting XML file for a Shortcuts configuration.
 
-```powershell
-# Parameter Set: ShortcutEntries
-New-AppVentiXShortcutUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -ShortcutEntries <PSCustomObject[]>
-    [-IconFile <String>]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: InputObject
-New-AppVentiXShortcutUserSetting
-    -InputObject <PSCustomObject>
-    [<CommonParameters>]
+### InputObject
+
+```
+New-AppVentiXShortcutUserSetting -InputObject <psobject> [-FriendlyName <string>]
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>] [-IconFile <string>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### ShortcutEntries
 
-The `New-AppVentiXShortcutUserSetting` function creates a new AppVentiX user setting XML file that defines one or more desktop or Start Menu shortcuts for users. The function can be called with individual parameters or by passing a pre-constructed PSCustomObject via `InputObject`.
+```
+New-AppVentiXShortcutUserSetting -FriendlyName <string> -ShortcutEntries <hashtable[]>
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>] [-IconFile <string>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
 
-This function has the alias `New-AppVentiXShortcut`.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
 
-### -FriendlyName
+## DESCRIPTION
 
-The display name for the shortcut user setting.
+Builds and saves an AppVentiX UserSetting XML file that defines one or more shortcuts,
+including executable path, arguments, working directory, desktop placement, and icon data.
+Supports two input modes:
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+- ShortcutEntries mode: accepts an array of hashtables describing individual shortcut entries.
+- InputObject mode: accepts a pre-structured PSCustomObject (e.g.
+from Get-IvantiWCShortcut),
+  which includes shortcut metadata and icon data (base64) ready for direct use.
+
+Icon data handling:
+- If the InputObject or ShortcutEntry already contains base64 icon data, it is used as-is.
+- If icon data is absent and an IconFile path is provided, the function generates all icon
+  sizes (16, 32, 48, 256 and default 32) from that file.
+- If neither is available, a warning is issued and icon fields are left empty.
+
+## EXAMPLES
+
+## PARAMETERS
+
+### -ConfigShare
+
+Path to the AppVentiX config share.
+Defaults to the module variable.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Description
 
-An optional description for the shortcut user setting.
+Optional description for the UserSetting.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ExecutionOrder
 
-The execution order for this user setting relative to others.
+Execution order for the UserSetting.
+Defaults to 0.
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -ProcessAtLogin
+### -FriendlyName
 
-When specified, the shortcuts are processed at user login.
+Display name for the AppVentiX UserSetting.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtRefresh
-
-When specified, the shortcuts are processed at refresh.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtReconnectAndUnlock
-
-When specified, the shortcuts are processed at reconnect and unlock.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-The friendly name of the machine group to associate with this user setting.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ShortcutEntries
-
-An array of PSCustomObject items, each representing a shortcut to create. Each object should describe the shortcut target, name, location, and other properties.
-
-| | |
-|---|---|
-| Type: | PSCustomObject[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -IconFile
 
-The path to a custom icon file (.ico) to use for the shortcuts.
+Path to a PNG, ICO, or EXE file used as icon source when icon data is absent in the entries.
+The function will generate all required icon sizes from this file.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -InputObject
 
-A PSCustomObject containing all shortcut properties. Used when piping output from `Get-IvantiWCApplication` or similar functions.
+Pre-structured PSCustomObject containing shortcut metadata and entries.
 
-| | |
-|---|---|
-| Type: | PSCustomObject |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a shortcut user setting
-
-```powershell
-$shortcuts = @(
-    [PSCustomObject]@{
-        Name = "My Application"
-        Target = "C:\Program Files\MyApp\MyApp.exe"
-        Location = "Desktop"
-        WorkingDirectory = "C:\Program Files\MyApp"
-    }
-)
-New-AppVentiXShortcutUserSetting -FriendlyName "MyApp Shortcuts" -ShortcutEntries $shortcuts -ProcessAtLogin
+```yaml
+Type: System.Management.Automation.PSObject
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a shortcut user setting that places a desktop shortcut at user login.
+### -MachineGroupFriendlyName
 
-## Notes
+One or more machine group friendly names to apply the setting to.
+Defaults to 'All Machine Groups'.
 
-- Requires a valid AppVentiX license
-- This function has the alias `New-AppVentiXShortcut`
+```yaml
+Type: System.String[]
+DefaultValue: '@("All Machine Groups")'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -ProcessAtLogin
 
-- [Get-IvantiWCApplication](Get-IvantiWCApplication.md)
-- [Import-IvantiWCShortcut](Import-IvantiWCShortcut.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+Whether the setting is applied at login.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtReconnectAndUnlock
+
+Whether the setting is applied at reconnect and unlock.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtRefresh
+
+Whether the setting is applied at refresh.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ShortcutEntries
+
+Array of hashtables describing shortcut entries.
+Each entry must contain: ShortcutName, ExecutablePath.
+Optional keys: Arguments, WorkingDirectory, PlaceOnDesktop, IconData, IconData16, IconData32,
+IconData48, IconData256, IconFile.
+
+```yaml
+Type: System.Collections.Hashtable[]
+DefaultValue: '@()'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : New-AppVentiXShortcutUserSetting
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
+
+
+## RELATED LINKS
+
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
+- [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
+- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

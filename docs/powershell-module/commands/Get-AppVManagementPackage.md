@@ -1,204 +1,384 @@
+---
+category: migration-appv
+category_title: App-V Management Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVManagementPackage
+---
+
 # Get-AppVManagementPackage
+
+## SYNOPSIS
 
 Retrieves App-V packages with AD access entitlements from the Microsoft App-V Management database.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AppVManagementPackage
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    [-EnabledOnly]
-    [<CommonParameters>]
+### All (Default)
 
-Get-AppVManagementPackage
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    -PackageGuid <Guid>
-    [-EnabledOnly]
-    [<CommonParameters>]
-
-Get-AppVManagementPackage
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    -VersionGuid <Guid>
-    [<CommonParameters>]
-
-Get-AppVManagementPackage
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    -Name <String>
-    [-EnabledOnly]
-    [<CommonParameters>]
+```
+Get-AppVManagementPackage [-SQLServer <string>] [-SQLInstance <string>] [-SQLDatabase <string>]
+ [-SQLCredential <pscredential>] [-EnabledOnly] [<CommonParameters>]
 ```
 
-## Description
+### ByName
 
-The `Get-AppVManagementPackage` function queries the App-V Management database to retrieve complete package information including package metadata, version details, and AD entitlements.
+```
+Get-AppVManagementPackage -Name <string> [-SQLServer <string>] [-SQLInstance <string>]
+ [-SQLDatabase <string>] [-SQLCredential <pscredential>] [-EnabledOnly] [<CommonParameters>]
+```
+
+### ByVersionGuid
+
+```
+Get-AppVManagementPackage -VersionGuid <guid> [-SQLServer <string>] [-SQLInstance <string>]
+ [-SQLDatabase <string>] [-SQLCredential <pscredential>] [<CommonParameters>]
+```
+
+### ByPackageGuid
+
+```
+Get-AppVManagementPackage -PackageGuid <guid> [-SQLServer <string>] [-SQLInstance <string>]
+ [-SQLDatabase <string>] [-SQLCredential <pscredential>] [-EnabledOnly] [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Get-AppVManagementPackage function queries the App-V Management database
+to retrieve complete package information including package metadata, version details,
+applications, shortcuts, file type associations, and AD entitlements.
 
 Each package includes:
-- **DeploymentConfigurationXml**: Global deployment configuration (one per package)
-- **ADGroups**: Array of AD entitlements, each with:
+- DeploymentConfigurationXml: Global deployment configuration (one per package)
+- ADGroups: Array of AD entitlements, each with:
   - UserConfigurationXml: The AD group's specific user configuration (if any)
-  - DeploymentConfigurationXml: Combined deployment config where the UserConfiguration element from the global deployment config is replaced with this AD group's UserConfiguration (if available)
+  - DeploymentConfigurationXml: Combined deployment config where the UserConfiguration
+    element from the global deployment config is replaced with this AD group's
+    UserConfiguration (if UserConfigurationXml exists for the group)
 
-## Parameters
+## EXAMPLES
 
-### -SQLServer
+### EXAMPLE 1
 
-Specifies the SQL Server hostname or IP address.
+Get-AppVManagementPackage -SQLServer "sql01.domain.local"
+Retrieves all packages with their AD entitlements from the App-V Management database.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | localhost |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 2
 
-### -SQLInstance
+$cred = Get-Credential
+Get-AppVManagementPackage -SQLServer "sql01.domain.local" -SQLCredential $cred
+Retrieves all packages using SQL Server authentication.
 
-Specifies the SQL Server instance name. If not specified, the default instance will be used.
+### EXAMPLE 3
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None (default instance) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Get-AppVManagementPackage -SQLServer "SQLSRV01" -SQLInstance "INSTANCE01" -EnabledOnly
+Retrieves only enabled packages from a named SQL Server instance.
 
-### -SQLDatabase
+### EXAMPLE 4
 
-Specifies the App-V Management database name.
+Get-AppVManagementPackage -SQLServer "SQLSRV01" -Name "Adobe*"
+Retrieves all packages with names starting with "Adobe".
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | AppVManagement |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 5
 
-### -SQLCredential
+Get-AppVManagementPackage -SQLServer "SQLSRV01" -PackageGuid "FB4267F4-6B2B-45E1-A55B-0FE9C69A3DC2"
+Retrieves all versions of a specific package by PackageGuid with AD entitlements.
 
-Specifies the PSCredential object for SQL Server authentication. If not specified, Windows Integrated Authentication will be used.
-
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None (Windows Authentication) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -PackageGuid
-
-Retrieves a specific package by its PackageGuid. This can be used to get all versions of a specific package.
-
-| | |
-|---|---|
-| Type: | Guid |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -VersionGuid
-
-Retrieves a specific package version by its VersionGuid.
-
-| | |
-|---|---|
-| Type: | Guid |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -Name
-
-Filters packages by name using wildcards (*). For example, "Adobe*" will return all packages starting with "Adobe".
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | True |
+## PARAMETERS
 
 ### -EnabledOnly
 
 Returns only enabled packages (Enabled = 1).
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Retrieve all packages
-
-```powershell
-Get-AppVManagementPackage -SQLServer "sql01.domain.local"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all packages with their AD entitlements from the App-V Management database.
+### -Name
 
-### Example 2: Retrieve packages using SQL Authentication
+Filters packages by name using wildcards (*).
+Example: "Adobe*" will return all packages starting with "Adobe".
 
-```powershell
-$cred = Get-Credential
-Get-AppVManagementPackage -SQLServer "sql01.domain.local" -SQLCredential $cred
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all packages using SQL Server authentication.
+### -PackageGuid
 
-### Example 3: Retrieve only enabled packages from a named instance
+Retrieves a specific package by its PackageGuid.
+This can be used to get all versions of a specific package.
 
-```powershell
-Get-AppVManagementPackage -SQLServer "SQLSRV01" -SQLInstance "INSTANCE01" -EnabledOnly
+```yaml
+Type: System.Guid
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves only enabled packages from a named SQL Server instance.
+### -SQLCredential
 
-### Example 4: Filter packages by name
+Specifies the PSCredential object for SQL Server authentication.
+If not specified, Windows Integrated Authentication will be used.
 
-```powershell
-Get-AppVManagementPackage -SQLServer "SQLSRV01" -Name "Adobe*"
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByVersionGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all packages with names starting with "Adobe".
+### -SQLDatabase
 
-### Example 5: Retrieve a specific package by PackageGuid
+Specifies the App-V Management database name.
+Default value: AppVManagement
 
-```powershell
-Get-AppVManagementPackage -SQLServer "SQLSRV01" -PackageGuid "FB4267F4-6B2B-45E1-A55B-0FE9C69A3DC2"
+```yaml
+Type: System.String
+DefaultValue: AppVManagement
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByVersionGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all versions of a specific package by its PackageGuid with AD entitlements.
+### -SQLInstance
 
-## Notes
+Specifies the SQL Server instance name.
+If not specified, the default instance will be used.
 
-- Requires the SqlServer PowerShell module
-- AD group SIDs are resolved to group names; use `Set-AppVentiXADCredential` if explicit credentials are needed
-- Use `Test-AppVManagementSQLConnection` to verify connectivity before querying
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByVersionGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -SQLServer
 
+Specifies the SQL Server hostname or IP address.
+Default value: localhost
+
+```yaml
+Type: System.String
+DefaultValue: localhost
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByVersionGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ByPackageGuid
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -VersionGuid
+
+Retrieves a specific package version by its VersionGuid.
+
+```yaml
+Type: System.Guid
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByVersionGuid
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Get-AppVManagementPackage
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy
+Version  : 2026.0130.1600
+Requires : SqlServer PowerShell module
+
+
+## RELATED LINKS
+
+- [Test-AppVManagementSQLConnection](Test-AppVManagementSQLConnection.md)
 - [Get-AppVManagementConnectionGroup](Get-AppVManagementConnectionGroup.md)
 - [Import-AppVManagementPackage](Import-AppVManagementPackage.md)
-- [Test-AppVManagementSQLConnection](Test-AppVManagementSQLConnection.md)
+- [Import-AppVManagementConnectionGroup](Import-AppVManagementConnectionGroup.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)

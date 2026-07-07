@@ -1,235 +1,456 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXDriveMappingUserSetting
+---
+
 # New-AppVentiXDriveMappingUserSetting
 
-Creates a new AppVentiX drive mapping user setting XML file.
+## SYNOPSIS
 
-## Syntax
+Creates an AppVentiX UserSetting XML file for a Drive Mapping configuration.
 
-```powershell
-# Parameter Set: DriveMapping
-New-AppVentiXDriveMappingUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -DriveLetter <String>
-    -NetworkPath <String>
-    [-ConnectAtLogon]
-    [-Label <String>]
-    [-DoNotExecute]
-    [-HideDrive]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: InputObject
-New-AppVentiXDriveMappingUserSetting
-    -InputObject <PSCustomObject>
-    [<CommonParameters>]
+### InputObject
+
+```
+New-AppVentiXDriveMappingUserSetting -InputObject <psobject> [-FriendlyName <string>]
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### DriveMapping
 
-The `New-AppVentiXDriveMappingUserSetting` function creates a new AppVentiX user setting XML file that maps a network drive for users. The function can be called with individual parameters or by passing a pre-constructed PSCustomObject via `InputObject`.
+```
+New-AppVentiXDriveMappingUserSetting -FriendlyName <string> [-Description <string>]
+ [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-DriveLetter <string>] [-NetworkPath <string>] [-ConnectAtLogon <bool>] [-Label <string>]
+ [-DoNotExecute <bool>] [-HideDrive <bool>] [-ConfigShare <string>] [<CommonParameters>]
+```
 
-This function has the alias `New-AppVentiXDriveMapping`.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
 
-### -FriendlyName
+## DESCRIPTION
 
-The display name for the drive mapping user setting.
+Builds and saves an AppVentiX UserSetting XML file that defines a drive mapping,
+including drive letter, network path, and connection options.
+Supports two input modes:
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+- DriveMapping mode: accepts direct parameters describing a single drive mapping.
+- InputObject mode: accepts a pre-structured PSCustomObject (e.g.
+from an Ivanti export pipeline).
 
-### -Description
+## EXAMPLES
 
-An optional description for the drive mapping user setting.
+## PARAMETERS
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### -ConfigShare
 
-### -ExecutionOrder
+Path to the AppVentiX config share.
+Defaults to the module variable.
 
-The execution order for this user setting relative to others.
-
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtLogin
-
-When specified, the drive mapping is processed at user login.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtRefresh
-
-When specified, the drive mapping is processed at refresh.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtReconnectAndUnlock
-
-When specified, the drive mapping is processed at reconnect and unlock.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-The friendly name of the machine group to associate with this user setting.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -DriveLetter
-
-The drive letter to assign (e.g., 'H', 'Z').
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -NetworkPath
-
-The UNC path to the network share to map (e.g., `\\server\share`).
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ConnectAtLogon
 
-When specified, the drive is connected at logon.
+Whether to connect the drive at logon.
+Defaults to $true.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -Label
+### -Description
 
-An optional label to display for the mapped drive.
+Optional description for the UserSetting.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -DoNotExecute
 
-When specified, the drive mapping is defined but not executed.
+Whether to suppress execution of the mapping.
+Defaults to $false.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -DriveLetter
+
+Drive letter to map (e.g.
+'H').
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ExecutionOrder
+
+Execution order for the UserSetting.
+Defaults to 0.
+
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -FriendlyName
+
+Display name for the AppVentiX UserSetting.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -HideDrive
 
-When specified, the mapped drive is hidden from the user.
+Whether to hide the drive.
+Defaults to $false.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -InputObject
 
-A PSCustomObject containing all drive mapping properties. Used when piping output from `Get-IvantiWCNetworkDrive` or similar functions.
+Pre-structured PSCustomObject containing drive mapping metadata.
 
-| | |
-|---|---|
-| Type: | PSCustomObject |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a basic drive mapping
-
-```powershell
-New-AppVentiXDriveMappingUserSetting -FriendlyName "Home Drive" -DriveLetter "H" -NetworkPath "\\fileserver\users\%username%" -ProcessAtLogin
+```yaml
+Type: System.Management.Automation.PSObject
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a drive mapping user setting that maps the H: drive to the user's home folder at login.
+### -Label
 
-### Example 2: Create a drive mapping with full options
+Optional label for the drive.
 
-```powershell
-New-AppVentiXDriveMappingUserSetting -FriendlyName "Shared Data" -Description "Department shared data" -DriveLetter "S" -NetworkPath "\\fileserver\shared" -Label "Shared" -ConnectAtLogon -ProcessAtLogin -ProcessAtRefresh -MachineGroupFriendlyName "Production"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a fully configured drive mapping for the Production machine group.
+### -MachineGroupFriendlyName
 
-## Notes
+One or more machine group friendly names to apply the setting to.
+Defaults to 'All Machine Groups'.
 
-- Requires a valid AppVentiX license
-- This function has the alias `New-AppVentiXDriveMapping`
+```yaml
+Type: System.String[]
+DefaultValue: '@("All Machine Groups")'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -NetworkPath
 
-- [Get-IvantiWCNetworkDrive](Get-IvantiWCNetworkDrive.md)
-- [Import-IvantiWCNetworkDrive](Import-IvantiWCNetworkDrive.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+UNC path to the network share (e.g.
+'\\server\share').
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtLogin
+
+Whether the setting is applied at login.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtReconnectAndUnlock
+
+Whether the setting is applied at reconnect and unlock.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtRefresh
+
+Whether the setting is applied at refresh.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: DriveMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : New-AppVentiXDriveMappingUserSetting
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
+
+
+## RELATED LINKS
+
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
+- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
+- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

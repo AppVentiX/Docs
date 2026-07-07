@@ -1,269 +1,567 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXGroupPolicyUserSetting
+---
+
 # New-AppVentiXGroupPolicyUserSetting
 
-Creates a new AppVentiX Group Policy user setting XML file from ADMX/ADML policy definitions.
+## SYNOPSIS
 
-## Syntax
+Creates an AppVentiX UserSetting XML file for a Group Policy configuration.
 
-```powershell
-# Parameter Set: AppVentiXParamsFile
-New-AppVentiXGroupPolicyUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -AdmxFilePath <String>
-    [-AdmlFilePath <String>]
-    [-AdmlLanguage <String>]
-    -PolicyInputObject <PSCustomObject[]>
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: AppVentiXParamsContent
-New-AppVentiXGroupPolicyUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -AdmxContent <String>
-    -AdmxFileName <String>
-    [-AdmlContent <String>]
-    [-AdmlFileName <String>]
-    [-AdmlLanguage <String>]
-    -PolicyInputObject <PSCustomObject[]>
-    [<CommonParameters>]
+### InputObject
 
-# Parameter Set: InputObject
-New-AppVentiXGroupPolicyUserSetting
-    -InputObject <PSCustomObject>
-    [<CommonParameters>]
+```
+New-AppVentiXGroupPolicyUserSetting -InputObject <psobject> [-FriendlyName <string>]
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### AppVentiXParamsContent
 
-The `New-AppVentiXGroupPolicyUserSetting` function creates a new AppVentiX user setting XML file that applies Group Policy settings based on ADMX/ADML policy template definitions. ADMX and ADML content can be provided either as file paths or as inline string content.
+```
+New-AppVentiXGroupPolicyUserSetting -FriendlyName <string> -AdmxContent <string>
+ -AdmlContent <string> -PolicyInputObject <psobject[]> [-Description <string>]
+ [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-AdmxFileName <string>] [-AdmlFileName <string>] [-AdmlLanguage <string>] [-ConfigShare <string>]
+ [<CommonParameters>]
+```
 
-This function has the alias `New-AppVentiXGroupPolicy`.
+### AppVentiXParamsFile
 
-## Parameters
+```
+New-AppVentiXGroupPolicyUserSetting -FriendlyName <string> -AdmxFilePath <string>
+ -PolicyInputObject <psobject[]> [-Description <string>] [-ExecutionOrder <int>]
+ [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>] [-ProcessAtReconnectAndUnlock <bool>]
+ [-MachineGroupFriendlyName <string[]>] [-AdmlLanguage <string>] [-ConfigShare <string>]
+ [<CommonParameters>]
+```
 
-### -FriendlyName
+## ALIASES
 
-The display name for the Group Policy user setting.
+This cmdlet has the following aliases,
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## DESCRIPTION
 
-### -Description
+Builds and saves an AppVentiX UserSetting XML file that defines a Group Policy configuration,
+including configured policies, policy elements, and registry entries.
+Supports three input modes:
 
-An optional description for the Group Policy user setting.
+- AppVentiXParamsFile: ADMX/ADML supplied as file paths, policy data as PSCustomObject array
+  from Get-IvantiWCPolicy -ExportFor AppVentiX.
+- AppVentiXParamsContent: ADMX/ADML supplied as raw or base64 content strings, policy data
+  as PSCustomObject array.
+- InputObject: a fully pre-structured PSCustomObject (e.g.
+from an Ivanti export pipeline).
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+The ADMX and ADML files are saved alongside the XML if they do not already exist at the target path.
 
-### -ExecutionOrder
+## EXAMPLES
 
-The execution order for this user setting relative to others.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+$Policies = Get-IvantiWCPolicy -Path 'C:\temp\LAB-BB.xml' -IncludeADMFiles -ExportFor AppVentiX
+$Policies | ForEach-Object {
+    New-AppVentiXGroupPolicyUserSetting `
+        -FriendlyName       $_.Name `
+        -AdmxContent        $_.ADMXContent `
+        -AdmxFileName       $_.ADMX `
+        -AdmlContent        $_.ADMLContent `
+        -AdmlFileName       $_.ADML `
+        -PolicyInputObject  $_.AppVentiXParams
+}
 
-### -ProcessAtLogin
-
-When specified, the Group Policy setting is processed at user login.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtRefresh
-
-When specified, the Group Policy setting is processed at refresh.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtReconnectAndUnlock
-
-When specified, the Group Policy setting is processed at reconnect and unlock.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-The friendly name of the machine group to associate with this user setting.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxFilePath
-
-The full path to the ADMX template file. Used with the AppVentiXParamsFile parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmlFilePath
-
-The full path to the ADML language file. Optional when using the AppVentiXParamsFile parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxContent
-
-The raw XML content of the ADMX template. Used with the AppVentiXParamsContent parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxFileName
-
-The filename to associate with the ADMX content when using inline content.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
 
 ### -AdmlContent
 
-The raw XML content of the ADML language file. Optional when using the AppVentiXParamsContent parameter set.
+Raw or base64-encoded ADML XML content.
+Used with the AppVentiXParamsContent parameter set.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AdmlFileName
 
-The filename to associate with the ADML content when using inline content.
+Override for the ADML filename.
+Defaults to 'CustomPolicy.adml' when using content.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AdmlLanguage
 
-The language code for the ADML file (e.g., 'en-US').
+Language folder for ADML file storage (e.g.
+en-US).
+Defaults to 'en-US'.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | en-US |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: en-US
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -PolicyInputObject
+### -AdmxContent
 
-An array of PSCustomObject items representing the individual policy settings to apply. Each object should describe a policy name and its configured value.
+Raw or base64-encoded ADMX XML content.
+Used with the AppVentiXParamsContent parameter set.
 
-| | |
-|---|---|
-| Type: | PSCustomObject[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxFileName
+
+Override for the ADMX filename stored in the XML.
+Derived from AdmxFilePath if not specified.
+Defaults to 'CustomPolicy.admx' when using content.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxFilePath
+
+Path to the ADMX file on disk.
+The matching ADML file is expected at the same path with .adml extension.
+Used with the AppVentiXParamsFile parameter set.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ConfigShare
+
+Path to the AppVentiX config share.
+Defaults to the module variable.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Description
+
+Optional description for the UserSetting.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ExecutionOrder
+
+Execution order for the UserSetting.
+Defaults to 0.
+
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -FriendlyName
+
+Display name for the AppVentiX UserSetting.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -InputObject
 
-A PSCustomObject containing all Group Policy properties including embedded ADMX/ADML content. Used when piping output from `Get-IvantiWCPolicy` or similar functions.
+Fully pre-structured PSCustomObject containing all policy metadata, ADMX/ADML content and entries.
 
-| | |
-|---|---|
-| Type: | PSCustomObject |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a Group Policy setting from ADMX files
-
-```powershell
-$policies = Get-AdmxPolicySetting -Path "C:\ADMX\MyApp.admx" | Where-Object { $_.PolicyName -eq "DisableFeatureX" }
-New-AppVentiXGroupPolicyUserSetting -FriendlyName "Disable Feature X" -AdmxFilePath "C:\ADMX\MyApp.admx" -AdmlFilePath "C:\ADMX\en-US\MyApp.adml" -PolicyInputObject $policies -ProcessAtLogin
+```yaml
+Type: System.Management.Automation.PSObject
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a Group Policy user setting from ADMX and ADML files.
+### -MachineGroupFriendlyName
 
-## Notes
+One or more machine group friendly names to apply the setting to.
+Defaults to 'All Machine Groups'.
 
-- Requires a valid AppVentiX license
-- This function has the alias `New-AppVentiXGroupPolicy`
-- ADMX and ADML content is embedded directly into the AppVentiX user setting XML
+```yaml
+Type: System.String[]
+DefaultValue: '@("All Machine Groups")'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -PolicyInputObject
 
-- [Get-AdmxPolicySetting](Get-AdmxPolicySetting.md)
-- [Get-IvantiWCPolicy](Get-IvantiWCPolicy.md)
-- [Import-IvantiWCPolicy](Import-IvantiWCPolicy.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+Array of PSCustomObject items from Get-IvantiWCPolicy -ExportFor AppVentiX (the AppVentiXParams
+property).
+Each object must contain: PolicyName, PolicyDisplayName, PolicyKey, PolicyValueName,
+Enabled, Elements, RegistryEntries.
+
+```yaml
+Type: System.Management.Automation.PSObject[]
+DefaultValue: '@()'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtLogin
+
+Whether the policy is applied at login.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtReconnectAndUnlock
+
+Whether the policy is applied at reconnect and unlock.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtRefresh
+
+Whether the policy is applied at refresh.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: AppVentiXParamsFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : New-AppVentiXGroupPolicyUserSetting
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
+
+
+## RELATED LINKS
+
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
+- [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
+- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
+- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

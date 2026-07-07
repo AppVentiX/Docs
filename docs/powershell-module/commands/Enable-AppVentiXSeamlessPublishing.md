@@ -1,223 +1,588 @@
+---
+category: seamless
+category_title: Seamless Publishing Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Enable-AppVentiXSeamlessPublishing
+---
+
 # Enable-AppVentiXSeamlessPublishing
 
-Enables seamless publishing for the specified AppVentiX publishing task.
+## SYNOPSIS
 
-## Syntax
+Enables seamless publishing for the specified publishing task.
 
-```powershell
-Enable-AppVentiXSeamlessPublishing
-    -Id <String>
-    -SubscriptionId <String>
-    -TenantId <String>
-    -ResourceGroupName <String>
-    -ApplicationGroupName <String>
-    -HostPoolName <String>
-    -AssignmentName <String>
-    [-RunVirtual]
-    [<CommonParameters>]
+## SYNTAX
 
-Enable-AppVentiXSeamlessPublishing
-    -Id <String>
-    -SubscriptionId <String>
-    -TenantId <String>
-    -ResourceGroupName <String>
-    -ApplicationGroupName <String>
-    -HostPoolName <String>
-    -AssignmentName <String>
-    -SeamlessApps <PSCustomObject[]>
-    [<CommonParameters>]
+### IDAzureAll (Default)
+
+```
+Enable-AppVentiXSeamlessPublishing -Id <string> -SubscriptionId <string> -TenantId <string>
+ -ResourceGroupName <string> -ApplicationGroupName <string> -HostPoolName <string>
+ -AssignmentName <string> [-RunVirtual] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### IDCitrixDaaS
 
-The `Enable-AppVentiXSeamlessPublishing` function enables seamless publishing for the specified AppVentiX publishing task. It supports publishing to Azure Virtual Desktop (AVD) application groups.
+```
+Enable-AppVentiXSeamlessPublishing -Id <string> -CustomerID <string>
+ -ServicePrincipalCredential <pscredential> [-DeliveryGroupName <string>] [-Server <string>]
+ [-Port <int>] [<CommonParameters>]
+```
 
-When Azure parameters are provided, the function:
-1. Connects to Azure using the Az PowerShell modules
-2. Creates or updates the AVD application group if needed
-3. Assigns an Azure AD group or user to the application group
-4. Removes existing applications from the group and publishes the new ones
-5. Updates the publishing task XML with seamless application details
+### IDCitrixLocal
 
-When no Azure parameters are provided, the function returns the publish command parameters as output objects so they can be used with another publishing tool.
+```
+Enable-AppVentiXSeamlessPublishing -Id <string> -AdminAddress <string> [-DeliveryGroupName <string>]
+ [-Server <string>] [-Port <int>] [<CommonParameters>]
+```
 
-## Parameters
+### IDAzureApps
 
-### -Id
+```
+Enable-AppVentiXSeamlessPublishing -Id <string> -SubscriptionId <string> -TenantId <string>
+ -ResourceGroupName <string> -ApplicationGroupName <string> -HostPoolName <string>
+ -AssignmentName <string> -SeamlessApps <psobject[]> [-ConfigShare <string>] [<CommonParameters>]
+```
 
-Specifies the ID of the publishing task for which to enable seamless publishing. Accepts pipeline input by property name.
+## ALIASES
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+This cmdlet has the following aliases,
 
-### -SubscriptionId
+## DESCRIPTION
 
-Specifies the Azure subscription ID where the AVD resources are located.
+The Enable-AppVentiXSeamlessPublishing function enables seamless publishing for the specified publishing task.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## EXAMPLES
 
-### -TenantId
+### EXAMPLE 1
 
-Specifies the Azure tenant ID.
+Enable-AppVentiXSeamlessPublishing -Id '12345678-1234-1234-1234-123456789012' -SubscriptionId '12345678-1234-1234-1234-123456789012' -TenantId '12345678-1234-1234-1234-123456789012' -ResourceGroupName 'MyResourceGroup' -ApplicationGroupName 'MyApplicationGroup' -HostPoolName 'MyHostPool' -AssignmentName 'MyAADGroup'
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Enables seamless publishing for the publishing task with the specified ID for all applications available in the package and publishes them to Azure Virtual Desktop.
 
-### -ResourceGroupName
+### EXAMPLE 2
 
-Specifies the name of the Azure resource group containing the AVD resources.
+Enable-AppVentiXSeamlessPublishing -Id '12345678-1234-1234-1234-123456789012'
+Enables seamless publishing for the publishing task with the specified ID for all applications available in the package.
+Because no Azure parameters are provided, the function will return the parameters that should be used to publish the applications.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 3
+
+$params = @{
+    SubscriptionId = '12345678-1234-1234-1234-123456789012'
+    ResourceGroupName = 'MyResourceGroup'
+    ApplicationGroupName = 'MyApplicationGroup'
+    HostPoolName = 'MyHostPool'
+    AssignmentName = 'MyAADGroup'
+}
+$newTask | Enable-AppVentiXSeamlessPublishing @params
+Uses the output of the New-AppVentiXPublishingTask function to enable seamless publishing for the publishing task with the specified ID for all applications available in the package.
+
+### EXAMPLE 4
+
+Enable-AppVentiXSeamlessPublishing -Id '12345678-1234-1234-1234-123456789012' -SeamlessApps @(
+    [PSCustomObject]@{
+        Order = '0'
+        Executable = 'MSIXApp1.exe'
+        Argument = ''
+        IconPath = 'C:\Program Files\WindowsApps\App.1.1.1.1_x64__abcdefghijkl\Assets\App1-Square44x44Logo.scale-100.png'
+        FriendlyName = 'App1'
+        RunVirtual = $false
+        Description = 'This is the first application'
+    },{
+        Order = '1'
+        Executable = 'MSIXApp2.exe'
+        Argument = ''
+        IconPath = 'C:\Program Files\WindowsApps\App.1.1.1.1_x64__abcdefghijkl\Assets\App2-Square44x44Logo.scale-100.png'
+        FriendlyName = 'App2'
+        RunVirtual = $false
+        Description = 'This is the second application'
+    }
+)
+Enables seamless publishing for the publishing task with the specified ID for the specified applications.
+Because no Azure parameters are provided, the function will return the parameters that should be used to publish the applications.
+
+## PARAMETERS
+
+### -AdminAddress
+
+Specifies the address of the Citrix Delivery Controller (Citrix on-premises publishing).
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDCitrixLocal
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ApplicationGroupName
 
-Specifies the name of the Azure Virtual Desktop application group to publish applications to. Has alias: ApplicationGroup.
+Specifies the name of the application group in which the applications are published.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -HostPoolName
-
-Specifies the name of the Azure Virtual Desktop host pool associated with the application group. Has alias: HostPool.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- ApplicationGroup
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AssignmentName
 
-Specifies the name of the Azure AD group or user to assign to the application group.
+Specifies the name of the Azure AD group or user that should be assigned to the application group.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -SeamlessApps
+### -ConfigShare
 
-Specifies the applications to publish seamlessly. Each PSCustomObject must contain the properties: Order, Executable, Argument, IconPath, FriendlyName, RunVirtual, Description.
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
 
-| | |
-|---|---|
-| Type: | PSCustomObject[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -CustomerID
+
+Specifies the Citrix Cloud customer ID (Citrix DaaS publishing).
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -DeliveryGroupName
+
+Specifies the name of the Citrix Delivery Group to publish the applications to.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDCitrixLocal
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -HostPoolName
+
+Specifies the name of the host pool in which the applications are published.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- HostPool
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Id
+
+Specifies the ID of the publishing task.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+- Name: IDCitrixLocal
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Port
+
+Specifies the LDAP port used for Citrix publishing.
+Defaults to 389.
+
+```yaml
+Type: System.Int32
+DefaultValue: 389
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDCitrixLocal
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ResourceGroupName
+
+Specifies the name of the resource group in which the host pool and application group are located.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -RunVirtual
 
-When specified, marks the applications as running virtually (App-V style). Only applicable when using the IDAzureAll parameter set (automatic app detection).
+Publishes the applications to run inside the virtual environment (Run Virtual).
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Enable seamless publishing for all apps in a package
-
-```powershell
-Enable-AppVentiXSeamlessPublishing -Id '12345678-1234-1234-1234-123456789012' `
-    -SubscriptionId '12345678-1234-1234-1234-123456789012' `
-    -TenantId '00000000-0000-0000-0000-000000000000' `
-    -ResourceGroupName 'MyResourceGroup' `
-    -ApplicationGroupName 'MyApplicationGroup' `
-    -HostPoolName 'MyHostPool' `
-    -AssignmentName 'MyAADGroup'
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Enables seamless publishing for all applications detected in the package.
+### -SeamlessApps
 
-### Example 2: Enable seamless publishing from a new task
+Specifies the applications that should be published seamlessly.
+Only the following array of objects is supported:
+@(
+    [PSCustomObject]@{
+        Order = '0'
+        Executable = 'MSIXApp1ID#Path\To\MSIXApp1.exe'
+        Argument = ''
+        IconPath = 'C:\Program Files\WindowsApps\App.1.1.1.1_x64__abcdefghijkl\Assets\App1-Square44x44Logo.scale-100.png'
+        FriendlyName = 'App1'
+        RunVirtual = $false
+        Description = 'This is the first application'
+    },{
+        Order = '1'
+        Executable = 'MSIXApp1ID#Path\To\MSIXApp2.exe'
+        Argument = ''
+        IconPath = 'C:\Program Files\WindowsApps\App.1.1.1.1_x64__abcdefghijkl\Assets\App2-Square44x44Logo.scale-100.png'
+        FriendlyName = 'App2'
+        RunVirtual = $false
+        Description = 'This is the second application'
+    }
+)
 
-```powershell
-$params = @{
-    SubscriptionId       = '12345678-1234-1234-1234-123456789012'
-    TenantId             = '00000000-0000-0000-0000-000000000000'
-    ResourceGroupName    = 'MyResourceGroup'
-    ApplicationGroupName = 'MyApplicationGroup'
-    HostPoolName         = 'MyHostPool'
-    AssignmentName       = 'MyAADGroup'
-}
-$newTask | Enable-AppVentiXSeamlessPublishing @params
+```yaml
+Type: System.Management.Automation.PSObject[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Uses the output of `New-AppVentiXPublishingTask` piped to enable seamless publishing.
+### -Server
 
-### Example 3: Enable seamless publishing with specific applications
+Specifies the Active Directory server (domain) used for Citrix publishing.
+Defaults to the user DNS domain.
 
-```powershell
-Enable-AppVentiXSeamlessPublishing -Id '12345678-1234-1234-1234-123456789012' `
-    -SubscriptionId '12345678-1234-1234-1234-123456789012' `
-    -TenantId '00000000-0000-0000-0000-000000000000' `
-    -ResourceGroupName 'MyResourceGroup' `
-    -ApplicationGroupName 'MyApplicationGroup' `
-    -HostPoolName 'MyHostPool' `
-    -AssignmentName 'MyAADGroup' `
-    -SeamlessApps @(
-        [PSCustomObject]@{
-            Order        = '0'
-            Executable   = 'MSIXApp1ID#Path\To\MSIXApp1.exe'
-            Argument     = ''
-            IconPath     = 'C:\Program Files\WindowsApps\App.1.1.1.1_x64__abc\Assets\App1.png'
-            FriendlyName = 'App1'
-            RunVirtual   = $false
-            Description  = 'This is the first application'
-        }
-    )
+```yaml
+Type: System.String
+DefaultValue: '"${Env:USERDNSDOMAIN}"'
+SupportsWildcards: false
+Aliases:
+- DomainName
+ParameterSets:
+- Name: IDCitrixLocal
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Enables seamless publishing for specific applications rather than auto-detecting from the package manifest.
+### -ServicePrincipalCredential
 
-## Notes
+Specifies the Citrix Cloud API credentials (API key as username, secret key as password) used for Citrix DaaS publishing.
 
-- Requires a valid AppVentiX license
-- Requires the Az.Accounts (minimum 2.17.0), Az.DesktopVirtualization (minimum 4.3.0), and Az.Resources (minimum 7.4.0) PowerShell modules
-- An active Azure connection is required; the function will prompt for login if not already connected
-- If no Azure parameters are provided, the function returns publish command parameters as output objects
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- Credential
+ParameterSets:
+- Name: IDCitrixDaaS
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -SubscriptionId
+
+Specifies the subscription ID of the Azure subscription.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -TenantId
+
+Specifies the Azure tenant ID used to connect to Azure.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### System.String
+
+### System.Management.Automation.PSObject[]
+
+## OUTPUTS
+
+## NOTES
+
+Function: Enable-AppVentiXSeamlessPublishing
+Author: John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version: 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Disable-AppVentiXSeamlessPublishing](Disable-AppVentiXSeamlessPublishing.md)
+- [Get-AppVentiXSeamlessPublishCommand](Get-AppVentiXSeamlessPublishCommand.md)
+- [Export-AppVentiXSeamlessApplicationsReport](Export-AppVentiXSeamlessApplicationsReport.md)
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
-- [Get-AppVentiXSeamlessPublishCommand](Get-AppVentiXSeamlessPublishCommand.md)

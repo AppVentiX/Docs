@@ -1,78 +1,135 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-IvantiWCRegistry
+---
+
 # Get-IvantiWCRegistry
 
-Reads and parses Ivanti Workspace Control registry sets from a Building Block XML file or a standalone .reg file.
+## SYNOPSIS
 
-## Syntax
+Reads and parses Ivanti Workspace Control registry sets from a Building Block XML file or a
+standalone .reg file.
 
-```powershell
-Get-IvantiWCRegistry
-    -Path <String>
-    [-ExportFor <String>]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Get-IvantiWCRegistry [-Path] <string> [[-ExportFor] <string>] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Get-IvantiWCRegistry` function accepts either:
-- An Ivanti Workspace Control Building Block XML file: extracts every `<registry type="registry">` node, decodes the hex-encoded registryfile, and parses it. Name and description are taken from the `<name>` and `<description>` XML elements.
-- A standalone .reg file: parses it directly. Name and description are read from the `;<PFNAME>` and `;<PFDESC>` comment tags if present.
+This cmdlet has the following aliases,
 
-Each value entry is returned as a structured object with its registry hive, key, value name, value data, value type, and an optional per-value description.
+## DESCRIPTION
+
+Accepts either:
+- An Ivanti Workspace Control Building Block XML file: extracts every <registry type="registry">
+  node, decodes the hex-encoded registryfile, and parses it.
+Name and description are taken
+  from the <name> and <description> XML elements.
+- A standalone .reg file: parses it directly.
+Name and description are read from the
+  ;<PFNAME> and ;<PFDESC> comment tags if present.
+
+Each value entry is returned as a structured object with its registry hive, key, value name,
+value data, value type, and an optional per-value description captured from the ;<PF>...</PF>
+comment tag that may follow the value line.
 
 Supports all standard .reg value types:
-- REG_SZ, REG_EXPAND_SZ, REG_BINARY, REG_DWORD, REG_MULTI_SZ, REG_QWORD
+- REG_SZ        (quoted string or hex(1):)
+- REG_EXPAND_SZ (hex(2):)
+- REG_BINARY    (hex: / hex(3):)
+- REG_DWORD     (dword: / hex(4):)
+- REG_MULTI_SZ  (hex(7):)
+- REG_QWORD     (qword: / hex(b):)
 
-## Parameters
+## EXAMPLES
+
+### EXAMPLE 1
+
+# From a Building Block XML
+Get-IvantiWCRegistry -Path 'C:\temp\LAB-BB.xml'
+
+### EXAMPLE 2
+
+# From a standalone .reg file, exported for AppVentiX
+Get-IvantiWCRegistry -Path 'C:\temp\registry.reg' -ExportFor AppVentiX
+
+## PARAMETERS
+
+### -ExportFor
+
+Target export format.
+'AppVentiX' adds the AppVentiXParams property to each output object.
+
+```yaml
+Type: System.String
+DefaultValue: AppVentiX
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Path
 
 Path to an Ivanti Workspace Control Building Block XML file or a standalone .reg file.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ExportFor
-
-Target export format. 'AppVentiX' adds the AppVentiXParams property to each output object. Defaults to 'WEM'.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | WEM |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Parse registry sets from a Building Block XML
-
-```powershell
-Get-IvantiWCRegistry -Path 'C:\temp\IvantiBB.xml'
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Extracts and parses all registry sets from the Ivanti Building Block XML file.
+### CommonParameters
 
-### Example 2: Parse a standalone .reg file for AppVentiX export
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Get-IvantiWCRegistry -Path 'C:\temp\registry.reg' -ExportFor AppVentiX
-```
+## INPUTS
 
-Parses a standalone .reg file and includes AppVentiX-formatted output.
+## OUTPUTS
 
-## Notes
+## NOTES
 
-- Per-value descriptions can be captured from `;<PF>...</PF>` comment tags in .reg files
-- Use `-ExportFor AppVentiX` to include pre-structured output suitable for `Import-IvantiWCRegistry` or `New-AppVentiXRegistryUserSetting`
+Function  : Get-IvantiWCRegistry
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.0309.1200
 
-## Related Links
+
+## RELATED LINKS
 
 - [Import-IvantiWCRegistry](Import-IvantiWCRegistry.md)
-- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
-- [Get-IvantiWCPolicy](Get-IvantiWCPolicy.md)

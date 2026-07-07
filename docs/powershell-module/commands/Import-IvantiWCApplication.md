@@ -1,90 +1,158 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Import-IvantiWCApplication
+---
+
 # Import-IvantiWCApplication
+
+## SYNOPSIS
 
 Imports application shortcuts from Ivanti Workspace Control XML configuration into AppVentiX.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Import-IvantiWCApplication
-    -XmlFilePath <String>
-    [-MachineGroupFriendlyName <String>]
-    [-GUI]
-    [<CommonParameters>]
+### __AllParameterSets
+
+```
+Import-IvantiWCApplication [-XmlFilePath] <string> [[-MachineGroupFriendlyName] <string>]
+ [[-ConfigShare] <string>] [-GUI] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Import-IvantiWCApplication` function extracts application definitions from an Ivanti Workspace Control XML file and creates corresponding AppVentiX Shortcut UserSetting XML files. It processes Active Directory group assignments and places imported items in the 'Migrated User Settings' folder.
+This cmdlet has the following aliases,
 
-Uses `Get-IvantiWCApplication -ExportFor AppVentiX` as the data source. Icon data (base64) is included in the AppVentiXParams from the source function.
+## DESCRIPTION
 
-The function optionally presents a GUI for selective import, allowing you to choose which applications to migrate.
+Extracts application definitions from an Ivanti WC XML file and creates corresponding
+AppVentiX Shortcut UserSetting XML files.
+Optionally presents a GUI for selective import.
+Processes Active Directory group assignments and places imported items in the
+'Migrated User Settings' folder.
 
-## Parameters
+Uses Get-IvantiWCApplication -ExportFor AppVentiX as the data source.
+Icon data (base64)
+is included in the AppVentiXApplicationParams from the source function.
 
-### -XmlFilePath
+## EXAMPLES
 
-Path to the Ivanti Workspace Control XML building block file, or a directory containing multiple XML files (one per application).
+## PARAMETERS
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### -ConfigShare
+
+Path to the AppVentiX config share.
+Defaults to the module variable.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -GUI
+
+When specified, displays a graphical selection grid for interactive selection.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -MachineGroupFriendlyName
 
 Friendly name of the machine group to assign the imported settings to.
+Defaults to 'All Machine Groups'.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -GUI
-
-When specified, displays a graphical selection grid for interactive selection of which applications to import.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Import all applications from an Ivanti XML file
-
-```powershell
-Import-IvantiWCApplication -XmlFilePath "C:\Config\IvantiBB.xml"
+```yaml
+Type: System.String
+DefaultValue: All Machine Groups
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Imports all application shortcuts from the Ivanti XML file into AppVentiX with default settings.
+### -XmlFilePath
 
-### Example 2: Import applications for a specific machine group with GUI selection
+Path to the Ivanti Workspace Control XML building block file, or a directory containing
+multiple XML files (one per application).
 
-```powershell
-Import-IvantiWCApplication -XmlFilePath "C:\Config\IvantiBB.xml" -MachineGroupFriendlyName "Test" -GUI
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Opens a GUI for selective import and assigns the imported applications to the Test machine group.
+### CommonParameters
 
-## Notes
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-- Requires a valid AppVentiX license
-- User-type assignments are skipped; only group assignments are processed
-- Imported settings are automatically placed in the 'Migrated User Settings' folder
+## INPUTS
 
-## Related Links
+## OUTPUTS
+
+## NOTES
+
+Function  : Import-IvantiWCApplication
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
+
+
+## RELATED LINKS
 
 - [Get-IvantiWCApplication](Get-IvantiWCApplication.md)
-- [Import-IvantiWCShortcut](Import-IvantiWCShortcut.md)
-- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

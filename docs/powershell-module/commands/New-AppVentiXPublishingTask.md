@@ -1,193 +1,438 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXPublishingTask
+---
+
 # New-AppVentiXPublishingTask
 
-Creates a new AppVentiX publishing task for an App-V or MSIX package.
+## SYNOPSIS
 
-## Syntax
+Creates a new AppVentiX publishing task.
 
-```powershell
-# Parameter Set: AutoLaunch (default)
-New-AppVentiXPublishingTask
-    [-MachineGroupFriendlyName <String>]
-    [-Priority <Int32>]
-    [-Group <String>]
-    -Path <String>
-    [-AlwaysPublish]
-    [-WhenNotExist]
-    [-AutoLaunch]
-    [-DynamicUserConfigurationPath <String>]
-    [-ReturnPublishCommand]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: PublishSeamless
-New-AppVentiXPublishingTask
-    [-MachineGroupFriendlyName <String>]
-    [-Priority <Int32>]
-    [-Group <String>]
-    -Path <String>
-    [-AlwaysPublish]
-    [-WhenNotExist]
-    [-DynamicUserConfigurationPath <String>]
-    [-ReturnPublishCommand]
-    [<CommonParameters>]
+### AutoLaunch (Default)
+
+```
+New-AppVentiXPublishingTask -Group <string[]> -Path <FileInfo> [-Type <string>]
+ [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
+ [-AutoLaunch] [-DynamicUserConfigurationPath <string>] [-ConfigShare <string>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
-## Description
+### PublishSeamless
 
-The `New-AppVentiXPublishingTask` function creates a new publishing task in AppVentiX for a specified App-V or MSIX package. Publishing tasks define how and when packages are delivered to users in the assigned machine groups.
+```
+New-AppVentiXPublishingTask -Group <string[]> -Path <FileInfo> [-Type <string>]
+ [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
+ [-DynamicUserConfigurationPath <string>] [-ReturnPublishCommand] [-ConfigShare <string>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
+```
 
-## Parameters
+## ALIASES
 
-### -MachineGroupFriendlyName
+This cmdlet has the following aliases,
 
-The friendly name of the machine group for which the publishing task is created.
+## DESCRIPTION
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+The New-AppVentiXPublishingTask function creates a new publishing task for AppVentiX.
+It allows you to specify various parameters such as the type of package, machine group, priority, name, version, group, path, and more.
+The function also checks if the package exists and if AppVentiX is licensed before creating the publishing task.
 
-### -Priority
+## EXAMPLES
 
-The priority of the publishing task. Lower numbers indicate higher priority.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | 10 |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+New-AppVentiXPublishingTask -MachineGroupFriendlyName 'Group1' -Priority 50 -Group 'Group1' -Path '\\fileserver.domain.local\content\Package_v\Package_1.0.0.0_x64\package.msix'
+Creates a new publishing task with the specified parameters, returns the ID of the new task.
 
-### -Group
+### EXAMPLE 2
 
-The group name used to organize publishing tasks.
+New-AppVentiXPublishingTask -MachineGroupFriendlyName 'Group1' -Priority 100 -Group 'Group1' -Path '\\fileserver.domain.local\content\Package_v\Package_1.0.0.0_x64\package.appattach'
+Creates a new publishing task with the specified parameters, returns the ID of the new task.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 3
 
-### -Path
+$params = @{
+    MachineGroupFriendlyName = 'Group1'
+    Priority = 50
+    Group = 'Group1'
+    Path = '\\fileserver.domain.local\content\Package_v\Package_1.0.0.0_x64\package.msix'
+}
+$newTask = New-AppVentiXPublishingTask @params
+Creates a new publishing task with the specified parameters, returns the ID of the new task. We can use the output to publish the task.
 
-The full path to the App-V (.appv) or MSIX package file.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
 
 ### -AlwaysPublish
 
-When specified, the package is always published regardless of whether it is already present.
+Indicates whether the package should always be published.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -WhenNotExist
-
-When specified, the package is only published if it does not already exist on the target.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AutoLaunch
 
-When specified, configures the publishing task to auto-launch the application after publishing. Available in the AutoLaunch parameter set.
+Indicates whether to auto-launch the package.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -DynamicUserConfigurationPath
 
-Path to an App-V dynamic user configuration XML file to apply when publishing.
+Specifies the path to the dynamic user configuration file.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Group
+
+Specifies the group of the publishing task.
+Example: 'domain.local\group1'
+
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -MachineGroupFriendlyName
+
+Specifies the friendly name of the machine group.
+
+```yaml
+Type: System.String[]
+DefaultValue: "@('All Machine Groups')"
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Path
+
+Specifies the path to the package file.
+
+```yaml
+Type: System.IO.FileInfo
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Priority
+
+Specifies the priority of the publishing task.
+Default value is 100.
+
+```yaml
+Type: System.Int32
+DefaultValue: 100
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ReturnPublishCommand
 
-When specified, the function returns the publish command string instead of creating the publishing task directly.
+Publish the task as a seamless task and return the necessary information to execute the publish command.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a publishing task for all machine groups
-
-```powershell
-New-AppVentiXPublishingTask -Path "\\fileserver.domain.local\content\MyApp_1.0.0.0_DeploymentConfig.appv"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a publishing task for the specified package available to all machine groups.
+### -Type
 
-### Example 2: Create a high-priority publishing task for a specific machine group
+Deprecated.
+The package type (MSIX, APPV or Sharedcontainer) is now determined from the file
+extension, so this parameter is no longer needed and is ignored with a warning when supplied.
 
-```powershell
-New-AppVentiXPublishingTask -Path "\\fileserver.domain.local\content\Office_16.0.appv" -MachineGroupFriendlyName "Production" -Priority 1 -Group "Office Apps" -AlwaysPublish
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a high-priority publishing task for the Production machine group that always republishes the Office package.
+### -WhatIf
 
-### Example 3: Create an auto-launch publishing task
+Runs the command in a mode that only reports what would happen without performing the actions.
 
-```powershell
-New-AppVentiXPublishingTask -Path "\\fileserver.domain.local\content\MyApp_1.0.0.0.appv" -MachineGroupFriendlyName "Development" -AutoLaunch -WhenNotExist
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a publishing task that auto-launches the application after publishing, only if it does not already exist.
+### -WhenNotExist
 
-### Example 4: Create a publishing task and prepare for (seamless) application publishing, aka Published Apps
+Specifies the action to take when the package does not exist.
+Valid values are 'Add' and 'Skip'.
 
-```powershell
-$pubApps = New-AppVentiXPublishingTask -Path "\\fileserver.domain.local\content\MyApp_1.0.0.0.appv" -MachineGroupFriendlyName "Development" -ReturnPublishCommand
+```yaml
+Type: System.String
+DefaultValue: Add
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-"Creates a publishing task for MyApp_1.0.0.0.appv, enables Seamless Publishing for the available shortcuts, and returns the commands to launch the applications.
+### CommonParameters
 
-## Notes
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-- Requires a valid AppVentiX license
-- Both App-V (.appv) and MSIX packages are supported
+## INPUTS
 
-## Related Links
+## OUTPUTS
+
+## NOTES
+
+Function : New-AppVentiXPublishingTask
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.409.2200
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
 - [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
 - [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
+- [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
 - [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

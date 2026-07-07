@@ -1,184 +1,367 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXPrinterMappingUserSetting
+---
+
 # New-AppVentiXPrinterMappingUserSetting
 
-Creates a new AppVentiX printer mapping user setting XML file.
+## SYNOPSIS
 
-## Syntax
+Creates an AppVentiX UserSetting XML file for a Printer Mapping configuration.
 
-```powershell
-# Parameter Set: PrinterMapping
-New-AppVentiXPrinterMappingUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -PrinterPath <String>
-    [-SetAsDefault]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: InputObject
-New-AppVentiXPrinterMappingUserSetting
-    -InputObject <PSCustomObject>
-    [<CommonParameters>]
+### InputObject
+
+```
+New-AppVentiXPrinterMappingUserSetting -InputObject <psobject> [-FriendlyName <string>]
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### PrinterMapping
 
-The `New-AppVentiXPrinterMappingUserSetting` function creates a new AppVentiX user setting XML file that maps a network printer for users. The function can be called with individual parameters or by passing a pre-constructed PSCustomObject via `InputObject`.
+```
+New-AppVentiXPrinterMappingUserSetting -FriendlyName <string> -PrinterPath <string>
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>] [-SetAsDefault <bool>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
 
-This function has the alias `New-AppVentiXPrinterMapping`.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
 
-### -FriendlyName
+## DESCRIPTION
 
-The display name for the printer mapping user setting.
+Builds and saves an AppVentiX UserSetting XML file that defines a printer mapping.
+Supports two input modes:
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+- PrinterMapping mode: accepts direct parameters describing the printer mapping.
+- InputObject mode: accepts a pre-structured PSCustomObject (e.g.
+from an Ivanti export pipeline).
+
+## EXAMPLES
+
+## PARAMETERS
+
+### -ConfigShare
+
+Path to the AppVentiX config share.
+Defaults to the module variable.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Description
 
-An optional description for the printer mapping user setting.
+Optional description for the UserSetting.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ExecutionOrder
 
-The execution order for this user setting relative to others.
+Execution order for the UserSetting.
+Defaults to 0.
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -ProcessAtLogin
+### -FriendlyName
 
-When specified, the printer mapping is processed at user login.
+Display name for the AppVentiX UserSetting.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtRefresh
-
-When specified, the printer mapping is processed at refresh.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtReconnectAndUnlock
-
-When specified, the printer mapping is processed at reconnect and unlock.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-The friendly name of the machine group to associate with this user setting.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -PrinterPath
-
-The UNC path to the network printer (e.g., `\\printserver\PrinterName`).
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -SetAsDefault
-
-When specified, sets this printer as the user's default printer.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -InputObject
 
-A PSCustomObject containing all printer mapping properties. Used when piping output from `Get-IvantiWCPrinterMapping` or similar functions.
+Pre-structured PSCustomObject containing printer mapping metadata.
 
-| | |
-|---|---|
-| Type: | PSCustomObject |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a printer mapping
-
-```powershell
-New-AppVentiXPrinterMappingUserSetting -FriendlyName "Office Printer" -PrinterPath "\\printserver.domain.local\OfficePrinter" -ProcessAtLogin
+```yaml
+Type: System.Management.Automation.PSObject
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a printer mapping user setting for the Office Printer, processed at login.
+### -MachineGroupFriendlyName
 
-### Example 2: Create a default printer mapping
+One or more machine group friendly names to apply the setting to.
+Defaults to 'All Machine Groups'.
 
-```powershell
-New-AppVentiXPrinterMappingUserSetting -FriendlyName "Default Printer" -PrinterPath "\\printserver.domain.local\DefaultPrinter" -SetAsDefault -ProcessAtLogin -ProcessAtRefresh -MachineGroupFriendlyName "Production"
+```yaml
+Type: System.String[]
+DefaultValue: '@("All Machine Groups")'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a printer mapping that sets the specified printer as the user's default for the Production machine group.
+### -PrinterPath
 
-## Notes
+UNC path to the printer (e.g.
+'\\printserver\printer').
 
-- Requires a valid AppVentiX license
-- This function has the alias `New-AppVentiXPrinterMapping`
-- Printer paths should use fully qualified domain names for reliable resolution
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -ProcessAtLogin
 
-- [Get-IvantiWCPrinterMapping](Get-IvantiWCPrinterMapping.md)
-- [Import-IvantiWCPrinterMapping](Import-IvantiWCPrinterMapping.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+Whether the setting is applied at login.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtReconnectAndUnlock
+
+Whether the setting is applied at reconnect and unlock.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtRefresh
+
+Whether the setting is applied at refresh.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SetAsDefault
+
+Whether to set this printer as the default printer.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: PrinterMapping
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : New-AppVentiXPrinterMappingUserSetting
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.321.1000
+
+
+## RELATED LINKS
+
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
+- [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
+- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

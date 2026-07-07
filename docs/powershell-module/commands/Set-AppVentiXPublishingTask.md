@@ -1,106 +1,191 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Set-AppVentiXPublishingTask
+---
+
 # Set-AppVentiXPublishingTask
 
-Modifies an existing AppVentiX publishing task.
+## SYNOPSIS
 
-## Syntax
+Updates the properties of an AppVentiX publishing task.
 
-```powershell
-Set-AppVentiXPublishingTask
-    -Id <String>
-    [-MachineGroupFriendlyname <String>]
-    [-Group <String>]
-    [-Priority <Int32>]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Set-AppVentiXPublishingTask [-Id] <string> [[-MachineGroupFriendlyname] <string[]>]
+ [[-Group] <string[]>] [[-Priority] <int>] [[-ConfigShare] <string>] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Set-AppVentiXPublishingTask` function modifies an existing publishing task identified by its unique ID. You can update the machine group assignment, task group, and priority of the publishing task.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
 
-### -Id
+The Set-AppVentiXPublishingTask function is used to update the properties of an existing AppVentiX publishing task.
+It allows you to modify the ID, MachineGroupFriendlyname, Group, and Priority of the task.
 
-The unique identifier of the publishing task to modify. This parameter is mandatory.
+## EXAMPLES
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+### EXAMPLE 1
 
-### -MachineGroupFriendlyname
+Set-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-1234567890AB" -MachineGroupFriendlyname "MyMachineGroup" -Group "DOMAIN\GROUP" -Priority 1 -ConfigShare "\\fileserver.domain.local\config"
 
-The friendly name of the machine group to assign the publishing task to.
+This example updates the properties of the publishing task with the specified ID.
+It changes the machine group friendly name to "MyMachineGroup", the group name to "DOMAIN\GROUP", the priority to 1, and uses the specified configuration share path.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the configuration share path.
+If this parameter is not provided, the default configuration share path will be used.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Group
 
-The group name used to organize publishing tasks.
+Specifies the group name associated with the publishing task.
+The group name should contain the domain name and the group name, e.g., "DOMAIN.LOCAL\GROUP".
+If this parameter is not provided, the group name will not be changed.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Id
+
+Specifies the ID of the publishing task to be updated.
+The ID must be a valid GUID.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -MachineGroupFriendlyname
+
+Specifies the friendly name of the machine group associated with the publishing task.
+If this parameter is not provided, the machine group friendly name will not be changed.
+
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Priority
 
-The priority of the publishing task. Lower numbers indicate higher priority.
+Specifies the priority of the publishing task.
+If this parameter is not provided, the priority will not be changed.
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Change the priority of a publishing task
-
-```powershell
-Set-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -Priority 5
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Sets the priority of the specified publishing task to 5.
+### CommonParameters
 
-### Example 2: Move a publishing task to a different machine group
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Set-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -MachineGroupFriendlyname "Production" -Group "Business Apps"
-```
+## INPUTS
 
-Moves the publishing task to the Production machine group and assigns it to the 'Business Apps' group.
+## OUTPUTS
 
-### Example 3: Update tasks from pipeline
+## NOTES
 
-```powershell
-Get-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" | Set-AppVentiXPublishingTask -Priority 20
-```
+Function : Set-AppVentiXPublishingTask
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
 
-Sets the priority of all publishing tasks in the Development machine group to 20.
 
-## Notes
-
-- Requires a valid AppVentiX license
-- Use `Get-AppVentiXPublishingTask` to retrieve task IDs before modification
-
-## Related Links
+## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
 - [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
 - [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
+- [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
+- [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

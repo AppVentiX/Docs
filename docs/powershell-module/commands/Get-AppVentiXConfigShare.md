@@ -1,41 +1,70 @@
+---
+category: configuration
+category_title: Configuration Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVentiXConfigShare
+---
+
 # Get-AppVentiXConfigShare
 
-Retrieves the AppVentiX configuration store if defined.
+## SYNOPSIS
 
-## Syntax
+Retrieves the AppVentiX configuration share if defined.
 
-```powershell
-Get-AppVentiXConfigShare
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Get-AppVentiXConfigShare [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Get-AppVentiXConfigShare` function retrieves the AppVentiX configuration store path from the current session. It checks the module session variable first, and if not set, attempts to read it from the Central View Settings file or global/script-scoped variables.
+This cmdlet has the following aliases,
 
-If the configuration store requires specified credentials for authentication (as indicated by the Central View Settings file), the function will warn if the share is not accessible under the current user context.
+## DESCRIPTION
 
-## Parameters
+The Get-AppVentiXConfigShare function retrieves the AppVentiX configuration share if defined.
 
-This function has no parameters.
+## EXAMPLES
 
-## Examples
+### EXAMPLE 1
 
-### Example 1: Retrieve the current configuration store
-
-```powershell
 Get-AppVentiXConfigShare
-```
 
-Returns the currently configured AppVentiX configuration store path as a PSCustomObject with a ConfigShare property.
+## PARAMETERS
 
-## Notes
+### CommonParameters
 
-- If the configuration store has not been set, a warning is displayed and the function returns null
-- Use `Set-AppVentiXConfigShare` to configure the configuration store path
-- If the share requires explicit credentials, use `Set-AppVentiXADCredential -AuthenticateConfigShare` first
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-## Related Links
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Get-AppVentiXConfigShare
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
+- [Get-AppVentiXModuleVariable](Get-AppVentiXModuleVariable.md)
 - [Set-AppVentiXADCredential](Set-AppVentiXADCredential.md)
+- [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md)

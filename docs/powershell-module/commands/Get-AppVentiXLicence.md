@@ -1,72 +1,128 @@
+---
+category: license
+category_title: License Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVentiXLicence
+---
+
 # Get-AppVentiXLicence
+
+## SYNOPSIS
 
 Retrieves the details of the AppVentiX license.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AppVentiXLicence
-    [<CommonParameters>]
+### ConfigShare (Default)
 
-Get-AppVentiXLicence
-    -Filename <FileInfo>
-    [<CommonParameters>]
+```
+Get-AppVentiXLicence [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### License
 
-The `Get-AppVentiXLicence` function retrieves the details of the AppVentiX license. It can retrieve the license details from a specified license file or from the default configuration store. The function returns license information including the licensed organization, expiry date, license type, and assigned machines.
+```
+Get-AppVentiXLicence -Filename <FileInfo> [<CommonParameters>]
+```
 
-If the license is a trial license, a warning is displayed indicating the trial expiry date.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Get-AppVentiXLicence function retrieves the details of the AppVentiX license.
+It can retrieve the license details from a specified license file or from the default configuration share.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Get-AppVentiXLicence -ConfigShare "\\fileserver.domain.local\config"
+Retrieves the license details from the specified configuration share.
+
+### EXAMPLE 2
+
+Get-AppVentiXLicence -Filename "C:\Temp\AppVentiX.lic"
+Retrieves the license details from the specified license file.
+
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ConfigShare
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Filename
 
-Specifies the full path to the AppVentiX license file (.lic). The file name must end with 'AppVentiX.lic'. Has aliases: File, License.
+Specifies the path to an AppVentiX.lic license file to read directly.
+The path must point to a valid AppVentiX.lic file.
 
-| | |
-|---|---|
-| Type: | FileInfo |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Retrieve license details from the default configuration store
-
-```powershell
-Get-AppVentiXLicence
+```yaml
+Type: System.IO.FileInfo
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- File
+- License
+ParameterSets:
+- Name: License
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves the license details from the currently configured AppVentiX configuration store.
+### CommonParameters
 
-### Example 2: Retrieve license details from a specific file
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Get-AppVentiXLicence -Filename "C:\Temp\AppVentiX.lic"
-```
+## INPUTS
 
-Retrieves license details from the specified license file.
+## OUTPUTS
 
-### Example 3: Retrieve license details from a configuration store
+## NOTES
 
-```powershell
-Get-AppVentiXLicence -ConfigShare "\\fileserver.lab.local\config"
-```
+Function : Get-AppVentiXLicence
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
 
-Retrieves the license details from the specified configuration store.
 
-## Notes
-
-- The license file must be named 'AppVentiX.lic'
-- Trial licenses display a warning with the expiry date
-- License properties returned: LicensedTo, Email, LicensedOn, LicensedUntil, Type, LicensedMachines, OrderNo
-
-## Related Links
+## RELATED LINKS
 
 - [Test-AppVentiXIsLicensed](Test-AppVentiXIsLicensed.md)
-- [Update-AppVentixLicense](Update-AppVentixLicense.md)
-- [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
+- [Update-AppVentiXLicence](Update-AppVentiXLicence.md)
+- [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)

@@ -1,47 +1,66 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Copy-AppVentiXPublishingTask
+---
+
 # Copy-AppVentiXPublishingTask
+
+## SYNOPSIS
 
 Copies AppVentiX publishing tasks to a new machine group with optional Azure Virtual Desktop seamless publishing.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Copy-AppVentiXPublishingTask
-    -Id <String>
-    -NewMachineGroupFriendlyname <String>
-    [-NewGroup <String>]
-    [-DontPublishSeamless]
-    [<CommonParameters>]
+### ID (Default)
 
-Copy-AppVentiXPublishingTask
-    -MachineGroupFriendlyname <String>
-    -NewMachineGroupFriendlyname <String>
-    [-DontPublishSeamless]
-    [<CommonParameters>]
-
-Copy-AppVentiXPublishingTask
-    -Id <String>
-    -NewMachineGroupFriendlyname <String>
-    -SubscriptionId <String>
-    -ResourceGroupName <String>
-    -ApplicationGroupName <String>
-    -HostPoolName <String>
-    -AssignmentName <String>
-    [<CommonParameters>]
-
-Copy-AppVentiXPublishingTask
-    -MachineGroupFriendlyname <String>
-    -NewMachineGroupFriendlyname <String>
-    -SubscriptionId <String>
-    -ResourceGroupName <String>
-    -ApplicationGroupName <String>
-    -HostPoolName <String>
-    -AssignmentName <String>
-    [<CommonParameters>]
+```
+Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string> [-NewGroup <string>]
+ [-DontPublishSeamless] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### IDAzure
 
-The `Copy-AppVentiXPublishingTask` function copies one or more AppVentiX publishing tasks from an existing machine group to a new machine group. It supports both standard copying and Azure Virtual Desktop (AVD) seamless publishing scenarios.
+```
+Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string>
+ -SubscriptionId <string> -ResourceGroupName <string> -ApplicationGroupName <string>
+ -HostPoolName <string> -AssignmentName <string> [-NewGroup <string>] [-ConfigShare <string>]
+ [<CommonParameters>]
+```
+
+### MachineGroupFriendlynameAzure
+
+```
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname <string>
+ -NewMachineGroupFriendlyname <string> -SubscriptionId <string> -ResourceGroupName <string>
+ -ApplicationGroupName <string> -HostPoolName <string> -AssignmentName <string>
+ [-ConfigShare <string>] [<CommonParameters>]
+```
+
+### MachineGroupFriendlyname
+
+```
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname <string>
+ -NewMachineGroupFriendlyname <string> [-DontPublishSeamless] [-ConfigShare <string>]
+ [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Copy-AppVentiXPublishingTask function copies one or more AppVentiX publishing tasks from an existing machine group to a new machine group.
+It supports both standard copying and Azure Virtual Desktop (AVD) seamless publishing scenarios.
 
 The function performs the following operations:
 - Validates that AppVentiX is properly licensed
@@ -52,198 +71,439 @@ The function performs the following operations:
 - Updates Active Directory group assignments with SID resolution
 - Preserves or disables seamless publishing based on parameters
 
-## Parameters
+When copying tasks with seamless publishing enabled, the function can automatically configure Azure Virtual Desktop
+application groups, host pools, and user assignments.
 
-### -Id
+## EXAMPLES
 
-Specifies the GUID of a specific publishing task to copy. Accepts pipeline input by property name.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+Copy-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -NewMachineGroupFriendlyname "Production"
 
-### -MachineGroupFriendlyname
+Copies a single publishing task to the Production machine group, preserving all settings including group assignments and seamless publishing.
 
-Specifies the friendly name of the source machine group containing the publishing tasks to copy. All publishing tasks from this machine group will be copied to the new machine group. Accepts pipeline input by property name.
+### EXAMPLE 2
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Testing"
 
-### -NewMachineGroupFriendlyname
+Copies all publishing tasks from the Development machine group to the Testing machine group.
 
-Specifies the friendly name of the destination machine group where tasks will be copied. The machine group must already exist in the AppVentiX configuration.
+### EXAMPLE 3
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Production" -NewGroup "CONTOSO.local\Prod-Users"
 
-### -NewGroup
+Copies all publishing tasks from Development to Production and assigns them to the CONTOSO.local\Prod-Users AD group.
 
-Specifies the new Active Directory group to assign to the copied publishing tasks. Can be specified as "GroupName" or "DOMAIN\GroupName". If only the group name is provided, the domain from the original task will be reused.
+### EXAMPLE 4
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Copy-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -NewMachineGroupFriendlyname "Testing" -DontPublishSeamless
 
-### -DontPublishSeamless
+Copies a publishing task to Testing but disables seamless publishing even if the source task had it enabled.
 
-Disables seamless publishing for the copied tasks, even if the original tasks had seamless publishing enabled.
+### EXAMPLE 5
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Get-AppVentiXPublishingTask -MachineGroupFriendlyName "Development" | Copy-AppVentiXPublishingTask -NewMachineGroupFriendlyname "Staging"
 
-### -SubscriptionId
+Uses pipeline input to copy all publishing tasks from Development to Staging.
 
-Specifies the Azure subscription ID for Azure Virtual Desktop seamless publishing.
+### EXAMPLE 6
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+$Params = @{
+        Id                        = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        NewMachineGroupFriendlyname = "AVD-Production"
+        SubscriptionId            = "12345678-1234-1234-1234-123456789012"
+        ResourceGroupName         = "RG-AVD-Prod"
+        ApplicationGroupName      = "AppGroup-Office"
+        HostPoolName              = "HostPool-Prod"
+        AssignmentName            = "Office-Users-Assignment"
+    }
+PS C:\> Copy-AppVentiXPublishingTask @Params
 
-### -ResourceGroupName
+Copies a publishing task with Azure Virtual Desktop seamless publishing configuration, including subscription, resource group,
+application group, host pool, and user assignment details.
 
-Specifies the Azure resource group name containing the AVD resources.
+### EXAMPLE 7
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Production" -NewGroup "CONTOSO.local\ProdUsers"
+
+Copies tasks and assigns them to ProdUsers group (domain will be inherited from original task if not specified).
+
+## PARAMETERS
 
 ### -ApplicationGroupName
 
-Specifies the Azure Virtual Desktop application group name for seamless publishing. Has alias: ApplicationGroup.
+Specifies the Azure Virtual Desktop application group name for seamless publishing.
+This parameter has an alias: ApplicationGroup.
+Mandatory for Azure-specific parameter sets.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -HostPoolName
-
-Specifies the Azure Virtual Desktop host pool name associated with the application group. Has alias: HostPool.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- ApplicationGroup
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AssignmentName
 
 Specifies the name for the Azure Virtual Desktop user assignment.
+This is used to create or update user group assignments for seamless applications.
+Mandatory for Azure-specific parameter sets.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Copy a single publishing task by ID
-
-```powershell
-Copy-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -NewMachineGroupFriendlyname "Production"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Copies a single publishing task to the Production machine group, preserving all settings including group assignments and seamless publishing.
+### -ConfigShare
 
-### Example 2: Copy all tasks from one machine group to another
+Specifies the AppVentiX configuration share path.
+By default, uses the configuration share from the module's current session variable.
+This parameter is hidden from normal parameter discovery.
 
-```powershell
-Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Testing"
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Copies all publishing tasks from the Development machine group to the Testing machine group.
+### -DontPublishSeamless
 
-### Example 3: Copy tasks and assign to a new AD group
+Disables seamless publishing for the copied tasks, even if the original tasks had seamless publishing enabled.
+Use this switch when you want to copy task configurations without enabling seamless application publishing.
+Only applicable for non-Azure parameter sets.
 
-```powershell
-Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Production" -NewGroup "DOMAIN.local\Prod-Users"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Copies all publishing tasks from Development to Production and assigns them to the DOMAIN.local\Prod-Users AD group.
+### -HostPoolName
 
-### Example 4: Copy a task and disable seamless publishing
+Specifies the Azure Virtual Desktop host pool name associated with the application group.
+This parameter has an alias: HostPool.
+Mandatory for Azure-specific parameter sets.
 
-```powershell
-Copy-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890" -NewMachineGroupFriendlyname "Testing" -DontPublishSeamless
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- HostPool
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Copies a publishing task to Testing but disables seamless publishing even if the source task had it enabled.
+### -Id
 
-### Example 5: Use pipeline input to copy tasks
+Specifies the GUID of a specific publishing task to copy.
+This parameter accepts pipeline input by property name and is mandatory when copying a single task.
+The value must be a valid GUID format.
 
-```powershell
-Get-AppVentiXPublishingTask -MachineGroupFriendlyName "Development" | Copy-AppVentiXPublishingTask -NewMachineGroupFriendlyname "Staging"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Uses pipeline input to copy all publishing tasks from Development to Staging.
+### -MachineGroupFriendlyname
 
-### Example 6: Copy a task with Azure Virtual Desktop configuration
+Specifies the friendly name of the source machine group containing the publishing tasks to copy.
+All publishing tasks from this machine group will be copied to the new machine group.
+This parameter accepts pipeline input by property name.
 
-```powershell
-$Params = @{
-    Id                          = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-    NewMachineGroupFriendlyname = "AVD-Production"
-    SubscriptionId              = "12345678-1234-1234-1234-123456789012"
-    ResourceGroupName           = "RG-AVD-Prod"
-    ApplicationGroupName        = "AppGroup-Office"
-    HostPoolName                = "HostPool-Prod"
-    AssignmentName              = "Office-Users-Assignment"
-}
-Copy-AppVentiXPublishingTask @Params
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Copies a publishing task with Azure Virtual Desktop seamless publishing configuration.
+### -NewGroup
 
-## Notes
+Specifies the new Active Directory group to assign to the copied publishing tasks.
+Can be specified as "GroupName" or "DOMAIN\GroupName".
+If only the group name is provided, the domain from the original task will be reused.
+If not specified, the original task's group assignment will be retained.
+The function will attempt to resolve the group SID automatically.
 
-- Requires a valid AppVentiX license
-- Tasks assigned to "All Machine Groups" cannot be copied and will be skipped
-- The package file must exist in the new machine group's content share for the copy to succeed
-- Azure parameter sets require the Az.Accounts, Az.DesktopVirtualization, and Az.Resources PowerShell modules
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzure
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -NewMachineGroupFriendlyname
+
+Specifies the friendly name of the destination machine group where tasks will be copied.
+This parameter is mandatory for all parameter sets.
+The machine group must already exist in the AppVentiX configuration.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ResourceGroupName
+
+Specifies the Azure resource group name containing the AVD resources.
+This parameter is mandatory when using Azure-specific parameter sets.
+The resource group must contain the specified host pool and application group.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SubscriptionId
+
+Specifies the Azure subscription ID for Azure Virtual Desktop seamless publishing.
+This parameter is mandatory when using Azure-specific parameter sets (IDAzure or MachineGroupFriendlynameAzure).
+Required for configuring AVD application groups and assignments.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlynameAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzure
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### System.String
+
+## OUTPUTS
+
+## NOTES
+
+Function : Copy-AppVentiXPublishingTask
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
 - [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
 - [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
-- [Enable-AppVentiXSeamlessPublishing](Enable-AppVentiXSeamlessPublishing.md)
+- [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
+- [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

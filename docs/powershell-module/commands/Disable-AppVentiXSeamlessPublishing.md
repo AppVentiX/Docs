@@ -1,127 +1,243 @@
+---
+category: seamless
+category_title: Seamless Publishing Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Disable-AppVentiXSeamlessPublishing
+---
+
 # Disable-AppVentiXSeamlessPublishing
 
-Disables seamless publishing for an AppVentiX publishing task in an Azure environment.
+## SYNOPSIS
 
-## Syntax
+Disables seamless publishing for an AppVentiX task in an Azure environment.
 
-```powershell
-Disable-AppVentiXSeamlessPublishing
-    -Id <String>
-    -SubscriptionId <String>
-    -ResourceGroupName <String>
-    -ApplicationGroupName <String>
-    -HostPoolName <String>
-    [-RemoveApplicationGroup]
-    [<CommonParameters>]
+## SYNTAX
+
+### IDAzureAll (Default)
+
+```
+Disable-AppVentiXSeamlessPublishing -Id <string> -SubscriptionId <string>
+ -ResourceGroupName <string> -ApplicationGroupName <string> -HostPoolName <string>
+ [-RemoveApplicationGroup] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### IDAzureApps
 
-The `Disable-AppVentiXSeamlessPublishing` function disables seamless publishing for an AppVentiX publishing task in an Azure environment. It removes the SeamlessApplication elements from the Publishing Tasks file and sets the PublishSeamless property to False.
+```
+Disable-AppVentiXSeamlessPublishing [-ConfigShare <string>] [<CommonParameters>]
+```
 
-The function also removes the published applications from the Azure Virtual Desktop application group, and optionally removes the application group itself.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
 
-### -Id
+## DESCRIPTION
 
-Specifies the ID of the AppVentiX publishing task. Accepts pipeline input by property name.
+The Disable-AppVentiXSeamlessPublishing function disables seamless publishing for an AppVentiX task in an Azure environment.
+It removes the SeamlessApplication element from the Publishing Tasks file and sets the PublishSeamless property to $false.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+## EXAMPLES
 
-### -SubscriptionId
+### EXAMPLE 1
 
-Specifies the ID of the Azure subscription where the AVD resources are located.
+Disable-AppVentiXSeamlessPublishing -Id "Task1" -SubscriptionId "12345678-1234-1234-1234-1234567890ab" -ResourceGroupName "MyResourceGroup" -ApplicationGroupName "MyAppGroup" -HostPoolName "MyHostPool"
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+This example disables seamless publishing for the AppVentiX task with ID "Task1" in the Azure environment.
+It specifies the Azure subscription ID, resource group name, application group name, host pool name, and config share path.
 
-### -ResourceGroupName
-
-Specifies the name of the Azure resource group containing the AVD resources.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
 
 ### -ApplicationGroupName
 
-Specifies the name of the Azure Virtual Desktop application group from which applications will be removed.
+The name of the application group.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: IDAzureApps
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -HostPoolName
 
-Specifies the name of the Azure Virtual Desktop host pool associated with the application group.
+The name of the host pool.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Id
+
+The ID of the AppVentiX task.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -RemoveApplicationGroup
 
-When specified, removes the entire Azure Virtual Desktop application group after removing its applications. If not specified, only the applications are removed and a warning is displayed.
+When specified, the Azure application group is removed after its applications have been removed.
+Without this switch the application group is kept and must be removed manually.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Disable seamless publishing for a task
-
-```powershell
-Disable-AppVentiXSeamlessPublishing -Id "Task1" -SubscriptionId "12345678-1234-1234-1234-1234567890ab" -ResourceGroupName "MyResourceGroup" -ApplicationGroupName "MyAppGroup" -HostPoolName "MyHostPool"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Disables seamless publishing for the AppVentiX task with ID "Task1" in the Azure environment. Removes all applications from the application group but keeps the application group itself.
+### -ResourceGroupName
 
-### Example 2: Disable seamless publishing and remove the application group
+The name of the resource group.
 
-```powershell
-Disable-AppVentiXSeamlessPublishing -Id "Task1" -SubscriptionId "12345678-1234-1234-1234-1234567890ab" -ResourceGroupName "MyResourceGroup" -ApplicationGroupName "MyAppGroup" -HostPoolName "MyHostPool" -RemoveApplicationGroup
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Disables seamless publishing and removes the entire Azure Virtual Desktop application group.
+### -SubscriptionId
 
-## Notes
+The ID of the Azure subscription.
 
-- Requires a valid AppVentiX license
-- Requires the Az.Accounts and Az.DesktopVirtualization PowerShell modules (minimum versions 2.17.0 and 4.3.0 respectively)
-- An active Azure connection is required; the function will prompt for login if not already connected
-- If the application group does not exist, the function exits gracefully
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: IDAzureAll
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### System.String
+
+## OUTPUTS
+
+## NOTES
+
+Function: Disable-AppVentiXSeamlessPublishing
+Author: John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version: 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Enable-AppVentiXSeamlessPublishing](Enable-AppVentiXSeamlessPublishing.md)
-- [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [Get-AppVentiXSeamlessPublishCommand](Get-AppVentiXSeamlessPublishCommand.md)
+- [Export-AppVentiXSeamlessApplicationsReport](Export-AppVentiXSeamlessApplicationsReport.md)
+- [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)

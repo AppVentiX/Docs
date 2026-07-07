@@ -1,106 +1,170 @@
+---
+category: migration-appv
+category_title: App-V Management Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Test-AppVManagementSQLConnection
+---
+
 # Test-AppVManagementSQLConnection
 
-Tests connectivity to the App-V Management SQL Server database.
+## SYNOPSIS
 
-## Syntax
+Tests the connection to the App-V Management SQL Database.
 
-```powershell
-Test-AppVManagementSQLConnection
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Test-AppVManagementSQLConnection [[-SQLServer] <string>] [[-SQLInstance] <string>]
+ [[-SQLDatabase] <string>] [[-SQLCredential] <pscredential>] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Test-AppVManagementSQLConnection` function verifies that a connection can be established to the App-V Management SQL Server database. This is useful for diagnosing connectivity issues before running commands that query the App-V Management database, such as `Get-AppVManagementPackage` or `Get-AppVManagementConnectionGroup`.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
 
-### -SQLServer
+This function tests the connection to the App-V Management SQL Database by executing a simple query against the PackageVersions table.
+It supports both Windows Integrated Authentication and SQL Server Authentication.
 
-The hostname or IP address of the SQL Server hosting the App-V Management database.
+## EXAMPLES
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 1
 
-### -SQLInstance
+Test-AppVManagementSQLConnection -SQLServer 'sql01.domain.local'
 
-The SQL Server instance name. If not specified, the default instance is used.
+Tests the connection to the App-V Management database using Windows Integrated Authentication.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 2
 
-### -SQLDatabase
+Test-AppVManagementSQLConnection -SQLServer 'sql01.domain.local' -SQLInstance 'APPV' -SQLCredential (Get-Credential)
 
-The name of the App-V Management SQL database.
+Tests the connection to a named instance using SQL Server authentication.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | AppVManagement |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
 
 ### -SQLCredential
 
-A PSCredential object for SQL Server authentication. If not specified, Windows Integrated Authentication is used.
+PSCredential object for SQL Server authentication.
+If not provided, Windows Integrated Authentication is used.
 
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Test connection to the default App-V Management database
-
-```powershell
-Test-AppVManagementSQLConnection -SQLServer "sqlserver01"
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Tests connectivity to the AppVManagement database on the specified SQL Server using Windows authentication.
+### -SQLDatabase
 
-### Example 2: Test connection with a named instance
+The App-V Management database name.
+Default: AppVManagement
 
-```powershell
-Test-AppVManagementSQLConnection -SQLServer "sqlserver01" -SQLInstance "APPV" -SQLDatabase "AppVManagement"
+```yaml
+Type: System.String
+DefaultValue: AppVManagement
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Tests connectivity to the AppVManagement database on a named SQL Server instance.
+### -SQLInstance
 
-### Example 3: Test connection with SQL credentials
+Optional named SQL Server instance.
+If not specified, the default instance is used.
 
-```powershell
-$sqlCred = Get-Credential
-Test-AppVManagementSQLConnection -SQLServer "sqlserver01" -SQLCredential $sqlCred
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Tests connectivity using SQL Server authentication with the provided credentials.
+### -SQLServer
 
-## Notes
+The SQL Server hostname or IP address hosting the App-V Management database.
+Default: localhost
 
-- This function is used to diagnose SQL connectivity issues before querying the App-V Management database
-- Requires network access to the SQL Server and appropriate database permissions
+```yaml
+Type: System.String
+DefaultValue: localhost
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Test-AppVManagementSQLConnection
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : SqlServer PowerShell module
+
+
+## RELATED LINKS
 
 - [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
 - [Get-AppVManagementConnectionGroup](Get-AppVManagementConnectionGroup.md)
 - [Import-AppVManagementPackage](Import-AppVManagementPackage.md)
+- [Import-AppVManagementConnectionGroup](Import-AppVManagementConnectionGroup.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)

@@ -1,165 +1,357 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: New-AppVentiXRegistryUserSetting
+---
+
 # New-AppVentiXRegistryUserSetting
 
-Creates a new AppVentiX registry user setting XML file.
+## SYNOPSIS
 
-## Syntax
+Creates an AppVentiX UserSetting XML file for a registry configuration.
 
-```powershell
-# Parameter Set: RegistryEntries
-New-AppVentiXRegistryUserSetting
-    -FriendlyName <String>
-    [-Description <String>]
-    [-ExecutionOrder <Int32>]
-    [-ProcessAtLogin]
-    [-ProcessAtRefresh]
-    [-ProcessAtReconnectAndUnlock]
-    [-MachineGroupFriendlyName <String>]
-    -RegistryEntries <PSCustomObject[]>
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: InputObject
-New-AppVentiXRegistryUserSetting
-    -InputObject <PSCustomObject>
-    [<CommonParameters>]
+### InputObject
+
+```
+New-AppVentiXRegistryUserSetting -InputObject <psobject> [-FriendlyName <string>]
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### RegistryEntries
 
-The `New-AppVentiXRegistryUserSetting` function creates a new AppVentiX user setting XML file that applies one or more registry entries for users. The function can be called with individual parameters or by passing a pre-constructed PSCustomObject via `InputObject`.
+```
+New-AppVentiXRegistryUserSetting -FriendlyName <string> -RegistryEntries <hashtable[]>
+ [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
+ [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
 
-This function has the alias `New-AppVentiXRegistry`.
+## ALIASES
 
-## Parameters
+This cmdlet has the following aliases,
 
-### -FriendlyName
+## DESCRIPTION
 
-The display name for the registry user setting.
+Builds and saves an AppVentiX UserSetting XML file that defines a set of registry entries.
+Supports two input modes:
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+- RegistryEntries mode: accepts a flat array of hashtables, each describing a single registry entry.
+- InputObject mode: accepts a pre-structured object (for example from an Ivanti export pipeline)
+  that already contains the FriendlyName, Description and RegistryEntries.
+
+Each registry entry is normalized (root key, value type and delete flag) before it is written to the XML.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+New-AppVentiXRegistryUserSetting -FriendlyName 'Disable First Run' -RegistryEntries @(
+    @{ RootKey = 'HKCU'; KeyPath = 'Software\Contoso\App'; ValueName = 'FirstRun'; ValueData = '0'; ValueType = 'DWord' }
+)
+
+Creates a registry User Setting with a single registry value.
+
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Description
 
-An optional description for the registry user setting.
+Optional description for the UserSetting.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ExecutionOrder
 
-The execution order for this user setting relative to others.
+Execution order for the UserSetting.
+Defaults to 0.
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Int32
+DefaultValue: 0
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-### -ProcessAtLogin
+### -FriendlyName
 
-When specified, the registry entries are processed at user login.
+Display name for the AppVentiX UserSetting.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtRefresh
-
-When specified, the registry entries are processed at refresh.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ProcessAtReconnectAndUnlock
-
-When specified, the registry entries are processed at reconnect and unlock.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MachineGroupFriendlyName
-
-The friendly name of the machine group to associate with this user setting.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | All Machine Groups |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -RegistryEntries
-
-An array of PSCustomObject items, each representing a registry entry to apply. Each object should describe the registry key path, value name, value data, and value type.
-
-| | |
-|---|---|
-| Type: | PSCustomObject[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -InputObject
 
-A PSCustomObject containing all registry setting properties. Used when piping output from `Get-IvantiWCRegistry` or similar functions.
+A pre-structured object containing the FriendlyName, Description and RegistryEntries to import.
+When supplied, its values are used instead of the individual parameters.
 
-| | |
-|---|---|
-| Type: | PSCustomObject |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a registry user setting
-
-```powershell
-$entries = @(
-    [PSCustomObject]@{ Key = "HKCU\Software\MyApp"; ValueName = "Setting1"; ValueData = "1"; ValueType = "DWORD" }
-)
-New-AppVentiXRegistryUserSetting -FriendlyName "MyApp Registry Settings" -RegistryEntries $entries -ProcessAtLogin
+```yaml
+Type: System.Management.Automation.PSObject
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a registry user setting that applies a DWORD value at user login.
+### -MachineGroupFriendlyName
 
-## Notes
+One or more machine group friendly names to apply the setting to.
+Defaults to 'All Machine Groups'.
 
-- Requires a valid AppVentiX license
-- This function has the alias `New-AppVentiXRegistry`
+```yaml
+Type: System.String[]
+DefaultValue: '@("All Machine Groups")'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -ProcessAtLogin
 
-- [Get-IvantiWCRegistry](Get-IvantiWCRegistry.md)
-- [Import-IvantiWCRegistry](Import-IvantiWCRegistry.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+Whether the setting is applied at login.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtReconnectAndUnlock
+
+Whether the setting is applied at reconnect and unlock.
+Defaults to $false.
+
+```yaml
+Type: System.Boolean
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ProcessAtRefresh
+
+Whether the setting is applied at refresh.
+Defaults to $true.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -RegistryEntries
+
+Array of hashtables describing registry entries.
+Each entry must contain: RootKey, KeyPath.
+Optional keys: ValueName, ValueData, ValueType, Action, DeleteKey.
+
+```yaml
+Type: System.Collections.Hashtable[]
+DefaultValue: '@()'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : New-AppVentiXRegistryUserSetting
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.312.2000
+
+
+## RELATED LINKS
+
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
+- [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
+- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

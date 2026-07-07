@@ -1,116 +1,192 @@
+---
+category: migration-appv
+category_title: App-V Management Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVManagementConnectionGroup
+---
+
 # Get-AppVManagementConnectionGroup
+
+## SYNOPSIS
 
 Retrieves App-V Connection Groups (Package Groups) from the Management Database.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AppVManagementConnectionGroup
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    [-ConnectionGroupName <String>]
-    [<CommonParameters>]
+### __AllParameterSets
+
+```
+Get-AppVManagementConnectionGroup [[-SQLServer] <string>] [[-SQLCredential] <pscredential>]
+ [[-SQLInstance] <string>] [[-SQLDatabase] <string>] [[-ConnectionGroupName] <string>]
+ [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Get-AppVManagementConnectionGroup` function queries the App-V Management Database to retrieve Connection Group information including member packages and their configuration. It also resolves Active Directory group assignments (entitlements) for each Connection Group.
+This cmdlet has the following aliases,
 
-Each returned Connection Group object includes:
-- Connection Group metadata (ID, Name, Description, Enabled, Priority, Version)
-- Array of member packages with their load order, optional/required status, and version settings
-- Array of AD groups (entitlements) with SID and resolved group name
+## DESCRIPTION
 
-## Parameters
+Queries the App-V Management Database to retrieve Connection Group information including
+members (packages) and their configuration.
 
-### -SQLServer
+## EXAMPLES
 
-Specifies the SQL Server hostname or IP address where the App-V Management database is hosted.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | localhost |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -SQLInstance
-
-Specifies the SQL Server instance name. If not specified, the default instance will be used.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None (default instance) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -SQLDatabase
-
-Specifies the App-V Management database name.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | AppVManagement |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -SQLCredential
-
-Specifies the PSCredential object for SQL Server authentication. If not specified, Windows Integrated Authentication will be used.
-
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None (Windows Authentication) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ConnectionGroupName
-
-Specifies an optional filter to retrieve a specific Connection Group by name.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Retrieve all Connection Groups
-
-```powershell
 Get-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -SQLCredential $cred
-```
 
 Retrieves all Connection Groups from the specified SQL Server.
 
-### Example 2: Retrieve a specific Connection Group
+### EXAMPLE 2
 
-```powershell
 Get-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -SQLCredential $cred -ConnectionGroupName "Office Suite"
-```
 
 Retrieves a specific Connection Group named "Office Suite".
 
-## Notes
+## PARAMETERS
 
-- Requires the SqlServer PowerShell module
-- AD group SIDs are resolved to group names; use `Set-AppVentiXADCredential` if the AD lookup requires explicit credentials
-- Use `Test-AppVManagementSQLConnection` to verify connectivity before querying
+### -ConnectionGroupName
 
-## Related Links
+Optional filter to retrieve a specific Connection Group by name.
 
-- [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
-- [Import-AppVManagementConnectionGroup](Import-AppVManagementConnectionGroup.md)
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SQLCredential
+
+PSCredential object for SQL Server authentication.
+If not provided, integrated authentication will be used.
+
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SQLDatabase
+
+The App-V Management database name.
+Default: AppVManagement
+
+```yaml
+Type: System.String
+DefaultValue: AppVManagement
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SQLInstance
+
+Optional named SQL Server instance.
+If not specified, the default instance is used.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SQLServer
+
+The SQL Server instance hosting the AppVManagement database.
+Default: localhost
+
+```yaml
+Type: System.String
+DefaultValue: localhost
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Get-AppVManagementConnectionGroup
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy
+Version  : 2026.130.945
+Requires : SqlServer PowerShell module
+
+
+## RELATED LINKS
+
 - [Test-AppVManagementSQLConnection](Test-AppVManagementSQLConnection.md)
+- [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
+- [Import-AppVManagementPackage](Import-AppVManagementPackage.md)
+- [Import-AppVManagementConnectionGroup](Import-AppVManagementConnectionGroup.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)
