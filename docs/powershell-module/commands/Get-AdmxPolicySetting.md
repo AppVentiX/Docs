@@ -1,229 +1,360 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AdmxPolicySetting
+---
+
 # Get-AdmxPolicySetting
+
+## SYNOPSIS
 
 Retrieves Group Policy setting details from ADMX/ADML files matching a registry key path and value name.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AdmxPolicySetting
-    -AdmxPath <String>
-    [-Recurse]
-    [-RegistryKey <String>]
-    [-ValueName <String>]
-    [-All]
-    [<CommonParameters>]
+### Path (Default)
 
-Get-AdmxPolicySetting
-    -AdmxFilePath <String>
-    [-AdmlFilePath <String>]
-    [-RegistryKey <String>]
-    [-ValueName <String>]
-    [-All]
-    [<CommonParameters>]
-
-Get-AdmxPolicySetting
-    -AdmxContent <String>
-    [-AdmlContent <String>]
-    [-AdmxFileName <String>]
-    [-AdmlFileName <String>]
-    [-RegistryKey <String>]
-    [-ValueName <String>]
-    [-All]
-    [<CommonParameters>]
+```
+Get-AdmxPolicySetting -AdmxPath <string> [-Recurse] [-All] [-RegistryKey <string>]
+ [-ValueName <string>] [<CommonParameters>]
 ```
 
-## Description
+### XmlFile
 
-The `Get-AdmxPolicySetting` function parses ADMX files to find policy settings matching a given registry key and value name. It returns registry type, element type, policy metadata, and display strings resolved from the corresponding ADML file.
+```
+Get-AdmxPolicySetting -AdmxFilePath <string> [-AdmlFilePath <string>] [-All] [-RegistryKey <string>]
+ [-ValueName <string>] [<CommonParameters>]
+```
+
+### XmlContent
+
+```
+Get-AdmxPolicySetting -AdmxContent <string> [-AdmlContent <string>] [-AdmxFileName <string>]
+ [-AdmlFileName <string>] [-All] [-RegistryKey <string>] [-ValueName <string>] [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+Parses ADMX files to find policy settings matching a given registry key and value name,
+returning registry type, element type, policy metadata, and display strings resolved from
+the corresponding ADML file.
 
 Supports three parameter sets:
-- **Path**: Provide a path to an ADMX file or directory containing ADMX files.
-- **XmlFile**: Provide file paths to ADMX and optionally ADML files as strings.
-- **XmlContent**: Provide raw XML content strings for ADMX and optionally ADML.
+- Path     : Provide a path to an ADMX file or directory containing ADMX files.
+- XmlFile  : Provide file paths to ADMX and optionally ADML files as strings.
+- XmlContent : Provide raw XML content strings for ADMX and optionally ADML.
 
-Use `-All` to return every policy in the file(s) without filtering. Otherwise, both `-RegistryKey` and `-ValueName` are required.
+Use -All to return every policy in the file(s) without filtering.
+Otherwise, both -RegistryKey and -ValueName are required.
 
 ADML auto-detection order (Path and XmlFile sets):
-1. Subfolder matching the current UI culture (e.g., en-GB) in the ADMX directory.
-2. Fallback to en-US subfolder.
-3. Any available language subfolder found.
+1.
+Subfolder matching the current UI culture (e.g., en-GB) in the ADMX directory.
+2.
+Fallback to en-US subfolder.
+3.
+Any available language subfolder found.
 
-## Parameters
+## EXAMPLES
 
-### -AdmxPath
+### EXAMPLE 1
 
-Path to a single ADMX file or a directory containing ADMX files.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -Recurse
-
-When AdmxPath is a directory, recurse into subdirectories to find ADMX files.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxFilePath
-
-File path to a single ADMX file. Used with the XmlFile parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmlFilePath
-
-File path to a single ADML file. Optional; if omitted, auto-detection is attempted relative to the ADMX file location.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxContent
-
-Raw XML string content of the ADMX file. Used with the XmlContent parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmlContent
-
-Raw XML string content of the ADML file. Optional when using the XmlContent parameter set.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmxFileName
-
-Optional filename hint for the ADMX source when using the XmlContent parameter set (e.g. 'ControlPanel.admx').
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AdmlFileName
-
-Optional filename hint for the ADML source when using the XmlContent parameter set (e.g. 'ControlPanel.adml').
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -All
-
-Return all policy settings from the ADMX file(s) without filtering by registry key or value name. When specified, -RegistryKey and -ValueName are not required.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -RegistryKey
-
-The registry key path to match (e.g., 'SOFTWARE\Policies\Microsoft\Edge'). HKLM/HKCU prefixes are stripped automatically.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -ValueName
-
-The registry value name to match.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Search a directory for a specific registry setting
-
-```powershell
 Get-AdmxPolicySetting -AdmxPath 'C:\Windows\PolicyDefinitions' `
     -RegistryKey 'SOFTWARE\Policies\Microsoft\Edge' `
     -ValueName 'HomepageIsNewTabPage' -Recurse
-```
 
-Searches all ADMX files in the PolicyDefinitions directory for the specified registry setting.
+### EXAMPLE 2
 
-### Example 2: Search a specific ADMX/ADML file pair
-
-```powershell
 Get-AdmxPolicySetting -AdmxFilePath 'C:\PolicyDefs\msedge.admx' `
     -AdmlFilePath 'C:\PolicyDefs\en-US\msedge.adml' `
     -RegistryKey 'SOFTWARE\Policies\Microsoft\Edge' `
     -ValueName 'HomepageIsNewTabPage'
-```
 
-Searches a specific ADMX file with a specified ADML language file.
+### EXAMPLE 3
 
-### Example 3: Search using raw XML content
-
-```powershell
 $admxXml = Get-Content 'C:\PolicyDefs\msedge.admx' -Raw
 $admlXml = Get-Content 'C:\PolicyDefs\en-US\msedge.adml' -Raw
 Get-AdmxPolicySetting -AdmxContent $admxXml -AdmlContent $admlXml `
     -RegistryKey 'SOFTWARE\Policies\Microsoft\Edge' `
     -ValueName 'HomepageIsNewTabPage'
+
+## PARAMETERS
+
+### -AdmlContent
+
+Raw XML string content of the ADML file (XmlContent parameter set).
+Optional.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Searches using raw XML content strings.
+### -AdmlFileName
 
-## Notes
+Optional filename hint for the ADML source when using the XmlContent parameter set
+(e.g.
+'ControlPanel.adml').
+Populates the AdmlFile and SourceAdml output fields.
 
-- HKLM and HKCU prefixes in the RegistryKey are automatically stripped before matching
-- List-type ADMX elements (values stored as numbered entries under a sub-key) are fully supported
-- Boolean elements with explicit trueValue/falseValue nodes are resolved correctly
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -AdmlFilePath
 
-- [Get-IvantiWCPolicy](Get-IvantiWCPolicy.md)
+File path to a single ADML file (XmlFile parameter set).
+Optional; if omitted,
+auto-detection is attempted relative to the ADMX file location.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlFile
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxContent
+
+Raw XML string content of the ADMX file (XmlContent parameter set).
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlContent
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxFileName
+
+Optional filename hint for the ADMX source when using the XmlContent parameter set
+(e.g.
+'ControlPanel.admx').
+Populates the AdmxFile and SourceFile output fields.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlContent
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxFilePath
+
+File path to a single ADMX file (XmlFile parameter set).
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: XmlFile
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -AdmxPath
+
+Path to a single ADMX file or a directory containing ADMX files.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: Path
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -All
+
+Return all policy settings from the ADMX file(s) without filtering by registry key or value name.
+When specified, -RegistryKey and -ValueName are not required.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Recurse
+
+When AdmxPath is a directory, recurse into subdirectories to find ADMX files.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: Path
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -RegistryKey
+
+The registry key path to match (e.g., 'SOFTWARE\Policies\Microsoft\Edge').
+HKLM/HKCU prefixes are stripped automatically.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ValueName
+
+The registry value name to match.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : Get-AdmxPolicySetting
+Author    : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+Version   : 2026.0307.1000
+
+
+## RELATED LINKS
+
 - [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [Import-IvantiWCPolicy](Import-IvantiWCPolicy.md)
+- [Get-IvantiWCPolicy](Get-IvantiWCPolicy.md)

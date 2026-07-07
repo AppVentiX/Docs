@@ -1,61 +1,93 @@
+---
+category: configuration
+category_title: Configuration Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Clear-AppVentiXADCredential
+---
+
 # Clear-AppVentiXADCredential
+
+## SYNOPSIS
 
 Clears Active Directory credentials from the current PowerShell session.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Clear-AppVentiXADCredential
-    [<CommonParameters>]
+### __AllParameterSets
+
+```
+Clear-AppVentiXADCredential [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Clear-AppVentiXADCredential` function removes previously set Active Directory credentials from the current PowerShell session. It resets the PSDefaultParameterValues for all ADSI Active Directory functions by:
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Clear-AppVentiXADCredential function removes previously set Active Directory credentials from the current PowerShell session.
+It resets the PSDefaultParameterValues for all ADSI Active Directory functions by:
 - Setting the Credential to an empty PSCredential object
 - Resetting the Port to the default LDAP port (389)
 - Clearing the Server parameter
 
-This function is useful when you need to revert to default authentication behavior or when switching between different AD environments. After calling this function, ADSI AD operations will use the current user's credentials and default connection settings.
+This function is useful when you need to revert to default authentication behavior or when switching between different AD environments.
+After calling this function, ADSI AD operations will use the current user's credentials and default connection settings.
 
-## Parameters
+## EXAMPLES
 
-This function has no parameters.
+### EXAMPLE 1
 
-## Examples
-
-### Example 1: Clear all Active Directory credentials
-
-```powershell
 Clear-AppVentiXADCredential
-```
 
 Clears all Active Directory credentials and connection settings from the current session.
 
-### Example 2: Set credentials, perform operations, then clear
+### EXAMPLE 2
 
-```powershell
 Set-AppVentiXADCredential -Credential (Get-Credential) -Server "dc01.domain.local"
-# Perform some AD operations...
-Clear-AppVentiXADCredential
-```
+PS C:\> # Perform some AD operations...
+PS C:\> Clear-AppVentiXADCredential
 
 Sets AD credentials for a specific domain controller, performs operations, then clears the credentials to revert to default behavior.
 
-### Example 3: Clear credentials with verbose output
+### EXAMPLE 3
 
-```powershell
 Clear-AppVentiXADCredential -Verbose
-```
 
 Clears AD credentials with verbose output showing the clearing process.
 
-## Notes
+## PARAMETERS
 
-- This function clears both the in-session PSDefaultParameterValues and the related environment variables
-- Always call this function when finished with AD operations that required explicit credentials
-- As an alternative, restarting the PowerShell session will also clear stored credentials
+### CommonParameters
 
-## Related Links
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function    : Clear-AppVentiXADCredential
+Author      : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+Version     : 2026.130.1000
+Requires    : Valid AppVentiX license
+
+
+## RELATED LINKS
+
+- [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)
+- [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
+- [Get-AppVentiXModuleVariable](Get-AppVentiXModuleVariable.md)
 - [Set-AppVentiXADCredential](Set-AppVentiXADCredential.md)

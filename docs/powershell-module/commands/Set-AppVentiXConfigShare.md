@@ -1,106 +1,178 @@
+---
+category: configuration
+category_title: Configuration Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Set-AppVentiXConfigShare
+---
+
 # Set-AppVentiXConfigShare
 
-Sets the AppVentiX configuration store path for the current session.
+## SYNOPSIS
 
-## Syntax
+Sets the path to the AppVentiX configuration share.
 
-```powershell
-# Parameter Set: Default
-Set-AppVentiXConfigShare
-    -ConfigShare <String>
-    [-WhatIf]
-    [-Confirm]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: Credential
-Set-AppVentiXConfigShare
-    -ConfigShare <String>
-    -Credential <PSCredential>
-    [-WhatIf]
-    [-Confirm]
-    [<CommonParameters>]
+### Default (Default)
+
+```
+Set-AppVentiXConfigShare -ConfigShare <string> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-## Description
+### Credential
 
-The `Set-AppVentiXConfigShare` function sets the path to the AppVentiX configuration store. All subsequent AppVentiX cmdlets in the session use this configuration store path. Optionally, credentials can be provided to authenticate access to the share.
+```
+Set-AppVentiXConfigShare -ConfigShare <string> -Credential <pscredential> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
 
-## Parameters
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+This function sets the path to the AppVentiX configuration share.
+It checks if the specified path exists and has access.
+If the path is valid and the AppVentiX license is valid, it sets the path as the configuration share.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config"
+
+### EXAMPLE 2
+
+Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config" -Credential (Get-Credential)
+
+Maps the configuration share with the provided credentials before setting it as the default for the session.
+
+## PARAMETERS
 
 ### -ConfigShare
 
-The UNC path or local path to the AppVentiX configuration store.
+Specifies the path to the AppVentiX configuration share.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -Credential
-
-A PSCredential object used to authenticate access to the configuration store. Required when accessing a share that requires different credentials from the current user.
-
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -WhatIf
-
-Shows what would happen if the command runs without actually changing the configuration store.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: Credential
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: Default
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Confirm
 
-Prompts for confirmation before changing the configuration store.
+Prompts you for confirmation before running the cmdlet.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Set the configuration store
-
-```powershell
-Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Sets the AppVentiX configuration store for the current session.
+### -Credential
 
-### Example 2: Set the configuration store with credentials
+Specifies the credentials used to map and access the configuration share.
+When provided, the share is mapped with these credentials before it is set as the default for the session.
 
-```powershell
-$cred = Get-Credential
-Set-AppVentiXConfigShare -ConfigShare "\\fileserver.domain.local\config" -Credential $cred
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: Credential
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Sets the configuration store and authenticates with the provided credentials.
+### -WhatIf
 
-## Notes
+Runs the command in a mode that only reports what would happen without performing the actions.
 
-- The configuration store path is stored in the current session and must be set each session unless a default is configured
-- Use `Get-AppVentiXConfigShare` to view the currently configured share path
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Set-AppVentiXConfigShare
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)
+- [Get-AppVentiXModuleVariable](Get-AppVentiXModuleVariable.md)
 - [Set-AppVentiXADCredential](Set-AppVentiXADCredential.md)
-- [Test-AppVentiXIsLicensed](Test-AppVentiXIsLicensed.md)
+- [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md)

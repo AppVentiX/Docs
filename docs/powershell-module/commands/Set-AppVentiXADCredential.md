@@ -1,120 +1,220 @@
+---
+category: configuration
+category_title: Configuration Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Set-AppVentiXADCredential
+---
+
 # Set-AppVentiXADCredential
 
-Sets Active Directory credentials used by AppVentiX for AD group lookups.
+## SYNOPSIS
 
-## Syntax
+Sets the Active Directory credentials used by AppVentiX services for directory lookups.
 
-```powershell
-Set-AppVentiXADCredential
-    [-Credential <PSCredential>]
-    [-Server <String>]
-    [-Port <Int32>]
-    [-AuthenticateConfigShare]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Set-AppVentiXADCredential [[-Credential] <pscredential>] [[-Server] <string>] [[-Port] <int>]
+ [[-ConfigShare] <string>] [-AuthenticateConfigShare] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Set-AppVentiXADCredential` function configures the Active Directory credentials that AppVentiX uses when performing AD group lookups. The credentials are stored in the current session and used for subsequent AD queries. Optionally, the credentials can also be applied to authenticate the AppVentiX configuration store.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
 
-### -Credential
+Set-AppVentiXADCredential configures the Active Directory credentials that AppVentiX uses internally for
+directory queries.
+The supplied credentials are stored in the module session scope and applied
+as default parameter values for all AD cmdlets.
 
-A PSCredential object containing the username and password for AD authentication. If not specified, the current user's credentials are used.
+Optionally, the function can first authenticate to the AppVentiX configuration share using the provided
+credentials before proceeding with the license check and credential configuration.
 
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+After the credentials are accepted, the function attempts to retrieve domain information via Get-AdsiADDomain
+to automatically resolve and store the directory server and port.
+If domain discovery fails, the credentials
+are cleared and an error is returned.
 
-### -Server
+Always run 'Clear-AppVentiXADCredential' when finished, or restart the PowerShell session, to remove the
+stored credentials.
 
-The Active Directory server (domain controller) to connect to. If not specified, the default domain controller is used.
+## EXAMPLES
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 1
 
-### -Port
+Set-AppVentiXADCredential
 
-The LDAP port to use when connecting to Active Directory.
+Prompts the user for Active Directory credentials and configures them for use by AppVentiX directory operations.
+The directory server and port are resolved automatically.
 
-| | |
-|---|---|
-| Type: | Int32 |
-| Position: | Named |
-| Default value: | 389 |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 2
+
+Set-AppVentiXADCredential -Credential (Get-Credential) -Server 'dc01.domain.local' -Port 636
+
+Sets the specified credentials and explicitly targets 'dc01.domain.local' on port 636 for all directory operations.
+
+### EXAMPLE 3
+
+Set-AppVentiXADCredential -Credential $cred -AuthenticateConfigShare
+
+Authenticates to the AppVentiX configuration share using the provided credentials before configuring the
+Active Directory credentials for directory operations.
+
+## PARAMETERS
 
 ### -AuthenticateConfigShare
 
-When specified, the provided credentials are also used to authenticate access to the AppVentiX configuration store.
+When specified, authenticates to the AppVentiX configuration share using the provided credentials before
+performing any other operations.
+Useful when the configuration share requires explicit credentials.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Set AD credentials for the current session
-
-```powershell
-$cred = Get-Credential
-Set-AppVentiXADCredential -Credential $cred
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Prompts for credentials and stores them for AD lookups in the current session.
+### -ConfigShare
 
-### Example 2: Set credentials with a specific domain controller
+Internal parameter.
+Points to the AppVentiX configuration share path.
+Automatically populated from the
+module configuration and does not normally need to be specified manually.
 
-```powershell
-$cred = Get-Credential -UserName "DOMAIN\svc-appventix"
-Set-AppVentiXADCredential -Credential $cred -Server "dc01.domain.local" -AuthenticateConfigShare
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Sets AD credentials pointing to a specific domain controller and uses the same credentials to access the configuration store.
+### -Credential
 
-### Example 3: Set a different domain and connect with current credentials
+The Active Directory credentials to use for directory operations.
+If not provided, the user is prompted
+interactively.
+Accepts a PSCredential object or a username string (the password will be prompted).
 
-```powershell
-Set-AppVentiXADCredential -Server "dc02.domain2.local" [-Port 636]
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Configures the specified domain controller as the default server for Active Directory lookups in the current session.
+### -Port
 
-### Example 4: User environment variables to set AD details and/or credentials
+The LDAP port to use for the Active Directory connection.
+Default: 389.
 
-```powershell
-$Env:AppVentiXADDomainServer = "dc01.domain.local"
-$Env:AppVentiXADDomainPort = 636
-$Env:AppVentiXConfigShareUsername = "DOMAIN\svc-appventix"
-$Env:AppVentiXConfigSharePassword = "Sup3rS3cretP@$$w0rd!"
-
-Import-Module -Name AppVentiX
+```yaml
+Type: System.Int32
+DefaultValue: 389
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-If one or more of these environment variables are set before importing the AppVentiX module, their values will be applied automatically during your session.
+### -Server
 
-## Notes
+The Active Directory server (domain controller) to connect to.
+If not specified, the server is resolved
+automatically from the domain information returned by Get-AdsiADDomain.
 
-- Credentials are stored in session variables and are not persisted between sessions
-- Use `Clear-AppVentiXADCredential` to remove stored credentials from the current session
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
 
-- [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md)
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function    : Set-AppVentiXADCredential
+Author      : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+Version     : 2026.130.1000
+Requires    : Valid AppVentiX license
+
+
+## RELATED LINKS
+
+- [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)
 - [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
+- [Get-AppVentiXModuleVariable](Get-AppVentiXModuleVariable.md)
+- [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md)

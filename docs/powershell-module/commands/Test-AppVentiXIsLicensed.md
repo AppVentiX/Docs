@@ -1,89 +1,118 @@
+---
+category: license
+category_title: License Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Test-AppVentiXIsLicensed
+---
+
 # Test-AppVentiXIsLicensed
 
-Tests whether the current AppVentiX installation has a valid license.
+## SYNOPSIS
 
-## Syntax
+Checks if the AppVentiX license is valid.
 
-```powershell
-Test-AppVentiXIsLicensed
-    [-ConfigShare <String>]
-    [-Force]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Test-AppVentiXIsLicensed [[-ConfigShare] <string>] [-Force] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Test-AppVentiXIsLicensed` function checks whether AppVentiX is licensed by validating the license stored in the configuration store. Returns `$true` if the license is valid, or `$false` if no valid license is found. Use the `-Force` parameter to bypass any cached license validation result and re-check the license.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
+
+The Test-AppVentiXIsLicensed function checks if the AppVentiX license is valid.
+It retrieves the license details and compares the expiration date with the current date.
+If the license is expired or about to expire within 30 days, a warning message is displayed.
+If the license is valid, the function returns $true; otherwise, it returns $false.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Test-AppVentiXIsLicensed -ConfigShare "\\fileserver.domain.local\config" -Force
+Checks if the license is valid for the AppVentiX configuration share "\\fileserver.domain.local\config" and forces the validation.
+
+## PARAMETERS
 
 ### -ConfigShare
 
-The path to the AppVentiX configuration store. If not specified, the currently configured configuration store is used.
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Force
 
-When specified, bypasses any cached license validation and forces a fresh validation check.
+Forces the license validation even if it has already been validated.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Outputs
-
-**System.Boolean**
-
-Returns `$true` if AppVentiX is licensed, `$false` otherwise.
-
-## Examples
-
-### Example 1: Test if AppVentiX is licensed
-
-```powershell
-Test-AppVentiXIsLicensed
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Returns `$true` or `$false` depending on whether a valid AppVentiX license is present.
+### CommonParameters
 
-### Example 2: Test license with a specific configuration store
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Test-AppVentiXIsLicensed -ConfigShare "\\fileserver.domain.local\config" -Force
-```
+## INPUTS
 
-Tests the license on the specified configuration store, bypassing any cached result.
+## OUTPUTS
 
-### Example 3: Use in a conditional check
+### System.Boolean
 
-```powershell
-if (Test-AppVentiXIsLicensed) {
-    Write-Host "AppVentiX is licensed. Proceeding..."
-} else {
-    Write-Warning "AppVentiX is not licensed."
-}
-```
+## NOTES
 
-Checks the license before executing AppVentiX commands.
+Function : Test-AppVentiXIsLicensed
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
 
-## Notes
 
-- All AppVentiX functions call this validation internally before executing
-- Use `Update-AppVentiXLicense` to apply a new license file
-
-## Related Links
+## RELATED LINKS
 
 - [Get-AppVentiXLicence](Get-AppVentiXLicence.md)
-- [Update-AppVentixLicense](Update-AppVentixLicense.md)
-- [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
+- [Update-AppVentiXLicence](Update-AppVentiXLicence.md)
+- [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)

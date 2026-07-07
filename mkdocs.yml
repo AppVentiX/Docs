@@ -64,6 +64,13 @@ copyright: Copyright &copy; AppVentiX
 plugins:
   - search:
       lang: en
+  # Generates the categorized command-reference nav (_nav.md) from the
+  # 'category' front matter stamped by scripts/Build-CommandReference.ps1.
+  - gen-files:
+      scripts:
+        - scripts/gen_nav.py
+  - literate-nav:
+      nav_file: _nav.md
 
 markdown_extensions:
   - admonition
@@ -143,69 +150,13 @@ nav:
   - HowTo Guides:
     - howto/index.md
     - Import from App-V Management Database: howto/Import-packages-from-AppV-Management-Database.md
+    - Import from Ivanti Workspace Control: howto/Import-user-settings-from-Ivanti-Workspace-Control.md
   - PowerShell Module:
     - powershell-module/index.md
-    - Command Reference:
-      - powershell-module/commands/index.md
-      - Configuration Commands:
-        - Get-AppVentiXConfigShare: powershell-module/commands/Get-AppVentiXConfigShare.md
-        - Set-AppVentiXConfigShare: powershell-module/commands/Set-AppVentiXConfigShare.md
-        - Get-AppVentiXModuleVariable: powershell-module/commands/Get-AppVentiXModuleVariable.md
-        - Set-AppVentiXADCredential: powershell-module/commands/Set-AppVentiXADCredential.md
-        - Clear-AppVentiXADCredential: powershell-module/commands/Clear-AppVentiXADCredential.md
-      - License Commands:
-        - Get-AppVentiXLicence: powershell-module/commands/Get-AppVentiXLicence.md
-        - Test-AppVentiXIsLicensed: powershell-module/commands/Test-AppVentiXIsLicensed.md
-        - Update-AppVentixLicense: powershell-module/commands/Update-AppVentixLicense.md
-      - Machine Group Commands:
-        - Get-AppVentiXMachineGroup: powershell-module/commands/Get-AppVentiXMachineGroup.md
-      - Package Commands:
-        - Add-AppVentiXPackage: powershell-module/commands/Add-AppVentiXPackage.md
-        - Get-AppVentiXContentSharePackages: powershell-module/commands/Get-AppVentiXContentSharePackages.md
-        - New-AppVentiXConnectionGroup: powershell-module/commands/New-AppVentiXConnectionGroup.md
-      - Publishing Task Commands:
-        - Get-AppVentiXPublishingTask: powershell-module/commands/Get-AppVentiXPublishingTask.md
-        - New-AppVentiXPublishingTask: powershell-module/commands/New-AppVentiXPublishingTask.md
-        - Set-AppVentiXPublishingTask: powershell-module/commands/Set-AppVentiXPublishingTask.md
-        - Copy-AppVentiXPublishingTask: powershell-module/commands/Copy-AppVentiXPublishingTask.md
-        - Remove-AppVentiXPublishingTask: powershell-module/commands/Remove-AppVentiXPublishingTask.md
-        - Export-AppVentiXPublishingTaskReport: powershell-module/commands/Export-AppVentiXPublishingTaskReport.md
-      - Seamless Publishing Commands:
-        - Enable-AppVentiXSeamlessPublishing: powershell-module/commands/Enable-AppVentiXSeamlessPublishing.md
-        - Disable-AppVentiXSeamlessPublishing: powershell-module/commands/Disable-AppVentiXSeamlessPublishing.md
-        - Get-AppVentiXSeamlessPublishCommand: powershell-module/commands/Get-AppVentiXSeamlessPublishCommand.md
-        - Export-AppVentiXSeamlessApplicationsReport: powershell-module/commands/Export-AppVentiXSeamlessApplicationsReport.md
-      - User Settings Commands:
-        - Get-AppVentiXUserSettings: powershell-module/commands/Get-AppVentiXUserSettings.md
-        - New-AppVentiXDriveMappingUserSetting: powershell-module/commands/New-AppVentiXDriveMappingUserSetting.md
-        - New-AppVentiXEnvironmentVariableUserSetting: powershell-module/commands/New-AppVentiXEnvironmentVariableUserSetting.md
-        - New-AppVentiXGroupPolicyUserSetting: powershell-module/commands/New-AppVentiXGroupPolicyUserSetting.md
-        - New-AppVentiXPrinterMappingUserSetting: powershell-module/commands/New-AppVentiXPrinterMappingUserSetting.md
-        - New-AppVentiXRegistryUserSetting: powershell-module/commands/New-AppVentiXRegistryUserSetting.md
-        - New-AppVentiXShortcutUserSetting: powershell-module/commands/New-AppVentiXShortcutUserSetting.md
-        - Set-AppVentiXUserSettingFolder: powershell-module/commands/Set-AppVentiXUserSettingFolder.md
-        - Set-AppVentiXUserSettingsAssignment: powershell-module/commands/Set-AppVentiXUserSettingsAssignment.md
-      - Migration Commands:
-        - Test-AppVManagementSQLConnection: powershell-module/commands/Test-AppVManagementSQLConnection.md
-        - Get-AppVManagementPackage: powershell-module/commands/Get-AppVManagementPackage.md
-        - Get-AppVManagementConnectionGroup: powershell-module/commands/Get-AppVManagementConnectionGroup.md
-        - Import-AppVManagementPackage: powershell-module/commands/Import-AppVManagementPackage.md
-        - Import-AppVManagementConnectionGroup: powershell-module/commands/Import-AppVManagementConnectionGroup.md
-      - Ivanti Workspace Control Migration:
-        - Get-AdmxPolicySetting: powershell-module/commands/Get-AdmxPolicySetting.md
-        - Get-IvantiWCApplication: powershell-module/commands/Get-IvantiWCApplication.md
-        - Get-IvantiWCEnvironmentVariable: powershell-module/commands/Get-IvantiWCEnvironmentVariable.md
-        - Get-IvantiWCNetworkDrive: powershell-module/commands/Get-IvantiWCNetworkDrive.md
-        - Get-IvantiWCPolicy: powershell-module/commands/Get-IvantiWCPolicy.md
-        - Get-IvantiWCPrinterMapping: powershell-module/commands/Get-IvantiWCPrinterMapping.md
-        - Get-IvantiWCRegistry: powershell-module/commands/Get-IvantiWCRegistry.md
-        - Import-IvantiWCApplication: powershell-module/commands/Import-IvantiWCApplication.md
-        - Import-IvantiWCEnvironmentVariable: powershell-module/commands/Import-IvantiWCEnvironmentVariable.md
-        - Import-IvantiWCNetworkDrive: powershell-module/commands/Import-IvantiWCNetworkDrive.md
-        - Import-IvantiWCPolicy: powershell-module/commands/Import-IvantiWCPolicy.md
-        - Import-IvantiWCPrinterMapping: powershell-module/commands/Import-IvantiWCPrinterMapping.md
-        - Import-IvantiWCRegistry: powershell-module/commands/Import-IvantiWCRegistry.md
-        - Import-IvantiWCShortcut: powershell-module/commands/Import-IvantiWCShortcut.md
+    # Command reference nav is generated from the 'category' front matter of each
+    # command page (scripts/gen_nav.py -> literate-nav). Do not hand-edit; run
+    # scripts/Build-CommandReference.ps1 to regenerate the pages.
+    - Command Reference: powershell-module/commands/
   - Release Notes:
     - release-notes/index.md
     - AppVentiX 5.2:

@@ -22,7 +22,7 @@ Commands for managing the AppVentiX license:
 |---------|-------------|
 | [Get-AppVentiXLicence](Get-AppVentiXLicence.md) | Retrieves the details of the AppVentiX license |
 | [Test-AppVentiXIsLicensed](Test-AppVentiXIsLicensed.md) | Checks if the AppVentiX license is valid |
-| [Update-AppVentixLicense](Update-AppVentixLicense.md) | Updates the AppVentiX license file on the configuration store |
+| [Update-AppVentiXLicence](Update-AppVentiXLicence.md) | Updates the AppVentiX license file on the configuration store |
 
 ## Machine Group Commands
 

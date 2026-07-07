@@ -1,117 +1,240 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Export-AppVentiXPublishingTaskReport
+---
+
 # Export-AppVentiXPublishingTaskReport
+
+## SYNOPSIS
 
 Exports the AppVentiX publishing task report to a CSV file.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Export-AppVentiXPublishingTaskReport
-    -Path <DirectoryInfo>
-    [-ReportType <String>]
-    [<CommonParameters>]
+### All (Default)
 
-Export-AppVentiXPublishingTaskReport
-    -Id <String>
-    -Path <DirectoryInfo>
-    [-ReportType <String>]
-    [<CommonParameters>]
-
-Export-AppVentiXPublishingTaskReport
-    -MachineGroupFriendlyname <String>
-    -Path <DirectoryInfo>
-    [-ReportType <String>]
-    [<CommonParameters>]
+```
+Export-AppVentiXPublishingTaskReport -Path <DirectoryInfo> [-ReportType <Object>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### ID
 
-The `Export-AppVentiXPublishingTaskReport` function exports the AppVentiX publishing task report to a CSV file. It can export all publishing tasks or a specific subset based on the provided parameters. If the specified output path does not exist, it will be created automatically.
+```
+Export-AppVentiXPublishingTaskReport -ID <string> -Path <DirectoryInfo> [-ReportType <Object>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
 
-The exported filename includes a timestamp in the format `AppVentiXPublishingTaskReport_yyyyMMdd_HHmmss.csv`.
+### MachineGroupFriendlyname
 
-## Parameters
+```
+Export-AppVentiXPublishingTaskReport -MachineGroupFriendlyname <string> -Path <DirectoryInfo>
+ [-ReportType <Object>] [-ConfigShare <string>] [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Export-AppVentiXPublishingTaskReport function exports the AppVentiX publishing task report to a CSV file.
+It can export all publishing tasks or a specific task based on the provided parameters.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Export-AppVentiXPublishingTaskReport -Path 'C:\Reports'
+
+This example exports all publishing tasks to a CSV file located at 'C:\Reports'.
+
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ID
 
-Specifies the ID of a specific publishing task to export. Must be a valid GUID. Accepts pipeline input by property name.
+Specifies the ID of the publishing task to export.
+This parameter is used to export a specific publishing task based on its ID.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -MachineGroupFriendlyname
 
-Specifies the friendly name of the machine group to filter publishing tasks. Accepts pipeline input by property name.
+Exports only the publishing tasks configured for the specified Machine Group.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
-
-### -ReportType
-
-Specifies the type of report to generate. Currently only CSV is supported.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | CSV |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Path
 
-Specifies the directory path where the CSV file will be saved. The directory will be created if it does not exist.
+Specifies the path where the CSV file will be saved.
+If the path does not exist, it will be created.
 
-| | |
-|---|---|
-| Type: | DirectoryInfo |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Export all publishing tasks to a report
-
-```powershell
-Export-AppVentiXPublishingTaskReport -Path 'C:\Reports'
+```yaml
+Type: System.IO.DirectoryInfo
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Exports all publishing tasks to a CSV file in the C:\Reports directory.
+### -ReportType
 
-### Example 2: Export tasks for a specific machine group
+Specifies the type of report to generate.
+Currently, only CSV is supported.
 
-```powershell
-Export-AppVentiXPublishingTaskReport -MachineGroupFriendlyname "Production" -Path 'C:\Reports'
+```yaml
+Type: System.Object
+DefaultValue: CSV
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Exports publishing tasks for the Production machine group to a CSV file.
+### CommonParameters
 
-### Example 3: Export a specific task by ID
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Export-AppVentiXPublishingTaskReport -Id "12345678-1234-1234-1234-123456789012" -Path 'C:\Reports'
-```
+## INPUTS
 
-Exports the publishing task with the specified ID to a CSV file.
+### System.String
 
-## Notes
+## OUTPUTS
 
-- Requires a valid AppVentiX license
-- The output directory will be created automatically if it does not exist
-- The exported file is named with a timestamp to avoid overwriting previous reports
+## NOTES
 
-## Related Links
+Function : Export-AppVentiXPublishingTaskReport
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
-- [Export-AppVentiXSeamlessApplicationsReport](Export-AppVentiXSeamlessApplicationsReport.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
+- [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
+- [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
+- [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

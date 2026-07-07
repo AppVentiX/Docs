@@ -1,70 +1,134 @@
+---
+category: machine-group
+category_title: Machine Group Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVentiXMachineGroup
+---
+
 # Get-AppVentiXMachineGroup
+
+## SYNOPSIS
 
 Retrieves the machine groups from the AppVentiX configuration.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AppVentiXMachineGroup
-    [<CommonParameters>]
+### All (Default)
 
-Get-AppVentiXMachineGroup
-    -Name <String[]>
-    [<CommonParameters>]
+```
+Get-AppVentiXMachineGroup [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### Named
 
-The `Get-AppVentiXMachineGroup` function retrieves the machine groups from the AppVentiX configuration store. It can retrieve all machine groups or a specific machine group by name.
+```
+Get-AppVentiXMachineGroup -Name <string[]> [-ConfigShare <string>] [<CommonParameters>]
+```
 
-## Parameters
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+The Get-AppVentiXMachineGroup function retrieves the machine groups from the AppVentiX config share.
+It can retrieve all machine groups or a specific machine group by name.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Get-AppVentiXMachineGroup
+Retrieves all machine groups from the AppVentiX configuration.
+
+### EXAMPLE 2
+
+Get-AppVentiXMachineGroup -Name 'Group1'
+Retrieves the machine group with the name 'Group1' from the AppVentiX configuration.
+
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentiX.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: Named
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Name
 
-Specifies the name of the machine group to retrieve. Accepts multiple values. Has aliases: FriendlyName, MachineGroupFriendlyName.
+(Optional) Specifies the name of the machine group to retrieve.
 
-| | |
-|---|---|
-| Type: | String[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Retrieve all machine groups
-
-```powershell
-Get-AppVentiXMachineGroup
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- FriendlyName
+- MachineGroupFriendlyName
+ParameterSets:
+- Name: Named
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all machine groups from the AppVentiX configuration.
+### CommonParameters
 
-### Example 2: Retrieve a specific machine group
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Get-AppVentiXMachineGroup -Name 'Production'
-```
+## INPUTS
 
-Retrieves the machine group named 'Production' from the AppVentiX configuration.
+## OUTPUTS
 
-### Example 3: Retrieve multiple machine groups
+## NOTES
 
-```powershell
-Get-AppVentiXMachineGroup -Name 'Production', 'Development'
-```
+Function : Get-AppVentiXMachineGroup
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.945
+Requires : Valid AppVentiX license
 
-Retrieves the Production and Development machine groups.
 
-## Notes
+## RELATED LINKS
 
-- Requires a valid AppVentiX license
-- A warning is displayed if a requested machine group name is not found
-- Each machine group object includes content share paths and group name information
-
-## Related Links
-
-- [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
-- [Get-AppVentiXContentSharePackages](Get-AppVentiXContentSharePackages.md)
+- [Add-AppVentiXPackage](Add-AppVentiXPackage.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)

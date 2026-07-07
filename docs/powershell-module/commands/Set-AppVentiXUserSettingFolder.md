@@ -1,93 +1,169 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Set-AppVentiXUserSettingFolder
+---
+
 # Set-AppVentiXUserSettingFolder
 
-Creates or retrieves an AppVentiX user setting folder.
+## SYNOPSIS
 
-## Syntax
+Assigns a UserSetting to a folder in the UserSettingFolders XML file.
 
-```powershell
-Set-AppVentiXUserSettingFolder
-    [-FolderName <String>]
-    [-Id <Guid>]
-    [-PassThru]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Set-AppVentiXUserSettingFolder [-FolderName] <string> [-Id] <guid> [[-ConfigShare] <string>]
+ [-PassThru] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Set-AppVentiXUserSettingFolder` function creates a new user setting folder in AppVentiX or retrieves an existing one by name or GUID. User setting folders are used to organize user settings such as drive mappings, environment variables, registry settings, shortcuts, printer mappings, and Group Policy settings.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
+
+Creates or updates the UserSettingFolders XML file at the configured ConfigShare location.
+Adds the FolderName to the Folders list if not already present, and creates or updates
+the Assignment for the given UserSettingId.
+Existing assignments are updated when the
+FolderName changes.
+Folders no longer referenced by any assignment are removed.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Set-AppVentiXUserSettingFolder -FolderName "Printers" -Id "9e429a7c-46de-4026-8faf-5b043bf272f0"
+
+### EXAMPLE 2
+
+Set-AppVentiXUserSettingFolder -FolderName "Printers" -Id "9e429a7c-46de-4026-8faf-5b043bf272f0" -PassThru
+
+## PARAMETERS
+
+### -ConfigShare
+
+Path to the ConfigShare.
+Defaults to the module-configured ConfigShare.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentiX.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -FolderName
 
-The name of the user setting folder to create or retrieve.
+The name of the folder to assign the UserSetting to.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Id
 
-The GUID of an existing user setting folder to retrieve.
+The UserSettingID (GUID) of the UserSetting to assign.
 
-| | |
-|---|---|
-| Type: | Guid |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Guid
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -PassThru
 
-When specified, returns the folder object to the pipeline.
+When specified, returns a PSCustomObject with UserSettingId and FolderName upon success.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Create a new user setting folder
-
-```powershell
-Set-AppVentiXUserSettingFolder -FolderName "Migrated User Settings"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Creates a new user setting folder named 'Migrated User Settings'.
+### CommonParameters
 
-### Example 2: Create a folder and return the object
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-$folder = Set-AppVentiXUserSettingFolder -FolderName "Production Settings" -PassThru
-```
+## INPUTS
 
-Creates the folder and returns the folder object for use in subsequent commands.
+## OUTPUTS
 
-### Example 3: Retrieve an existing folder by GUID
+## NOTES
 
-```powershell
-$folder = Set-AppVentiXUserSettingFolder -Id "12345678-1234-1234-1234-123456789012" -PassThru
-```
+Function    : Set-AppVentiXUserSettingFolder
+Author      : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+Version     : 2026.320.1000
+Requires    : Valid AppVentiX license
 
-Retrieves the user setting folder with the specified GUID.
 
-## Notes
-
-- Requires a valid AppVentiX license
-- This function is commonly used before importing user settings to ensure the target folder exists
-
-## Related Links
+## RELATED LINKS
 
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
-- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)
 - [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
 - [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
+- [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
+- [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
+- [Set-AppVentiXUserSettingsAssignment](Set-AppVentiXUserSettingsAssignment.md)

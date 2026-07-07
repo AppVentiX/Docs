@@ -1,206 +1,244 @@
+---
+category: migration-appv
+category_title: App-V Management Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Import-AppVManagementConnectionGroup
+---
+
 # Import-AppVManagementConnectionGroup
 
-Imports App-V Connection Groups from the App-V Management Database to the AppVentiX configuration.
+## SYNOPSIS
 
-## Syntax
+Imports App-V Connection Groups from the Management Database to the AppVentiX configuration.
 
-```powershell
-Import-AppVManagementConnectionGroup
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    [-MatchConnectionGroupWithMachineGroup]
-    [-GUI]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Import-AppVManagementConnectionGroup [[-SQLServer] <string>] [[-SQLInstance] <string>]
+ [[-SQLDatabase] <string>] [[-SQLCredential] <pscredential>] [[-ConfigShare] <string>]
+ [-MatchConnectionGroupWithMachineGroup] [-GUI] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Import-AppVManagementConnectionGroup` function retrieves Connection Groups from the App-V Management Database and imports them into AppVentiX. This function allows you to import Connection Groups from the Management Server to make them available for publishing.
+This cmdlet has the following aliases,
 
-For each Connection Group imported, the function:
-1. Connects to the App-V Management database
-2. Retrieves Connection Group details including member packages and AD group assignments
-3. Matches packages to AppVentiX content shares
-4. Creates the Connection Group in AppVentiX
-5. Creates publishing tasks for the Connection Group
+## DESCRIPTION
 
-## Parameters
+The Import-AppVManagementConnectionGroup function retrieves Connection Groups from the
+App-V Management Database and imports them into the AppVentiX configuration share.
+This function allows you to synchronize Connection Groups from the Management Server
+to make them available for seamless publishing.
 
-### -SQLServer
+## EXAMPLES
 
-Specifies the SQL Server hostname or IP address where the App-V Management database is hosted.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | localhost |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local"
+Imports all Connection Groups from the specified SQL Server.
 
-### -SQLInstance
+### EXAMPLE 2
 
-Specifies the SQL Server instance name. If not specified, the default instance will be used.
+Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -GUI
+Displays a GUI to select specific Connection Groups to import.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None (default instance) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### EXAMPLE 3
+
+$cred = Get-Credential
+Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -SQLCredential $cred -GUI
+Imports Connection Groups using SQL authentication and GUI selection.
+
+## PARAMETERS
+
+### -ConfigShare
+
+Specifies the AppVentiX configuration share path.
+This parameter is hidden and uses the module's configured ConfigShare by default.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentiX.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -GUI
+
+When specified, displays a graphical user interface to select Connection Groups to import.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -MatchConnectionGroupWithMachineGroup
+
+When specified, packages in a Connection Group are matched to the Machine Group whose Content Share
+contains them, and the resulting publishing task is targeted at that Machine Group.
+When the packages
+span multiple Machine Groups, the Connection Group is published to 'All Machine Groups'.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -SQLCredential
+
+Specifies the PSCredential object for SQL Server authentication.
+If not specified, Windows Integrated Authentication will be used.
+
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -SQLDatabase
 
 Specifies the App-V Management database name.
+Default value: AppVManagement
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | AppVManagement |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -SQLCredential
-
-Specifies the PSCredential object for SQL Server authentication. If not specified, Windows Integrated Authentication will be used.
-
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None (Windows Authentication) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -MatchConnectionGroupWithMachineGroup
-
-When specified, automatically matches Connection Groups to AppVentiX machine groups based on their member packages' content share locations. If packages belong to multiple machine groups, the Connection Group is published to "All Machine Groups".
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -GUI
-
-When specified, displays a graphical user interface to select which Connection Groups to import. This allows you to review and choose specific Connection Groups instead of importing all available ones.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Import all Connection Groups using Windows Authentication
-
-```powershell
-Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local"
+```yaml
+Type: System.String
+DefaultValue: AppVManagement
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Imports all enabled Connection Groups from the Management database on the specified SQL Server using Windows Integrated Authentication.
+### -SQLInstance
 
-### Example 2: Import using SQL Authentication
+Specifies the SQL Server instance name.
+If not specified, the default instance will be used.
 
-```powershell
-$cred = Get-Credential
-Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -SQLCredential $cred
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Prompts for SQL Server credentials and imports Connection Groups using SQL Server Authentication.
+### -SQLServer
 
-### Example 3: Import Connection Groups with GUI selection
+Specifies the SQL Server hostname or IP address.
+Default value: localhost
 
-```powershell
-Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" -GUI
+```yaml
+Type: System.String
+DefaultValue: localhost
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Displays a GUI dialog showing Connection Group details (ID, Name, Enabled status, Priority, Version, Description) to select which Connection Groups to import.
+### CommonParameters
 
-### Example 4: Import with Machine Group matching
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-$params = @{
-    SQLServer = "sql01.domain.local"
-    MatchConnectionGroupWithMachineGroup = $true
-    GUI = $true
-}
-Import-AppVManagementConnectionGroup @params
-```
+## INPUTS
 
-Displays a GUI for Connection Group selection and automatically assigns Connection Groups to the appropriate machine groups based on their member packages' content share locations.
+## OUTPUTS
 
-### Example 5: Import from named SQL instance
+## NOTES
 
-```powershell
-$params = @{
-    SQLServer = "sql01.domain.local"
-    SQLInstance = "SQLINSTANCE"
-    SQLDatabase = "AppVManagement"
-}
-Import-AppVManagementConnectionGroup @params
-```
+Function : Import-AppVManagementConnectionGroup
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.707.1400
+Requires : Valid AppVentiX license
 
-Imports Connection Groups from a named SQL Server instance.
 
-### Example 6: Complete migration workflow
+## RELATED LINKS
 
-```powershell
-# Store credentials for reuse
-$sqlCred = Get-Credential
-
-# First import all packages
-Import-AppVManagementPackage -SQLServer "sql01.domain.local" `
-    -SQLCredential $sqlCred `
-    -MatchPackageWithMachineGroup
-
-# Then import Connection Groups
-Import-AppVManagementConnectionGroup -SQLServer "sql01.domain.local" `
-    -SQLCredential $sqlCred `
-    -MatchConnectionGroupWithMachineGroup
-```
-
-## Output
-
-The function outputs a PSCustomObject for each imported Connection Group with the following properties:
-
-| Property | Description |
-|----------|-------------|
-| Name | The name of the imported Connection Group |
-| Id | The ID of the created publishing task |
-
-## Notes
-
-- Requires a valid AppVentiX license
-- Requires the SqlServer PowerShell module
-- Disabled Connection Groups are skipped during import
-- Only packages with valid UNC paths are included
-- Connection Group priority is preserved during import
-- AD group assignments are converted to AppVentiX publishing tasks
-- If member packages span multiple machine groups, the Connection Group is published to "All Machine Groups"
-
-## Connection Group Package Settings
-
-When importing Connection Groups, the following package settings are preserved:
-
-| Setting | Description |
-|---------|-------------|
-| Optional | Whether the package is optional in the Connection Group |
-| UseAnyVersion | Whether any version of the package can be used |
-
-## Related Links
-
-- [Import-AppVManagementPackage](Import-AppVManagementPackage.md)
-- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)
-- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [Test-AppVManagementSQLConnection](Test-AppVManagementSQLConnection.md)
+- [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
 - [Get-AppVManagementConnectionGroup](Get-AppVManagementConnectionGroup.md)
+- [Import-AppVManagementPackage](Import-AppVManagementPackage.md)
+- [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)

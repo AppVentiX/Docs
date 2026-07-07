@@ -1,140 +1,277 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVentiXPublishingTask
+---
+
 # Get-AppVentiXPublishingTask
 
-Retrieves the publishing tasks from the AppVentiX configuration store.
+## SYNOPSIS
 
-## Syntax
+Retrieves the publishing tasks from the AppVentiX configuration share.
 
-```powershell
-Get-AppVentiXPublishingTask
-    [-UserPublishingTasks]
-    [-MachineGroupFriendlyName <String>]
-    [<CommonParameters>]
+## SYNTAX
 
-Get-AppVentiXPublishingTask
-    -GlobalPublishingTasks
-    [-MachineGroupFriendlyName <String>]
-    [<CommonParameters>]
+### User (Default)
 
-Get-AppVentiXPublishingTask
-    -All
-    -MachineGroupFriendlyName <String>
-    [<CommonParameters>]
-
-Get-AppVentiXPublishingTask
-    -Id <String>
-    [<CommonParameters>]
+```
+Get-AppVentiXPublishingTask [-UserPublishingTasks] [-MachineGroupFriendlyName <string>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
-## Description
+### Global
 
-The `Get-AppVentiXPublishingTask` function retrieves the publishing tasks from the specified AppVentiX configuration store. It checks if AppVentiX is licensed and if the publishing tasks file exists. By default, it retrieves user publishing tasks.
+```
+Get-AppVentiXPublishingTask -GlobalPublishingTasks [-MachineGroupFriendlyName <string>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
 
-## Parameters
+### All
 
-### -UserPublishingTasks
+```
+Get-AppVentiXPublishingTask -All -MachineGroupFriendlyName <string> [-ConfigShare <string>]
+ [<CommonParameters>]
+```
 
-Retrieves user publishing tasks. This is the default behavior when no parameter is specified. Has alias: User.
+### ID
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```
+Get-AppVentiXPublishingTask -Id <string> [-ConfigShare <string>] [<CommonParameters>]
+```
 
-### -GlobalPublishingTasks
+## ALIASES
 
-Retrieves global publishing tasks. Has alias: Global.
+This cmdlet has the following aliases,
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## DESCRIPTION
+
+The Get-AppVentiXPublishingTask function retrieves the publishing tasks from the specified AppVentiX configuration share.
+It checks if AppVentiX is licensed and if the publishing tasks file exists.
+If successful, it returns the publishing tasks as an output.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+Get-AppVentiXPublishingTask
+Retrieves the (User) publishing tasks from the default AppVentiX configuration share.
+
+### EXAMPLE 2
+
+Get-AppVentiXPublishingTask -ConfigShare "\\fileserver.domain.local\config"
+Retrieves the (User) publishing tasks from the specified AppVentiX configuration share "\\fileserver.domain.local\config".
+
+### EXAMPLE 3
+
+Get-AppVentiXPublishingTask -All
+Retrieves both the global and user publishing tasks from the default AppVentiX configuration share.
+
+### EXAMPLE 4
+
+Get-AppVentiXPublishingTask -MachineGroupFriendlyName "MyMachineGroup"
+Retrieves user publishing tasks that are configured for the "MyMachineGroup" Machine Group from the default AppVentiX configuration share.
+
+## PARAMETERS
 
 ### -All
 
-Retrieves both global and user publishing tasks. Returns an object with GlobalPublishingTasks and UserPublishingTasks properties.
+Retrieves both the global and user publishing tasks.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: All
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ConfigShare
+
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
+ParameterSets:
+- Name: User
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: Global
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -GlobalPublishingTasks
+
+Retrieves the global publishing tasks.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases:
+- Global
+ParameterSets:
+- Name: Global
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Id
 
-Retrieves a specific publishing task by its ID. Accepts pipeline input by property name.
+Retrieves the publishing task with the specified ID.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -MachineGroupFriendlyName
 
-Filters publishing tasks by the specified machine group friendly name. Has alias: MachineGroup.
+Filters the publishing tasks to those configured for the specified Machine Group.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Retrieve all user publishing tasks
-
-```powershell
-Get-AppVentiXPublishingTask
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- MachineGroup
+ParameterSets:
+- Name: User
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: Global
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: All
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves all user publishing tasks from the default AppVentiX configuration store.
+### -UserPublishingTasks
 
-### Example 2: Retrieve publishing tasks from a specific configuration store
+Retrieves the user publishing tasks.
+This is the default if no parameter is specified.
 
-```powershell
-Get-AppVentiXPublishingTask -ConfigShare "\\fileserver.domain.local\config"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases:
+- User
+ParameterSets:
+- Name: User
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Retrieves user publishing tasks from the specified AppVentiX configuration store.
+### CommonParameters
 
-### Example 3: Retrieve all publishing tasks (global and user)
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Get-AppVentiXPublishingTask -All
-```
+## INPUTS
 
-Retrieves both global and user publishing tasks.
+### System.String
 
-### Example 4: Retrieve publishing tasks for a specific machine group
+## OUTPUTS
 
-```powershell
-Get-AppVentiXPublishingTask -MachineGroupFriendlyName "MyMachineGroup"
-```
+## NOTES
 
-Retrieves user publishing tasks configured for the specified machine group.
+Function : Get-AppVentiXPublishingTask
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
 
-## Notes
 
-- Requires a valid AppVentiX license
-- Without parameters, only user publishing tasks are returned
-- The -All parameter returns a single object with two properties: GlobalPublishingTasks and UserPublishingTasks
-
-## Related Links
+## RELATED LINKS
 
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
 - [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
 - [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
 - [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
 - [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
+- [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

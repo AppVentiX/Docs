@@ -1,129 +1,223 @@
+---
+category: user-settings
+category_title: User Settings Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Set-AppVentiXUserSettingsAssignment
+---
+
 # Set-AppVentiXUserSettingsAssignment
 
-Assigns an Active Directory group to an AppVentiX user setting.
+## SYNOPSIS
 
-## Syntax
+Assigns a user setting to an Active Directory group in AppVentiX.
 
-```powershell
-Set-AppVentiXUserSettingsAssignment
-    -Id <String>
-    -ADGroup <String>
-    [-DomainFQDN <String>]
-    [-ADGroupSID <String>]
-    -Type <String>
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Set-AppVentiXUserSettingsAssignment [-Id] <string> [-ADGroup] <string> [[-DomainFQDN] <string>]
+ [[-ADGroupSID] <string>] [-Type] <string> [[-ConfigShare] <string>] [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Set-AppVentiXUserSettingsAssignment` function assigns an Active Directory group to an existing AppVentiX user setting. The assignment controls which users receive the user setting based on their AD group membership. The type of user setting must be specified to ensure the assignment is applied to the correct XML file.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
 
-### -Id
+Set-AppVentiXUserSettingsAssignment assigns a specific user setting (identified by Id and Type)
+to an Active Directory group.
+If the AD group does not yet exist in the User Settings Assignments
+file, a new entry is created.
+If the assignment already exists, no changes are made.
 
-The unique identifier (filename without extension) of the user setting to assign the AD group to.
+Supports the special built-in group "Everyone" in addition to standard AD groups.
+The function requires a valid AppVentiX license.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+## EXAMPLES
+
+### EXAMPLE 1
+
+Set-AppVentiXUserSettingsAssignment -Id "abc123" -ADGroup "Finance" -Type "DriveMapping"
+
+Assigns the drive mapping with Id "abc123" to the Finance AD group.
+
+### EXAMPLE 2
+
+Set-AppVentiXUserSettingsAssignment -Id "def456" -ADGroup "Everyone" -Type "EnvironmentVariables"
+
+Assigns the environment variable setting with Id "def456" to all users.
+
+## PARAMETERS
 
 ### -ADGroup
 
-The name of the Active Directory group to assign to the user setting.
+The name of the Active Directory group to assign the user setting to.
+Use "Everyone" to assign to all users regardless of group membership.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -DomainFQDN
-
-The fully qualified domain name (FQDN) of the domain containing the AD group.
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | $Env:USERDNSDOMAIN |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ADGroupSID
 
-The Security Identifier (SID) of the AD group. When provided, the SID is stored alongside the group name.
+The Security Identifier (SID) of the AD group.
+If not specified, the SID is
+resolved automatically by querying Active Directory.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ConfigShare
+
+The path to the AppVentiX configuration share.
+Defaults to the value configured in the module.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentiX.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 5
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -DomainFQDN
+
+The fully qualified domain name (FQDN) of the Active Directory domain.
+If not specified, the current domain FQDN is resolved automatically.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Id
+
+The unique identifier of the user setting to assign.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Type
 
-The type of user setting to assign the AD group to. Must be one of the following values:
+The type of user setting to assign.
+Valid values are:
+EnvironmentVariables, PrinterMapping, DriveMapping, GroupPolicy, RegistrySettings, Shortcuts.
 
-- `EnvironmentVariables`
-- `PrinterMapping`
-- `DriveMapping`
-- `GroupPolicy`
-- `RegistrySettings`
-- `Shortcuts`
-
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Assign an AD group to a drive mapping
-
-```powershell
-Set-AppVentiXUserSettingsAssignment -Id "HomeDrive_UserSetting" -ADGroup "Domain Users" -Type DriveMapping
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Assigns the 'Domain Users' AD group to the specified drive mapping user setting.
+### CommonParameters
 
-### Example 2: Assign with explicit domain FQDN
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Set-AppVentiXUserSettingsAssignment -Id "OfficeShortcuts" -ADGroup "Office Users" -DomainFQDN "domain.local" -Type Shortcuts
-```
+## INPUTS
 
-Assigns the 'Office Users' AD group in the specified domain to a shortcut user setting.
+## OUTPUTS
 
-### Example 3: Assign with a group SID
+## NOTES
 
-```powershell
-Set-AppVentiXUserSettingsAssignment -Id "PrinterConfig" -ADGroup "Print Users" -ADGroupSID "S-1-5-21-..." -Type PrinterMapping
-```
+Function    : Set-AppVentiXUserSettingsAssignment
+Author      : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+Version     : 2026.130.1000
+Requires    : Valid AppVentiX license
 
-Assigns an AD group by name and SID to a printer mapping user setting.
 
-## Notes
-
-- Requires a valid AppVentiX license
-- The Type parameter must match the category of the target user setting XML file
-
-## Related Links
+## RELATED LINKS
 
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
 - [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
 - [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
+- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
 - [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
 - [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
 - [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
-- [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
+- [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)

@@ -1,175 +1,307 @@
+---
+category: migration-appv
+category_title: App-V Management Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Import-AppVManagementPackage
+---
+
 # Import-AppVManagementPackage
 
-Imports App-V packages from the App-V Management Database into AppVentiX.
+## SYNOPSIS
 
-## Syntax
+Imports App-V Management packages from an App-V Management SQL database into AppVentiX as publishing tasks.
 
-```powershell
-Import-AppVManagementPackage
-    [-SQLServer <String>]
-    [-SQLInstance <String>]
-    [-SQLDatabase <String>]
-    [-SQLCredential <PSCredential>]
-    [-MatchPackageWithMachineGroup]
-    [-GUI]
-    [<CommonParameters>]
+## SYNTAX
+
+### __AllParameterSets
+
+```
+Import-AppVManagementPackage [[-SQLServer] <string>] [[-SQLInstance] <string>]
+ [[-SQLDatabase] <string>] [[-SQLCredential] <pscredential>] [[-ThrottleLimit] <int>]
+ [[-ConfigShare] <string>] [-MatchPackageWithMachineGroup] [-GUI] [-CachePackages]
+ [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Import-AppVManagementPackage` function retrieves App-V packages from the App-V Management Database and imports them into AppVentiX. This function allows you to migrate packages from the Microsoft App-V Management Server to AppVentiX for seamless publishing.
+This cmdlet has the following aliases,
 
-For each package imported, the function:
-1. Connects to the App-V Management database
-2. Retrieves package details including AD group assignments
-3. Matches packages to AppVentiX content shares
-4. Creates publishing tasks in AppVentiX
+## DESCRIPTION
 
-## Parameters
+Import-AppVManagementPackage retrieves packages from an App-V Management SQL database and converts them into
+AppVentiX publishing tasks.
+The function matches package URLs against the configured AppVentiX Content Shares
+and optionally associates packages with the appropriate Machine Groups based on Content Share location.
+If a Deployment Configuration XML is present in the database, it is saved as an .appd file alongside the package.
 
-### -SQLServer
+## EXAMPLES
 
-Specifies the SQL Server hostname or IP address where the App-V Management database is hosted.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | localhost |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Import-AppVManagementPackage
 
-### -SQLInstance
+Imports all enabled App-V packages from the local SQL Server ('localhost', database 'AppVManagement')
+and publishes them to all Machine Groups.
 
-Specifies the SQL Server instance name. If not specified, the default instance will be used.
+### EXAMPLE 2
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None (default instance) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Import-AppVManagementPackage -SQLServer 'sql01' -SQLDatabase 'AppVManagement' -MatchPackageWithMachineGroup
 
-### -SQLDatabase
+Imports all enabled App-V packages from SQL Server 'sql01' and associates each package with the corresponding
+AppVentiX Machine Group based on its Content Share location.
 
-Specifies the App-V Management database name.
+### EXAMPLE 3
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | AppVManagement |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Import-AppVManagementPackage -SQLServer 'sql01' -GUI -MatchPackageWithMachineGroup
 
-### -SQLCredential
+Displays a selection window listing all available packages so the user can choose which ones to import,
+then associates them with the appropriate Machine Group.
 
-Specifies the PSCredential object for SQL Server authentication. If not specified, Windows Integrated Authentication will be used.
+## PARAMETERS
 
-| | |
-|---|---|
-| Type: | PSCredential |
-| Position: | Named |
-| Default value: | None (Windows Authentication) |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### -CachePackages
 
-### -MatchPackageWithMachineGroup
+When specified, package manifest identity fields read from the Content Shares are cached in memory for
+the duration of the PowerShell session and reused on subsequent runs, so unchanged packages are not
+re-read.
+The cache is keyed on file path, last write time and size (a repackaged file is always
+re-read), is module-scoped, and is cleared when the module is reimported.
+Off by default.
 
-When specified, automatically matches packages to AppVentiX machine groups based on their content share location. Without this switch, packages are published to "All Machine Groups".
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+### -ConfigShare
+
+Internal parameter.
+Points to the AppVentiX configuration share path.
+Automatically populated from the
+module configuration and does not normally need to be specified manually.
+
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentiX.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 5
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -GUI
 
-When specified, displays a graphical user interface to select which packages to import. This allows you to review and choose specific packages instead of importing all available packages.
+When specified, displays a graphical selection window allowing the user to manually choose which packages
+to import.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Import all packages using (current) Windows Authentication
-
-```powershell
-Import-AppVManagementPackage -SQLServer "sql01.domain.local"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Imports all enabled App-V packages from the Management database on the specified SQL Server using Windows Integrated Authentication.
+### -MatchPackageWithMachineGroup
 
-### Example 2: Import using SQL Authentication
+When specified, attempts to match each package to the appropriate AppVentiX Machine Group based on its
+Content Share location.
+If no match is found, the package is published to all Machine Groups.
 
-```powershell
-$cred = Get-Credential
-Import-AppVManagementPackage -SQLServer "sql01.domain.local" -SQLCredential $cred
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-### Example 3: Import packages with GUI selection
+### -SQLCredential
 
-```powershell
-Import-AppVManagementPackage -SQLServer "sql01.domain.local" -GUI
+A PSCredential object for SQL Server authentication.
+Use [System.Management.Automation.PSCredential]::Empty
+for Windows authentication (default).
+
+```yaml
+Type: System.Management.Automation.PSCredential
+DefaultValue: '[System.Management.Automation.PSCredential]::Empty'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Displays a GUI dialog to select which packages to import from the Management database.
+### -SQLDatabase
 
-Prompts for SQL Server credentials and imports packages using SQL Server Authentication.
+The name of the App-V Management database.
+Default: 'AppVManagement'.
 
-### Example 4: Import with Machine Group matching and showing the GUI
-
-```powershell
-$params = @{
-    SQLServer = "sql01.domain.local"
-    MatchPackageWithMachineGroup = $true
-    GUI = $true
-}
-Import-AppVManagementPackage @params
+```yaml
+Type: System.String
+DefaultValue: AppVManagement
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Displays a GUI for package selection and automatically assigns packages to the appropriate machine groups based on their content share location.
+### -SQLInstance
 
-### Example 5: Import from named SQL instance
+The SQL Server instance name (optional).
+Leave empty for the default instance.
 
-```powershell
-$params = @{
-    SQLServer = "sql01.domain.local"
-    SQLInstance = "SQLINSTANCE"
-    SQLDatabase = "AppVManagement"
-}
-Import-AppVManagementPackage @params"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Imports packages from a named SQL Server instance.
+### -SQLServer
 
-## Output
+The name or IP address of the SQL Server hosting the App-V Management database.
+Default: 'localhost'.
 
-The function outputs a PSCustomObject for each imported package with the following properties:
+```yaml
+Type: System.String
+DefaultValue: localhost
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-| Property | Description |
-|----------|-------------|
-| Name | The name of the imported package |
-| Id | The ID of the created publishing task |
+### -ThrottleLimit
 
-## Notes
+The maximum number of package manifests to read concurrently from the Content Shares when retrieving
+AppVentiX Content Share packages.
+Reading manifests over a (usually remote) share is network-latency
+bound and benefits from parallelism.
+Default: 16.
+Increase on high-latency shares; decrease to reduce
+load on the file server.
 
-- Requires a valid AppVentiX license
-- Requires the SqlServer PowerShell module
-- Disabled packages are skipped during import
-- Only packages with valid UNC paths are imported
+```yaml
+Type: System.Int32
+DefaultValue: 16
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
 
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function    : Import-AppVManagementPackage
+Author      : John Billekens
+Copyright   : (c) John Billekens Consultancy & AppVentiX
+    Version  : 2026.707.1400
+Requires    : SqlServer PowerShell module
+
+
+## RELATED LINKS
+
+- [Test-AppVManagementSQLConnection](Test-AppVManagementSQLConnection.md)
+- [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
+- [Get-AppVManagementConnectionGroup](Get-AppVManagementConnectionGroup.md)
 - [Import-AppVManagementConnectionGroup](Import-AppVManagementConnectionGroup.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
-- [Get-AppVManagementPackage](Get-AppVManagementPackage.md)
+- [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)

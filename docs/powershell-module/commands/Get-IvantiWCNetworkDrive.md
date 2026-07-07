@@ -1,95 +1,194 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-IvantiWCNetworkDrive
+---
+
 # Get-IvantiWCNetworkDrive
+
+## SYNOPSIS
 
 Retrieves Ivanti Workspace Control network drive mappings from XML files.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-IvantiWCNetworkDrive
-    -XmlFilePath <String>
-    [-DomainFqdn <String>]
-    [-AsJson]
-    [<CommonParameters>]
+### ByFilePath
 
-Get-IvantiWCNetworkDrive
-    -XmlPath <String>
-    [-DomainFqdn <String>]
-    [-AsJson]
-    [<CommonParameters>]
+```
+Get-IvantiWCNetworkDrive -XmlFilePath <string> [-DomainFqdn <string>] [-AsJson]
+ [-ExportFor <string>] [<CommonParameters>]
 ```
 
-## Description
+### ByPath
 
-The `Get-IvantiWCNetworkDrive` function processes Ivanti Workspace Control XML building block file(s) and extracts network drive mapping settings, assignments, and metadata. Supports both single large XML files and directories containing multiple separate XML files.
+```
+Get-IvantiWCNetworkDrive -XmlPath <string> [-DomainFqdn <string>] [-AsJson] [-ExportFor <string>]
+ [<CommonParameters>]
+```
 
-## Parameters
+## ALIASES
 
-### -XmlFilePath
+This cmdlet has the following aliases,
 
-Path to a single Ivanti Workspace Control XML building block file. This is a legacy parameter maintained for backward compatibility. Use -XmlPath instead.
+## DESCRIPTION
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Processes Ivanti Workspace Control XML building block file(s) and extracts network drive
+mapping settings, assignments, and metadata.
+Supports both single large XML files and
+directories containing multiple separate XML files.
 
-### -XmlPath
+## EXAMPLES
 
-Path to either a single XML file containing all network drive configurations, or a directory containing multiple XML files.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Get-IvantiWCNetworkDrive -XmlFilePath "C:\Config\IvantiDrives.xml" -DomainFqdn "corp.contoso.com"
 
-### -DomainFqdn
+Processes a single XML file (legacy parameter usage).
 
-Domain FQDN to append to non-FQDN SMB paths in network drive UNC paths.
+### EXAMPLE 2
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Get-IvantiWCNetworkDrive -XmlPath "C:\Config\NetworkDrives\" -DomainFqdn "corp.contoso.com"
+
+Processes all XML files in the specified directory.
+
+## PARAMETERS
 
 ### -AsJson
 
-When specified, outputs the results as JSON format instead of PowerShell objects.
+Switch to output the results as JSON format instead of PowerShell objects.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Process a single XML file (legacy parameter)
-
-```powershell
-Get-IvantiWCNetworkDrive -XmlFilePath "C:\Config\IvantiBB.xml" -DomainFqdn "domain.local"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Processes a single XML file using the legacy parameter and converts non-FQDN paths.
+### -DomainFqdn
 
-## Notes
+Domain FQDN to append to non-FQDN SMB paths.
 
-- Use `-ExportFor AppVentiX` to include pre-structured output suitable for `Import-IvantiWCNetworkDrive` or `New-AppVentiXDriveMappingUserSetting`
-- Specify `-DomainFqdn` to ensure UNC paths are fully qualified
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -ExportFor
+
+Target system for export: AppVentiX or WEM.
+
+```yaml
+Type: System.String
+DefaultValue: AppVentiX
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -XmlFilePath
+
+(Legacy parameter) Path to a single Ivanti Workspace Control XML building block file.
+This parameter is maintained for backward compatibility.
+Use -XmlPath instead.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByFilePath
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -XmlPath
+
+Path to either:
+- A single XML file containing all network drive configurations
+- A directory containing multiple XML files
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByPath
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function  : Get-IvantiWCNetworkDrive
+Author    : John Billekens
+Copyright : (c) John Billekens Consultancy
+Version   : 2026.130.1000
+
+
+## RELATED LINKS
 
 - [Import-IvantiWCNetworkDrive](Import-IvantiWCNetworkDrive.md)
-- [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
-- [Get-IvantiWCApplication](Get-IvantiWCApplication.md)
-- [Get-IvantiWCEnvironmentVariable](Get-IvantiWCEnvironmentVariable.md)

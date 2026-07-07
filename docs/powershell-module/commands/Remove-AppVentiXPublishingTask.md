@@ -1,135 +1,232 @@
+---
+category: publishing-task
+category_title: Publishing Task Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Remove-AppVentiXPublishingTask
+---
+
 # Remove-AppVentiXPublishingTask
 
-Removes one or more AppVentiX publishing tasks.
+## SYNOPSIS
 
-## Syntax
+Removes an AppVentiX publishing task.
 
-```powershell
-# Parameter Set: ID
-Remove-AppVentiXPublishingTask
-    -Id <String[]>
-    [-Force]
-    [-WhatIf]
-    [-Confirm]
-    [<CommonParameters>]
+## SYNTAX
 
-# Parameter Set: MachineGroupFriendlyname
-Remove-AppVentiXPublishingTask
-    -MachineGroupFriendlyname <String>
-    [-Force]
-    [-WhatIf]
-    [-Confirm]
-    [<CommonParameters>]
+### ID (Default)
+
+```
+Remove-AppVentiXPublishingTask -Id <string> [-Force] [-ConfigShare <string>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
-## Description
+### MachineGroupFriendlyname
 
-The `Remove-AppVentiXPublishingTask` function removes one or more publishing tasks from AppVentiX. Tasks can be removed by their unique ID or by machine group friendly name. Because this is a destructive operation, confirmation is required unless `-Force` is specified. The function supports `-WhatIf` and `-Confirm` common parameters.
+```
+Remove-AppVentiXPublishingTask -MachineGroupFriendlyname <string> [-Force] [-ConfigShare <string>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
 
-## Parameters
+## ALIASES
 
-### -Id
+This cmdlet has the following aliases,
 
-One or more publishing task IDs to remove. Accepts an array of ID strings.
+## DESCRIPTION
 
-| | |
-|---|---|
-| Type: | String[] |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | True |
-| Accept wildcard characters: | False |
+The Remove-AppVentiXPublishingTask function removes a publishing task from the AppVentiX module.
+It can remove a task either by its ID or by the friendly name of the machine group associated with the task.
 
-### -MachineGroupFriendlyname
+## EXAMPLES
 
-The friendly name of the machine group whose publishing tasks should be removed.
+### EXAMPLE 1
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Remove-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-123456789012"
+Removes the publishing task with the specified ID.
 
-### -Force
+### EXAMPLE 2
 
-Suppresses the confirmation prompt and removes tasks without asking for confirmation.
+Remove-AppVentiXPublishingTask -MachineGroupFriendlyname "Production"
+Removes all the publishing tasks associated with the specified machine group friendly name.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+## PARAMETERS
 
-### -WhatIf
+### -ConfigShare
 
-Shows what would happen if the command runs without actually performing the removal.
+Specifies the path to the AppVentiX configuration share.
+You can omit this parameter if Set-AppVentiXConfigShare has been called.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+```yaml
+Type: System.String
+DefaultValue: $Script:AppVentix.ConfigShare
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -Confirm
 
-Prompts for confirmation before executing the removal.
+Prompts you for confirmation before running the cmdlet.
 
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | True |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Remove a publishing task by ID
-
-```powershell
-Remove-AppVentiXPublishingTask -Id "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- cf
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Removes the publishing task with the specified ID after confirmation.
+### -Force
 
-### Example 2: Remove multiple publishing tasks without confirmation
+Indicates whether to force the removal of the publishing task without confirmation.
+By default, confirmation is required.
+Also required to remove a seamless publishing task; you must then remove the published apps from your application publishing tool yourself.
 
-```powershell
-Remove-AppVentiXPublishingTask -Id "id1", "id2", "id3" -Force
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Removes the specified publishing tasks without prompting for confirmation.
+### -Id
 
-### Example 3: Remove all tasks for a machine group
+Specifies the ID of the publishing task to be removed.
 
-```powershell
-Remove-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -Force
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ID
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: true
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Removes all publishing tasks assigned to the Development machine group without confirmation.
+### -MachineGroupFriendlyname
 
-### Example 4: Preview removal with WhatIf
+Specifies the friendly name of the machine group associated with the publishing task to be removed.
 
-```powershell
-Remove-AppVentiXPublishingTask -MachineGroupFriendlyname "Production" -WhatIf
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupFriendlyname
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Shows which publishing tasks would be removed for the Production machine group without actually removing them.
+### -WhatIf
 
-## Notes
+Runs the command in a mode that only reports what would happen without performing the actions.
 
-- Requires a valid AppVentiX license
-- This operation is irreversible; use `-WhatIf` to preview changes before executing
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- wi
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+### System.String
+
+## OUTPUTS
+
+## NOTES
+
+Function : Remove-AppVentiXPublishingTask
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
 - [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
+- [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
+- [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
 - [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

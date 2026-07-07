@@ -1,112 +1,214 @@
+---
+category: migration-ivanti
+category_title: Ivanti Workspace Control Migration
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-IvantiWCPrinterMapping
+---
+
 # Get-IvantiWCPrinterMapping
+
+## SYNOPSIS
 
 Parses Ivanti Workspace Control XML file(s) to extract printer mappings.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-IvantiWCPrinterMapping
-    -XmlFilePath <String>
-    [-DomainFqdn <String>]
-    [-AsJson]
-    [<CommonParameters>]
+### ByFilePath
 
-Get-IvantiWCPrinterMapping
-    -XmlPath <String>
-    [-DomainFqdn <String>]
-    [-AsJson]
-    [<CommonParameters>]
+```
+Get-IvantiWCPrinterMapping -XmlFilePath <string> [-DomainFqdn <string>] [-AsJson]
+ [-ExportFor <string>] [<CommonParameters>]
 ```
 
-## Description
+### ByPath
 
-The `Get-IvantiWCPrinterMapping` function reads specified Ivanti Workspace Control XML export file(s), filters for printer mappings, and transforms the data into structured PowerShell objects or a single JSON string.
+```
+Get-IvantiWCPrinterMapping -XmlPath <string> [-DomainFqdn <string>] [-AsJson] [-ExportFor <string>]
+ [<CommonParameters>]
+```
+
+## ALIASES
+
+This cmdlet has the following aliases,
+
+## DESCRIPTION
+
+This function reads specified Ivanti Workspace Control XML export file(s), filters for printer mappings,
+and transforms the data into structured PowerShell objects or a single JSON string.
 
 Supports both single large XML files and directories containing multiple separate XML files.
 
-For each printer mapping it:
-- Converts the printer's SMB path to a Fully Qualified Domain Name (FQDN) using the specified domain
-- Determines if it is the default printer
-- Extracts associated access control objects (users and groups)
-- Collects metadata such as comments, location, and driver names
+It processes each printer mapping to:
+- Convert the printer's SMB path to a Fully Qualified Domain Name (FQDN) using a helper function.
+- Determine if it's the default printer.
+- Extract associated access control objects (users and groups).
+- Collect other metadata like comments, location, and driver names.
 
-## Parameters
+## EXAMPLES
 
-### -XmlFilePath
+### EXAMPLE 1
 
-Path to a single Ivanti Workspace Control XML building block file. This is a legacy parameter maintained for backward compatibility. Use -XmlPath instead.
+Get-IvantiWCPrinterMapping -XmlFilePath "C:\IvantiConfig\Printers.xml" -DomainFqdn "corp.contoso.com"
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Description
+-----------
+This command processes the 'Printers.xml' file (legacy parameter usage).
 
-### -XmlPath
+### EXAMPLE 2
 
-Path to either a single XML file containing all printer configurations, or a directory containing multiple XML files.
+Get-IvantiWCPrinterMapping -XmlPath "C:\IvantiConfig\Printers\" -DomainFqdn "corp.contoso.com"
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
+Description
+-----------
+This command processes all XML files in the specified directory.
+
+### EXAMPLE 3
+
+Get-IvantiWCPrinterMapping -XmlPath "C:\IvantiConfig\Printers.xml" -DomainFqdn "corp.contoso.com" -AsJson | Out-File -FilePath "C:\Output\printers.json"
+
+Description
+-----------
+This command processes the XML file and outputs as JSON to a file.
+
+## PARAMETERS
+
+### -AsJson
+
+If specified, the function collects all results and outputs them as a single, multi-line JSON string.
+Otherwise, it streams each printer mapping object to the pipeline as it's processed.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -DomainFqdn
 
 Specifies the domain FQDN (e.g., 'corp.domain.com') to append to any printer SMB paths that are not already fully qualified.
 
-| | |
-|---|---|
-| Type: | String |
-| Position: | Named |
-| Default value: | None |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-### -AsJson
-
-When specified, the function collects all results and outputs them as a single, multi-line JSON string. Otherwise, it streams each printer mapping object to the pipeline.
-
-| | |
-|---|---|
-| Type: | SwitchParameter |
-| Position: | Named |
-| Default value: | False |
-| Accept pipeline input: | False |
-| Accept wildcard characters: | False |
-
-## Examples
-
-### Example 1: Process a single XML file (legacy parameter)
-
-```powershell
-Get-IvantiWCPrinterMapping -XmlFilePath "C:\IvantiConfig\IvantiBB.xml" -DomainFqdn "domain.local"
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Processes the Printers.xml file using the legacy parameter.
+### -ExportFor
 
-### Example 3: Export printer mappings to JSON
+Target system for export: AppVentiX or WEM.
 
-```powershell
-Get-IvantiWCPrinterMapping -XmlPath "C:\IvantiConfig\Printers.xml" -DomainFqdn "domain.local" -AsJson | Out-File -FilePath "C:\Output\printers.json"
+```yaml
+Type: System.String
+DefaultValue: AppVentiX
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-Processes the XML file and outputs printer mappings as JSON to a file.
+### -XmlFilePath
 
-## Notes
+(Legacy parameter) Path to a single Ivanti Workspace Control XML building block file.
+This parameter is maintained for backward compatibility.
+Use -XmlPath instead.
 
-- Duplicate printer GUIDs found in the Building Block are skipped with a warning
-- Backup printer settings are not supported and will be ignored
-- Use `-ExportFor AppVentiX` to include pre-structured output suitable for `Import-IvantiWCPrinterMapping` or `New-AppVentiXPrinterMappingUserSetting`
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByFilePath
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-## Related Links
+### -XmlPath
+
+Path to either:
+- A single XML file containing all printer configurations
+- A directory containing multiple XML files
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ByPath
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function     : Get-IvantiWCPrinterMapping
+Author       : John Billekens
+Copyright    : (c) John Billekens Consultancy
+Version      : 2026.130.1000
+Dependencies : This function assumes a helper function named 'ConvertTo-SmbPath' and 'Test-SmbPathIsFqdn' are available in the runspace.
+
+
+## RELATED LINKS
 
 - [Import-IvantiWCPrinterMapping](Import-IvantiWCPrinterMapping.md)
-- [New-AppVentiXPrinterMappingUserSetting](New-AppVentiXPrinterMappingUserSetting.md)
-- [Get-IvantiWCApplication](Get-IvantiWCApplication.md)
-- [Get-IvantiWCNetworkDrive](Get-IvantiWCNetworkDrive.md)

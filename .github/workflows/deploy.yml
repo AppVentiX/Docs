@@ -37,7 +37,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build MkDocs
-        run: mkdocs build
+        # --strict fails the build on broken links or pages missing from the nav,
+        # so command-reference drift is caught here rather than shipping silently.
+        run: mkdocs build --strict
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v5

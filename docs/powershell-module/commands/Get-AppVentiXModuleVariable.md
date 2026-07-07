@@ -1,37 +1,72 @@
+---
+category: diagnostics
+category_title: Diagnostics Commands
+document type: cmdlet
+external help file: AppVentiX-Help.xml
+HelpUri: ''
+Locale: en-US
+Module Name: AppVentiX
+module_version: 2026.707.1700
+ms.date: 07-07-2026
+PlatyPS schema version: 2024-05-01
+title: Get-AppVentiXModuleVariable
+---
+
 # Get-AppVentiXModuleVariable
+
+## SYNOPSIS
 
 Retrieves the variables from the AppVentiX module.
 
-## Syntax
+## SYNTAX
 
-```powershell
-Get-AppVentiXModuleVariable
-    [<CommonParameters>]
+### __AllParameterSets
+
+```
+Get-AppVentiXModuleVariable [<CommonParameters>]
 ```
 
-## Description
+## ALIASES
 
-The `Get-AppVentiXModuleVariable` function retrieves the internal module variables from the AppVentiX module and returns them. This is useful for inspecting the current module configuration, including the configured configuration store path, publishing task filenames, and other internal settings.
+This cmdlet has the following aliases,
 
-## Parameters
+## DESCRIPTION
 
-This function has no parameters.
+This function retrieves the variables from the AppVentiX module and returns them.
 
-## Examples
+## EXAMPLES
 
-### Example 1: Retrieve module variables
+### EXAMPLE 1
 
-```powershell
 Get-AppVentiXModuleVariable
-```
 
 Retrieves the variables from the AppVentiX module and returns them.
 
-## Notes
+## PARAMETERS
 
-- This function exposes internal module state and is primarily intended for diagnostics and troubleshooting
+### CommonParameters
 
-## Related Links
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+Function : Get-AppVentiXModuleVariable
+Author   : John Billekens
+Copyright: (c) John Billekens Consultancy & AppVentiX
+Version  : 2026.130.1000
+Requires : Valid AppVentiX license
+
+
+## RELATED LINKS
 
 - [Get-AppVentiXConfigShare](Get-AppVentiXConfigShare.md)
 - [Set-AppVentiXConfigShare](Set-AppVentiXConfigShare.md)
+- [Set-AppVentiXADCredential](Set-AppVentiXADCredential.md)
+- [Clear-AppVentiXADCredential](Clear-AppVentiXADCredential.md)
