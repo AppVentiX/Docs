@@ -24,6 +24,7 @@ The Central View console can be installed on any machine and does not need any (
 | [Agent Settings](agent-settings.md) | All agent settings explained per category |
 | [Machine Groups](machine-groups.md) | Configure Machine Groups |
 | [Manage Machines](manage-machines.md) | Adding, organizing, and managing machines in machine groups |
+| [Workspace Analyzer](workspace-analyzer.md) | Analyze a user or group to verify the assigned items |
 | [Azure Blob Storage Configuration](../admin-guide/azure-blob-storage.md) | Setup a Azure Blob Storage automatically or manually |
 | [Upgrading AppVentiX](supported-os.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
 | [PowerShell Module](powershell-module.md) | The AppVentiX PowerShell module |

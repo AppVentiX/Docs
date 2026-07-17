@@ -120,6 +120,7 @@ nav:
       - Machine Groups: admin-guide/machine-groups.md
       - Machine Group Agent Settings: admin-guide/agent-settings.md
       - Manage Machines: admin-guide/manage-machines.md
+      - Workspace Analyzer: admin-guide/workspace-analyzer.md
       - Azure Blob Storage Configuration: admin-guide/azure-blob-storage.md
       - PowerShell Module: admin-guide/powershell-module.md
     - AppVentiX Agent:
