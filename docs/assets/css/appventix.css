@@ -82,12 +82,15 @@
   border-top-color: rgba(255, 112, 39, 0.35);
 }
 
-/* Search bar */
-.md-search__input {
+/* Search bar (collapsed header pill only - the expanded/open panel uses
+   Material's own white background via .md-search__form, and must not have
+   this translucent background painted over it or typed text becomes
+   unreadable) */
+[data-md-toggle="search"]:not(:checked) ~ .md-header .md-search__input {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-.md-search__input::placeholder {
+[data-md-toggle="search"]:not(:checked) ~ .md-header .md-search__input::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 

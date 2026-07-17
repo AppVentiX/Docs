@@ -9,6 +9,7 @@ edit_uri: ""
 
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/images/logo.png
   favicon: assets/images/favicon.ico
   language: en
@@ -45,6 +46,13 @@ theme:
 
 extra_css:
   - assets/css/appventix.css
+  - assets/css/pagefind-search.css
+
+extra_javascript:
+  - assets/js/pagefind-search.js
+
+hooks:
+  - hooks.py
 
 extra:
   social:
@@ -64,6 +72,10 @@ copyright: Copyright &copy; AppVentiX
 plugins:
   - search:
       lang: en
+      # Extends Material's default separator with backslash/forward slash so
+      # Windows paths and registry keys (e.g. AppData\Roaming\AppVentiX) split
+      # into searchable words instead of indexing as one long token.
+      separator: '[\s\-,:!=\[\]()"/\\]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)'
   # Generates the categorized command-reference nav (_nav.md) from the
   # 'category' front matter stamped by scripts/Build-CommandReference.ps1.
   - gen-files:

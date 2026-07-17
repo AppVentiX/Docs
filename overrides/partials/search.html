@@ -1,0 +1,56 @@
+{#-
+  Custom search partial: replaces Material's Lunr-driven search box with a
+  Pagefind-backed one with a "Docs" (Admin Guide/How To/Quickstart) and
+  "PowerShell" filter checkbox. See docs/assets/js/pagefind-search.js.
+
+  Deliberately omits data-md-component="search" / "search-query" /
+  "search-result": those attributes make Material's own bundle take over
+  managing this whole element (open/close, `hidden` attribute, and its own
+  Lunr-based results), which silently overwrites Pagefind's (filtered)
+  results with unfiltered Lunr ones and fights this file's own open/close
+  and rendering logic. Everything - opening/closing the overlay, running
+  the search, and rendering results - is driven entirely by
+  docs/assets/js/pagefind-search.js and pagefind-search.css instead, keyed
+  off the existing #__search checkbox (Material's own toggle input, reused
+  as-is) rather than Material's component wiring.
+-#}
+<div class="md-search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search" data-pf-search-form>
+      <input type="text" class="md-search__input" name="query" aria-label="{{ lang.t('search.placeholder') }}" placeholder="{{ lang.t('search.placeholder') }}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-pf-search-input required>
+      <label class="md-search__icon md-icon" for="__search">
+        {% set icon = config.theme.icon.search or "material/magnify" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+        {% set icon = config.theme.icon.previous or "material/arrow-left" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+      </label>
+      <div class="pf-search-filters" data-pf-search-filters>
+        <label class="pf-search-filter">
+          <input type="checkbox" value="Docs" checked data-pf-filter-checkbox>
+          Docs
+        </label>
+        <label class="pf-search-filter">
+          <input type="checkbox" value="PowerShell Module" data-pf-filter-checkbox>
+          PowerShell
+        </label>
+      </div>
+      <nav class="md-search__options" aria-label="{{ lang.t('search') }}">
+        <button type="reset" class="md-search__icon md-icon" title="{{ lang.t('search.reset') }}" aria-label="{{ lang.t('search.reset') }}" tabindex="-1" data-pf-search-reset>
+          {% set icon = config.theme.icon.close or "material/close" %}
+          {% include ".icons/" ~ icon ~ ".svg" %}
+        </button>
+      </nav>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-pf-search-result>
+          <div class="md-search-result__meta" data-pf-search-meta>
+            Type to search the docs
+          </div>
+          <ol class="md-search-result__list" role="presentation" data-pf-search-list></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

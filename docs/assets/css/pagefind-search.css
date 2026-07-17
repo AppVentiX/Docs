@@ -1,0 +1,93 @@
+/* Below 60em (Material's own mobile breakpoint), the header icon is the
+   only search trigger and the panel starts fully collapsed (width/height:
+   0) until opened - Material's CSS hides this icon unconditionally and
+   normally relies on JS (keyed on data-md-component) to reveal it. This
+   custom search box doesn't use those hooks (see
+   overrides/partials/search.html), so force it visible here instead.
+   Above 60em, Material shows the search input itself inline in the header
+   as a small pill (with its own icon inside), so the separate header
+   button is correctly left hidden there - forcing it too gave two visible
+   search triggers side by side. */
+@media screen and (max-width: 59.984375em) {
+  .md-header .md-header__button[for="__search"] {
+    display: inline-block !important;
+  }
+}
+
+/* Moves the light/dark palette toggle to the right of the search box
+   (Material renders it before search in the header markup by default, and
+   .md-header__inner is already a flex container), so it stays visible
+   instead of being covered when the search panel opens. */
+.md-header__inner .md-search {
+  order: 2;
+}
+
+.md-header__inner [data-md-component="palette"] {
+  order: 3;
+}
+
+.md-header__inner .md-header__source {
+  order: 4;
+}
+
+/* The filter checkboxes only make sense once the search panel is open
+   (checked): in the closed/collapsed state the search box is just a small
+   header pill (Material's own responsive width, e.g. 11.7rem on tablet+),
+   with no room for them and no query to filter yet. */
+.pf-search-filters {
+  display: none;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form:has(.pf-search-filters) {
+  display: flex;
+  align-items: center;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form:has(.pf-search-filters) .md-search__input {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .md-search__form:has(.pf-search-filters) .md-search__options {
+  position: static;
+  flex: 0 0 auto;
+  margin-left: 0.3rem;
+}
+
+[data-md-toggle="search"]:checked ~ .md-header .pf-search-filters {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0 0.6rem;
+  margin-left: 0.2rem;
+  border-left: 1px solid var(--md-default-fg-color--lightest);
+  flex: 0 0 auto;
+  font-size: 0.55rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pf-search-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+  user-select: none;
+}
+
+.pf-search-filter input[type="checkbox"] {
+  accent-color: var(--md-accent-fg-color);
+  cursor: pointer;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0;
+}
+
+.pf-search-result__excerpt mark {
+  color: var(--md-accent-fg-color);
+  background: transparent;
+  font-weight: 700;
+}
