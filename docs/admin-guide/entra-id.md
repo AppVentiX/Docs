@@ -4,6 +4,8 @@ After you have enabled the Entra ID integration in the Central View settings, yo
 
 It is not needed to configure and provide secrets for AppVentiX. A basic application registration is enough for AppVentiX because AppVentiX will not connect to Entra ID by itself but instead uses the access token from the user using MSAL. This makes the solution secure because the secrets do not have to be stored by AppVentiX.
 
+Navigate to **Configuration & Activity** and click on the **Settings** menu button.
+
 ![Entra ID integration settings](images/entra-id/entra-id-01.png)
 
 For Central View to be able to retrieve user groups and devices from Entra ID, the following Graph permissions need to be assigned to the account you use to log in to Entra ID:
@@ -54,7 +56,8 @@ Now go to the **Overview** menu for the application registration and copy the ap
 
 ![Application and tenant ID](images/entra-id/entra-id-06.png)
 
-Paste them in the Central View settings window:
+In the Central View settings window under **Integrations**, uncheck **Use AppVentiX Azure Application Registration**.
+Paste the **Tenant ID** value and the **Application ID** values in the following fields:
 
 ![Central View settings with app registration](images/entra-id/entra-id-07.png)
 
@@ -90,3 +93,21 @@ Only use the Azure AD machine group for Azure AD-only joined machines. Azure AD-
 ### Azure AD Joined (Only) Machines
 
 Machines that are only joined to Azure AD can be configured with an Azure file share which is stand-alone (not AD integrated). For this you can provide the storage account name and access key. Please find more information in the [Azure File Share](azure-file-share.md) section.
+
+## Logging & Caching
+
+AppVentiX Central View and the AppVentiX Agent store Entra ID logs and cache details in your user profile at `%APPDATA%\AppVentiX`.
+
+![Log and Cache location](images/entra-id/entra-id-09.png)
+
+The AppVentiX Agent also writes to its own Windows Event Log channel, "AppVentiX".
+
+![AppVentiX Eventlog](images/entra-id/entra-id-10.png)
+
+You can also retrieve this information via the Central View console. Select the machine where you want the eventlog from and click on the Eventlog Inventory button.
+
+![View eventlog items from Central View](images/entra-id/entra-id-11.png)
+
+Next, select a timeframe for the event log items.
+
+![Select timeframe](images/entra-id/entra-id-12.png)
