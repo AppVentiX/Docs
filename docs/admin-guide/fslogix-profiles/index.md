@@ -39,7 +39,8 @@ There is only one exclusion needed when you encounter stale Windows Start menu s
 </FrxProfileFolderRedirection>
 ```
 
-> **Note:** The above exclusion is now the default in FSLogix since the 2501 release.
+!!! note
+    The above exclusion is now the default in FSLogix since the 2501 release.
 
 ---
 

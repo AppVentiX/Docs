@@ -22,4 +22,5 @@ The Manage Content page in the Central View console also includes a **Remote App
 
 This gives you a total overview of all published applications in AVD. You can sort on application group, user group assignment, and application name. This provides complete insight in one overview.
 
-> **Note:** To manage application groups in AVD, you need at least Contributor permissions in AVD.
+!!! note
+    To manage application groups in AVD, you need at least Contributor permissions in AVD.

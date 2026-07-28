@@ -62,7 +62,8 @@ You can include multiple matches, separate them with **;**
 | PC-??? | pc-123, PC-A12 |
 | DSKT-t-\*;dskt-p-\* | DSKT-P-001, dskt-t-002 |
 
-> **NOTE**: This is only an option in Single and Multi session environments.
+!!! note
+    This is only an option in Single and Multi session environments.
 
 Click **Save** to save and close or **Add Filter** to add a new filter.
 

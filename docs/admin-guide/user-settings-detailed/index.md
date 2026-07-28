@@ -84,9 +84,11 @@ Use **Remove Task** to remove a selected task from the list. Check **Run Once** 
 
 ![External Task Types](user-settings-detailed-08.png)
 
-> **NOTE:** You do not have to wrap the path in double quotes, just enter the path and executable as is.
+!!! note
+    You do not have to wrap the path in double quotes, just enter the path and executable as is.
 
-> **NOTE:** To reset **Run Once** and allow the task to run again, duplicate the User Setting and delete the original.
+!!! note
+    To reset **Run Once** and allow the task to run again, duplicate the User Setting and delete the original.
 
 Each entry can be edited after it is added. For example, to use **pwsh.exe** instead of **powershell.exe**, set the executable to:
 
@@ -104,7 +106,8 @@ To run the script or executable hidden, check the **Run Hidden** column. Use the
 
 ![External Tasks](user-settings-detailed-09.png)
 
-> **NOTE:** Scripts within the same User Setting are executed sequentially, from top to bottom. User Settings with the same Execution Order number are executed simultaneously.
+!!! note
+    Scripts within the same User Setting are executed sequentially, from top to bottom. User Settings with the same Execution Order number are executed simultaneously.
 
 With the fourth type **Execute Inline Script**, you can add scripts directly in AppVentiX without needing a file share.
 
@@ -177,14 +180,16 @@ Group Policy lets you apply Group Policy settings to your users and assign polic
 
 To get started, click **Browse** and select an ADMX file. Make sure the corresponding ADML file is in the same folder or in a language subfolder. The selected ADMX file will be uploaded to the content store. For subsequent policies from the same ADMX file, you can select it from the existing ADMX list.
 
-> **TIP:** You can find the Windows ADMX/ADML files in the following locations:
+!!! tip
+    You can find the Windows ADMX/ADML files in the following locations:
 >
 > * `C:\Windows\PolicyDefinitions`
 > * `\\<domain.local>\SYSVOL\<domain.local>\Policies\PolicyDefinitions`
 
 ![Add ADMX Policy](user-settings-detailed-22.png)
 
-> **NOTE:** Only settings from one ADMX file can be configured per Group Policy User Setting.
+!!! note
+    Only settings from one ADMX file can be configured per Group Policy User Setting.
 
 Once an ADMX file is selected, use the search bar to filter settings by keyword. Check **Show only configured settings** to display only settings that have been enabled or disabled. Use the **Show** dropdown to switch between User, Machine, or Both policy scopes.
 
@@ -192,7 +197,8 @@ When changing a policy setting, click **Apply** to apply the change, then click 
 
 ![Group Policy](user-settings-detailed-23.png)
 
-> **NOTE:** Machine level policies are not applied before the user logs in. They are applied during login, in the user's context.
+!!! note
+    Machine level policies are not applied before the user logs in. They are applied during login, in the user's context.
 
 ## Printer Mapping
 
@@ -223,7 +229,8 @@ For each entry you have the following options:
 
 ![Registry Settings](user-settings-detailed-25.png)
 
-> **NOTE:** If **Value Name** is left empty, the entire registry key will be created or removed.
+!!! note
+    If **Value Name** is left empty, the entire registry key will be created or removed.
 
 ## Shortcuts
 
@@ -261,7 +268,8 @@ Fill in the shortcut details. Enter a **Shortcut Name** and optionally a Start m
 
 ![Enter shortcut details](user-settings-detailed-29.png)
 
-> **NOTE:** The package name cannot contain spaces.
+!!! note
+    The package name cannot contain spaces.
 
 You can add more shortcuts or other shortcut types as needed. When finished, click **Save Package**.
 

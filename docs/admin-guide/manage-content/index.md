@@ -46,7 +46,8 @@ When you click on the copy button next to the selected application, the command 
 
 There is also a direct integration with [Azure Virtual Desktop (AVD)](../azure-virtual-desktop/index.md), which will publish the application directly in AVD and also remove the application when the publishing task is removed.
 
-> **Note:** In full desktop scenarios the "Publish as RemoteApp" checkbox is not needed.
+!!! note
+    In full desktop scenarios the "Publish as RemoteApp" checkbox is not needed.
 
 ---
 
@@ -105,4 +106,5 @@ For example, you can create App-V connection groups by selecting specific packag
 
 From the content page, you also have the option to convert App-V packages to MSIX, enabling a smooth migration at your own pace. Managing App-V and MSIX side by side is straightforward and efficient.
 
-> **Note:** You need a code signing certificate to sign MSIX packages. This certificate can be obtained from an internal or external Certificate Authority like Sectigo, or you can create one using the Central View console. When you create a certificate in Central View it will automatically be deployed to the machines so packages signed with this certificate are automatically trusted. More information about certificates can be found in the [MSIX Certificate Management](../msix-certificates/index.md) section.
+!!! note
+    You need a code signing certificate to sign MSIX packages. This certificate can be obtained from an internal or external Certificate Authority like Sectigo, or you can create one using the Central View console. When you create a certificate in Central View it will automatically be deployed to the machines so packages signed with this certificate are automatically trusted. More information about certificates can be found in the [MSIX Certificate Management](../msix-certificates/index.md) section.

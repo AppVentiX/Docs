@@ -87,7 +87,8 @@ You can change the Display name according to your companies policy.
 To **Use an existing app registration** you can create your own App Registration.
 You can follow [this](../custom-app-registration/index.md) guide  to configure your own App Registration.
 
-> **NOTE**: After Automatic App Registration creation, Storage Blob Data Contributor role will be assigned to it.
+!!! note
+    After Automatic App Registration creation, Storage Blob Data Contributor role will be assigned to it.
 
 Click **Next** to start this process.
 
@@ -98,7 +99,8 @@ You can however [select your own pxf certificate](../client-certificate/index.md
 
 The default validity is 3 years, you can change this accordingly.
 
-> **NOTE**: The Public key will be automatically configured, no manual action is required. The public key saved is for your records only.
+!!! note
+    The Public key will be automatically configured, no manual action is required. The public key saved is for your records only.
 
 ![Create or select client certificate](azure-blob-storage-automatic-14.png)
 

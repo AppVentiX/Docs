@@ -39,7 +39,8 @@ Replace `\\fileserver.domain.local\config` with the actual path to your configur
 
 The agent can be pushed remotely to machines (even when users are logged in, no reboot is needed) or installed silently using an automated procedure, like an image build procedure or pipeline. When an older version of the agent is detected, it will be upgraded automatically.
 
-> **Note:** If you are pushing the agent remotely, skip to [Option A: Push Agent](#option-a-push-agent).
+!!! note
+    If you are pushing the agent remotely, skip to [Option A: Push Agent](#option-a-push-agent).
 
 For manual or silent installation, first open Central View, go to the **Machines & Inventory** tab, and click **Agent Installation Information**.
 
@@ -95,7 +96,8 @@ msiexec /i "AppVentiX Agent.msi" /quiet CONNECTIONSTRING="<Connection string val
 
 The `/quiet` switch suppresses all UI. The `CONNECTIONSTRING` parameter tells the agent where to find its configuration and how to authenticate if this is required. This is the only required parameter beyond the standard MSI switches.
 
-> **Note:** For non-persistent single or multi session environments, run the silent installation on the master image before sealing it. Depending on the configuration certain tasks can run before the image is sealed.
+!!! note
+    For non-persistent single or multi session environments, run the silent installation on the master image before sealing it. Depending on the configuration certain tasks can run before the image is sealed.
 
 ## After Installation
 

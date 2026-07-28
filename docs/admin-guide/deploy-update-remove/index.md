@@ -41,7 +41,8 @@ There are a couple of approaches, and they are largely the same for App-V and MS
 - Already logged-in users will receive the updated application when the refresh cycle runs. New users receive it when logging on. Already active users can continue to work in the old version. The new version will be active automatically when the user closes and re-opens the application.
 - If you want to immediately replace the old version with the new one (force), remove the old publishing task (or configure the force upgrade option in the new publishing task). The old version will be closed and the new version becomes active immediately.
 
-> **Note:** When forcing an immediate upgrade, the application will be forcibly closed. If the user should keep the old version open, leave the old publishing task in place and remove it later.
+!!! note
+    When forcing an immediate upgrade, the application will be forcibly closed. If the user should keep the old version open, leave the old publishing task in place and remove it later.
 
 ---
 

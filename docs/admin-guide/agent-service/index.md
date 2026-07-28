@@ -1,7 +1,5 @@
 # AppVentiX Agent Service
 
-AppVentiX uses a lightweight agent to handle the application deployment and workspace settings. The agent can run on a virtual machine (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops (Entra ID joined is also supported). The agent has an advanced cache mechanism which keeps the configuration running even when the machine is offline and the configuration store is not accessible.
-
 The service is responsible for deploying and managing packages, for publishing packages for users that are logging on, and for users that are already logged on. The agent makes smart decisions: it will only publish new packages to users and will unpublish packages for users automatically when they are no longer managed (when you remove the publishing task or remove a user from a group, for example). The agent service can be configured with [Agent Settings](../agent-settings/index.md) to fine-tune your deployment.
 
 ---

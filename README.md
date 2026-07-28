@@ -26,13 +26,14 @@ python -m mkdocs serve --livereload
 
 The site is available at `http://127.0.0.1:8000`.
 
-> **Note:** Search does not work under `mkdocs serve` - it builds from an in-memory tree that [Pagefind](https://pagefind.app/) cannot index. To test search locally, build and index a static copy instead:
->
-> ```powershell
-> .\scripts\Serve-WithSearch.ps1
-> ```
->
-> This has no live reload; re-run it after making changes.
+!!! note
+    Search does not work under `mkdocs serve` - it builds from an in-memory tree that [Pagefind](https://pagefind.app/) cannot index. To test search locally, build and index a static copy instead:
+
+    ```powershell
+    .\scripts\Serve-WithSearch.ps1
+    ```
+
+    This has no live reload; re-run it after making changes.
 
 ## PowerShell command reference
 

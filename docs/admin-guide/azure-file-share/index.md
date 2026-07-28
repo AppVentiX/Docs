@@ -84,7 +84,8 @@ Use an existing file share or create an Azure file share just like in the previo
 
 ![Join share to Active Directory](azure-file-share-11.png)
 
-> **Note:** You can also use Azure AD Kerberos integrated, but the steps to configure the share in AppVentiX will be the same as the stand-alone share configuration.
+!!! note
+    You can also use Azure AD Kerberos integrated, but the steps to configure the share in AppVentiX will be the same as the stand-alone share configuration.
 
 After completing the steps to integrate the share with your Active Directory, you have 2 options to authenticate to the share:
 

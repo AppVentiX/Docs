@@ -12,7 +12,8 @@ Make sure both Central View and the Agent are updated to version 5.0.26 or later
 
 Start with a test environment rather than your entire production environment. Each AppVentiX Agent reports back triggered events, and a large environment can quickly generate an overwhelming amount of data. Start small, create your initial policies, and test thoroughly before rolling out to production.
 
-> **IMPORTANT**: The machine on which AppVentiX Central View is installed must be Server 2022 or higher if you want to enable and configure App Control. It will not work on a lower version due to the lack of support by Microsoft.
+!!! warning
+    The machine on which AppVentiX Central View is installed must be Server 2022 or higher if you want to enable and configure App Control. It will not work on a lower version due to the lack of support by Microsoft.
 
 ---
 
@@ -75,7 +76,8 @@ A popup shows the sync progress. Click **Show progress** for more detail.
 
 ![Refresh Workspace progress](app-control-06.png)
 
-> **NOTE:** This sync happens automatically. The manual method only speeds it up.
+!!! note
+    This sync happens automatically. The manual method only speeds it up.
 
 ### Reviewing Events in Central View
 
@@ -107,7 +109,8 @@ When creating a policy you decide how to identify the application you want to al
 - **File Attributes** rules match on metadata such as the original filename, product name, or internal name embedded in the executable. Useful when publisher signing is not available but the file has consistent attributes across versions. Only works in User Mode (not for kernel drivers).
 - **File Hash** rules trust a specific file based on its cryptographic hash (SHA1/SHA256). This is the most restrictive option: if the file changes even slightly, for example after an update, the hash no longer matches and the application is blocked. Best for files that rarely change or when you need absolute certainty about what is running.
 
-> **IMPORTANT**: Wildcards in paths are only supported on clients with Server 2022 or up and Windows 11 and up.
+!!! warning
+    Wildcards in paths are only supported on clients with Server 2022 or up and Windows 11 and up.
 
 Two additional options are available when creating a policy manually:
 
@@ -142,7 +145,8 @@ A name is generated based on the rule you created. You can change it if needed.
 
 ![Save the Publisher rule](app-control-12.png)
 
-> **NOTE:** Some rules take a while to create. Wait until they are finished.
+!!! note
+    Some rules take a while to create. Wait until they are finished.
 
 ### Creating a Policy from the Logs (Learning Mode)
 
@@ -202,7 +206,8 @@ Assigning a policy determines where it is applied, for example to **All Machine 
 
 The policies become available immediately and are applied when the agent next checks for updates.
 
-> **NOTE:** Applications or processes that are allowed are no longer logged in the App Control log.
+!!! note
+    Applications or processes that are allowed are no longer logged in the App Control log.
 
 ---
 

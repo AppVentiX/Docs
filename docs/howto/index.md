@@ -11,4 +11,5 @@ Step-by-step guides for common AppVentiX tasks and scenarios.
 | [Install AppVentiX Agent](../quickstart/agent-installation.md) | Learn how to install the AppVentiX Agent |
 | [Workspace Optimization](../quickstart/optimization-script.md) | This guide describes how you can optimize your machines |
 
-> **_NOTE:_**  More content will be added soon
+!!! note
+    More content will be added soon

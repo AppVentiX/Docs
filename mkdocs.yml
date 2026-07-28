@@ -161,6 +161,7 @@ nav:
       - Client Certificate: admin-guide/client-certificate/index.md
     - Advanced Configuration:
       - admin-guide/advanced-configuration/index.md
+      - Configuration Store Folder Structure: admin-guide/folder-structure/index.md
       - Share Permissions and Configuration: admin-guide/share-permissions/index.md
       - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced/index.md
       - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles/index.md

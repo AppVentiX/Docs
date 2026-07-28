@@ -1,6 +1,8 @@
 ﻿# AppVentiX Agent
 
-The agent runs on every managed machine and applies packages and user settings locally. These pages describe the service, its interface, and the refresh cycle.
+AppVentiX uses a lightweight agent to handle the application deployment and workspace settings. The agent can run on a virtual machine (Microsoft RDS, AVD, Windows 365, Citrix PVS/MCS, Omnissa Horizon, Parallels Desktop, etc.) as well as physical desktops and laptops (Entra ID joined is also supported). The agent has an advanced cache mechanism which keeps the configuration running even when the machine is offline and the configuration store is not accessible.
+
+These pages describe the service, its interface, and the refresh cycle.
 
 | Topic | Description |
 |-------|-------------|

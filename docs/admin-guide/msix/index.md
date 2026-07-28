@@ -43,4 +43,5 @@ When you select multiple MSIX packages you can click on **Create Shared Containe
 
 ![Shared container icon](msix-03.png)
 
-> **Note:** MSIX Shared Containers are only supported on Windows 10 Build 22x and higher. The current implementation of shared containers requires (local) admin permissions to apply the container.
+!!! note
+    MSIX Shared Containers are only supported on Windows 10 Build 22x and higher. The current implementation of shared containers requires (local) admin permissions to apply the container.

@@ -2,13 +2,15 @@
 
 App Control policies can be signed to protect them from tampering. To improve security, signed policies cannot be changed or removed after deployment to an Agent machine, unless the new policy is signed with a trusted certificate. This prevents an attacker, or even a local administrator, from disabling or replacing the policy.
 
-> **NOTE**: For the policy sign option you'll need version 5.2.36 or higher.
+!!! note
+    For the policy sign option you'll need version 5.2.36 or higher.
 
 Click **Configure Certificate for Policy Signing**.
 
 ![Click Configure Certificate for Policy Signing](app-control-create-certificate-01.png)
 
-> **NOTE**: An Azure Artifact account is not free; this is a paid option provided by Microsoft.
+!!! note
+    An Azure Artifact account is not free; this is a paid option provided by Microsoft.
 
 Here you have two options:
 

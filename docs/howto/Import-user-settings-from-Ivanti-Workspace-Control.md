@@ -58,7 +58,8 @@ Save the resulting file somewhere the AppVentiX PowerShell session can reach, fo
 C:\Temp\IvantiWC-BuildingBlock.xml
 ```
 
-> **Note:** `Import-IvantiWCApplication` also accepts a **directory** containing multiple XML files (one per application). The other import commands expect a single Building Block XML file.
+!!! note
+    `Import-IvantiWCApplication` also accepts a **directory** containing multiple XML files (one per application). The other import commands expect a single Building Block XML file.
 
 ## Step 3: Import User Settings
 
@@ -70,7 +71,8 @@ All import commands share the same core parameters:
 | `-MachineGroupFriendlyName` | Machine group to assign the imported settings to. Defaults to `All Machine Groups`. |
 | `-GUI` | Displays a selection grid so you can pick which items to import. |
 
-> **Tip:** Start every import with `-GUI` so you can review and select items before they are created. Once you are confident in the result, you can drop `-GUI` to import everything unattended.
+!!! tip
+    Start every import with `-GUI` so you can review and select items before they are created. Once you are confident in the result, you can drop `-GUI` to import everything unattended.
 
 ### Applications and Shortcuts
 

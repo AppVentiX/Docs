@@ -37,7 +37,8 @@ In the agent configuration you can change/update the configuration store. You ca
 
 You can export these settings to a registry file to import on other machines. These settings can also be provided for silent installation of the agent. Click on the **Silent Install** button in the Central View console (agent ribbon) to see the prepopulated silent installation parameter.
 
-> **Note:** All other Agent Settings are configured and stored centrally.
+!!! note
+    All other Agent Settings are configured and stored centrally.
 
 ---
 

@@ -2,7 +2,8 @@
 
 The workspace optimization removes unnecessary built-in apps, disables unused services and scheduled tasks, and applies performance and reliability settings suited to managed environments. It is driven by a PowerShell script and an XML configuration template.
 
-> **Note:** For physical desktops and laptops, run this optimization once during initial setup and again after significant application changes. For non-persistent single and multi session environments, run it on the master image before sealing.
+!!! note
+    For physical desktops and laptops, run this optimization once during initial setup and again after significant application changes. For non-persistent single and multi session environments, run it on the master image before sealing.
 
 ## Prerequisites
 
@@ -69,7 +70,8 @@ The script processes items in the following order:
 6. **Disable scheduled tasks** - disables a large set of scheduled tasks that would otherwise wake the system, consume CPU, or generate unnecessary activity: Windows Defender maintenance tasks, disk defrag, WinSAT benchmarking, telemetry reporting, compatibility appraiser, disk diagnostics, SpeechModel downloads, and many others. On Server OS, Server Manager at logon is also disabled.
 7. **Remove optional features** - removes features not needed in a managed environment, such as Windows Media Player and Azure Arc components on Server OS.
 
-> **Note:** You are responsible for the items you enable in the template. Review them before running the script. In most cases the defaults are a good starting point, but your environment may require adjustments. We cannot take responsibility if applications or certain Windows components do not work as expected. Review the template carefully.
+!!! note
+    You are responsible for the items you enable in the template. Review them before running the script. In most cases the defaults are a good starting point, but your environment may require adjustments. We cannot take responsibility if applications or certain Windows components do not work as expected. Review the template carefully.
 
 ## Running the Optimization
 
@@ -107,7 +109,8 @@ A log file is written to `%TEMP%` by default. You can redirect it to a different
 .\Invoke-WindowsOptimization.ps1 -LogPath 'C:\Logs' -LogLevel Verbose
 ```
 
-> **Note:** The script requires elevation (Run as Administrator).
+!!! note
+    The script requires elevation (Run as Administrator).
 
 ## Finish
 

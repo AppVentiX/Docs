@@ -42,7 +42,9 @@ Do {
 } While (!$allpackagesloadedevent)
 ```
 
-> **Note for MSIX App Attach:** It is not recommended to place App Attach packages on a content store configured for a machine group where the build VM is a member. App Attach packages are not needed to pre-cache in the image because they are virtual disks attached to the VM at runtime.
+!!! note
+    **For MSIX App Attach only!**
+    It is not recommended to place App Attach packages on a content store configured for a machine group where the build VM is a member. App Attach packages are not needed to pre-cache in the image because they are virtual disks attached to the VM at runtime.
 
 ---
 
@@ -70,4 +72,5 @@ To work around the issue:
 | Manually update the CRL | Download and install the latest CRL manually. |
 | Enable internet access | Allow outbound connections for certificate validation. |
 
-> **Note:** AppVentiX does not make any internet (outbound) connections at all, so internet access is not needed for AppVentiX to work. Also make sure to check the connection to the central configuration store. The further the Central View console is placed from the central configuration store, the longer it can take to retrieve the configuration.
+!!! note
+    AppVentiX does not make any internet (outbound) connections at all, so internet access is not needed for AppVentiX to work. Also make sure to check the connection to the central configuration store. The further the Central View console is placed from the central configuration store, the longer it can take to retrieve the configuration.

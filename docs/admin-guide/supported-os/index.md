@@ -26,8 +26,6 @@ The following operating systems are supported by the AppVentiX Central View cons
 
 For all AppVentiX components you need at least .NET 4.8.
 
-![Supported OS overview](supported-os-01.png)
-
 ## MSIX and App Attach Compatibility
 
 Please check the MSIX and MSIX App Attach compatibility with the OS you are using:

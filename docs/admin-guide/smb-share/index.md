@@ -6,6 +6,9 @@ The following steps will help you configure an SMB share as the AppVentiX config
 
 Create a new file share or use an existing one. This share will be used to store the central configuration. You can use a normal Windows file share or a DFS share to make the share highly available (for example `\\yourdomain.local\appventix\config`). Also Azure file shares (domain integrated or stand-alone) and shares on storage vendors like Nutanix/NetApp/Dell/HP file shares are supported. AppVentiX also supports QUIC shares, which are shares that can be accessed over port 443 using highly encrypted TLS. You can read more about setting up a [QUIC share](../quic-share/index.md) or [Azure file share](../azure-file-share/index.md) in this admin guide.
 
+!!! note
+    If you configure a (new) site with AppVentiX version 5.2.x or newer, you will get a different layout. More information can be found [here](./../folder-structure/index.md).
+
 ### Windows file share, Storage vendor file share or Azure file share that is Active Directory integrated
 
 #### Integrated (default) Authentication
@@ -18,7 +21,8 @@ File permissions needed for this option (make sure to verify both share and file
 - **Domain Computers group** (or group containing the machine accounts): **Read** permissions on configuration store and content store(s)
 - **Domain Computers group** (or group containing the machine accounts): **Read\Write** permissions in inventory folder on configuration store
 
-> **Tip**: You can configure another inventory share in the agent settings for the machine group
+!!! tip
+    You can configure another inventory share in the agent settings for the machine group
 
 #### Configured account (service account)
 
@@ -30,7 +34,8 @@ Share permissions needed for this option:
 - **Configured account** in the Agent: **Read** permissions on configuration store and content store(s)
 - **Configured account** in the Agent: **Read\Write** permissions in inventory folder on configuration store
 
-> **Tip**: You can silently install the agent to use the same account.
+!!! tip
+    You can silently install the agent to use the same account.
 
 The silent install parameter can be found in the Central View console (agent ribbon).
 

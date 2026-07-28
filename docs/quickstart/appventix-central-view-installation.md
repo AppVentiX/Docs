@@ -54,7 +54,8 @@ Choose the configuration store type that matches your setup:
 * [Azure Blob Storage](../admin-guide/azure-blob-storage/index.md) - no Active Directory dependency, accessible outside your network
 * [SMB Share](../admin-guide/smb-share/index.md) - standard Windows file share, DFS, or storage vendor share
 
-> **NOTE**: Make sure you have configured either one of the above configuration stores before continuing with the next steps.
+!!! note
+    Make sure you have configured either one of the above configuration stores before continuing with the next steps.
 
 You can optionally enter a site name. When all details are complete, click **Save**.
 

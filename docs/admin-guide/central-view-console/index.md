@@ -16,7 +16,8 @@ In Active Directory environments, the easiest approach is to create machine grou
 
 When creating a machine group based on an AD group instead of OU, make sure you enable the following option in Active Directory when adding machines to the AD group, or else you cannot find machine accounts to add to the AD group.
 
-> **Note:** You can create multiple machine groups and machines can be members of multiple machine groups. You can also configure multiple content stores for a machine group. The agent will retrieve packages from all configured content stores. The agent will only apply Agent Settings from the first Machine Group it is a member of.
+!!! note
+    You can create multiple machine groups and machines can be members of multiple machine groups. You can also configure multiple content stores for a machine group. The agent will retrieve packages from all configured content stores. The agent will only apply Agent Settings from the first Machine Group it is a member of.
 
 For Entra ID-based machine groups, please consult the [Entra ID (Azure AD) setup](../entra-id/index.md) section in this admin guide.
 
