@@ -23,7 +23,7 @@ Select this option to start a new configuration. Choose the features you want to
 
 ![Configure Agent for selected Machine Group](images/create-machine-groups/create-machine-groups-15.png)
 
-> **Tip:** For a detailed explanation of all agent settings, see the [Agent Settings](../admin-guide/agent-settings.md) page in the admin guide.
+> **Tip:** For a detailed explanation of all agent settings, see the [Agent Settings](../admin-guide/agent-settings/index.md) page in the admin guide.
 
 [Continue to Machine Group details](#machine-group-details)
 

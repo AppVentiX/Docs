@@ -74,7 +74,7 @@ The optimization is driven by a customizable XML template. You can use the defau
 
 ## Next Steps
 
-- Go to the **Manage Content** page in Central View and [create publishing tasks](../admin-guide/deploy-update-remove.md) to assign packages to users or machines. When a publishing task is removed or a user is removed from an assigned AD group, AppVentiX automatically unpublishes the package for that user.
-- Explore all [Agent Settings](../admin-guide/agent-settings.md) and check the settings to meet your deployment goals.
+- Go to the **Manage Content** page in Central View and [create publishing tasks](../admin-guide/deploy-update-remove/index.md) to assign packages to users or machines. When a publishing task is removed or a user is removed from an assigned AD group, AppVentiX automatically unpublishes the package for that user.
+- Explore all [Agent Settings](../admin-guide/agent-settings/index.md) and check the settings to meet your deployment goals.
 - Explore the Central View console and Agent GUI and check out all the options and features.
 

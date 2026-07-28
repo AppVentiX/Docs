@@ -113,53 +113,60 @@ nav:
   - Admin Guide:
     - admin-guide/index.md
     - Architecture:
-      - Technical Architecture: admin-guide/technical-architecture.md
+      - admin-guide/architecture/index.md
+      - Technical Architecture: admin-guide/technical-architecture/index.md
     - AppVentiX Central View:
-      - Central View Console: admin-guide/central-view.md
-      - Supported Operating Systems: admin-guide/supported-os.md
-      - Machine Groups: admin-guide/machine-groups.md
-      - Machine Group Agent Settings: admin-guide/agent-settings.md
-      - Manage Machines: admin-guide/manage-machines.md
-      - Workspace Analyzer: admin-guide/workspace-analyzer.md
-      - Azure Blob Storage Configuration: admin-guide/azure-blob-storage.md
-      - PowerShell Module: admin-guide/powershell-module.md
+      - admin-guide/central-view/index.md
+      - Central View Console: admin-guide/central-view-console/index.md
+      - Supported Operating Systems: admin-guide/supported-os/index.md
+      - Machine Groups: admin-guide/machine-groups/index.md
+      - Machine Group Agent Settings: admin-guide/agent-settings/index.md
+      - Manage Machines: admin-guide/manage-machines/index.md
+      - Workspace Analyzer: admin-guide/workspace-analyzer/index.md
+      - Azure Blob Storage Configuration: admin-guide/azure-blob-storage/index.md
+      - PowerShell Module: admin-guide/powershell-module/index.md
     - AppVentiX Agent:
-      - Agent: admin-guide/agent.md
-      - Agent Service: admin-guide/agent-service.md
-      - Agent GUI: admin-guide/agent-gui.md
-      - Refresh shortcut: admin-guide/agent-refresh-shortcut.md
+      - admin-guide/agent/index.md
+      - Agent Service: admin-guide/agent-service/index.md
+      - Agent GUI: admin-guide/agent-gui/index.md
+      - Refresh shortcut: admin-guide/agent-refresh-shortcut/index.md
     - Package Management:
-      - Manage Content and Publishing Tasks: admin-guide/manage-content.md
-      - MSIX and MSIX App Attach: admin-guide/msix.md
-      - MSIX Certificate Management: admin-guide/msix-certificates.md
-      - Application Overview: admin-guide/application-overview.md
-      - Deploy, Update and Remove: admin-guide/deploy-update-remove.md
+      - admin-guide/package-management/index.md
+      - Manage Content and Publishing Tasks: admin-guide/manage-content/index.md
+      - MSIX and MSIX App Attach: admin-guide/msix/index.md
+      - MSIX Certificate Management: admin-guide/msix-certificates/index.md
+      - Application Overview: admin-guide/application-overview/index.md
+      - Deploy, Update and Remove: admin-guide/deploy-update-remove/index.md
     - User Settings:
-      - Configuring User Settings: admin-guide/user-settings-general.md
-      - User Settings Reference: admin-guide/user-settings-detailed.md
-      - User Settings Filters: admin-guide/user-settings-filters.md
+      - admin-guide/user-settings/index.md
+      - Configuring User Settings: admin-guide/user-settings-general/index.md
+      - User Settings Reference: admin-guide/user-settings-detailed/index.md
+      - User Settings Filters: admin-guide/user-settings-filters/index.md
     - Security and Access Control:
-      - Limit Access to Central View: admin-guide/access-control.md
-      - FSLogix App Masking: admin-guide/app-masking.md
-      - App Control (WDAC): admin-guide/app-control.md
-      - App Control Signing Certificate: admin-guide/app-control-create-certificate.md
-      - Audit Trail: admin-guide/audit-trail.md
+      - admin-guide/security/index.md
+      - Limit Access to Central View: admin-guide/access-control/index.md
+      - FSLogix App Masking: admin-guide/app-masking/index.md
+      - App Control (WDAC): admin-guide/app-control/index.md
+      - App Control Signing Certificate: admin-guide/app-control-create-certificate/index.md
+      - Audit Trail: admin-guide/audit-trail/index.md
     - Integrations:
-      - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop.md
-      - Azure AD / Entra ID: admin-guide/entra-id.md
-      - Azure File Share: admin-guide/azure-file-share.md
-      - QUIC Share (Port 443): admin-guide/quic-share.md
-      - SMB Share: admin-guide/smb-share.md
-      - Azure Storage Account (Manual Setup): admin-guide/azure-manual-sa-creation.md
-      - Custom App Registration: admin-guide/custom-app-registration.md
-      - Client Certificate: admin-guide/client-certificate.md
+      - admin-guide/integrations/index.md
+      - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop/index.md
+      - Azure AD / Entra ID: admin-guide/entra-id/index.md
+      - Azure File Share: admin-guide/azure-file-share/index.md
+      - QUIC Share (Port 443): admin-guide/quic-share/index.md
+      - SMB Share: admin-guide/smb-share/index.md
+      - Azure Storage Account (Manual Setup): admin-guide/azure-manual-sa-creation/index.md
+      - Custom App Registration: admin-guide/custom-app-registration/index.md
+      - Client Certificate: admin-guide/client-certificate/index.md
     - Advanced Configuration:
-      - Share Permissions and Configuration: admin-guide/share-permissions.md
-      - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced.md
-      - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles.md
-      - Automated Image Building: admin-guide/automated-image-building.md
-      - Firewall and Communication Ports: admin-guide/firewall-ports.md
-      - Example Agent Configurations: admin-guide/example-configurations.md
+      - admin-guide/advanced-configuration/index.md
+      - Share Permissions and Configuration: admin-guide/share-permissions/index.md
+      - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced/index.md
+      - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles/index.md
+      - Automated Image Building: admin-guide/automated-image-building/index.md
+      - Firewall and Communication Ports: admin-guide/firewall-ports/index.md
+      - Example Agent Configurations: admin-guide/example-configurations/index.md
   - HowTo Guides:
     - howto/index.md
     - Import from App-V Management Database: howto/Import-packages-from-AppV-Management-Database.md

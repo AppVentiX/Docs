@@ -169,7 +169,7 @@ Imported items are placed in the **Migrated User Settings** folder. You can also
 
 After importing your Ivanti WC configuration, you may want to:
 
-- Review and refine assignments and [User Settings Filters](../admin-guide/user-settings-filters.md)
+- Review and refine assignments and [User Settings Filters](../admin-guide/user-settings-filters/index.md)
 - Adjust the imported settings in the AppVentiX Console
 - Test delivery on a pilot group of machines
 

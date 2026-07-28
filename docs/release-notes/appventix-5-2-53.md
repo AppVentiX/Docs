@@ -2,7 +2,7 @@
 
 ## New features and improvements across the AppVentiX platform
 
-- In addition to the SMB-based configuration store option, configurations can now be stored directly in [Azure Blob Storage](../admin-guide/azure-blob-storage.md), eliminating the need for file shares. Hybrid environments are also supported through mixed configuration store combinations.
+- In addition to the SMB-based configuration store option, configurations can now be stored directly in [Azure Blob Storage](../admin-guide/azure-blob-storage/index.md), eliminating the need for file shares. Hybrid environments are also supported through mixed configuration store combinations.
 
 ![Central View settings with the configuration store location set to Azure Blob storage](images/release-5-2-53-01.png)
 
@@ -74,7 +74,7 @@
 
 ## User Settings / Workspace management improvements
 
-- [Reusable filters](../admin-guide/user-settings-filters.md) can now be created and applied across multiple user settings. These filters can be used to target settings based on machine name, subnet, or the existence of registry keys, with wildcard support included.
+- [Reusable filters](../admin-guide/user-settings-filters/index.md) can now be created and applied across multiple user settings. These filters can be used to target settings based on machine name, subnet, or the existence of registry keys, with wildcard support included.
 
 ![Configure Reusable Filters window with condition type options: machine name, subnet, clientname, registry key](images/release-5-2-53-10.png)
 
