@@ -50,6 +50,7 @@ extra_css:
 
 extra_javascript:
   - assets/js/pagefind-search.js
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
 
 hooks:
   - hooks.py
@@ -94,7 +95,11 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
       use_pygments: true
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.inlinehilite
   - pymdownx.tabbed:
       alternate_style: true
@@ -119,6 +124,7 @@ nav:
       - admin-guide/central-view/index.md
       - Central View Console: admin-guide/central-view-console/index.md
       - Supported Operating Systems: admin-guide/supported-os/index.md
+      - Sites: admin-guide/sites/index.md
       - Machine Groups: admin-guide/machine-groups/index.md
       - Machine Group Agent Settings: admin-guide/agent-settings/index.md
       - Manage Machines: admin-guide/manage-machines/index.md
