@@ -93,3 +93,12 @@ Choose the configuration store type that matches your setup:
     Configure one of the above configuration stores before continuing.
 
 Once the configuration store is set, click **Save**.
+
+## Central View with multiple sites
+
+When multiple sites are configured, Central View shows a site selection dialog every time it starts, listing all configured sites so you can pick which one to manage. Hovering a row also reveals a remove button to drop a site from the list.
+
+![Site selection dialog listing all configured sites](image-4.png)
+
+!!! Tip
+    Launch multiple instances of Central View to work with more than one site at the same time.
