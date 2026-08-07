@@ -8,6 +8,7 @@ The current release notes are maintained here. Earlier release notes are reprodu
 
 | Version | Highlights |
 |---------|------------|
+| [5.2.56](appventix-5-2-56.md) | Agent self-service menu, relative package paths in publishing tasks, editable App Control base policies, Azure Artifact Signing improvements, inventory refresh button, PowerShell module updates |
 | [5.2.53](appventix-5-2-53.md) | Azure Blob Storage configuration store, multiple sites, backup site, default user settings, Workspace Analyzer, reusable filters, MSIX and App-V improvements, App Control policy signing |
 
 ## AppVentiX 5.1
