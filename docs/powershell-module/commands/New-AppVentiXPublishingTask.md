@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXPublishingTask
 ---
@@ -65,7 +65,7 @@ Creates a new publishing task with the specified parameters, returns the ID of t
 $params = @{
     MachineGroupFriendlyName = 'Group1'
     Priority = 50
-    Group = 'Group1'
+    Group = 'Everyone'
     Path = '\\fileserver.domain.local\content\Package_v\Package_1.0.0.0_x64\package.msix'
 }
 $newTask = New-AppVentiXPublishingTask @params
@@ -124,7 +124,8 @@ HelpMessage: ''
 ### -ConfigShare
 
 Specifies the path to the AppVentiX configuration share.
-You can omit this parameter if Set-AppVentiXConfigShare has been called.
+You can omit this parameter if the configuration store was already set with Set-AppVentiXConfigShare,
+or when it can be detected automatically (for example on a machine where AppVentiX Central View is installed and configured).
 
 ```yaml
 Type: System.String
@@ -174,6 +175,10 @@ HelpMessage: ''
 ### -DynamicUserConfigurationPath
 
 Specifies the path to the dynamic user configuration file.
+Only used for APPV packages.
+The path is stored relative to the Content Share it is located in.
+A file outside every
+Content Share is stored as a full path instead.
 
 ```yaml
 Type: System.String
@@ -200,12 +205,15 @@ HelpMessage: ''
 
 ### -Group
 
-Specifies the group of the publishing task.
+Specify the fully qualified domain name and the groupname, e.g.
+'DOMAIN.LOCAL\GROUP'.
+Multiple groups can be specified by separating them with a comma.
+The default value is 'Everyone'.
 Example: 'domain.local\group1'
 
 ```yaml
 Type: System.String[]
-DefaultValue: ''
+DefaultValue: "@('Everyone')"
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -424,7 +432,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Function : New-AppVentiXPublishingTask
 Author   : John Billekens
 Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.409.2200
+Version  : 2026.804.1515
 Requires : Valid AppVentiX license
 
 

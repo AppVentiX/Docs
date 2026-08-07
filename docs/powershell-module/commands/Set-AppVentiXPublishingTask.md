@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: Set-AppVentiXPublishingTask
 ---
@@ -36,6 +36,14 @@ This cmdlet has the following aliases,
 The Set-AppVentiXPublishingTask function is used to update the properties of an existing AppVentiX publishing task.
 It allows you to modify the ID, MachineGroupFriendlyname, Group, and Priority of the task.
 
+Every run also brings the task up to date with the RelativePath element, which holds the
+package path relative to the Content Share.
+Piping Get-AppVentiXPublishingTask into this
+function without any other parameter therefore adds the missing relative paths.
+
+Tasks can be piped in, and the Publishing Tasks file is read once and saved once for the
+whole pipeline.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
@@ -44,6 +52,18 @@ Set-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-1234567890AB" -MachineG
 
 This example updates the properties of the publishing task with the specified ID.
 It changes the machine group friendly name to "MyMachineGroup", the group name to "DOMAIN\GROUP", the priority to 1, and uses the specified configuration share path.
+
+### EXAMPLE 2
+
+Get-AppVentiXPublishingTask | Set-AppVentiXPublishingTask
+
+This example adds the missing relative path to every user publishing task, without changing anything else.
+
+### EXAMPLE 3
+
+Set-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-1234567890AB"
+
+This example adds the missing relative path to the publishing task with the specified ID.
 
 ## PARAMETERS
 
@@ -99,6 +119,7 @@ HelpMessage: ''
 
 Specifies the ID of the publishing task to be updated.
 The ID must be a valid GUID.
+Accepts the Id of the objects returned by Get-AppVentiXPublishingTask from the pipeline.
 
 ```yaml
 Type: System.String
@@ -110,7 +131,7 @@ ParameterSets:
   Position: 0
   IsRequired: true
   ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
+  ValueFromPipelineByPropertyName: true
   ValueFromRemainingArguments: false
 DontShow: false
 AcceptedValues: []
@@ -170,6 +191,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### System.String
+
 ## OUTPUTS
 
 ## NOTES
@@ -177,13 +200,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Function : Set-AppVentiXPublishingTask
 Author   : John Billekens
 Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.130.1000
+Version  : 2026.804.1515
 Requires : Valid AppVentiX license
 
 
 ## RELATED LINKS
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
+- [Update-AppVentiXPublishingTaskPath](Update-AppVentiXPublishingTaskPath.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
 - [Remove-AppVentiXPublishingTask](Remove-AppVentiXPublishingTask.md)
 - [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)

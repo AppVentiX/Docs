@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AppVentiXPublishingTask
 ---
@@ -105,7 +105,8 @@ HelpMessage: ''
 ### -ConfigShare
 
 Specifies the path to the AppVentiX configuration share.
-You can omit this parameter if Set-AppVentiXConfigShare has been called.
+You can omit this parameter if the configuration store was already set with Set-AppVentiXConfigShare,
+or when it can be detected automatically (for example on a machine where AppVentiX Central View is installed and configured).
 
 ```yaml
 Type: System.String

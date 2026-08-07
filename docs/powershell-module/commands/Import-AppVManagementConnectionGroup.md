@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: Import-AppVManagementConnectionGroup
 ---
@@ -24,8 +24,9 @@ Imports App-V Connection Groups from the Management Database to the AppVentiX co
 
 ```
 Import-AppVManagementConnectionGroup [[-SQLServer] <string>] [[-SQLInstance] <string>]
- [[-SQLDatabase] <string>] [[-SQLCredential] <pscredential>] [[-ConfigShare] <string>]
- [-MatchConnectionGroupWithMachineGroup] [-GUI] [<CommonParameters>]
+ [[-SQLDatabase] <string>] [[-PublishingMachineGroupFriendlyName] <string[]>]
+ [[-SQLCredential] <pscredential>] [[-ConfigShare] <string>] [-MatchConnectionGroupWithMachineGroup]
+ [-GUI] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -71,7 +72,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 4
+  Position: 5
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -126,6 +127,30 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -PublishingMachineGroupFriendlyName
+
+The friendly name(s) of the AppVentiX Machine Group(s) to which the Connection Group's publishing task
+is published.
+If not specified, the publishing task is published to the same Machine Group the
+Connection Group itself was created for.
+
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -SQLCredential
 
 Specifies the PSCredential object for SQL Server authentication.
@@ -138,7 +163,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: 4
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false

@@ -9,29 +9,22 @@ Module Name: AppVentiX
 module_version: 2026.806.1845
 ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
-title: Remove-AppVentiXPublishingTask
+title: Update-AppVentiXPublishingTaskPath
 ---
 
-# Remove-AppVentiXPublishingTask
+# Update-AppVentiXPublishingTaskPath
 
 ## SYNOPSIS
 
-Removes an AppVentiX publishing task.
+Adds the Content Share relative path to the publishing tasks.
 
 ## SYNTAX
 
-### ID (Default)
+### __AllParameterSets
 
 ```
-Remove-AppVentiXPublishingTask -Id <string> [-Force] [-ConfigShare <string>] [-WhatIf] [-Confirm]
+Update-AppVentiXPublishingTaskPath [[-ConfigShare] <string>] [-PassThru] [-WhatIf] [-Confirm]
  [<CommonParameters>]
-```
-
-### MachineGroupFriendlyname
-
-```
-Remove-AppVentiXPublishingTask -MachineGroupFriendlyname <string> [-Force] [-ConfigShare <string>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -40,20 +33,49 @@ This cmdlet has the following aliases,
 
 ## DESCRIPTION
 
-The Remove-AppVentiXPublishingTask function removes a publishing task from the AppVentiX module.
-It can remove a task either by its ID or by the friendly name of the machine group associated with the task.
+The Update-AppVentiXPublishingTaskPath function adds a RelativePath element to every
+publishing task in AppVentiX-PublishingTasks.xml, next to the existing Path element.
+
+A publishing task stores the full package path, for example
+"\\lab.local\appventix\content\App_1.0.1.0_x64\App_1.0.1.0_x64.msix".
+The leading part of
+that path is already configured per Machine Group, so the remainder
+"App_1.0.1.0_x64\App_1.0.1.0_x64.msix" is stored as well.
+The AppVentiX Agent decides which
+of the two it uses, so a task keeps working on Agent versions that do not know the
+RelativePath element yet.
+
+The Path element keeps the full path.
+The one exception is a task that already holds a
+relative path in Path, from before the RelativePath element existed: that path is resolved
+back to a full path and stored in both elements, so the task works on every Agent version.
+
+All Task elements are handled: the tasks under Packages, ConnectionGroups and
+SharedContainers, in both GlobalPublishingTasks and UserPublishingTasks.
+
+The function is safe to run more than once.
+A RelativePath that is already correct is left
+alone, one that no longer matches the Path is refreshed, and a package that is not located in
+any configured Content Share is reported and keeps its full path only.
+A timestamped backup
+of AppVentiX-PublishingTasks.xml is written before any change is saved.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
-Remove-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-123456789012"
-Removes the publishing task with the specified ID.
+Update-AppVentiXPublishingTaskPath -WhatIf
+Shows which publishing tasks would get a relative path, without changing anything.
 
 ### EXAMPLE 2
 
-Remove-AppVentiXPublishingTask -MachineGroupFriendlyname "Production"
-Removes all the publishing tasks associated with the specified machine group friendly name.
+Update-AppVentiXPublishingTaskPath
+Adds the Content Share relative path to all publishing tasks.
+
+### EXAMPLE 3
+
+Update-AppVentiXPublishingTaskPath -PassThru | Format-Table Name, Status, Path, RelativePath
+Adds the relative paths and returns a per task overview of the result.
 
 ## PARAMETERS
 
@@ -67,16 +89,13 @@ or when it can be detected automatically (for example on a machine where AppVent
 Type: System.String
 DefaultValue: $Script:AppVentix.ConfigShare
 SupportsWildcards: false
-Aliases: []
+Aliases:
+- Config
+- Share
+- AppVentixConfigShare
 ParameterSets:
-- Name: MachineGroupFriendlyname
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-- Name: ID
-  Position: Named
+- Name: (All)
+  Position: 0
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -108,11 +127,10 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -Force
+### -PassThru
 
-Indicates whether to force the removal of the publishing task without confirmation.
-By default, confirmation is required.
-Also required to remove a seamless publishing task; you must then remove the published apps from your application publishing tool yourself.
+Returns a result object per publishing task, describing the full path, the relative path and
+the resulting status.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -120,57 +138,9 @@ DefaultValue: False
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: MachineGroupFriendlyname
+- Name: (All)
   Position: Named
   IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-- Name: ID
-  Position: Named
-  IsRequired: false
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: false
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -Id
-
-Specifies the ID of the publishing task to be removed.
-
-```yaml
-Type: System.String
-DefaultValue: ''
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: ID
-  Position: Named
-  IsRequired: true
-  ValueFromPipeline: false
-  ValueFromPipelineByPropertyName: true
-  ValueFromRemainingArguments: false
-DontShow: false
-AcceptedValues: []
-HelpMessage: ''
-```
-
-### -MachineGroupFriendlyname
-
-Specifies the friendly name of the machine group associated with the publishing task to be removed.
-
-```yaml
-Type: System.String
-DefaultValue: ''
-SupportsWildcards: false
-Aliases: []
-ParameterSets:
-- Name: MachineGroupFriendlyname
-  Position: Named
-  IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
@@ -210,16 +180,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String
-
 ## OUTPUTS
+
+### System.Management.Automation.PSObject
 
 ## NOTES
 
-Function : Remove-AppVentiXPublishingTask
+Function : Update-AppVentiXPublishingTaskPath
 Author   : John Billekens
 Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.130.1000
+Version  : 1.0
 Requires : Valid AppVentiX license
 
 
@@ -227,7 +197,4 @@ Requires : Valid AppVentiX license
 
 - [Get-AppVentiXPublishingTask](Get-AppVentiXPublishingTask.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)
-- [Set-AppVentiXPublishingTask](Set-AppVentiXPublishingTask.md)
-- [Copy-AppVentiXPublishingTask](Copy-AppVentiXPublishingTask.md)
-- [Export-AppVentiXPublishingTaskReport](Export-AppVentiXPublishingTaskReport.md)
 - [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

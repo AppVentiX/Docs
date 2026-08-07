@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AppVentiXContentSharePackages
 ---
@@ -68,8 +68,9 @@ Retrieves all packages including those in Dependencies folders.
 (Optional) When specified, package manifest identity fields are cached in memory for the
 duration of the PowerShell session and reused on subsequent calls, avoiding a re-read of
 packages that have not changed.
-The cache is keyed on the file path together with its last
-write time and size, so a repackaged file (new content) is always re-read.
+The cache is keyed on the file name together with its last
+write time and size, so a repackaged file (new content) is always re-read, and identical
+files synced across multiple content shares are only read once.
 The cache is
 module-scoped (not accessible outside the module) and is cleared when the module is
 reimported.
@@ -95,7 +96,8 @@ HelpMessage: ''
 ### -ConfigShare
 
 Specifies the path to the AppVentiX configuration share.
-You can omit this parameter if Set-AppVentiXConfigShare has been called.
+You can omit this parameter if the configuration store was already set with Set-AppVentiXConfigShare,
+or when it can be detected automatically (for example on a machine where AppVentiX Central View is installed and configured).
 
 ```yaml
 Type: System.String
@@ -207,7 +209,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Function : Get-AppVentiXContentSharePackages
 Author   : John Billekens
 Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.707.1400
+Version  : 2026.721.2130
 Requires : Valid AppVentiX license
 
 

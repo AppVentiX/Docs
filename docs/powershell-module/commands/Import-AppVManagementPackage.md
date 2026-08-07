@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.707.1700
-ms.date: 07-07-2026
+module_version: 2026.806.1845
+ms.date: 08-07-2026
 PlatyPS schema version: 2024-05-01
 title: Import-AppVManagementPackage
 ---
@@ -16,17 +16,26 @@ title: Import-AppVManagementPackage
 
 ## SYNOPSIS
 
-Imports App-V Management packages from an App-V Management SQL database into AppVentiX as publishing tasks.
+Imports App-V Management packages into AppVentiX as publishing tasks.
 
 ## SYNTAX
 
-### __AllParameterSets
+### MatchWithMachineGroup (Default)
 
 ```
-Import-AppVManagementPackage [[-SQLServer] <string>] [[-SQLInstance] <string>]
- [[-SQLDatabase] <string>] [[-SQLCredential] <pscredential>] [[-ThrottleLimit] <int>]
- [[-ConfigShare] <string>] [-MatchPackageWithMachineGroup] [-GUI] [-CachePackages]
- [<CommonParameters>]
+Import-AppVManagementPackage -MatchPackageWithMachineGroup [-SQLServer <string>]
+ [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>]
+ [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages] [-ThrottleLimit <int>]
+ [-ConfigShare <string>] [<CommonParameters>]
+```
+
+### MachineGroupName
+
+```
+Import-AppVManagementPackage -MachineGroupFriendlyName <string> [-SQLServer <string>]
+ [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>]
+ [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages] [-ThrottleLimit <int>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -37,8 +46,11 @@ This cmdlet has the following aliases,
 
 Import-AppVManagementPackage retrieves packages from an App-V Management SQL database and converts them into
 AppVentiX publishing tasks.
-The function matches package URLs against the configured AppVentiX Content Shares
-and optionally associates packages with the appropriate Machine Groups based on Content Share location.
+The function matches package URLs against the configured AppVentiX Content Stores
+and optionally associates packages with the appropriate Machine Groups based on Content Store location.
+The target Machine Group can be resolved automatically (-MatchPackageWithMachineGroup) or pinned to a specific
+group (-MachineGroupFriendlyName), and the group(s) a package is published to can be set independently with
+-PublishingMachineGroupFriendlyName.
 If a Deployment Configuration XML is present in the database, it is saved as an .appd file alongside the package.
 
 ## EXAMPLES
@@ -48,14 +60,14 @@ If a Deployment Configuration XML is present in the database, it is saved as an 
 Import-AppVManagementPackage
 
 Imports all enabled App-V packages from the local SQL Server ('localhost', database 'AppVManagement')
-and publishes them to all Machine Groups.
+and publishes them to All Machine Groups.
 
 ### EXAMPLE 2
 
 Import-AppVManagementPackage -SQLServer 'sql01' -SQLDatabase 'AppVManagement' -MatchPackageWithMachineGroup
 
 Imports all enabled App-V packages from SQL Server 'sql01' and associates each package with the corresponding
-AppVentiX Machine Group based on its Content Share location.
+AppVentiX Machine Group based on its Content Store location.
 
 ### EXAMPLE 3
 
@@ -68,7 +80,7 @@ then associates them with the appropriate Machine Group.
 
 ### -CachePackages
 
-When specified, package manifest identity fields read from the Content Shares are cached in memory for
+When specified, package manifest identity fields read from the Content Stores are cached in memory for
 the duration of the PowerShell session and reused on subsequent runs, so unchanged packages are not
 re-read.
 The cache is keyed on file path, last write time and size (a repackaged file is always
@@ -106,7 +118,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 5
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -138,15 +150,61 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -MachineGroupFriendlyName
+
+The friendly name of the AppVentiX Machine Group the packages are matched to.
+If not specified,
+packages are matched to All Machine Groups.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupName
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### -MatchPackageWithMachineGroup
 
 When specified, attempts to match each package to the appropriate AppVentiX Machine Group based on its
-Content Share location.
+Content Store location.
 If no match is found, the package is published to all Machine Groups.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
 DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MatchWithMachineGroup
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -PublishingMachineGroupFriendlyName
+
+The friendly name(s) of the AppVentiX Machine Group(s) to which the packages are published.
+If not specified,
+packages are published to the same Machine Group as matched by the Content Store location.
+
+```yaml
+Type: System.String[]
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -174,7 +232,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -196,7 +254,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 2
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -218,7 +276,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 1
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -240,7 +298,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 0
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -252,8 +310,8 @@ HelpMessage: ''
 
 ### -ThrottleLimit
 
-The maximum number of package manifests to read concurrently from the Content Shares when retrieving
-AppVentiX Content Share packages.
+The maximum number of package manifests to read concurrently from the Content Stores when retrieving
+AppVentiX Content Store packages.
 Reading manifests over a (usually remote) share is network-latency
 bound and benefits from parallelism.
 Default: 16.
@@ -267,7 +325,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 4
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -288,12 +346,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+
 ## NOTES
 
 Function    : Import-AppVManagementPackage
 Author      : John Billekens
 Copyright   : (c) John Billekens Consultancy & AppVentiX
-    Version  : 2026.707.1400
+    Version  : 2026.721.2230
 Requires    : SqlServer PowerShell module
 
 

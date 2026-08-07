@@ -46,6 +46,10 @@ $Env:AppVentiXConfigShare         = "\\domain.local\AppVentiX\Config" # Override
 $Env:AppVentiXConfigShareUsername = "DOMAIN\AppVentiXUser"            # Username if required (e.g. "DOMAIN\User" or "user@domain.local")
 $Env:AppVentiXConfigSharePassword = "P@ssw0rd"                        # Password for the specified username
 
+#Optional when there are multiple sites and run on Machine where AppVentiX Central View is installed.
+#The $Env:AppVentiXConfigShare takes precedence over this variable if configured.
+$Env:AppVentiXSiteName = "Site A"                                     # Name of the Site configured in AppVentiX Central View
+
 # Active Directory details
 $Env:AppVentiXADDomainServer      = "lab-dc-001.lab.local"            # Domain controller hostname
 $Env:AppVentiXADDomainPort        = 389                               # Port if not the default (389)
