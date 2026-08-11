@@ -91,9 +91,6 @@ Set the permissions per role on the folders of the configuration store:
 
 All three roles need Modify permissions on `Inventory/`, because running an inventory or a refresh action writes `Action.xml` for the selected machines.
 
-!!! warning
-    These permissions only take effect with integrated authentication, where the console reaches the store as the logged in user.
-
 ### Azure Blob Storage
 
 An Azure Blob Storage store keeps the same items in containers instead of folders, and `AppControl`, `AppMask`, `UserSettings` and `Audit` sit inside the `publishing` container rather than next to it. There are no NTFS permissions here, so Modify becomes the built-in **Storage Blob Data Contributor** role and Read becomes **Storage Blob Data Reader**. Assign those roles per container to the same groups:
@@ -108,6 +105,3 @@ An Azure Blob Storage store keeps the same items in containers instead of folder
 
 !!! note
     SB Data Contributor and SB Data Reader in the table are the built-in **Storage Blob Data Contributor** and **Storage Blob Data Reader** roles. Do not use the subscription level Contributor and Reader roles, which grant management access to the storage account rather than access to the data in it.
-
-!!! warning
-    Central View and the agents authenticate to the storage account with a single app registration and client certificate, not as the logged in user. Container permissions therefore restrict direct access to the storage account through the Azure portal, Storage Explorer or similar tools. They do not change what a user can do inside the console, which is governed by the console roles. See [Azure Blob Storage Configuration](../azure-blob-storage/index.md).

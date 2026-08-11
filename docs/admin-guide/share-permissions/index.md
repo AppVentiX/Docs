@@ -15,7 +15,7 @@ Grant the following permissions on the store:
 | content store(s) | Read | Read<sup>1</sup> |
 
 !!! tip "<sup>1</sup> Write permissions"
-    Central View needs _Write_ permissions on the configuration store to change the configuration, and on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console. For other management activities, only _Read_ permissions are needed. This means you can provide the console to helpdesk/admins to operate the deployment but not change any configurations.
+    Central View needs _Write_ permissions on the configuration store to change the configuration, and on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console. For other management activities, only _Read_ permissions are needed.
 
 Which account these permissions are granted to depends on how the console and the agent authenticate, see the sections below. In an Active Directory environment with integrated authentication, the Domain Computers group needs Read & Execute on the configuration store:
 
@@ -57,7 +57,7 @@ When you configure an account on the agent too, that account needs the Read and 
 !!! warning
     File-level RBAC has no effect on the console with a configured account. Every console user reaches the store as the same account, so the file system cannot tell the roles apart. The roles you configure in [Role Based Access Control (RBAC)](../rbac/index.md) still apply inside the console.
 
-## Azure file share, Kerberos integrated or stand-alone
+## Standalone Azure file share
 
 ### Configured account (storage account key)
 
