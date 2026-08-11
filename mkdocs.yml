@@ -149,6 +149,7 @@ nav:
       - Configuring User Settings: admin-guide/user-settings-general/index.md
       - User Settings Reference: admin-guide/user-settings-detailed/index.md
       - User Settings Filters: admin-guide/user-settings-filters/index.md
+      - Default User Settings: admin-guide/user-settings-default/index.md
     - Security and Access Control:
       - admin-guide/security/index.md
       - Role Based Access Control (RBAC): admin-guide/rbac/index.md

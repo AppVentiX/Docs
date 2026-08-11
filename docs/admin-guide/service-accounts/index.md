@@ -3,7 +3,7 @@
 By default Central View accesses the configuration and content shares as the logged in user, and the agent accesses them with the computer account. Where that is not possible or not wanted, you can configure a service account for either of them. See [Share Permissions and Share Configuration](../share-permissions/index.md) for the permissions each identity needs on the store.
 
 !!! warning
-    A service account changes which identity reaches the share, so file permissions can no longer tell console users apart. Every user of the console reaches the store as the same account. The roles from [Role Based Access Control (RBAC)](../rbac/index.md) still apply inside the console.
+    A service account changes which identity reaches the share, so file permissions can no longer tell AppVentiX Central View console users apart. Every user of the AppVentiX Central View console reaches the store as the same account. The roles from [Role Based Access Control (RBAC)](../rbac/index.md) still apply inside the console.
 
 ## Service account for Central View
 
