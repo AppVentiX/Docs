@@ -5,6 +5,7 @@ Permissions, profile handling, image building, and the settings you reach for on
 | Topic | Description |
 |-------|-------------|
 | [Share Permissions and Configuration](../share-permissions/index.md) | Share and NTFS permission setup |
+| [Service Accounts](../service-accounts/index.md) | Service accounts for Central View and the agent |
 | [Central View Inventory and Advanced Settings](../central-view-advanced/index.md) | Inventory storage, LDAPS, WinRM over SSL |
 | [FSLogix and Roaming Profiles](../fslogix-profiles/index.md) | FSLogix integration and roaming profile settings |
 | [Automated Image Building](../automated-image-building/index.md) | Image build events, PowerShell commands |

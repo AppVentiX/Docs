@@ -58,7 +58,7 @@ All configuration files live directly in the root of the config store, next to t
 
 ## The v2 layout
 
-From version 5.2 onward, new sites use the layout below. The main change is that the loose XML files from the root moved into a `Configuration/` to allow for better RBAC permissions on folder/file level.
+From version 5.2 onward, new sites use the layout below. The main change is that the loose XML files from the root moved into a `Configuration/` to allow for better RBAC permissions on folder/file level. See [Permissions when RBAC is enabled](../share-permissions/index.md#permissions-when-rbac-is-enabled) for the permissions to set per role, and [Role Based Access Control (RBAC)](../rbac/index.md) for the roles themselves.
 
 ### SMB Layout
 

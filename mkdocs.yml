@@ -151,7 +151,7 @@ nav:
     - Security and Access Control:
       - admin-guide/security/index.md
       - Role Based Access Control (RBAC): admin-guide/rbac/index.md
-      - Firewall and Communication Ports: admin-guide/firewall-and-communication-ports/index.md
+      - Firewall and Communication Ports: admin-guide/firewall-ports/index.md
       - FSLogix App Masking: admin-guide/app-masking/index.md
       - App Control (WDAC): admin-guide/app-control/index.md
       - App Control Signing Certificate: admin-guide/app-control-create-certificate/index.md
@@ -170,10 +170,10 @@ nav:
       - admin-guide/advanced-configuration/index.md
       - Configuration Store Folder Structure: admin-guide/folder-structure/index.md
       - Share Permissions and Configuration: admin-guide/share-permissions/index.md
+      - Service Accounts: admin-guide/service-accounts/index.md
       - Central View Inventory and Advanced Settings: admin-guide/central-view-advanced/index.md
       - FSLogix and Roaming Profiles: admin-guide/fslogix-profiles/index.md
       - Automated Image Building: admin-guide/automated-image-building/index.md
-      - Firewall and Communication Ports: admin-guide/firewall-ports/index.md
       - Example Agent Configurations: admin-guide/example-configurations/index.md
   - HowTo Guides:
     - howto/index.md
@@ -188,6 +188,7 @@ nav:
   - Release Notes:
     - release-notes/index.md
     - AppVentiX 5.2:
+      - "5.2.56": release-notes/appventix-5-2-56.md
       - "5.2.53": release-notes/appventix-5-2-53.md
     - AppVentiX 5.1:
       - "5.1.44": release-notes/appventix-5-1-44.md
