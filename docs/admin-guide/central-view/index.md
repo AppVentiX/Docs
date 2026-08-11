@@ -6,6 +6,7 @@ Central View is the management console for your deployment. These pages cover in
 |-------|-------------|
 | [Quick Start](../../quickstart/index.md) | Get up and running with AppVentiX in minutes |
 | [Central View Console](../central-view-console/index.md) | Machine Groups, Manage Machines, and console overview |
+| [Role Based Access Control (RBAC)](../rbac/index.md) | Delegate console access with Admin, Operator, and Helpdesk roles |
 | [Supported Operating Systems](../supported-os/index.md) | Supported OS versions for agent and Central View |
 | [Sites](../sites/index.md) | Add a new site |
 | [Agent Settings](../agent-settings/index.md) | All agent settings explained per category |

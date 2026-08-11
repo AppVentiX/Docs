@@ -10,3 +10,5 @@
 - Improved the first-time configuration experience, making it easier to connect to an existing configuration or set up a new one.
 - A new self-service menu has been added to the Agent GUI, providing users with a simplified interface to start and repair App-V and MSIX applications. The self-service window can be launched using the -selfservice parameter (AppVentiX Agent GUI.exe -selfservice). A default shortcut has also been added to the user settings, making it easy to provide users with access to the self-service menu.
 - AppVentiX PowerShell module updates and improvements for importing existing App-V Server configurations and Ivanti Building Blocks, as well as automating management tasks across AppVentiX
+
+*Source: [AppVentiX release history](https://appventix.com/appventix-release-history/).*

@@ -95,3 +95,5 @@
 - Azure Artifact Signing support has been added for signing App Control policies.
 
 - App Control block and audit event logging have been improved to include publisher information, making it easier to create App Control policies directly from event data.
+
+*Source: [AppVentiX release history](https://appventix.com/appventix-release-history/).*
