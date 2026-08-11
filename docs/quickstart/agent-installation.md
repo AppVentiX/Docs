@@ -37,7 +37,7 @@ Replace `\\fileserver.domain.local\config` with the actual path to your configur
 
 ## Installation
 
-The agent can be pushed remotely to machines (even when users are logged in, no reboot is needed) or installed silently using an automated procedure, like an image build procedure or pipeline. When an older version of the agent is detected, it will be upgraded automatically.
+The agent can be pushed remotely to machines (even when users are logged in, no reboot is needed) or installed silently using an automated procedure, like an image build procedure or pipeline. When an older version of the agent is detected, it will be upgraded automatically, see [Upgrading the Agent](../admin-guide/agent-upgrade/index.md).
 
 !!! note
     If you are pushing the agent remotely, skip to [Option A: Push Agent](#option-a-push-agent).
@@ -98,21 +98,6 @@ The `/quiet` switch suppresses all UI. The `CONNECTIONSTRING` parameter tells th
 
 !!! note
     For non-persistent single or multi session environments, run the silent installation on the master image before sealing it. Depending on the configuration certain tasks can run before the image is sealed.
-
-## Upgrading the Agent
-
-An upgrade uses the same three options as a new installation. When an older version is detected, it is upgraded automatically and users can stay logged in.
-
-The connection string does not have to be specified again, because the agent reuses the one it is already configured with. A silent upgrade therefore only needs:
-
-```cmd
-msiexec /i "AppVentiX Agent.msi" /quiet
-```
-
-Passing `CONNECTIONSTRING` anyway is allowed and will not break the installation.
-
-!!! note
-    An upgrade keeps the existing connection details. To change how an installed agent reaches the configuration store, for example after switching to a service account, see [Service Accounts](../admin-guide/service-accounts/index.md).
 
 ## After Installation
 

@@ -136,6 +136,7 @@ nav:
       - Agent Service: admin-guide/agent-service/index.md
       - Agent GUI: admin-guide/agent-gui/index.md
       - Refresh shortcut: admin-guide/agent-refresh-shortcut/index.md
+      - Upgrading the Agent: admin-guide/agent-upgrade/index.md
     - Package Management:
       - admin-guide/package-management/index.md
       - Manage Content and Publishing Tasks: admin-guide/manage-content/index.md
