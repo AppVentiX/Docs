@@ -2,7 +2,7 @@
 
 Role Based Access Control (RBAC) lets you delegate access to the AppVentiX Central View console without handing out full administrative control. Each role is linked to an Active Directory or Entra ID group. When a user starts the console, their group membership determines which role applies.
 
-A role controls which actions the user can perform. This allows helpdesk and operations teams to do their daily work while reducing the risk of accidental configuration changes. See [Limit Access to the Central View Console](../access-control/index.md) for the group configuration itself.
+A role controls which actions the user can perform. This allows helpdesk and operations teams to do their daily work while reducing the risk of accidental configuration changes.
 
 Within AppVentiX there are three roles you can configure:
 
