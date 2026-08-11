@@ -76,7 +76,7 @@ All configuration files sit in the root of the store, so the split has to be mad
 | `Inventory/` | Modify | Modify | Modify |
 | `Agent/` | Modify | Read | Read |
 
-### v2 layout, SMB file share (configuration stores created on version 5.2 or later)
+### v2 layout (configuration stores created on version 5.2 or later)
 
 Set the permissions per role on the folders of the configuration store:
 
