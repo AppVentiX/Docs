@@ -11,7 +11,7 @@ Grant the following permissions on the store:
 | Location | AppVentiX Agent | AppVentiX Central View |
 |-------|----------------|------------------------|
 | <Configuration store folder\>\ | Read | Read/Write<sup>1</sup> |
-| <Configuration store folder\>\Inventory | Read/Write<sup>2</sup> | Read/Write |
+| <Configuration store folder\>\Inventory | Read/Write<sup>2</sup> | Read/Write<sup>1</sup> |
 | <content store folder(s)\>\ | Read | Read<sup>3</sup> |
 
 > <sup>1</sup> Central View needs _Modify_ permissions on the configuration store to change the configuration.
