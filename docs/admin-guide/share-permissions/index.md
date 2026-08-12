@@ -8,14 +8,17 @@ Set the share permissions to Everybody Full Control and control access with the 
 
 Grant the following permissions on the store:
 
-| Share | AppVentiX Agent | AppVentiX Central View |
+| Location | AppVentiX Agent | AppVentiX Central View |
 |-------|----------------|------------------------|
-| Configuration store | Read | Read/Write<sup>1</sup> |
-| Configuration store (inventory folder) | Read/Write | Read/Write |
-| content store(s) | Read | Read<sup>1</sup> |
+| <Configuration store folder\>\ | Read | Read/Write<sup>1</sup> |
+| <Configuration store folder\>\Inventory | Read/Write<sup>2</sup> | Read/Write<sup>1</sup> |
+| <content store folder(s)\>\ | Read | Read<sup>3</sup> |
 
-!!! tip "<sup>1</sup> Write permissions"
-    Central View needs _Write_ permissions on the configuration store to change the configuration, and on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console. For other management activities, only _Read_ permissions are needed.
+> <sup>1</sup> The Agent needs needs _Modify_ permissions on the Inventory folder to be able to communicate with Central View
+
+> <sup>2</sup> Central View needs _Modify_ permissions on the configuration store to change the configuration.
+
+> <sup>3</sup> Central View needs _Modify_ permissions on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console.
 
 Which account these permissions are granted to depends on how the console and the agent authenticate, see the sections below. In an Active Directory environment with integrated authentication, the Domain Computers group needs Read & Execute on the configuration store:
 
