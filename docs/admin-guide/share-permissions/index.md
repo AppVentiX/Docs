@@ -16,7 +16,7 @@ Grant the following permissions on the store:
 
 > <sup>1</sup> Central View needs _Modify_ permissions on the configuration store to change the configuration.
 >
-> <sup>2</sup> The Agent needs _Modify_ permissions on the Inventory folder to be able to communicate with Central View.
+> <sup>2</sup> The Agent needs _Modify_ permissions on the Inventory folder to be able to communicate with Central View. You can configure another path for the inventory location in the [Agent Settings configuration](../agent-settings/index.md#inventory-settings).
 >
 > <sup>3</sup> Central View needs _Modify_ permissions on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console.
 
