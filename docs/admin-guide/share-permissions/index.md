@@ -11,13 +11,13 @@ Grant the following permissions on the store:
 | Location | AppVentiX Agent | AppVentiX Central View |
 |-------|----------------|------------------------|
 | <Configuration store folder\>\ | Read | Read/Write<sup>1</sup> |
-| <Configuration store folder\>\Inventory | Read/Write<sup>2</sup> | Read/Write<sup>1</sup> |
+| <Configuration store folder\>\Inventory | Read/Write<sup>2</sup> | Read/Write |
 | <content store folder(s)\>\ | Read | Read<sup>3</sup> |
 
-> <sup>1</sup> The Agent needs needs _Modify_ permissions on the Inventory folder to be able to communicate with Central View
-
-> <sup>2</sup> Central View needs _Modify_ permissions on the configuration store to change the configuration.
-
+> <sup>1</sup> Central View needs _Modify_ permissions on the configuration store to change the configuration.
+>
+> <sup>2</sup> The Agent needs _Modify_ permissions on the Inventory folder to be able to communicate with Central View.
+>
 > <sup>3</sup> Central View needs _Modify_ permissions on the content store if you want to edit packages, convert MSIX packages to App Attach or App-V packages to MSIX, or if you want to delete content from the content store directly from the console.
 
 Which account these permissions are granted to depends on how the console and the agent authenticate, see the sections below. In an Active Directory environment with integrated authentication, the Domain Computers group needs Read & Execute on the configuration store:
