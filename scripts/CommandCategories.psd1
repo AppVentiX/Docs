@@ -46,6 +46,7 @@
 
     # Exact-name overrides win over patterns. Use for the odd ones out.
     Overrides  = @{
-        'Get-AppVentiXModuleVariable' = 'diagnostics'
+        'Get-AppVentiXModuleVariable'     = 'diagnostics'
+        'Connect-AppVentiXAzureBlobStore' = 'configuration'
     }
 }

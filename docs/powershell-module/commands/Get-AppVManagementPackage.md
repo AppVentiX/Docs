@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.806.1845
-ms.date: 08-07-2026
+module_version: 2026.818.1700
+ms.date: 08-19-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AppVManagementPackage
 ---
@@ -364,15 +364,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ## OUTPUTS
-
-## NOTES
-
-Function : Get-AppVManagementPackage
-Author   : John Billekens
-Copyright: (c) John Billekens Consultancy
-Version  : 2026.0130.1600
-Requires : SqlServer PowerShell module
-
 
 ## RELATED LINKS
 

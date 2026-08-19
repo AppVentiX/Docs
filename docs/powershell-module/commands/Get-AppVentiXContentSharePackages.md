@@ -204,15 +204,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-## NOTES
-
-Function : Get-AppVentiXContentSharePackages
-Author   : John Billekens
-Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.721.2130
-Requires : Valid AppVentiX license
-
-
 ## RELATED LINKS
 
 - [Add-AppVentiXPackage](Add-AppVentiXPackage.md)

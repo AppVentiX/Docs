@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.806.1845
-ms.date: 08-07-2026
+module_version: 2026.818.1700
+ms.date: 08-19-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXConnectionGroup
 ---
@@ -219,18 +219,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-## NOTES
-
-Function : New-AppVentiXConnectionGroup
-Author   : John Billekens
-Copyright: (c) John Billekens Consultancy & AppVentiX
-Version  : 2026.130.1000
-Requires : Valid AppVentiX license
-
-
 ## RELATED LINKS
 
 - [Add-AppVentiXPackage](Add-AppVentiXPackage.md)
-- [Get-AppVentiXContentSharePackages](Get-AppVentiXContentSharePackages.md)
+- [Get-AppVentiXContentStorePackage](Get-AppVentiXContentStorePackage.md)
 - [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)
 - [New-AppVentiXPublishingTask](New-AppVentiXPublishingTask.md)

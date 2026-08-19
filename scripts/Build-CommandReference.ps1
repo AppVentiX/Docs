@@ -120,6 +120,11 @@ try {
             -replace '(?m)^\s*\{\{\s*Fill in the related links here\s*\}\}\s*$', '' `
             -replace '(?m)^\s*\{\{\s*Fill in the Description\s*\}\}\s*$', ''
 
+        # Drop the '## NOTES' section entirely -- it's just the module's internal
+        # Function/Author/Copyright/Version/Requires boilerplate from comment-based
+        # help, not something readers of the public command reference need.
+        $content = $content -replace '(?ms)^## NOTES\r?\n.*?(?=^## |\z)', ''
+
         # RELATED LINKS from '.LINK <Command>' render as '[Command]()' (empty target)
         # because the source only has a name, not a URL. Point them at the sibling
         # generated page. Only rewrite links to commands we actually document, so
