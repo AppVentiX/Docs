@@ -18,10 +18,10 @@ You have two options for configuring:
 
 With the create new you have two options, by default **Automatic - ...** is selected. The manual option is also available.
 
-* [Automatic setup](#automatic)
-* [Manual setup](#manual)
+* [Automatic setup](#automatic-setup)
+* [Manual setup](#manual-setup)
 
-### Automatic
+### Automatic setup
 
 With the automatic option, AppVentiX will do all the configuration for you.
 
@@ -153,9 +153,9 @@ When the storage account is found and the connection is made, you will be presen
 
 You are now ready for the next step.
 
-### Manual
+### Manual setup
 
-In some situations you might not be able to run the [automatic](#automatic) option to create a storage account. For example if another team manages the Azure platform. This procedure can than be followed to (pre) create the storage account and after which you can run the [manual](#manual) steps to connect to the newly created storage account.
+In some situations you might not be able to run the [automatic](#automatic-setup) option to create a storage account. For example if another team manages the Azure platform. This procedure can than be followed to (pre) create the storage account and after which you can run the [manual](#manual-setup) steps to connect to the newly created storage account.
 
 First login to the [Azure portal](https://portal.azure.com)
 
