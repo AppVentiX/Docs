@@ -200,3 +200,24 @@ html {
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
 }
+
+/* Content headers (H1-H6) - bold and colored with a near-black navy for more
+   visual presence than Material's default gray */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  color: #17233F;
+  font-weight: 700;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3,
+[data-md-color-scheme="slate"] .md-typeset h4,
+[data-md-color-scheme="slate"] .md-typeset h5,
+[data-md-color-scheme="slate"] .md-typeset h6 {
+  color: #6088C8;
+}
