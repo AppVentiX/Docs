@@ -215,6 +215,7 @@ Click ***Next**.
 ![Select the Storage Blob Data Contributor role](azure-blob-connect-existing-manual-10.png)
 
 Select the members you want to assign. This can be one or more users or a Group.
+
 Click ***Next** 2 times.
 
 ![Select members](azure-blob-connect-existing-manual-11.png)
@@ -250,6 +251,24 @@ Repeat this process for the remaining 4 containers. And set the admin user permi
     If you want to assign RBAC roles, you can visit [this page](../rbac/index.md) for more details.
 
 ![Created containers](azure-blob-connect-existing-manual-15.png)
+
+Select **Containers** in the **Data Storage** section.
+Select a container, for example **inventory**
+
+![Select a container](azure-blob-connect-existing-manual-33.png)
+
+Select **Access Control (IAM)** in the left menu, click the **+ Add** button and select **Add role assignment**.
+
+![Add role assignment](azure-blob-connect-existing-manual-34.png)
+
+Configure the roles according to the following table. Repeat the process fo all the other containers listed in the table as well.
+
+| Container Name | Permissions |
+|---|---|
+| machinegroups | Agent (machine) - Storage Blob Data Reader |
+| publishing | Agent (machine) - Storage Blob Data Reader |
+| content | Agent (machine) - Storage Blob Data Reader |
+| inventory | Agent (machine) - Storage Blob Data Contributor (preferred)<br>Or Storage Blob Data Reader for minimal permissions |
 
 Go to App Registrations to create a new App Registration.
 The App registration is used for the agent to access the configuration store (read only) using certificate based authentication. Access to configuration and content is read-only, access to the inventory location (optional) is read and write.
@@ -339,25 +358,6 @@ Click the **Grant admin consent for AppVentiX Corp** button
 Click **Yes**.
 
 ![Click Yes](azure-blob-connect-existing-manual-32.png)
-
-Navigate back to the newly created Storage account.
-Select **Containers** in the **Data Storage** section.
-Select a container, for example **inventory**
-
-![Select a container](azure-blob-connect-existing-manual-33.png)
-
-Select **Access Control (IAM)** in the left menu, click the **+ Add** button and select **Add role assignment**.
-
-![Add role assignment](azure-blob-connect-existing-manual-34.png)
-
-Configure the roles according to the following table. Repeat the process fo all the other containers listed in the table as well.
-
-| Container Name | Permissions |
-|---|---|
-| machinegroups | Agent (machine) - Storage Blob Data Reader |
-| publishing | Agent (machine) - Storage Blob Data Reader |
-| content | Agent (machine) - Storage Blob Data Reader |
-| inventory | Agent (machine) - Storage Blob Data Contributor (preferred)<br>Or Storage Blob Data Reader for minimal permissions |
 
 Finally click **Save** in the AppVentiX Central View Settings wizard.
 
