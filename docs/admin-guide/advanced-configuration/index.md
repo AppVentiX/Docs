@@ -9,5 +9,6 @@ Permissions, profile handling, image building, and the settings you reach for on
 | [Central View Inventory and Advanced Settings](../central-view-advanced/index.md) | Inventory storage, LDAPS, WinRM over SSL |
 | [FSLogix and Roaming Profiles](../fslogix-profiles/index.md) | FSLogix integration and roaming profile settings |
 | [Automated Image Building](../automated-image-building/index.md) | Image build events, PowerShell commands |
+| [Create (manual) storage account via Terraform (IaC)](../azure-blob-storage-terraform/index.md) | Terraform code to deploy a storage account with all requirements for the manual setup procedure |
 | [Firewall and Communication Ports](../firewall-ports/index.md) | Required ports and firewall configuration |
 | [Example Agent Configurations](../example-configurations/index.md) | Validated example configurations for common scenarios |
