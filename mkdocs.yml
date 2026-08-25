@@ -165,7 +165,6 @@ nav:
       - Azure File Share: admin-guide/azure-file-share/index.md
       - QUIC Share (Port 443): admin-guide/quic-share/index.md
       - SMB Share: admin-guide/smb-share/index.md
-      - Azure Storage Account (Manual Setup): admin-guide/azure-manual-sa-creation/index.md
       - Custom App Registration: admin-guide/custom-app-registration/index.md
       - Client Certificate: admin-guide/client-certificate/index.md
     - Advanced Configuration:
