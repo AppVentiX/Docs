@@ -84,6 +84,13 @@ plugins:
         - scripts/gen_nav.py
   - literate-nav:
       nav_file: _nav.md
+  # Keeps old published URLs working after a page is moved or merged. Each
+  # entry emits a small redirect page at the old path pointing at the new one.
+  - redirects:
+      redirect_maps:
+        admin-guide/azure-manual-sa-creation/index.md: admin-guide/azure-blob-storage/index.md#manual-setup
+        admin-guide/central-view-advanced/index.md: admin-guide/central-view-settings/index.md#advanced-settings
+        admin-guide/firewall-and-communication-ports/index.md: admin-guide/firewall-ports/index.md
 
 validation:
   links:

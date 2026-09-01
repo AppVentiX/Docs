@@ -1,1 +1,0 @@
-﻿Please visit the new location [Central View Advanced Settings](../central-view-settings/index.md#advanced-settings)
