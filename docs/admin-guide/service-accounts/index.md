@@ -32,7 +32,7 @@ Specify the credentials you want the agent to use to connect to the share.
 ![Central View and agent service accounts configured](service-accounts-04.png)
 
 !!! note
-    The account configured here is used to reach the configuration and content shares. When the machines are Active Directory integrated, the agent keeps using the computer account to query AD for user groups. The options that affect that behavior, such as multiple domain support, optimized group retrieval and LDAPS, are described under [Central View Advanced Settings](../central-view-advanced/index.md).
+    The account configured here is used to reach the configuration and content shares. When the machines are Active Directory integrated, the agent keeps using the computer account to query AD for user groups. The options that affect that behavior, such as multiple domain support, optimized group retrieval and LDAPS, are described under [Central View Advanced Settings](../central-view-settings/index.md#active-directory-settings).
 
 ### Update an already-installed agent
 

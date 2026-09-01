@@ -85,6 +85,13 @@ plugins:
   - literate-nav:
       nav_file: _nav.md
 
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
 markdown_extensions:
   - admonition
   - tables
@@ -163,6 +170,7 @@ nav:
       - Azure Virtual Desktop (AVD): admin-guide/azure-virtual-desktop/index.md
       - Azure AD / Entra ID: admin-guide/entra-id/index.md
       - Azure File Share: admin-guide/azure-file-share/index.md
+      - Custom (Azure) App Registration: admin-guide/custom-app-registration/index.md
       - QUIC Share (Port 443): admin-guide/quic-share/index.md
       - SMB Share: admin-guide/smb-share/index.md
       - Client Certificate: admin-guide/client-certificate/index.md

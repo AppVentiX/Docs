@@ -11,6 +11,9 @@ Click the **Rotate Certificate** button.
 
 ![Rotate Certificate](client-certificate-02.png)
 
+!!! Note
+    You might want to create the certificate manually. Visit **[this page](../custom-app-registration/index.md#certificate-requirements)** for the manual steps and the certificate requirements.
+
 By default the **Generate a new Certificate** is selected.
 Change the validity period (default is 3 years).
 Click **Next**
