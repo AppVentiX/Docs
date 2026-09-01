@@ -6,7 +6,8 @@ Permissions, profile handling, image building, and the settings you reach for on
 |-------|-------------|
 | [Share Permissions and Configuration](../share-permissions/index.md) | Share and NTFS permission setup |
 | [Service Accounts](../service-accounts/index.md) | Service accounts for Central View and the agent |
-| [Central View Inventory and Advanced Settings](../central-view-advanced/index.md) | Inventory storage, LDAPS, WinRM over SSL |
+| [Central View Inventory](../central-view-inventory/index.md) | AppVentiX Agent inventory |
+| [Central View (Advanced) Settings](../central-view-settings/index.md) | Central View (Advanced) settings |
 | [FSLogix and Roaming Profiles](../fslogix-profiles/index.md) | FSLogix integration and roaming profile settings |
 | [Automated Image Building](../automated-image-building/index.md) | Image build events, PowerShell commands |
 | [Create (manual) storage account via Terraform (IaC)](../azure-blob-storage-terraform/index.md) | Terraform code to deploy a storage account with all requirements for the manual setup procedure |
