@@ -1,3 +1,0 @@
-﻿# Create your own App Registration
-
-... More info will follow soon ...

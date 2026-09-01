@@ -103,7 +103,7 @@ If this option is disabled, the other fields are hidden.
 
 You can use the AppVentiX application registration or create your own application registration in your tenant.
 
-To know more and how to configure your own App Registration, please visit **[this page](../custom-app-registration/index.md)**.
+To know more and how to configure your own App Registration, please visit **[this page](../azure-blob-storage/index.md#app-registration)**.
 
 The fields **Tenant ID** and **Application ID** will be pre-filled if you followed the wizard. Fill these fields with values when you follow the manual steps.
 

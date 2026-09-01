@@ -157,6 +157,8 @@ You are now ready for the next step.
 
 In some situations you might not be able to run the [automatic](#automatic-setup) option to create a storage account. For example if another team manages the Azure platform. This procedure can than be followed to (pre) create the storage account and after which you can run the [manual](#manual-setup) steps to connect to the newly created storage account.
 
+#### Storage account
+
 First login to the [Azure portal](https://portal.azure.com)
 
 Navigate to Storage accounts and click the **+ Create** button.
@@ -269,6 +271,8 @@ Configure the roles according to the following table. Repeat the process fo all 
 | publishing | Agent (machine) - Storage Blob Data Reader |
 | content | Agent (machine) - Storage Blob Data Reader |
 | inventory | Agent (machine) - Storage Blob Data Contributor (preferred)<br>Or Storage Blob Data Reader for minimal permissions |
+
+#### App Registration
 
 Go to App Registrations to create a new App Registration.
 The App registration is used for the agent to access the configuration store (read only) using certificate based authentication. Access to configuration and content is read-only, access to the inventory location (optional) is read and write.
