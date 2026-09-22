@@ -125,12 +125,30 @@ With client settings you can configure the App-V and/or MSIX client. No GPOs are
 
 ---
 
-## Inventory Settings
+## Inventory and Report Settings
 
-In the Inventory tab you can enable or disable the remote inventory feature and configure another share to store the inventory data. By default the inventory data is stored on the configuration store. Please note that the machines need write permissions to the inventory location to be able to save the inventory data. The configuration store only needs read permissions.
+On the **Inventory & Report** tab you can configure yje Real-Tile inventory settings:
+
+| Setting | Description |
+|---------|-------------|
+| Enable real-time inventory | Real-time inventory machines using the buttons in the Machines and Inventory page. Please note that agents needs modify permissions to the inventory folder. |
+| Inventory location | The location where the inventory is stored, please note the agent needs modify permissions to this location. |
+
+By default the inventory data is stored on the configuration store. By changing the inventory location you can determine a different location for these files. Please note that the machines need write permissions to the inventory location to be able to save the inventory data. The configuration store only needs read permissions.
+
+On this tab you can also enable the reporting feature in the Report settings:
+
+| Setting | Description |
+|---------|-------------|
+| Enable application usage report^1^ | When enabled the agent tracks which applications the user starts. The report can be viewed with the Report button in Central View. The agent needs modify permissions to the report location. |
+| Enable AppVentiX agent event report^2^ | When enabled the agent collects events from the AppVentiX Agent eventlog and uploads them to the report location. The report can be viewed with the Report button in Central View. |
+| Report location | The location where the report data is stored, by default the same location as the inventory. The agent needs modify permissions to the report location. |
+| Upload interval (in minutes) | The interval in minutes at which the agent uploads the locally collected report to the report location- The report is also uploaded when the workspace is refreshed. |
+| Include all applications in the report | Only configurable when ^1^ is enabled. By default only App-V and MSIX managed applications are tracked- When enabled, all applications started by interactive users are reported. |
+| Anonymize usernames in the application report | Only configurable when ^1^ is enabled. When enabled, usernames are replaced by an anonymous value. The report then shows usage per anonymous user and can never be traced back to a person. |
+| Event level | Only configurable when ^2^ is enabled. Which event levels the agent collects for the event report. Default is errors only. Including information events collects a lot of data and is only recommended for troubleshooting. |
 
 ![Inventory Settings](agent-settings-12.png)
-
 ---
 
 ## Advanced Settings

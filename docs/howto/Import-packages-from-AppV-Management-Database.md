@@ -7,6 +7,7 @@ This guide walks you through the process of importing your existing App-V packag
 Before you begin, ensure you have:
 
 - AppVentiX PowerShell module installed and configured
+- SqlServer PowerShell module installed
 - Network access to the SQL Server hosting the App-V Management database
 - Appropriate permissions to read from the App-V Management database
 - content stores already configured in AppVentiX (Machine Groups) that match your App-V package locations
@@ -16,11 +17,17 @@ Before you begin, ensure you have:
 First, ensure your AppVentiX environment is properly configured:
 
 ```powershell
-# Install the (latest) module
-Install-Module AppVentiX [-Scope CurrentUser] [-Force] [-AllowClobber]
+
+
+# Install the (latest) AppVentiX module
+Install-Module AppVentiX -Force [-Scope CurrentUser] [-AllowClobber]
+
+# Install the (latest) SqlServer module
+Install-Module SqlServer -Force [-Scope CurrentUser] [-AllowClobber]
 
 # Import the module
-Import-Module AppVentiX
+Import-Module AppVentiX [-Scope CurrentUser] [-Force] [-AllowClobber]
+Import-Module SqlServer [-Scope CurrentUser] [-Force] [-AllowClobber]
 
 # If custom credentials are required, you can run the following command to connect
 # E.g. if the current user does not have permissions to access the configuration store
@@ -32,7 +39,29 @@ Set-AppVentiXConfigShare -ConfigShare $ConfigShare -Credential $Credential
 # (Optional) Verify your license is valid
 Test-AppVentiXIsLicensed
 
+# (Optional) Test connectivity with SQL
+
+# Enter variables for SQL connection
+$SQLCredential = Get-Credential -Message "Enter SQL Credential"
+$Params = @{
+    SQLServer = 'sql01.domain.local'
+    SQLCredential = $SQLCredential
+    SQLDatabase = 'AppVManagement'
+}
+
+# NOTE: If you have the database in a separate instance, configure "SQLInstance" also as an additional parameter, else leave out.
+
+# Test the SQL connection for the AppV Management database
+Test-AppVManagementSQLConnection @Params -Verbose
+
+# Result (if successful)
+VERBOSE: Checking for SqlServer module availability
+VERBOSE: SQL Management connection already established in this session.
+True
 ```
+
+!!! Important
+    Make sure the SQL port is reachable from the location you run the PowerShell actions from.
 
 ## Step 2: Identify Your SQL Server Details
 
@@ -40,7 +69,7 @@ Gather the following information about your App-V Management Server:
 
 | Information | Example | Description |
 |-------------|---------|-------------|
-| SQL Server | `sql01.domain.local` | Hostname or IP of the SQL Server |
+| SQL Server | `sql01.domain.local` | Hostname or IP of the SQL Server. Optionally add port `sql01.domain.local,1433`|
 | Database Name | `AppVManagement` | Name of the App-V database (default: AppVManagement) |
 | SQL Instance | `MSSQLSERVER` | Optional SQL Instance name (leave empty for default instance) |
 | SQL Credentials | `SQLRead` | Optional if you current user does not have permissions, Read Only is enough |
@@ -119,6 +148,9 @@ Import-AppVManagementPackage @params
 ```
 
 ![Package selection GUI](images/import-selected-packages-gui-match-to-machine-group.png)
+
+!!! Important
+    You may have publishing rules without a group assignment, these will be skipped by default. If you sill like to import these you can specify a parameter to assign a certain group while importing these in AppVentiX. To use this feature specify the following parameter `-UnassignedADGroup "domain.local\AppVentiX Unassigned Group"`
 
 ## Step 5: Verify the Import
 

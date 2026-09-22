@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: Get-IvantiWCPolicy
 ---
@@ -61,6 +61,11 @@ Presence of element-level registry values (implies Enabled).
 
 List-type ADMX elements (values stored as numbered entries under a sub-key) are fully supported.
 Boolean elements with explicit trueValue/falseValue nodes are resolved correctly.
+
+Registry values written by enabledList, disabledList and enum valueList nodes have no ADMX element
+of their own.
+They are matched to their owning policy, exposed as AuxiliaryValues, and exported as
+registry entries only (they do not create extra policy elements).
 
 ## EXAMPLES
 

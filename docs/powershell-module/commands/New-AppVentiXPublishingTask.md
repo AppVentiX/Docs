@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXPublishingTask
 ---
@@ -23,7 +23,7 @@ Creates a new AppVentiX publishing task.
 ### AutoLaunch (Default)
 
 ```
-New-AppVentiXPublishingTask -Group <string[]> -Path <FileInfo> [-Type <string>]
+New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
  [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
  [-AutoLaunch] [-DynamicUserConfigurationPath <string>] [-ConfigShare <string>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
@@ -32,7 +32,7 @@ New-AppVentiXPublishingTask -Group <string[]> -Path <FileInfo> [-Type <string>]
 ### PublishSeamless
 
 ```
-New-AppVentiXPublishingTask -Group <string[]> -Path <FileInfo> [-Type <string>]
+New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
  [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
  [-DynamicUserConfigurationPath <string>] [-ReturnPublishCommand] [-ConfigShare <string>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
@@ -263,10 +263,11 @@ HelpMessage: ''
 
 ### -Path
 
-Specifies the path to the package file.
+Specifies the path to the package file, either a file system path or a path on an
+Azure Blob content share ('azure://<account>/<container>/<blob>').
 
 ```yaml
-Type: System.IO.FileInfo
+Type: System.String
 DefaultValue: ''
 SupportsWildcards: false
 Aliases: []

@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: Show-AppVentiXLog
 ---
@@ -44,6 +44,8 @@ With -LogType Audit it reads the audit trail ('AuditTrail.jsonl') written by the
 AppVentiX console and this module.
 Each row shows Timestamp, MachineName,
 Username, Feature and Action.
+When the connected Configuration Store is served by
+Azure Blob, the trail is read from the store instead of from a file path.
 
 For both types, the remaining fields (the debug log's structured fields, the
 audit trail's Details text, and the Error block when present) are shown as an
@@ -110,12 +112,13 @@ HelpMessage: ''
 ### -Path
 
 Either the directory containing the log file, or a direct path to a .jsonl file.
+Always a file system path, also when the Configuration Store is an Azure Blob one.
 For -LogType Debug this defaults to the path from the current session's
 Enable-AppVentiXDebugLogging call.
 For -LogType Audit it defaults to the audit
-folder of the connected Configuration Store.
-If no default is available for the
-chosen log type, Path is required.
+trail of the connected Configuration Store, on either backend.
+If no default is
+available for the chosen log type, Path is required.
 
 ```yaml
 Type: System.String

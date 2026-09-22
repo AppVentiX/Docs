@@ -1,4 +1,4 @@
-﻿# User Settings Reference
+﻿# Workspace Control - User Settings Reference
 
 The User Settings module supports the following setting types:
 
@@ -75,20 +75,27 @@ External Tasks lets you execute applications and scripts, for example to launch 
 
 Four task types are available:
 
-* **Execute process** - Launch an executable. By default pre-filled with the Microsoft Edge path, which you can change as needed.
+* **Execute process** - Launch an executable. By default, pre-filled with the Microsoft Edge path, which you can change as needed.
 * **Execute PowerShell Script File** - Pre-filled to run a PowerShell script file.
 * **Execute CMD Script File** - Pre-filled to run a `.cmd` or `.bat` file.
 * **Execute Inline Script** - Add scripts directly in AppVentiX, no file share required.
 
-Use **Remove Task** to remove a selected task from the list. Check **Run Once** to execute the setting only once per user.
-
 ![External Task Types](user-settings-detailed-08.png)
+
+* Use **Remove Task** to remove a selected task from the list.
+* Check **Run Once** to execute the setting only once per user.
+* Click the **Reset Run Once** button to re-apply a Run Once task.
+* Check the **Execute as SYSTEM** checkbox to run the task in the SYSTEM context.
 
 !!! note
     You do not have to wrap the path in double quotes, just enter the path and executable as is.
 
-!!! note
-    To reset **Run Once** and allow the task to run again, duplicate the User Setting and delete the original.
+!!! warning
+    Be very careful with the **Execute as SYSTEM** option. When enabled, all tasks in this user setting are executed at the machine level.
+
+    **Execute as SYSTEM** is only available for Inline Script tasks. Other task types are not available due to security restrictions.
+
+    ![Execute as system](user-settings-detailed.png)
 
 Each entry can be edited after it is added. For example, to use **pwsh.exe** instead of **powershell.exe**, set the executable to:
 
@@ -112,6 +119,39 @@ To run the script or executable hidden, check the **Run Hidden** column. Use the
 With the fourth type **Execute Inline Script**, you can add scripts directly in AppVentiX without needing a file share.
 
 ![External Tasks](user-settings-detailed-10.png)
+
+### Execute as SYSTEM
+
+External tasks executed under system cannot interact with the user's desktop and run hidden.
+When a task runs as SYSTEM, the APPVENTIX_* variables carry the identity of the user whose logon or refresh triggered the setting, so a SYSTEM-context task can still act on behalf of that user.
+
+The variables the agent sets
+
+| Variable | Value |
+|---|---|
+| APPVENTIX_USERNAME | sAMAccountName, e.g. jdoe |
+| APPVENTIX_USERDOMAIN | NetBIOS domain, e.g. CONTOSO |
+| APPVENTIX_USERACCOUNT | DOMAIN\user as one string |
+| APPVENTIX_USERSID | the user's SID |
+| APPVENTIX_USERUPN | the UPN, e.g. jdoe@contoso.com |
+| APPVENTIX_SESSIONID | the RDS/console session ID |
+| APPVENTIX_USERPROFILE | the profile folder from the ProfileList registry key, e.g. C:\Users\jdoe
+Two ways to use them |
+
+In the task's executable path and arguments as %APPVENTIX_...%. The agent expands these tokens itself before starting the process, so they work even for plain Process tasks.
+
+Inside the script as regular environment variables, because the agent also puts them in the child process environment.
+
+Inline scripts are not token-expanded, so this is the way to use them there:
+In a CMD script the same values are available as %APPVENTIX_USERNAME% and so on, since cmd.exe expands them from the environment.
+
+Typical uses
+
+Writing into the user's registry hive via HKEY_USERS\<SID>, which SYSTEM can do while the user is logged on.
+Creating or repairing folders and files in the user's profile that need elevated rights.
+Machine-level actions keyed to the user, such as granting a local group membership, adding a firewall rule or setting up a per-user scheduled task.
+Logging or reporting which user triggered a machine-side action.
+
 
 ## File Type Association
 
@@ -231,6 +271,16 @@ For each entry you have the following options:
 
 !!! note
     If **Value Name** is left empty, the entire registry key will be created or removed.
+
+### Treeview
+
+To create and edit registry keys and values in a RegEdit-style tree view, click the **Modify entries using treeview**.
+
+![Treeview](user-settings-detailed-40.png)
+
+You can now edit the items you like, wen finished click **Apply and Close** in the top left.
+
+![Apply and Close](user-settings-detailed-41.png)
 
 ## Shortcuts
 

@@ -40,7 +40,8 @@ Enable the checkboxes and add one more redirect URI:
 ms-appx-web://microsoft.aad.brokerplugin/aca5eaeb-ae60-4f0f-af22-32592d20910a
 ```
 
-Replace the application ID with your application ID (found in the overview menu).
+!!! note
+    Replace the application ID with your application ID (found in the overview menu).
 
 The end result looks like this:
 

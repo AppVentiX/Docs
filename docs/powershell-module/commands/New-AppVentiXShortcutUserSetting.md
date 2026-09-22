@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXShortcutUserSetting
 ---
@@ -26,7 +26,8 @@ Creates an AppVentiX UserSetting XML file for a Shortcuts configuration.
 New-AppVentiXShortcutUserSetting -InputObject <psobject> [-FriendlyName <string>]
  [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
  [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>] [-IconFile <string>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-CaptureRules <hashtable[]>] [-EnforceFileTypeAssociations <bool>] [-ConfigShare <string>]
+ [<CommonParameters>]
 ```
 
 ### ShortcutEntries
@@ -35,7 +36,8 @@ New-AppVentiXShortcutUserSetting -InputObject <psobject> [-FriendlyName <string>
 New-AppVentiXShortcutUserSetting -FriendlyName <string> -ShortcutEntries <hashtable[]>
  [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
  [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>] [-IconFile <string>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-CaptureRules <hashtable[]>] [-EnforceFileTypeAssociations <bool>] [-ConfigShare <string>]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -61,7 +63,52 @@ Icon data handling:
 
 ## EXAMPLES
 
+### EXAMPLE 1
+
+New-AppVentiXShortcutUserSetting -FriendlyName "Notepad++" -ShortcutEntries @(
+    @{
+        ShortcutName         = "Notepad++"
+        ExecutablePath       = "C:\Program Files\Notepad++\notepad++.exe"
+        FileTypeAssociations = @(@{ Extension = ".txt" })
+    }
+) -CaptureRules @(
+    @{ Kind = "Folder"; Path = "%APPDATA%\Notepad++" }
+    @{ Kind = "Registry"; Path = "HKCU\Software\Notepad++" }
+)
+
 ## PARAMETERS
+
+### -CaptureRules
+
+Array of hashtables describing User State Roaming capture rules.
+UserStateRoaming is enabled
+when at least one rule is provided.
+Each rule must contain: Kind (Folder, File or Registry), Path.
+Optional keys: Exclude, IncludeSubfolders (default True), Enabled (default True), Description,
+RuleId (generated when omitted).
+
+```yaml
+Type: System.Collections.Hashtable[]
+DefaultValue: '@()'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ConfigShare
 
@@ -92,6 +139,36 @@ Optional description for the UserSetting.
 ```yaml
 Type: System.String
 DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ShortcutEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -EnforceFileTypeAssociations
+
+Whether the file type associations are enforced.
+Defaults to $true.
+Written as False when no
+file type associations are defined.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
@@ -198,6 +275,8 @@ HelpMessage: ''
 ### -InputObject
 
 Pre-structured PSCustomObject containing shortcut metadata and entries.
+Optional properties CaptureRules and EnforceFileTypeAssociations are used when the matching
+parameter is not specified.
 
 ```yaml
 Type: System.Management.Automation.PSObject
@@ -333,7 +412,11 @@ HelpMessage: ''
 Array of hashtables describing shortcut entries.
 Each entry must contain: ShortcutName, ExecutablePath.
 Optional keys: Arguments, WorkingDirectory, PlaceOnDesktop, IconData, IconData16, IconData32,
-IconData48, IconData256, IconFile.
+IconData48, IconData256, IconFile, EntryId (generated when omitted), FileTypeAssociations.
+FileTypeAssociations is an array of hashtables or objects with Extension and optional
+TypeDescription, linked to the EntryId of the entry they are defined in.
+FileAssociations with
+Extension and Description (Get-IvantiWCApplication output) is accepted as well.
 
 ```yaml
 Type: System.Collections.Hashtable[]

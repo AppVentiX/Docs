@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AdmxPolicySetting
 ---
@@ -58,6 +58,10 @@ Supports three parameter sets:
 
 Use -All to return every policy in the file(s) without filtering.
 Otherwise, both -RegistryKey and -ValueName are required.
+
+Registry values written by enabledList, disabledList and enum valueList nodes are returned in
+the AuxiliaryValues property.
+These have no matching entry in Elements.
 
 ADML auto-detection order (Path and XmlFile sets):
 1.

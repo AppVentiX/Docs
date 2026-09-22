@@ -1,4 +1,4 @@
-﻿# Package Management
+﻿# App Delivery
 
 Getting applications into a content store and out to your users, for App-V, MSIX, and MSIX app attach.
 
@@ -8,4 +8,5 @@ Getting applications into a content store and out to your users, for App-V, MSIX
 | [MSIX and MSIX App Attach](../msix/index.md) | MSIX delivery, shared containers, app attach |
 | [MSIX Certificate Management](../msix-certificates/index.md) | Certificate deployment and management |
 | [Application Overview](../application-overview/index.md) | Package management, import from Microsoft Store |
+| [Reports](../application-reports/index.md) | View Application usage across App-V, MSIX, and locally installed applications. |
 | [Deploy, Update and Remove Applications](../deploy-update-remove/index.md) | Approaches for managing application lifecycle |

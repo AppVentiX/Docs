@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.818.1700
-ms.date: 08-19-2026
+module_version: 2026.922.1400
+ms.date: 09-22-2026
 PlatyPS schema version: 2024-05-01
 title: Import-AppVManagementPackage
 ---
@@ -25,8 +25,8 @@ Imports App-V Management packages into AppVentiX as publishing tasks.
 ```
 Import-AppVManagementPackage -MatchPackageWithMachineGroup [-SQLServer <string>]
  [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>]
- [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages] [-ThrottleLimit <int>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages]
+ [-UnassignedADGroup <string>] [-ThrottleLimit <int>] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ### MachineGroupName
@@ -34,8 +34,8 @@ Import-AppVManagementPackage -MatchPackageWithMachineGroup [-SQLServer <string>]
 ```
 Import-AppVManagementPackage -MachineGroupFriendlyName <string> [-SQLServer <string>]
  [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>]
- [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages] [-ThrottleLimit <int>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages]
+ [-UnassignedADGroup <string>] [-ThrottleLimit <int>] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -51,6 +51,8 @@ and optionally associates packages with the appropriate Machine Groups based on 
 The target Machine Group can be resolved automatically (-MatchPackageWithMachineGroup) or pinned to a specific
 group (-MachineGroupFriendlyName), and the group(s) a package is published to can be set independently with
 -PublishingMachineGroupFriendlyName.
+Packages with no AD Groups associated in the App-V Management database are skipped unless -UnassignedADGroup
+is specified to provide a fallback entitlement group.
 If a Deployment Configuration XML is present in the database, it is saved as an .appd file alongside the package.
 
 ## EXAMPLES
@@ -321,6 +323,30 @@ load on the file server.
 ```yaml
 Type: System.Int32
 DefaultValue: 16
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -UnassignedADGroup
+
+The AD group, in 'domain.local\Group' format, used to entitle a package that has no AD Groups associated with
+it in the App-V Management database.
+Without this parameter, such packages are skipped.
+NOTE: Use the full domain name, not the NETBIOS name.
+
+```yaml
+Type: System.String
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:

@@ -4,6 +4,12 @@ This section lists new features, improvements, and fixes for each AppVentiX rele
 
 The current release notes are maintained here. Earlier release notes are reproduced from the [AppVentiX release history](https://appventix.com/appventix-release-history/).
 
+## AppVentiX 5.3
+
+| Version | Highlights |
+|---------|------------|
+| [5.3.25](appventix-5-3-25.md) | Application usage and agent event reporting, User State Roaming, pre-launch and post-launch actions and FTAs for managed shortcuts, User Settings import and export, registry editor, App-V and MSIX improvements |
+
 ## AppVentiX 5.2
 
 | Version | Highlights |

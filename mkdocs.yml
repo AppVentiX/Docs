@@ -91,6 +91,7 @@ plugins:
         admin-guide/azure-manual-sa-creation/index.md: admin-guide/azure-blob-storage/index.md#manual-setup
         admin-guide/central-view-advanced/index.md: admin-guide/central-view-settings/index.md#advanced-settings
         admin-guide/firewall-and-communication-ports/index.md: admin-guide/firewall-ports/index.md
+        admin-guide/package-management/index.md: admin-guide/app-delivery/index.md
 
 validation:
   links:
@@ -119,7 +120,9 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.details
   - pymdownx.snippets
-
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
 nav:
   - Home: index.md
   - Quickstart:
@@ -151,12 +154,13 @@ nav:
       - Agent GUI: admin-guide/agent-gui/index.md
       - Refresh shortcut: admin-guide/agent-refresh-shortcut/index.md
       - Upgrading the Agent: admin-guide/agent-upgrade/index.md
-    - Package Management:
-      - admin-guide/package-management/index.md
+    - App Delivery:
+      - admin-guide/app-delivery/index.md
       - Manage Content and Publishing Tasks: admin-guide/manage-content/index.md
       - MSIX and MSIX App Attach: admin-guide/msix/index.md
       - MSIX Certificate Management: admin-guide/msix-certificates/index.md
       - Application Overview: admin-guide/application-overview/index.md
+      - Reports: admin-guide/application-reports/index.md
       - Deploy, Update and Remove: admin-guide/deploy-update-remove/index.md
     - User Settings:
       - admin-guide/user-settings/index.md
@@ -164,6 +168,8 @@ nav:
       - User Settings Reference: admin-guide/user-settings-detailed/index.md
       - User Settings Filters: admin-guide/user-settings-filters/index.md
       - Default User Settings: admin-guide/user-settings-default/index.md
+      - Prelaunch and Postlaunch Settings: admin-guide/user-settings-pre-post-launch/index.md
+      - Export and Import User Settings: admin-guide/user-settings-import-export/index.md
     - Security and Access Control:
       - admin-guide/security/index.md
       - Role Based Access Control (RBAC): admin-guide/rbac/index.md
@@ -204,6 +210,8 @@ nav:
     - Command Reference: powershell-module/commands/
   - Release Notes:
     - release-notes/index.md
+    - AppVentiX 5.3:
+      - "5.3.25": release-notes/appventix-5-3-25.md
     - AppVentiX 5.2:
       - "5.2.56": release-notes/appventix-5-2-56.md
       - "5.2.53": release-notes/appventix-5-2-53.md
