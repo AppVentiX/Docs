@@ -149,6 +149,69 @@ Import-AppVManagementPackage @params
 
 ![Package selection GUI](images/import-selected-packages-gui-match-to-machine-group.png)
 
+### Option D: Copy Packages to the content store of a Machine Group
+
+Use this option when you want to move your packages to a new location while importing, for example to a new file server or share that is the content store of an AppVentiX Machine Group. You select the target Machine Group with `-MachineGroupFriendlyName`, and `-CopyPackages` copies each package to the content store of that Machine Group before the publishing task is created. The publishing task then points to the copied package.
+
+!!! important
+    The package will be copied to the first content store you have added to the Machine Group in AppVentiX.
+
+```powershell
+$params = @{
+    SQLServer                = "sql01.domain.local"
+    MachineGroupFriendlyName = "VDI"
+    CopyPackages             = $true
+    GUI                      = $true
+}
+$result = Import-AppVManagementPackage @params
+```
+
+For each package, the import:
+
+1. Looks up the package in the content store of the Machine Group.
+2. Copies the `.appv` file from its App-V Management location to the content store if it is not there yet. The folder structure below the source share is kept.
+3. Saves the deployment and user configuration from the App-V Management database as `.appd` and `.xml` files next to the copied package.
+4. Creates the publishing task for the copied package.
+
+| Source | Target |
+|--------|--------|
+| `\\fileserver.domain.local\SourceShare\WS12345\MSOffice365.appv` | `\\fileserver.domain.local\TargetShare\WS12345\MSOffice365.appv` |
+
+#### Rename the package folder
+
+App-V Management package folders often have names that say little about their content, such as a ticket or workstation number. Add `-RenamePackageFolder` to copy each package to a folder in the root of the content store named after the `.appv` file:
+
+```powershell
+$params = @{
+    SQLServer                = "sql01.domain.local"
+    MachineGroupFriendlyName = "VDI"
+    CopyPackages             = $true
+    RenamePackageFolder      = $true
+}
+$result = Import-AppVManagementPackage @params
+```
+
+| Source | Target |
+|--------|--------|
+| `\\fileserver.domain.local\SourceShare\WS12345\MSOffice365.appv` | `\\fileserver.domain.local\TargetShare\MSOffice365\MSOffice365.appv` |
+| `\\fileserver.domain.local\SourceShare\Apps\WS67890\7Edit.appv` | `\\fileserver.domain.local\TargetShare\7Edit\7Edit.appv` |
+
+#### Packages that already exist
+
+If a package already exists in the content store, it is not copied. A warning is shown and the publishing task points to the existing file. Add `-Force` to overwrite existing packages:
+
+```powershell
+Import-AppVManagementPackage -SQLServer "sql01.domain.local" -MachineGroupFriendlyName "VDI" -CopyPackages -RenamePackageFolder -Force
+```
+
+!!! Note
+    - Packages are copied with robocopy, using the permissions of the user running the command. This user needs read access to the source share and write access to the content store.
+    - Only the `.appv` file is copied. Other files in the source folder are not copied.
+    - `-RenamePackageFolder` and `-Force` only work together with `-CopyPackages`. Without it, a warning is shown and they are ignored.
+
+!!! Warning
+    With `-RenamePackageFolder`, packages with the same file name in different source folders get the same target folder. The first package is copied. The next ones get an "already exists" warning and their publishing task points to the first package. With `-Force`, each next package overwrites the previous one. Check your packages for duplicate file names before you use this option.
+
 !!! Important
     You may have publishing rules without a group assignment, these will be skipped by default. If you sill like to import these you can specify a parameter to assign a certain group while importing these in AppVentiX. To use this feature specify the following parameter `-UnassignedADGroup "domain.local\AppVentiX Unassigned Group"`
 
@@ -198,11 +261,27 @@ On the tab "Packages" click "All Publishing Tasks" to see all, including the new
 
 **Solution:** Only enabled packages with valid UNC paths are imported. Check the App-V Management Console to verify packages are enabled and have valid content paths.
 
+### Issue: Package already exists in content store
+
+**Symptom:** With `-CopyPackages`, the import shows the warning `Package already exists in Content Store: '<path>'. Use -Force to overwrite.`
+
+**Solution:** The package was copied before, or another package with the same file name was copied to the same folder (with `-RenamePackageFolder`). The publishing task uses the existing file. Run the import again with `-Force` if the existing file must be replaced.
+
+### Issue: Package copy failed
+
+**Symptom:** With `-CopyPackages`, the import shows the error `Failed to copy package '<name>' to '<path>', robocopy exit code <code>.` and no publishing task is created for that package.
+
+**Solution:**
+1. Confirm the user running the command has read access to the source share and write access to the content store
+2. Check there is enough free disk space on the content store
+3. Run the import with `-Verbose` to see the robocopy output
+
 ## Best Practices
 
 1. **Test First:** Always use the `-GUI` parameter initially to review which packages will be imported
 2. **Verify content stores:** Ensure all content stores are configured in AppVentiX before importing
 3. **Import in Batches:** For large environments, consider importing packages in smaller batches
+4. **Copy a few packages first:** When you use `-CopyPackages`, start with a few packages selected with `-GUI` and check the result in the content store before you copy everything
 
 ## Next Steps
 
