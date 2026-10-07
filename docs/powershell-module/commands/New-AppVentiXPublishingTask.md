@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.922.1400
-ms.date: 09-22-2026
+module_version: 2026.1006.1100
+ms.date: 10-07-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXPublishingTask
 ---
@@ -24,18 +24,18 @@ Creates a new AppVentiX publishing task.
 
 ```
 New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
- [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
- [-AutoLaunch] [-DynamicUserConfigurationPath <string>] [-ConfigShare <string>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-ADGroupSID <string[]>] [-AlwaysPublish]
+ [-WhenNotExist <string>] [-AutoLaunch] [-DynamicUserConfigurationPath <string>]
+ [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PublishSeamless
 
 ```
 New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
- [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-AlwaysPublish] [-WhenNotExist <string>]
- [-DynamicUserConfigurationPath <string>] [-ReturnPublishCommand] [-ConfigShare <string>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-ADGroupSID <string[]>] [-AlwaysPublish]
+ [-WhenNotExist <string>] [-DynamicUserConfigurationPath <string>] [-ReturnPublishCommand]
+ [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -72,6 +72,35 @@ $newTask = New-AppVentiXPublishingTask @params
 Creates a new publishing task with the specified parameters, returns the ID of the new task. We can use the output to publish the task.
 
 ## PARAMETERS
+
+### -ADGroupSID
+
+Internal.
+Known SIDs for -Group, matched by position.
+An empty entry is looked up in AD.
+
+```yaml
+Type: System.String[]
+DefaultValue: '@()'
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -AlwaysPublish
 
@@ -210,6 +239,7 @@ Specify the fully qualified domain name and the groupname, e.g.
 Multiple groups can be specified by separating them with a comma.
 The default value is 'Everyone'.
 Example: 'domain.local\group1'
+Each group must resolve to a SID in Active Directory, otherwise an error is returned and no task is created.
 
 ```yaml
 Type: System.String[]

@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.922.1400
-ms.date: 09-22-2026
+module_version: 2026.1006.1100
+ms.date: 10-07-2026
 PlatyPS schema version: 2024-05-01
 title: Import-AppVManagementPackage
 ---
@@ -33,9 +33,10 @@ Import-AppVManagementPackage -MatchPackageWithMachineGroup [-SQLServer <string>]
 
 ```
 Import-AppVManagementPackage -MachineGroupFriendlyName <string> [-SQLServer <string>]
- [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>]
- [-PublishingMachineGroupFriendlyName <string[]>] [-GUI] [-CachePackages]
- [-UnassignedADGroup <string>] [-ThrottleLimit <int>] [-ConfigShare <string>] [<CommonParameters>]
+ [-SQLInstance <string>] [-SQLDatabase <string>] [-SQLCredential <pscredential>] [-CopyPackages]
+ [-RenamePackageFolder] [-Force] [-PublishingMachineGroupFriendlyName <string[]>] [-GUI]
+ [-CachePackages] [-UnassignedADGroup <string>] [-ThrottleLimit <int>] [-ConfigShare <string>]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -47,13 +48,10 @@ This cmdlet has the following aliases,
 Import-AppVManagementPackage retrieves packages from an App-V Management SQL database and converts them into
 AppVentiX publishing tasks.
 The function matches package URLs against the configured AppVentiX Content Stores
-and optionally associates packages with the appropriate Machine Groups based on Content Store location.
-The target Machine Group can be resolved automatically (-MatchPackageWithMachineGroup) or pinned to a specific
-group (-MachineGroupFriendlyName), and the group(s) a package is published to can be set independently with
--PublishingMachineGroupFriendlyName.
-Packages with no AD Groups associated in the App-V Management database are skipped unless -UnassignedADGroup
-is specified to provide a fallback entitlement group.
+and associates packages with a Machine Group, either matched automatically or specified.
+Packages without AD Groups in the App-V Management database are skipped (see -UnassignedADGroup).
 If a Deployment Configuration XML is present in the database, it is saved as an .appd file alongside the package.
+Packages can optionally be copied to the Content Store of a specific Machine Group (-CopyPackages).
 
 ## EXAMPLES
 
@@ -66,17 +64,35 @@ and publishes them to All Machine Groups.
 
 ### EXAMPLE 2
 
-Import-AppVManagementPackage -SQLServer 'sql01' -SQLDatabase 'AppVManagement' -MatchPackageWithMachineGroup
+Import-AppVManagementPackage -SQLServer 'sql01.domain.local' -SQLDatabase 'AppVManagement' -MatchPackageWithMachineGroup
 
-Imports all enabled App-V packages from SQL Server 'sql01' and associates each package with the corresponding
-AppVentiX Machine Group based on its Content Store location.
+Imports all enabled App-V packages from SQL Server 'sql01.domain.local' and associates each package with the
+corresponding AppVentiX Machine Group based on its Content Store location.
 
 ### EXAMPLE 3
 
-Import-AppVManagementPackage -SQLServer 'sql01' -GUI -MatchPackageWithMachineGroup
+Import-AppVManagementPackage -SQLServer 'sql01.domain.local' -GUI -MatchPackageWithMachineGroup
 
 Displays a selection window listing all available packages so the user can choose which ones to import,
 then associates them with the appropriate Machine Group.
+
+### EXAMPLE 4
+
+Import-AppVManagementPackage -SQLServer 'sql01.domain.local' -MachineGroupFriendlyName 'VDI' -CopyPackages
+
+Imports all enabled App-V packages from SQL Server 'sql01.domain.local', copies each .appv file to the Content
+Store of Machine Group 'VDI' and creates the publishing tasks for the copied packages.
+Packages that already
+exist in the Content Store are not overwritten unless -Force is specified.
+
+### EXAMPLE 5
+
+Import-AppVManagementPackage -SQLServer 'sql01.domain.local' -MachineGroupFriendlyName 'VDI' -CopyPackages -RenamePackageFolder -Force
+
+Imports all enabled App-V packages from SQL Server 'sql01.domain.local' and copies each .appv file to a folder
+named after the file basename in the Content Store of Machine Group 'VDI', for example
+'\\fs01.domain.local\Source\WS12345\MSOffice365.appv' to '<Content Store>\MSOffice365\MSOffice365.appv'.
+Existing packages in the Content Store are overwritten.
 
 ## PARAMETERS
 
@@ -120,6 +136,62 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -CopyPackages
+
+Copies the .appv file of each package from its App-V Management location to the Content Store of the
+Machine Group specified with -MachineGroupFriendlyName, using robocopy.
+The folder structure below the
+source share is kept.
+The publishing task then points to the copied package.
+If the package already exists
+in the Content Store, a warning is shown and the existing file is used.
+If the Machine Group has multiple Content Stores, the package is copied to the first Content Store of the
+Machine Group.
+Only the .appv file is copied.
+The .appd and user configuration files are created from the App-V Management
+database next to the copied package.
+Example: '\\fs01.domain.local\Source\WS12345\MSOffice365.appv' is copied to '<Content Store>\WS12345\MSOffice365.appv'.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupName
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Force
+
+Used with -CopyPackages.
+Overwrites a package that already exists in the Content Store.
+A warning is shown and the parameter is ignored when -CopyPackages is not specified.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupName
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
@@ -211,6 +283,36 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -RenamePackageFolder
+
+Used with -CopyPackages.
+Copies the package to a folder in the Content Store root named after the .appv file
+basename, instead of keeping the original folder structure.
+Example: '\\fs01.domain.local\Source\Apps\WS12345\MSOffice365.appv' is copied to '<Content Store>\MSOffice365\MSOffice365.appv'.
+NOTE: Packages with the same file name in different source folders get the same target.
+The first package
+is copied, the next ones get an "already exists" warning and their publishing task points to the first
+package.
+With -Force, each next package overwrites the previous one.
+A warning is shown and the parameter is ignored when -CopyPackages is not specified.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: MachineGroupName
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
