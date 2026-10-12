@@ -48,6 +48,6 @@
     Overrides  = @{
         'Get-AppVentiXModuleVariable'     = 'diagnostics'
         'Connect-AppVentiXAzureBlobStore' = 'configuration'
-        'Connect-AppVentiXAzure' = 'configuration'
+        'Connect-AppVentiXAzure'          = 'configuration'
     }
 }
