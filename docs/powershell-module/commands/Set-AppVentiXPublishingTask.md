@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1006.1100
-ms.date: 10-07-2026
+module_version: 2026.1008.1800
+ms.date: 10-12-2026
 PlatyPS schema version: 2024-05-01
 title: Set-AppVentiXPublishingTask
 ---
@@ -24,7 +24,8 @@ Updates the properties of an AppVentiX publishing task.
 
 ```
 Set-AppVentiXPublishingTask [-Id] <string> [[-MachineGroupFriendlyname] <string[]>]
- [[-Group] <string[]>] [[-Priority] <int>] [[-ConfigShare] <string>] [<CommonParameters>]
+ [[-ADGroup] <string[]>] [[-EntraIDGroup] <string[]>] [[-Priority] <int>] [[-ConfigShare] <string>]
+ [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -34,7 +35,7 @@ This cmdlet has the following aliases,
 ## DESCRIPTION
 
 The Set-AppVentiXPublishingTask function is used to update the properties of an existing AppVentiX publishing task.
-It allows you to modify the ID, MachineGroupFriendlyname, Group, and Priority of the task.
+It allows you to modify the MachineGroupFriendlyname, AD groups, Entra ID groups, and Priority of the task.
 
 Every run also brings the task up to date with the RelativePath element, which holds the
 package path relative to the Content Share.
@@ -65,7 +66,39 @@ Set-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-1234567890AB"
 
 This example adds the missing relative path to the publishing task with the specified ID.
 
+### EXAMPLE 4
+
+Set-AppVentiXPublishingTask -Id "12345678-1234-1234-1234-1234567890AB" -ADGroup "DOMAIN.LOCAL\GROUP" -EntraIDGroup "AppVentiX - Apps"
+
+This example replaces the groups of the publishing task with an AD group and an Entra ID group.
+
 ## PARAMETERS
+
+### -ADGroup
+
+Specifies the AD group names associated with the publishing task.
+The group name should contain the domain name and the group name, e.g., "DOMAIN.LOCAL\GROUP".
+When -ADGroup or -EntraIDGroup is provided, all groups of the task are replaced.
+If neither is provided, the groups will not be changed.
+Alias: Group
+
+```yaml
+Type: System.String[]
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- Group
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ConfigShare
 
@@ -82,7 +115,7 @@ Aliases:
 - AppVentixConfigShare
 ParameterSets:
 - Name: (All)
-  Position: 4
+  Position: 5
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -92,11 +125,14 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -Group
+### -EntraIDGroup
 
-Specifies the group name associated with the publishing task.
-The group name should contain the domain name and the group name, e.g., "DOMAIN.LOCAL\GROUP".
-If this parameter is not provided, the group name will not be changed.
+Specifies the display names or object IDs of the Entra ID groups associated with the publishing task, e.g.
+"AppVentiX - Apps".
+Can be combined with -ADGroup.
+Requires Entra ID integration to be enabled in AppVentiX.
+The groups are looked up in Microsoft Graph, which asks for a device-code sign-in when no cached sign-in is available.
+Use Connect-AppVentiXAzure to sign in beforehand.
 
 ```yaml
 Type: System.String[]
@@ -105,7 +141,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 2
+  Position: 3
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -172,7 +208,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: 4
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false

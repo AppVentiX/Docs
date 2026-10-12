@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1006.1100
-ms.date: 10-07-2026
+module_version: 2026.1008.1800
+ms.date: 10-12-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXPublishingTask
 ---
@@ -23,19 +23,19 @@ Creates a new AppVentiX publishing task.
 ### AutoLaunch (Default)
 
 ```
-New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
- [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-ADGroupSID <string[]>] [-AlwaysPublish]
- [-WhenNotExist <string>] [-AutoLaunch] [-DynamicUserConfigurationPath <string>]
+New-AppVentiXPublishingTask -Path <string> [-Type <string>] [-MachineGroupFriendlyName <string[]>]
+ [-Priority <int>] [-ADGroup <string[]>] [-EntraIDGroup <string[]>] [-ADGroupSID <string[]>]
+ [-AlwaysPublish] [-WhenNotExist <string>] [-AutoLaunch] [-DynamicUserConfigurationPath <string>]
  [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### PublishSeamless
 
 ```
-New-AppVentiXPublishingTask -Group <string[]> -Path <string> [-Type <string>]
- [-MachineGroupFriendlyName <string[]>] [-Priority <int>] [-ADGroupSID <string[]>] [-AlwaysPublish]
- [-WhenNotExist <string>] [-DynamicUserConfigurationPath <string>] [-ReturnPublishCommand]
- [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-AppVentiXPublishingTask -Path <string> [-Type <string>] [-MachineGroupFriendlyName <string[]>]
+ [-Priority <int>] [-ADGroup <string[]>] [-EntraIDGroup <string[]>] [-ADGroupSID <string[]>]
+ [-AlwaysPublish] [-WhenNotExist <string>] [-DynamicUserConfigurationPath <string>]
+ [-ReturnPublishCommand] [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -45,7 +45,8 @@ This cmdlet has the following aliases,
 ## DESCRIPTION
 
 The New-AppVentiXPublishingTask function creates a new publishing task for AppVentiX.
-It allows you to specify various parameters such as the type of package, machine group, priority, name, version, group, path, and more.
+It allows you to specify the package path, machine group, priority, AD groups, Entra ID groups, and more.
+The package type, name and version are read from the package.
 The function also checks if the package exists and if AppVentiX is licensed before creating the publishing task.
 
 ## EXAMPLES
@@ -71,12 +72,58 @@ $params = @{
 $newTask = New-AppVentiXPublishingTask @params
 Creates a new publishing task with the specified parameters, returns the ID of the new task. We can use the output to publish the task.
 
+### EXAMPLE 4
+
+New-AppVentiXPublishingTask -ADGroup 'domain.local\Group1' -EntraIDGroup 'AppVentiX - Apps' -Path 'azure://appventix/content/Package_1.0.0.0_x64/Package_1.0.0.0_x64.msix'
+Creates a new publishing task for an AD group and an Entra ID group, returns the ID of the new task.
+
+### EXAMPLE 5
+
+New-AppVentiXPublishingTask -MachineGroupFriendlyName 'Entra machines' -EntraIDGroup 'AppVentiX - Apps' -Path 'azure://appventix/content/Package_1.0.0.0_x64/Package_1.0.0.0_x64.msix'
+Creates a new publishing task for an Entra ID group only, returns the ID of the new task.
+No AD group is added, also not the default 'Everyone' group.
+
 ## PARAMETERS
+
+### -ADGroup
+
+Specify the fully qualified domain name and the groupname, e.g.
+'DOMAIN.LOCAL\GROUP'.
+Multiple groups can be specified by separating them with a comma.
+The default value is 'Everyone'
+when neither -ADGroup nor -EntraIDGroup is specified.
+Example: 'domain.local\group1'
+Each group must resolve to a SID in Active Directory, otherwise an error is returned and no task is created.
+Alias: Group
+
+```yaml
+Type: System.String[]
+DefaultValue: "@('Everyone')"
+SupportsWildcards: false
+Aliases:
+- Group
+ParameterSets:
+- Name: AutoLaunch
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: PublishSeamless
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ADGroupSID
 
 Internal.
-Known SIDs for -Group, matched by position.
+Known SIDs for -ADGroup, matched by position.
 An empty entry is looked up in AD.
 
 ```yaml
@@ -232,30 +279,34 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -Group
+### -EntraIDGroup
 
-Specify the fully qualified domain name and the groupname, e.g.
-'DOMAIN.LOCAL\GROUP'.
-Multiple groups can be specified by separating them with a comma.
-The default value is 'Everyone'.
-Example: 'domain.local\group1'
-Each group must resolve to a SID in Active Directory, otherwise an error is returned and no task is created.
+Specify the display name or object ID of one or more Entra ID groups, e.g.
+'AppVentiX - Apps'.
+Can be combined with -ADGroup.
+Requires Entra ID integration to be enabled in AppVentiX.
+The groups are looked up in Microsoft Graph, which asks for a device-code sign-in when no
+cached sign-in is available.
+Each group must resolve to exactly one Entra ID group, otherwise
+an error is returned and no task is created.
+Use the object ID when the display name is not unique.
+Use Connect-AppVentiXAzure to sign in beforehand.
 
 ```yaml
 Type: System.String[]
-DefaultValue: "@('Everyone')"
+DefaultValue: ''
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: AutoLaunch
   Position: Named
-  IsRequired: true
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
 - Name: PublishSeamless
   Position: Named
-  IsRequired: true
+  IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false

@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1006.1100
-ms.date: 10-07-2026
+module_version: 2026.1008.1800
+ms.date: 10-12-2026
 PlatyPS schema version: 2024-05-01
 title: Copy-AppVentiXPublishingTask
 ---
@@ -23,8 +23,9 @@ Copies AppVentiX publishing tasks to a new machine group with optional Azure Vir
 ### ID (Default)
 
 ```
-Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string> [-NewGroup <string>]
- [-DontPublishSeamless] [-ConfigShare <string>] [<CommonParameters>]
+Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string>
+ [-NewADGroup <string>] [-NewEntraIDGroup <string>] [-DontPublishSeamless] [-ConfigShare <string>]
+ [<CommonParameters>]
 ```
 
 ### IDAzure
@@ -32,8 +33,8 @@ Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string> 
 ```
 Copy-AppVentiXPublishingTask -Id <string> -NewMachineGroupFriendlyname <string>
  -SubscriptionId <string> -ResourceGroupName <string> -ApplicationGroupName <string>
- -HostPoolName <string> -AssignmentName <string> [-NewGroup <string>] [-ConfigShare <string>]
- [<CommonParameters>]
+ -HostPoolName <string> -AssignmentName <string> [-NewADGroup <string>] [-NewEntraIDGroup <string>]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ### MachineGroupFriendlynameAzure
@@ -68,7 +69,7 @@ The function performs the following operations:
 - Copies task configuration including package paths, groups, and seamless applications
 - Automatically adjusts content share paths for the new machine group
 - Optionally configures Azure Virtual Desktop seamless publishing
-- Updates Active Directory group assignments with SID resolution
+- Updates Active Directory group assignments with SID resolution and Entra ID group assignments with object ID resolution
 - Preserves or disables seamless publishing based on parameters
 
 When copying tasks with seamless publishing enabled, the function can automatically configure Azure Virtual Desktop
@@ -127,6 +128,12 @@ application group, host pool, and user assignment details.
 Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Production" -NewGroup "CONTOSO.local\ProdUsers"
 
 Copies tasks and assigns them to ProdUsers group (domain will be inherited from original task if not specified).
+
+### EXAMPLE 8
+
+Copy-AppVentiXPublishingTask -MachineGroupFriendlyname "Development" -NewMachineGroupFriendlyname "Production" -NewEntraIDGroup "AppVentiX - Apps"
+
+Copies tasks and assigns them to the Entra ID group "AppVentiX - Apps".
 
 ## PARAMETERS
 
@@ -347,13 +354,47 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
-### -NewGroup
+### -NewADGroup
 
 Specifies the new Active Directory group to assign to the copied publishing tasks.
 Can be specified as "GroupName" or "DOMAIN\GroupName".
 If only the group name is provided, the domain from the original task will be reused.
-If not specified, the original task's group assignment will be retained.
+When -NewADGroup or -NewEntraIDGroup is specified, all groups of the copied task are replaced.
+If neither is specified, the original task's group assignment will be retained.
 The function will attempt to resolve the group SID automatically.
+Alias: NewGroup
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases:
+- NewGroup
+ParameterSets:
+- Name: IDAzure
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: ID
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -NewEntraIDGroup
+
+Specifies the display name or object ID of the new Entra ID group to assign to the copied publishing tasks.
+Can be combined with -NewADGroup.
+Requires Entra ID integration to be enabled in AppVentiX.
+The group is looked up in Microsoft Graph, which asks for a device-code sign-in when no cached sign-in is available.
+Use Connect-AppVentiXAzure to sign in beforehand.
 
 ```yaml
 Type: System.String
