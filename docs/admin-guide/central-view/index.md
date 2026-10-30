@@ -13,6 +13,7 @@ Central View is the management console for your deployment. These pages cover in
 | [Machine Groups](../machine-groups/index.md) | Configure Machine Groups |
 | [Manage Machines](../manage-machines/index.md) | Adding, organizing, and managing machines in machine groups |
 | [Workspace Analyzer](../workspace-analyzer/index.md) | Analyze a user or group to verify the assigned items |
+| [Branding](../branding/index.md) | Customize the logo and colors of the console and Agent progress windows |
 | [Azure Blob Storage Configuration](../azure-blob-storage/index.md) | Setup a Azure Blob Storage automatically or manually |
 | [Upgrading AppVentiX](../supported-os/index.md#upgrade-from-an-earlier-version-of-appventix) | Upgrading from earlier versions |
 | [PowerShell Module](../powershell-module/index.md) | The AppVentiX PowerShell module |

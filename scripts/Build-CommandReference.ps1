@@ -15,8 +15,8 @@
 
     The module version is read from the module manifest at generation time and stamped
     into each page's front matter. The site navigation is built from the 'category'
-    front matter at 'mkdocs build' time (see scripts/gen_nav.py) -- this script does
-    not touch mkdocs.yml.
+    front matter at 'properdocs build' time (see scripts/gen_nav.py) -- this script does
+    not touch properdocs.yml.
 
 .NOTES
     Only commands returned by Get-Command -Module (i.e. actually exported via
@@ -128,7 +128,7 @@ try {
         # RELATED LINKS from '.LINK <Command>' render as '[Command]()' (empty target)
         # because the source only has a name, not a URL. Point them at the sibling
         # generated page. Only rewrite links to commands we actually document, so
-        # 'mkdocs build --strict' never sees a link to a missing file. Any other
+        # 'properdocs build --strict' never sees a link to a missing file. Any other
         # empty-target link is dropped (it would break the strict build).
         $content = [regex]::Replace($content, '\[([^\]]+)\]\(\)', {
             param($m)
@@ -151,4 +151,4 @@ if ($placeholders.Count) {
     Write-Warning "Incomplete comment-based help - missing parameter/description text (fix in the module repo). Count in parentheses:`n  $($placeholders -join "`n  ")"
 }
 
-Write-Host "`nNext: run 'mkdocs build --strict' to regenerate the menu and validate links." -ForegroundColor Cyan
+Write-Host "`nNext: run 'properdocs build --strict' to regenerate the menu and validate links." -ForegroundColor Cyan

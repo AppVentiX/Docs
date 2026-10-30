@@ -7,7 +7,7 @@ Source repository for the AppVentiX technical documentation, published at [docs.
 
 ## Built with
 
-- [MkDocs](https://www.mkdocs.org/) - static site generator
+- [ProperDocs](https://properdocs.org/) - static site generator (a maintained continuation of MkDocs 1.x)
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) - theme
 
 ## Local development
@@ -21,13 +21,13 @@ pip install -r requirements.txt
 Start the local dev server with live reload:
 
 ```powershell
-python -m mkdocs serve --livereload
+python -m properdocs serve
 ```
 
 The site is available at `http://127.0.0.1:8000`.
 
 !!! note
-    Search does not work under `mkdocs serve` - it builds from an in-memory tree that [Pagefind](https://pagefind.app/) cannot index. To test search locally, build and index a static copy instead:
+    Search does not work under `properdocs serve` - it builds from an in-memory tree that [Pagefind](https://pagefind.app/) cannot index. To test search locally, build and index a static copy instead:
 
     ```powershell
     .\scripts\Serve-WithSearch.ps1
@@ -60,12 +60,12 @@ The pages under `docs/powershell-module/commands/` are generated from the AppVen
 
 The script documents every exported command, reads the module version from the manifest, and stamps a `category` into each page's front matter. It reports any commands that still have incomplete help, so those gaps can be fixed in the module source.
 
-The site navigation for the command reference is built from that `category` front matter during the build (`scripts/gen_nav.py`), so a new command appears in the menu automatically. There is no command list to maintain in `mkdocs.yml`.
+The site navigation for the command reference is built from that `category` front matter during the build (`scripts/gen_nav.py`), so a new command appears in the menu automatically. There is no command list to maintain in `properdocs.yml`.
 
 After regenerating, verify the build:
 
 ```powershell
-python -m mkdocs build --strict
+python -m properdocs build --strict
 ```
 
 Strict mode fails on broken links or pages missing from the navigation, which catches drift before it ships. The same check runs in CI on every push.

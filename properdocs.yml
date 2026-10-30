@@ -146,6 +146,7 @@ nav:
       - Machine Group Agent Settings: admin-guide/agent-settings/index.md
       - Manage Machines: admin-guide/manage-machines/index.md
       - Workspace Analyzer: admin-guide/workspace-analyzer/index.md
+      - Branding: admin-guide/branding/index.md
       - Azure Blob Storage Configuration: admin-guide/azure-blob-storage/index.md
       - PowerShell Module: admin-guide/powershell-module/index.md
     - AppVentiX Agent:
@@ -175,7 +176,7 @@ nav:
       - Role Based Access Control (RBAC): admin-guide/rbac/index.md
       - Firewall and Communication Ports: admin-guide/firewall-ports/index.md
       - FSLogix App Masking: admin-guide/app-masking/index.md
-      - App Control (WDAC): admin-guide/app-control/index.md
+      - App Control (WDAC/AppLocker): admin-guide/app-control/index.md
       - App Control Signing Certificate: admin-guide/app-control-create-certificate/index.md
       - Audit Trail: admin-guide/audit-trail/index.md
     - Integrations:
@@ -210,6 +211,8 @@ nav:
     - Command Reference: powershell-module/commands/
   - Release Notes:
     - release-notes/index.md
+    - AppVentiX 5.4:
+      - "5.4.32": release-notes/appventix-5-4-32.md
     - AppVentiX 5.3:
       - "5.3.25": release-notes/appventix-5-3-25.md
     - AppVentiX 5.2:

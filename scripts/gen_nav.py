@@ -3,10 +3,10 @@ mkdocs-gen-files hook: build the PowerShell command-reference navigation from th
 'category' / 'category_title' front matter that Build-CommandReference.ps1 stamps
 into each command page.
 
-Runs automatically during `mkdocs build` / `mkdocs serve`. Emits a literate-nav
+Runs automatically during `properdocs build` / `properdocs serve`. Emits a literate-nav
 file (`powershell-module/commands/_nav.md`) that mkdocs-literate-nav turns into the
 categorized sidebar. New commands appear in the menu automatically -- no manual
-edits to mkdocs.yml.
+edits to properdocs.yml.
 """
 import re
 from pathlib import Path

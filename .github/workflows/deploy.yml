@@ -44,7 +44,7 @@ jobs:
       - name: Build MkDocs
         # --strict fails the build on broken links or pages missing from the nav,
         # so command-reference drift is caught here rather than shipping silently.
-        run: mkdocs build --strict
+        run: properdocs build --strict
 
       - name: Index site with Pagefind
         # Site search (docs/assets/js/pagefind-search.js) needs the

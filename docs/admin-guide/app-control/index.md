@@ -1,6 +1,6 @@
 # App Control Setup and Best Practices
 
-AppVentiX makes it easy to set up and manage Microsoft App Control for Business (formerly Windows Defender Application Control / WDAC). App Control controls which applications are allowed to run on your devices. Only explicitly trusted applications can execute, which results in a very secure workspace because users cannot run processes that are not covered by an allow policy.
+AppVentiX makes it easy to set up and manage Microsoft App Control for Business (formerly Windows Defender Application Control / WDAC) or AppLocker. App Control controls which applications are allowed to run on your devices, while AppLocker controls which applications are allowed to run for your users. Only explicitly trusted applications can execute, which results in a very secure workspace because users cannot run processes that are not covered by an allow policy.
 
 From a single interface you can create and manage policies, collect triggered application events from your clients, and build new policies based on those events.
 
@@ -8,7 +8,7 @@ From a single interface you can create and manage policies, collect triggered ap
 
 ## Before You Start
 
-Make sure both Central View and the Agent are updated to version 5.0.26 or later. You can download the latest version from [https://download.appventix.com/latest](https://download.appventix.com/latest).
+Make sure both Central View and the Agent are updated to version 5.0.26 or later to use App Control and 5.4.32 or later to (also) use AppLocker. You can download the latest version from [https://download.appventix.com/latest](https://download.appventix.com/latest).
 
 Start with a test environment rather than your entire production environment. Each AppVentiX Agent reports back triggered events, and a large environment can quickly generate an overwhelming amount of data. Start small, create your initial policies, and test thoroughly before rolling out to production.
 
@@ -17,15 +17,18 @@ Start with a test environment rather than your entire production environment. Ea
 
 ---
 
-## Enabling App Control
+## Enabling App Control and AppLocker
 
-You have two options to enable App Control: directly from the App Control pane, or through the Machine Group settings. Make sure you have permission to edit and change Machine Groups.
+You have two options to enable App Control and AppLocker: directly from the App Control pane, or through the Machine Group settings. Make sure you have permission to edit and change Machine Groups.
 
 ### Option 1: From the App Control Pane
 
 Click the **App Control** tab in Central View. On the left you will see your policies (once created), and on the right the Machine Groups configured in AppVentiX.
 
 Right-click a Machine Group and select **Enable AppControl Feature**.
+
+!!! important
+    This only enables App Control, not AppLocker. To enable AppLocker, use Option 2.
 
 ![Enable App Control from the App Control pane](app-control-01.png)
 
@@ -39,10 +42,21 @@ Repeat this step for each Machine Group you want to enable.
 
 In the Machine Group General settings you can also fine-tune the history and event collection settings:
 
-- By default, 7 days of history are retained. Older data is purged.
-- The interval to check for new App Control events is 30 minutes (1800 seconds) by default. Only new events triggered since the last retrieval are added to the log.
+1. By default, 7 days of history are retained. Older data is purged.
+2. The interval to check for new App Control events is 30 minutes (1800 seconds) by default. Only new events triggered since the last retrieval are added to the log.
+3. App Control (WDAC) is enabled by default when you enable the App Control feature.
+4. Enable **signed App Control (WDAC) policies** if you want to sign your policies.
+5. Enable **AppLocker** to add support for AppLocker policies.
 
 ![App Control history and event collection settings](app-control-03.png)
+
+If you enable both AppLocker and App Control (WDAC), a message appears. We recommend choosing only one of the two. Read the message and click **Close** to close the popup.
+
+![Enable WDAC and AppLocker](app-control.png)
+
+The text after the Machine Group name shows which option is enabled. You can enable App Control for one Machine Group and AppLocker for another, but we do not recommend this because of the extra administrative work.
+
+![App Control or AppLocker](app-control-1.png)
 
 After enabling the feature, restart the agent service or the machine to activate it.
 
@@ -60,7 +74,7 @@ You can switch between Learning Mode and Enforced Mode at any time by right-clic
 
 ## Understanding the Default Behavior
 
-With the App Control feature enabled, nothing is blocked by default. The agent starts collecting events from the Windows event log and reports them back to Central View for review.
+With the App Control or AppLocker feature enabled, nothing is blocked by default. The agent starts collecting events from the Windows event log and reports them back to Central View for review.
 
 ### Generating Events
 
@@ -81,13 +95,15 @@ A popup shows the sync progress. Click **Show progress** for more detail.
 
 ### Reviewing Events in Central View
 
-After some time has passed, open the **App Control Log** in Central View to see the events triggered by your users. Click **Refresh Log** to load the latest data, or use **Select a Time Range** to filter by a specific period.
+After some time has passed, open the **App Control Log** in Central View to see the events triggered by your users. Click **Refresh Log** to load the latest data, or use **Select a Time Range** to filter by a specific period. The **Type** column will show you if the rule was detected by App Control (WDAC) or AppLocker.
 
 ![App Control Log](app-control-07.png)
 
 ---
 
 ## User Mode vs Kernel Mode
+
+This option only applies to App Control (WDAC), not to AppLocker.
 
 Windows runs software on two separate levels:
 
@@ -130,6 +146,17 @@ Policies can be created in two ways: manually, or from the App Control (learned)
 Open the **App Control** tab and click **Create new policy**.
 
 ![Create a policy manually](app-control-09.png)
+
+Choose whether the policy is an App Control (WDAC) or an AppLocker policy.
+
+![App Control or AppLocker](app-control-2.png)
+
+There are two policy types, which you can tell apart by their icon:
+
+- Blue shield: App Control (WDAC) policy.
+- Green shield: AppLocker policy.
+
+![Icon identification](app-control-3.png)
 
 Choose a **Rule Type** (Publisher, File or Path, File Attributes, File Hash, Certificate, or Folder Scan).
 

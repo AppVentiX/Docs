@@ -1,6 +1,6 @@
 """MkDocs build hooks.
 
-Registered via `hooks:` in mkdocs.yml.
+Registered via `hooks:` in properdocs.yml.
 """
 
 # Maps a page's top-level URL segment to the section label used by the

@@ -4,6 +4,12 @@ This section lists new features, improvements, and fixes for each AppVentiX rele
 
 The current release notes are maintained here. Earlier release notes are reproduced from the [AppVentiX release history](https://appventix.com/appventix-release-history/).
 
+## AppVentiX 5.4
+
+| Version | Highlights |
+|---------|------------|
+| [5.4.32](appventix-5-4-32.md) | Custom branding, AppLocker management in App Control, redesigned wrapper progress window, MSIX package healing and automatic dependency installation, Workspace Control improvements |
+
 ## AppVentiX 5.3
 
 | Version | Highlights |
