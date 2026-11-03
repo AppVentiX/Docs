@@ -24,11 +24,15 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 2. Sign out of Windows, then sign in again. Windows reads group membership at sign-in. On Remote Desktop, use **Start** > your account > **Sign out**. A disconnected session keeps the old groups.
 3. In the application, go to **Settings > AI agents (MCP)**. **Connect an AI agent** shows the path of the relay, and checks your account and the licence.
 4. Click **Copy client setting**. This copies the `mcpServers` entry, with the path of the relay.
-5. Paste the entry into the configuration of your MCP client. The relay takes no arguments.
+5. Paste the entry into the configuration file of your MCP client. The relay takes no arguments.
+
+**Copy client setting** puts the full entry on the clipboard, with the relay path of this host. In a new file, the entry is the full content. If the file already has other servers, add only the `"automated-packaging"` entry inside its `"mcpServers"`.
 
 ### Claude Desktop
 
-Add the entry to `claude_desktop_config.json`, then start Claude Desktop again:
+The file is `%APPDATA%\Claude\claude_desktop_config.json`. To open it, click **Settings** > **Developer** > **Edit Config** in Claude Desktop. Claude Desktop makes the file if it is not there.
+
+Add the entry, then quit Claude Desktop and start it again:
 
 ```json
 {
@@ -43,8 +47,9 @@ Add the entry to `claude_desktop_config.json`, then start Claude Desktop again:
 ### Google Antigravity
 
 1. Install Antigravity from Google, and sign in with your Google account.
-2. In the agent panel, click **…** > **MCP Servers** > **Manage MCP Servers** > **View raw config**.
-3. Add the same `mcpServers` entry to the `mcp_config.json` file that opens. Then save the file.
+2. Open the file `%USERPROFILE%\.gemini\config\mcp_config.json`. In the agent panel, click **…** > **MCP Servers** > **Manage MCP Servers** > **View raw config**. Or open the file directly.
+3. If the file is not there, make it, with the `mcpServers` entry as its full content.
+4. Add the entry, then save the file.
 
 Antigravity asks you before it uses a tool of a new server. Do not add a permission rule that allows each tool of this server. With it, Antigravity uses each tool without a question, also the tools that build packages.
 
