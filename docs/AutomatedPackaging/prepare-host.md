@@ -9,6 +9,8 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
 
     The wizard has eight pages, with a bar across the top. **Only the last page changes the host.** The blue button at the bottom right is the next step: **Next** on pages 1 to 7, then **Apply the changes**.
 
+    ![Host preparation, page 1: What this will change](images/wizard-what-changes.png)
+
     | # | Page | What it does |
     |---|---|---|
     | 1 | **What this will change** | Lists every change to the host that host preparation can make |
@@ -24,6 +26,12 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
         - The application attaches workers to the switch `PkgRobot-Internal`, and keeps them in `<workingDir>\Workers`. Leave **Virtual switch** and **Worker folder** at their defaults on page 3.
         - **Managed name prefix** on page 3 shows `PKG-`. The application uses the prefix under **Settings > Advanced**, `PKGMGR-` by default.
         - Workers built from the Images screen always use the account `pkgbuilder` and a generated password, whatever page 6 shows.
+
+    ![Host preparation, page 3: The hypervisor. Managed name prefix shows PKG-](images/wizard-hypervisor.png)
+
+    Page 5, **Media**, shows what a worker is built from, and the folder for each item:
+
+    ![Host preparation, page 5: Media](images/wizard-media.png)
 
     ### After Apply
 

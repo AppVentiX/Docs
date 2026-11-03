@@ -16,6 +16,8 @@ The list has two groups:
 
 Select an item to see its facts, how it installs, and **Used by**: the images, jobs and items that use it.
 
+![The Prerequisites screen, with a Visual C++ item selected](images/prerequisites.png)
+
 ### Download from the vendor
 
 Select an item under **Offered, not downloaded**, then click **Download**. The product keeps the file only when Windows accepts it as signed by Microsoft. Where the vendor publishes a hash, the hash must also match.

@@ -92,6 +92,7 @@ extra:
     - Settings: AutomatedPackaging/settings.md
     - Command line: AutomatedPackaging/command-line.md
     - Troubleshooting: AutomatedPackaging/troubleshooting.md
+    - Error codes: AutomatedPackaging/error-codes.md
 
 # Pages that exist but are not in the navigation. Without this, the build
 # reports them; with it, they are built and reachable by URL only.

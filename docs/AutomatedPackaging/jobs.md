@@ -6,6 +6,8 @@
 
     The **Jobs** screen shows each job and its log, from the window, the command line and MCP. Select a job to see its facts and its log while it runs.
 
+    ![The facts of a built job, with its six steps and their times](images/jobs-facts.png)
+
     - **Cancel job**, under the facts of a running job, stops it. The service puts the worker back to its baseline first. The job then shows Cancelled.
     - **Copy log** and **Open log file** give you the log.
     - A failed job shows a failure card above its log: the code, the step, a headline, **What to try** and **Copy diagnostic**.

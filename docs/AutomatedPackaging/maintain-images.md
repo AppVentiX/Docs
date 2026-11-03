@@ -32,6 +32,8 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
     2. Optional: change the KMS server or the prerequisites on the card.
     3. Click **Update**.
 
+    ![The Images screen, with an image selected and its actions](images/images-screen.png)
+
 === "CLI"
 
     ```

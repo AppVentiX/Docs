@@ -21,7 +21,7 @@ You build the worker once, from Windows media that you supply. The product ships
 |---|---|---|
 | **The application window** | Screens for jobs, images, prerequisites and settings | All pages in this section, on the **GUI** tabs |
 | **The command line** | `AutomatedPackaging.Cli.exe`, for scripts and pipelines | The **CLI** tabs, and [Command line](command-line.md) |
-| **MCP clients** | AI agents, such as Claude Desktop or Gemini CLI | [AI agents (MCP)](mcp.md) |
+| **MCP clients** | AI agents, such as Claude Desktop or Google Antigravity | [AI agents (MCP)](mcp.md) |
 
 !!! tip "GUI and CLI tabs"
     Where you can do a task in the window and on the command line, the page shows both as tabs. Select **GUI** or **CLI** once. The other pages then open on the same tab.

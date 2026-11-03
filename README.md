@@ -90,7 +90,15 @@ What keeps a section hidden:
 
 What it does **not** hide: anybody with the URL can open the pages, and anybody who can read this repository can read their source. The pages are not protected; they are only not advertised.
 
-The Automated Packaging pages are written from the product repository (its customer guides and its code). A change to operator-facing behaviour there updates these pages too. Where a task can be done in the application window and on the command line, a page shows both as tabs labelled exactly `GUI` and `CLI`; `content.tabs.link` keeps the reader's choice from page to page.
+The Automated Packaging pages are written from the product repository (its customer guides and its code). A change to operator-facing behaviour there updates these pages too.
+
+`docs/AutomatedPackaging/error-codes.md` is generated: never edit it by hand. The product generates its register, `docs/reference/error-codes.md`, from `ApCodes.cs`. Commit the change there, then copy it here:
+
+```powershell
+.\scripts\Update-AutomatedPackagingErrorCodes.ps1
+# or, for a checkout somewhere else
+.\scripts\Update-AutomatedPackagingErrorCodes.ps1 -ProductRepo 'C:\path\to\AutomatedPackaging'
+``` Where a task can be done in the application window and on the command line, a page shows both as tabs labelled exactly `GUI` and `CLI`; `content.tabs.link` keeps the reader's choice from page to page.
 
 ### Bring a hidden section into the site
 

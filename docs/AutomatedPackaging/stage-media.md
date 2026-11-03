@@ -46,6 +46,8 @@ The folder name tells the product the release of the two ISOs. See [Supported Wi
 3. Select the release under **Release to prepare into**.
 4. Click **Scan and prepare…**.
 
+![The OS media tab, with five releases ready](images/os-media.png)
+
 The scan reads each ISO in the drop folder of that release:
 
 | ISO | What the scan does | Result |

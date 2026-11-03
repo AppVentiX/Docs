@@ -1,6 +1,6 @@
 # AI agents (MCP)
 
-MCP clients, such as Claude Desktop and Gemini CLI, can use Automated Packaging on the host. An agent can read the state of the host, check and start jobs, and build workers.
+MCP clients, such as Claude Desktop and Google Antigravity, can use Automated Packaging on the host. An agent can read the state of the host, check and start jobs, and build workers.
 
 ## How it works
 
@@ -40,14 +40,13 @@ Add the entry to `claude_desktop_config.json`, then start Claude Desktop again:
 }
 ```
 
-### Gemini CLI
+### Google Antigravity
 
-1. Install Node.js 20 or later.
-2. Install Gemini CLI: `npm install -g @google/gemini-cli`.
-3. Start `gemini` once and sign in with your Google account. Or set an API key from Google AI Studio with `setx GEMINI_API_KEY "<your key>"`, and open a new prompt.
-4. Add the same `mcpServers` entry to `%USERPROFILE%\.gemini\settings.json`.
+1. Install Antigravity from Google, and sign in with your Google account.
+2. In the agent panel, click **…** > **MCP Servers** > **Manage MCP Servers** > **View raw config**.
+3. Add the same `mcpServers` entry to the `mcp_config.json` file that opens. Then save the file.
 
-Gemini CLI asks you before it uses a tool. Do not set `"trust": true` on this server. With it, Gemini uses each tool without a question, also the tools that build packages.
+Antigravity asks you before it uses a tool of a new server. Do not add a permission rule that allows each tool of this server. With it, Antigravity uses each tool without a question, also the tools that build packages.
 
 The AI key is for your MCP client. Automated Packaging does not keep or read AI keys.
 

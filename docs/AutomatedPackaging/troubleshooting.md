@@ -92,6 +92,8 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 
 ## Common error codes
 
+This is the short list. [Error codes](error-codes.md) has every code, with its cause and what to do.
+
 | Code | Meaning |
 |---|---|
 | `AP-HV-007` | The worker runs a job, or is held |
