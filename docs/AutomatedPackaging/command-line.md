@@ -55,8 +55,8 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--transform <path>` | An MSI transform (`.mst`). You can give it more than once. Applied in the order given |
 | `--prerequisite <PRQ-nnn>` | A prerequisite to install before the capture. You can give it more than once |
 | `--collect-log <path>` | A log file in the worker to collect. Variables and wildcards work. You can give it more than once |
-| `--first-launch` | Starts the application once in the capture, after the installer |
-| `--settle-seconds <n>` | With `--first-launch`: how long the application runs. 1 to 600 (default 20) |
+| `--first-launch` | After the installer, the capture starts the application one time. This is **First-start capture** in Advanced |
+| `--settle-seconds <n>` | How long the application runs on its first start. Use it with `--first-launch`. 1 to 600 (default 20) |
 | `--exit-codes <list>` | Exit codes that mean success, for example `"0,1"`. 3010 and 1641 are refused |
 | `--exclude <path>` | A file, folder or registry key that the capture leaves out. You can give it more than once |
 | `--min-free-disk-gb <n>` | Free disk space that the worker needs. 1 to 1024 (default 10) |

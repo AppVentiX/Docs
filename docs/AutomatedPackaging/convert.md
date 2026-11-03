@@ -8,7 +8,7 @@ You can see what the product reads from an installer before you start a job.
 
 === "GUI"
 
-    Go to **Build**. Drop an MSI or EXE on the page, or click **Choose file…**.
+    Go to **Build**. Drop an MSI or EXE on the page, or click **Select file…**.
 
     The **Installer** card shows the file name, the size, the type and the full SHA-256. When the product knows the installer framework with high confidence, the type names it, for example "Windows executable · NSIS". The blue help mark beside it explains the silent switch of the framework.
 
@@ -49,7 +49,7 @@ You can see what the product reads from an installer before you start a job.
     | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
     | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
     | **Install command** | The full command as the worker runs it |
-    | **Prerequisites** | **Choose…** selects prerequisites for this job only |
+    | **Prerequisites** | **Select…** selects prerequisites for this job only |
     | **Logs** | "Capture the install log (verbose)" is on by default. Add other log paths, one on each line |
 
     **Package identity**, in the right column:
@@ -98,8 +98,8 @@ These settings apply to one job.
 
 | Setting | Option | What it does | Allowed values |
 |---|---|---|---|
-| First-launch capture | `--first-launch` | After the installer, starts the application once in the capture. What it writes at the first start is then in the package | On or off (default off) |
-| First-launch settle time | `--settle-seconds <n>` | How long the application runs at that first start | 1 to 600 seconds (default 20) |
+| First-start capture | `--first-launch` | After the installer, the capture starts the application one time. Then the package also contains what the application writes at the first start | On or off (default off) |
+| First-start settle time | `--settle-seconds <n>` | How long the application runs at that first start before the job closes it | 1 to 600 seconds (default 20) |
 | Valid installer exit codes | `--exit-codes <list>` | Exit codes that mean success. 3010 and 1641 are refused here | Default `0` |
 | Additional exclusions | `--exclude <path>` | Files, folders or registry keys that the capture leaves out | Fully expanded paths. `REGISTRY\MACHINE\...` for the registry |
 | Minimum free disk space | `--min-free-disk-gb <n>` | Free space that the worker needs before the capture | 1 to 1024 GB (default 10) |

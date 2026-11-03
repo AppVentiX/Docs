@@ -14,7 +14,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
     | **Edition** | Shows only when the ISO has more than one edition. The default is the default of the media |
     | **Machine name** | Starts with the managed prefix, `PKGMGR-`. Add a name after it, for example `PKGMGR-001` |
     | **Address (optional)** | The address of the worker on the internal switch. Leave it empty to get the lowest free address. The box then shows **Automatic: 172.31.7.n** |
-    | **Prerequisites** | **Choose…** selects the prerequisites to install on the image. See [Prerequisites](prerequisites.md) |
+    | **Prerequisites** | **Select…** selects the prerequisites to install on the image. See [Prerequisites](prerequisites.md) |
     | **Windows activation** | **KMS server**, or **Not activated**. See [Windows activation](#windows-activation) |
 
     When you open the Images screen, the card reads the staged media again. Meanwhile it shows **Reading the staged media…**, and **Build image** waits.

@@ -51,7 +51,7 @@ The important fields:
 | Field | What it is for |
 |---|---|
 | **Vendor**, **Name**, **Version** | What the item is |
-| **Files** | The installer and the files it reads. **Choose files…** copies them to `<workingDir>\Distro\Prerequisites\PRQ-nnn` |
+| **Files** | The installer and the files it reads. **Select files…** copies them to `<workingDir>\Distro\Prerequisites\PRQ-nnn` |
 | **Arguments** | The silent switches |
 | **Success codes** | The exit codes that mean success, for example `0` |
 | **Minutes allowed** | 1 to 240 minutes, default 30 |
@@ -70,7 +70,7 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 
 === "GUI"
 
-    On the **Build an image** card, or on the card of an image, click **Prerequisites: Choose…** and tick the items. On an existing image, click **Update** to install what you added.
+    On the **Build an image** card, or on the card of an image, click **Prerequisites: Select…** and tick the items. On an existing image, click **Update** to install what you added.
 
 === "CLI"
 
@@ -86,7 +86,7 @@ An update cannot remove a prerequisite from a machine. **Rebuild from media** bu
 
 === "GUI"
 
-    On the **Build** screen, click **Prerequisites: Choose…**.
+    On the **Build** screen, click **Prerequisites: Select…**.
 
 === "CLI"
 

@@ -7,11 +7,11 @@ Host preparation checks the host for all of the items below. It also tells you w
 | Requirement | Detail |
 |---|---|
 | Windows edition | An edition with Hyper-V: Pro, Enterprise, Education or Business. Windows Home is refused |
-| Hardware virtualization | VT-x or AMD-V, enabled in the firmware. No software can do this for you |
-| Hyper-V role | `Microsoft-Hyper-V-All`. Host preparation can enable it. The host then restarts |
+| Hardware virtualization | VT-x or AMD-V, on in the firmware. No software can turn it on for you |
+| Hyper-V role | `Microsoft-Hyper-V-All`. Host preparation can turn it on. The host then restarts |
 | Memory | 16 GB minimum, 32 GB recommended. A worker uses 8 GB of static memory |
 | Worker volume | NTFS or ReFS. At least 60 GB free for one worker, 200 GB recommended for more. Between the two, host preparation shows a warning. exFAT and FAT32 are refused |
-| BitLocker | If the system drive is encrypted and Hyper-V is not enabled yet, suspend BitLocker for one restart. Or keep the recovery key available |
+| BitLocker | If the system drive is encrypted and Hyper-V is still off, suspend BitLocker for one restart. Or keep the recovery key available |
 | Runtimes | .NET 10 Desktop Runtime (x64) and ASP.NET Core 10 Runtime (x64). The installer stops without them |
 | Rights | A local administrator. The application and host preparation run elevated |
 | ADK Deployment Tools | Necessary to prepare Windows media (`oscdimg`). Host preparation can download and install them |

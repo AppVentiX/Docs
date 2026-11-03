@@ -11,7 +11,7 @@ Set the export location in the application. The command line uses it, but cannot
 3. Set **Export every successful package**:
     - On: each job exports, unless its **Advanced** setting is off.
     - Off: a job exports only when its **Advanced** setting is on.
-4. Optional: tick **Remove a package from the output folder once it has been exported, with its notes**.
+4. Optional: tick **Remove a package and its notes from the output folder after the export**.
 5. Click **Save export**. The next job uses the settings. No restart is necessary.
 
 ![Settings, Export section](images/settings-export.png)
