@@ -114,7 +114,9 @@ Agents run one worker operation at a time. The service also gives the list of er
 
 ## Limits
 
-- `inspect_installer` and `check_job` take the full path of an installer on the host. The service reads the file only if your account can read it. A link is refused.
+- `inspect_installer`, `check_job`, `convert` and `resign_package` take the full path of a file on a local disk of the host, for example `C:\Installers\setup.msi`. The service does not open a network path such as `\\server\share`, a network drive, or a path through a folder that is a symbolic link. Copy the file to a local folder first.
+- The service reads the file only if your account can read it. The refusal is the same in three cases. The file is not there, your account cannot read it, or it is not on a local disk. `<workingDir>\Logs\service-<date>.log` gives the reason. A link to another file is refused.
+- The file must fit in the free space on the drive of the working directory.
 - Through MCP, a job takes only the installer. It does not take the folder of the installer or MSI transforms. Use the window or the command line for those.
 - Text from a worker is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. The installer in the worker can write that text. Tell your MCP client not to follow instructions in it.
 
