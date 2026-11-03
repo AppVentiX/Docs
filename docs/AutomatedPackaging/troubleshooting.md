@@ -16,6 +16,7 @@ Many failures do not look like their cause. A missing licence file looks like a 
 | What the application did | `<workingDir>\Logs\app-<date>.log` |
 | What the service did | `<workingDir>\Logs\service-<date>.log` |
 | What the command line did | `<workingDir>\Logs\cli-<date>.log` |
+| Which PowerShell commands the product sent to a worker | `<workingDir>\Logs\diagnostics-<yyyyMMdd>.log`. One line for each command. It is on by default |
 
 === "GUI"
 
@@ -24,6 +25,16 @@ Many failures do not look like their cause. A missing licence file looks like a 
 === "CLI"
 
     A failed `convert` exits with code 2, and shows the `AP-` code and the detail. With `--json`, the code is in `failureCode`. Exit code 1 lists what stopped the job before it started.
+
+### Turn off the diagnostic trace
+
+The diagnostic trace is on by default. To turn it off, set this registry value on the host:
+
+| Key | Value | Type | Data |
+|---|---|---|---|
+| `HKEY_LOCAL_MACHINE\Software\AppVentiX\Automated Packaging` | `DiagnosticLogging` | DWORD | `0` turns the trace off. `1`, or no value, keeps it on |
+
+The application, the host service and the command line read the value when they start. After a change, restart the application and the service `AutomatedPackaging`. If the product cannot read the value, the trace stays on. Support can ask you for this file, so turn it on again before you reproduce a problem.
 
 ## Installation and host preparation
 
