@@ -77,6 +77,18 @@ Job <job ID> built <application>, but the installer needs the arguments <argumen
 
 `job_status` does not give the path of the installer or its arguments. Give them in the prompt.
 
+### Re-sign a package
+
+```text
+Re-sign the package <full path of the .msix file> with the certificate <certificate ID from list_certificates>. Before you sign, tell me which Publisher the package gets. Sign only when I say yes. Then give me the path of the signed package and every warning.
+```
+
+- **Tools:** `list_certificates`, then `resign_package`.
+- **What it can change:** After your yes, `resign_package` writes a new package and its notes in the output folder. It does not change the original file. With **Off**, it is refused (`AP-SG-012`). With **Ask each time**, your client asks you before it signs.
+- **A good result:** The answer starts with "Signed." and gives the path in the output folder. It warns that the package was not smoke-tested. When the Publisher changes, it also warns that Windows sees a different application.
+
+The package must be on the host, and your account must be able to read it. Only a certificate selected for agents can sign.
+
 ## Look after the workers
 
 ### Which workers need an update?

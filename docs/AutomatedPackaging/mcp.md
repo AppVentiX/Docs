@@ -102,6 +102,7 @@ These tools start or change work:
 | `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes |
 | `cancel_job` | Stops a running job. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
+| `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first |
 | `export_job` | Copies the package of a job to the export location again |
 | `worker_build` | Builds a worker and its image. It gives an operation ID at once |
 | `worker_update` | Updates a worker. It gives an operation ID at once |

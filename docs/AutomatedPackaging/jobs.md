@@ -65,6 +65,37 @@ An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. Tha
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.
 
+## Re-sign a package
+
+You can sign an `.msix` or `.appx` file that the product did not build. For example, a package from a vendor, or a package that an earlier tool made. The Publisher of the package becomes the subject of the certificate.
+
+!!! warning "A different Publisher makes a different application"
+    Windows does not update an installed copy of the old package with the re-signed package. The product warns when the Publisher changes.
+
+=== "GUI"
+
+    1. On the **Jobs** screen, click **Re-sign a package…**. With no jobs, the button is in the middle of the screen.
+    2. Click **Browse…** and select the package. **Publisher now** shows its Publisher.
+    3. Select the certificate in **Certificate**. **Publisher after** shows the Publisher that the package gets.
+    4. To change the version, type it in **Version**. Leave it empty to keep the version.
+    5. Click **Re-sign**.
+
+=== "CLI"
+
+    From an elevated prompt:
+
+    ```
+    AutomatedPackaging.Cli resign <package> [--certificate-thumbprint <thumbprint> | --signing-profile <id>] [--package-version <version>] [--json]
+    ```
+
+    The certificate is selected as for `convert`. Exit code 0 when the package is signed, 1 when it is refused.
+
+The product works on a copy of the package. It removes the old signature and catalog, packs the package again, signs it, and reads it back. The name, version, Publisher and signer must agree, or the product does not keep the package.
+
+The signed package goes to the output folder, with a `.notes.txt` file that names the old and the new Publisher and signer. The product never replaces a package in the output folder: a second package gets `_2` in its name. It does not export the package, and it does not smoke-test it. Install and start the package one time before you use it.
+
+The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each package in it. It also refuses a test certificate for AI agents, and a package that needs more free space than the drive of the working directory has.
+
 ## After a crash
 
 If the application, the service or the host stopped during a job, the **Jobs** screen shows a panel at the next start. For each job or worker operation that did not end:
