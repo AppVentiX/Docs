@@ -124,6 +124,8 @@ The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`: t
 1. In the application, go to **Settings > AI agents (MCP)**. **Connect an AI agent** must say "Your account is in AppVentiX Packaging Operators." If it says "Your account is not in AppVentiX Packaging Operators…", do steps 1 and 2 of [Set it up](#set-it-up) again.
 2. Start your MCP client again. Ask the agent to call the tool `product_status`. It gives the state of the host.
 
+For prompts to start with, see [Example prompts](mcp-prompts.md).
+
 ## When it does not connect
 
 The relay writes its message to the log of the client, not to the conversation. Claude Desktop writes it to `%APPDATA%\Claude\logs\mcp-server-automated-packaging.log`.
