@@ -74,6 +74,33 @@ Strict mode fails on broken links or pages missing from the navigation, which ca
 
 `scripts/CommandCategories.psd1` maps commands to menu categories. Most commands fall into the right category by name (for example anything matching `*PublishingTask*`). Add an entry there when a new command needs a different category, or when the script reports a command as uncategorized.
 
+## Hidden sections
+
+A hidden section is built and published, but reachable by URL only. It is for a limited group of readers, such as testers of a product before its release. Today there is one: **AppVentiX Automated Packaging**, at `/AutomatedPackaging/` (`docs/AutomatedPackaging/`).
+
+What keeps a section hidden:
+
+| Where | What it does |
+|---|---|
+| `not_in_nav` in `properdocs.yml` | Lets pages exist outside `nav:` without a build message. Nothing in the main navigation, the home page or the other pages links to them |
+| `extra.hidden_url_prefixes` in `properdocs.yml` | The URL prefixes that `hooks.py` and `overrides/sitemap.xml` treat as hidden |
+| `hooks.py` | Leaves the pages out of `search/search_index.json`, adds `<meta name="robots" content="noindex, nofollow">`, and marks `<body>` with `data-pagefind-ignore="all"`, so Pagefind indexes no page of the section |
+| `overrides/sitemap.xml` | Leaves the pages out of `sitemap.xml` |
+| `overrides/main.html` and `extra.automated_packaging_nav` | Give the section its own sidebar, because Material has none for pages outside `nav:` |
+
+What it does **not** hide: anybody with the URL can open the pages, and anybody who can read this repository can read their source. The pages are not protected; they are only not advertised.
+
+The Automated Packaging pages are written from the product repository (its customer guides and its code). A change to operator-facing behaviour there updates these pages too. Where a task can be done in the application window and on the command line, a page shows both as tabs labelled exactly `GUI` and `CLI`; `content.tabs.link` keeps the reader's choice from page to page.
+
+### Bring a hidden section into the site
+
+1. Add its pages to `nav:` in `properdocs.yml`. For Automated Packaging, the entries of `extra.automated_packaging_nav` can move there as they are.
+2. Remove its line under `not_in_nav`, and its prefix under `extra.hidden_url_prefixes`.
+3. For Automated Packaging, remove `extra.automated_packaging_nav` and `overrides/main.html`.
+4. Remove the "Preview documentation" note from `docs/AutomatedPackaging/index.md`, and link the section from the home page.
+5. Optional: add a section label for the Pagefind filter in `SECTION_BY_URL_PREFIX` in `hooks.py`.
+6. Run `python -m properdocs build --strict` and check that the pages are now in `sitemap.xml` and in search.
+
 ## Deployment
 
 Pushing to the `main` branch automatically triggers a GitHub Actions workflow that builds and deploys the site to GitHub Pages at [docs.appventix.com](https://docs.appventix.com).

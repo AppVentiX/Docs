@@ -67,6 +67,36 @@ extra:
       link: https://www.youtube.com/@appventix
       name: AppVentiX on YouTube
   homepage: https://appventix.com
+  # Hidden sections: reachable by URL only, for a limited group of readers.
+  # hooks.py keeps their pages out of search and adds noindex,
+  # overrides/sitemap.xml keeps them out of the sitemap, and each prefix is
+  # also listed under `not_in_nav` below. See README.md, "Hidden sections".
+  hidden_url_prefixes:
+    - AutomatedPackaging/
+  # The sidebar of the hidden Automated Packaging section (overrides/main.html).
+  # On release, these entries move into `nav:` as they are.
+  automated_packaging_nav:
+    - Overview: AutomatedPackaging/index.md
+    - Requirements: AutomatedPackaging/requirements.md
+    - Install: AutomatedPackaging/install.md
+    - Prepare the host: AutomatedPackaging/prepare-host.md
+    - Stage media: AutomatedPackaging/stage-media.md
+    - Build a worker image: AutomatedPackaging/build-image.md
+    - Signing: AutomatedPackaging/signing.md
+    - Convert an installer: AutomatedPackaging/convert.md
+    - Jobs and packages: AutomatedPackaging/jobs.md
+    - Export packages: AutomatedPackaging/export.md
+    - Keep images current: AutomatedPackaging/maintain-images.md
+    - Prerequisites: AutomatedPackaging/prerequisites.md
+    - AI agents (MCP): AutomatedPackaging/mcp.md
+    - Settings: AutomatedPackaging/settings.md
+    - Command line: AutomatedPackaging/command-line.md
+    - Troubleshooting: AutomatedPackaging/troubleshooting.md
+
+# Pages that exist but are not in the navigation. Without this, the build
+# reports them; with it, they are built and reachable by URL only.
+not_in_nav: |
+  /AutomatedPackaging/
 
 copyright: Copyright &copy; AppVentiX
 

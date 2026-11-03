@@ -1,0 +1,56 @@
+{#-
+  The pages of the hidden Automated Packaging section are not in `nav:`
+  (see `not_in_nav` and `extra.hidden_url_prefixes` in properdocs.yml), so
+  Material has no sidebar for them. This gives them their own, from
+  `extra.automated_packaging_nav`. Every other page gets Material's sidebar
+  unchanged. On release the section moves into `nav:` and this file can go.
+-#}
+{% extends "base.html" %}
+
+{% block site_nav %}
+  {% set ap_nav = config.extra.automated_packaging_nav %}
+  {% if ap_nav and page and page.url.startswith("AutomatedPackaging/") %}
+    <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          <nav class="md-nav md-nav--primary" aria-label="Automated Packaging" data-md-level="0">
+            <label class="md-nav__title" for="__drawer">
+              <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-nav__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+                {% include "partials/logo.html" %}
+              </a>
+              Automated Packaging
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              {% for entry in ap_nav %}
+                {% for title, path in entry.items() %}
+                  {% if path.endswith("/index.md") %}
+                    {% set target = path[:-8] %}
+                  {% else %}
+                    {% set target = path[:-3] ~ "/" %}
+                  {% endif %}
+                  {% set active = page.url == target %}
+                  <li class="md-nav__item{% if active %} md-nav__item--active{% endif %}">
+                    <a href="{{ target | url }}" class="md-nav__link{% if active %} md-nav__link--active{% endif %}"{% if active %} aria-current="page"{% endif %}>
+                      <span class="md-ellipsis">{{ title }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    {% if "toc.integrate" not in features %}
+      <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+        <div class="md-sidebar__scrollwrap">
+          <div class="md-sidebar__inner">
+            {% include "partials/toc.html" %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{#-
+  The default sitemap, without the pages of hidden sections
+  (extra.hidden_url_prefixes in properdocs.yml; see hooks.py).
+-#}
+{%- set hidden = config.extra.hidden_url_prefixes or [] -%}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for file in pages -%}
+    {%- set ns = namespace(hidden=false) -%}
+    {%- for prefix in hidden -%}
+        {%- if file.page.url.startswith(prefix) -%}{%- set ns.hidden = true -%}{%- endif -%}
+    {%- endfor -%}
+    {% if not ns.hidden and not file.page.is_link and (file.page.abs_url or file.page.canonical_url) %}
+    <url>
+         <loc>{% if file.page.canonical_url %}{{ file.page.canonical_url|e }}{% else %}{{ file.page.abs_url|e }}{% endif %}</loc>
+         {% if file.page.update_date %}<lastmod>{{file.page.update_date}}</lastmod>{% endif %}
+    </url>
+    {%- endif -%}
+{% endfor %}
+</urlset>

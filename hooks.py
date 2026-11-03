@@ -18,6 +18,41 @@ SECTION_BY_URL_PREFIX = {
 }
 
 
+# Hidden sections: reachable by URL only, for a limited group of readers.
+# The URL prefixes are `extra.hidden_url_prefixes` in properdocs.yml. Each
+# prefix is also under `not_in_nav` there (so the build does not report the
+# pages as missing from the nav), and overrides/main.html gives the section
+# its own sidebar. For these pages this hook:
+#   - excludes them from Material's search index (search/search_index.json),
+#   - asks search engines not to index them (robots noindex),
+#   - marks <body> data-pagefind-ignore="all", so Pagefind indexes nothing on
+#     them.
+# overrides/sitemap.xml leaves them out of the sitemap. To publish a section,
+# follow README.md, "Hidden sections".
+
+
+def is_hidden(page, config):
+    prefixes = tuple(config["extra"].get("hidden_url_prefixes") or ())
+    return bool(prefixes) and page.url.startswith(prefixes)
+
+
+def on_page_markdown(markdown, page, config, files):
+    if is_hidden(page, config):
+        page.meta["search"] = {"exclude": True}
+    return markdown
+
+
+def on_post_page(output, page, config):
+    if not is_hidden(page, config):
+        return output
+    if output.count("<head>") != 1 or output.count("<body ") != 1:
+        raise ValueError(f"Cannot mark hidden page {page.url}: unexpected <head>/<body>")
+    output = output.replace(
+        "<head>", '<head>\n<meta name="robots" content="noindex, nofollow">', 1
+    )
+    return output.replace("<body ", '<body data-pagefind-ignore="all" ', 1)
+
+
 def on_page_content(html, page, config, files):
     prefix = page.url.split("/", 1)[0]
     section = SECTION_BY_URL_PREFIX.get(prefix)
