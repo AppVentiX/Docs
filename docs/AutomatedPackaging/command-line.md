@@ -32,6 +32,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `worker update <name> [options]` | Updates a worker, as **Update** does |
 | `worker remove <name> [--confirm]` | Removes a worker and its disks, or a machine from **Incomplete machines** |
 | `image forget <image-id>` | Forgets an image record that no worker uses |
+| `sign-for-release <job-id> [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 
@@ -156,6 +157,8 @@ AutomatedPackaging.Cli worker update PKGMGR-W1125H2
 AutomatedPackaging.Cli worker remove PKGMGR-W1125H2 --confirm
 
 AutomatedPackaging.Cli image forget img-0123456789ab
+
+AutomatedPackaging.Cli sign-for-release 20261103-120000-abcdef
 ```
 
 ## What it does not do

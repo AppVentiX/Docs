@@ -61,13 +61,23 @@ Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The servic
 
 | Signing setting | What happens |
 |---|---|
-| **Off: agents do not sign** | The default. `convert` and `retry_signing` stop with `AP-SG-012`. Build the job in the window or on the command line |
+| **Off: agents use a test certificate** | The default. The job signs with a test certificate, not with your certificate. The product does not export the package (`AP-SG-014`). See [The test certificate](#the-test-certificate) |
 | **Ask each time** | Your MCP client asks you before each signature. If you do not agree, or the client cannot ask, the tool stops with `AP-SG-013` |
 | **Allowed, with a warning** | The job signs. The answer of the tool gives the publisher of the package |
 
-1. Under **Certificates that agents can use**, tick the certificates. An agent can use only those.
+1. Under **Certificates that agents can use**, tick the certificates. An agent can use only those, with each setting.
 2. Tick **Agents can remove workers and forget images** only if you want that. It is off by default. While it is off, `worker_remove` and `image_forget` stop with `AP-HV-012`.
 3. Click **Save**.
+
+### The test certificate
+
+With **Off**, the agent names one of the certificates that you ticked. The service makes a self-signed test certificate with the same subject. So the package has your publisher, and Windows sees the same application. The key of the test certificate cannot be exported. It stays in the certificate store of the computer. Later jobs for the same subject use the same test certificate.
+
+The job runs its smoke test with the test certificate, as each job does. Then:
+
+- The package stays in the output folder. The product does not export it. The job shows **Built, not exported** with `AP-SG-014`.
+- To sign the package with your certificate, use **Sign for release**. See [Sign a package for release](jobs.md#sign-a-package-for-release).
+- An agent cannot sign for release. `retry_signing` signs a test-signed job again with its test certificate.
 
 ## The tools
 

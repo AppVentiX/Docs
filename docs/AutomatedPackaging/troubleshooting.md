@@ -126,6 +126,7 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-PK-005` | The package has nothing to start. The installer made no Start menu shortcut |
 | `AP-SG-008` | The package could not be signed. Use **Retry signing** |
 | `AP-SG-011` | The package changed after the job built it. Build the job again |
+| `AP-SG-014` | An AI agent's job signed with a test certificate. The product does not export it. Use **Sign for release** on the **Jobs** screen |
 | `AP-VF-004` | The certificate is not trusted on the target. The package is correct |
 
 On MCP, the tool `explain_code` gives the cause and remedy of each code.
