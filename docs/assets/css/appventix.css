@@ -221,3 +221,11 @@ html {
 [data-md-color-scheme="slate"] .md-typeset h6 {
   color: #6088C8;
 }
+
+/* Code blocks marked {.text .wrap} wrap long lines instead of scrolling (AI prompts to copy). */
+.md-typeset .wrap pre > code,
+.md-typeset pre.wrap > code,
+.md-typeset pre > code.wrap {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
