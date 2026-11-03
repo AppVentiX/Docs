@@ -93,6 +93,7 @@ extra:
     - Settings: AutomatedPackaging/settings.md
     - Command line: AutomatedPackaging/command-line.md
     - Troubleshooting: AutomatedPackaging/troubleshooting.md
+    - Report findings with an AI: AutomatedPackaging/tester-kit.md
     - Error codes: AutomatedPackaging/error-codes.md
 
 # Pages that exist but are not in the navigation. Without this, the build

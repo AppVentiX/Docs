@@ -92,6 +92,8 @@ What it does **not** hide: anybody with the URL can open the pages, and anybody 
 
 The Automated Packaging pages are written from the product repository (its customer guides and its code). A change to operator-facing behaviour there updates these pages too.
 
+`docs/AutomatedPackaging/tester-kit-instructions.md` and `docs/AutomatedPackaging/downloads/automated-packaging-tester-kit.zip` are generated from the product's `tester-kit/`: never edit them by hand. Commit the change there, then run `.\scripts\Update-AutomatedPackagingTesterKit.ps1`.
+
 `docs/AutomatedPackaging/error-codes.md` is generated: never edit it by hand. The product generates its register, `docs/reference/error-codes.md`, from `ApCodes.cs`. Commit the change there, then copy it here:
 
 ```powershell

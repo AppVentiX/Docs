@@ -47,6 +47,7 @@ After that:
 - [Keep images current](maintain-images.md): update, rebuild and remove workers.
 - [Prerequisites](prerequisites.md): runtimes that an application needs outside its package.
 - [Settings](settings.md), and [Troubleshooting](troubleshooting.md) when something stops.
+- [Report findings with an AI](tester-kit.md) when you test a build.
 
 ## Licence
 

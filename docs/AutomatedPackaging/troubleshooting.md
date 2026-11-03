@@ -134,3 +134,13 @@ On MCP, the tool `explain_code` gives the cause and remedy of each code.
 ## The diagnostics bundle
 
 **Settings > Diagnostics > Write diagnostics…** writes one zip file. See [Settings](settings.md#diagnostics). Send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
+
+## Report a finding while you test
+
+When you test a build, an AI can help you write down what you find. It asks for the build first, then asks questions about each problem, and writes a Markdown file for each day. Give it this as your first message:
+
+```{.text .wrap}
+Read https://docs.appventix.com/AutomatedPackaging/tester-kit-instructions/ and follow the instructions on it. Start a findings session.
+```
+
+For an AI tool that works in a folder, download the tester kit instead. [Report findings with an AI](tester-kit.md) has both ways, and how to send the files.
