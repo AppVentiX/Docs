@@ -79,4 +79,6 @@ To try again:
 
 **Export again** copies the package that the job built, with no worker and no new build. It works only while the package is still in the output folder.
 
+Two jobs with the same name and version write the same file in the output folder. Each job records the SHA-256 of its package. Each export compares it first. If the file is another package, the reason is "is not the package this job built". Then build the job again. A job built before version 0.2.35 has no recorded SHA-256: build it again to export it.
+
 A job waits at most 30 minutes for its export. After that, it shows **Built, not exported**, and the next job can start.

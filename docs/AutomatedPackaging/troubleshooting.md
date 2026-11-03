@@ -96,6 +96,7 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | `AP-SG-010` | Another account can change the tools or the packages | Run host preparation, and apply **Working directory access** |
 | `AP-SG-008` | Signing failed. For example, a token waited for a PIN | **Retry signing** on the **Jobs** screen |
 | `AP-PK-010`, **Built, not exported** | The copy to the export location failed. Usually permissions of the computer account | See [Export packages](export.md#permissions), then **Export again** |
+| `AP-PK-010` with "is not the package this job built" | Another job with the same name and version replaced the file in the output folder | Build the job again |
 | `AP-VF-001` with "The shortcut variable 'Desktop' is not supported" | Windows 11 22H2 refuses a package with a desktop shortcut | Use a Windows 11 24H2 or later worker, or turn off the desktop shortcut of the installer |
 | `AP-VF-002` or `AP-VF-003` | The application did not start, or closed at once | Often an application that writes to its own folder. Try the Package Support Framework |
 | `AP-AG-008` | The worker refused its password. Workers built before 0.2.14 have a password that expires after 42 days | Run `Repair-WorkerPassword.ps1` from the product `scripts\image` folder, then **Update** the worker. Or use **Rebuild from media** |
