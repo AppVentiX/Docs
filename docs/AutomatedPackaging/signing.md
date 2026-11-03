@@ -54,11 +54,15 @@ For an evaluation, go to **Settings > Signing** and click **Generate a test cert
 - The certificate goes into the computer store, with a key that cannot be exported. It is valid for two years.
 - It shows as **self-signed** on Settings and on the Build screen.
 
-A package signed this way installs only where the certificate is trusted. **Trust it on this machine…** adds it to Trusted People on the host. On each target machine, run this command as administrator:
+When it is done, the card shows "Generated a test certificate, valid until …", with the **Subject**, **Thumbprint**, **Publisher ID** and **Public certificate**. The public certificate is `%ProgramData%\AppVentiX\Automated Packaging\certificates\<thumbprint>.cer`. The card also gives the command for the target machines, with that path filled in.
+
+A package signed this way installs only where the certificate is trusted. **Trust it on this machine…** adds it to Trusted People on the host. The card then says "This machine trusts it." Copy the `.cer` file to each target machine, and run this command there as administrator:
 
 ```powershell
 Import-Certificate -FilePath '<path to the .cer>' -CertStoreLocation Cert:\LocalMachine\TrustedPeople
 ```
+
+On a machine that does not trust the certificate, the package does not install. The package itself is correct. The product's code for this is `AP-VF-004`.
 
 The smoke test trusts the certificate of the job in the worker. You do not need to do this for the worker.
 

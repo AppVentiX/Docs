@@ -85,6 +85,20 @@ The choice starts from the newest image. After the build, it shows read-only. Yo
 
 A build always ends with the worker turned off. The full log is `<workingDir>\Logs\prep-<worker>-<run id>.log`.
 
+## Check the result
+
+=== "GUI"
+
+    A build that worked shows all twelve steps as completed, each with its time. The new image is in the list of the Images screen, with the state **Ready**. See [Image states](#image-states).
+
+    A build that failed shows the `AP-` code and the reason under the step list, at the step that failed. Find the step and the code in [Troubleshooting](troubleshooting.md#building-a-worker-image).
+
+=== "CLI"
+
+    `worker build` exits with code 0, and with `--json` the `result` is `Done`. Then run `AutomatedPackaging.Cli machines`. The new worker is in the list, with its image and target.
+
+    A failed build exits with code 2. The `AP-` code and the reason follow. See [Exit codes](command-line.md#exit-codes).
+
 ## When a build fails
 
 A build that fails or stops after step 3 **does not remove the machine that it made**. The machine shows on the Images screen under **Incomplete machines**.

@@ -1,6 +1,18 @@
 # Install
 
-The installer is `AutomatedPackaging.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always. Before you start, install the .NET 10 Desktop Runtime (x64) and the ASP.NET Core 10 Runtime (x64).
+The installer is `AutomatedPackaging.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always.
+
+## Before you start: two runtimes
+
+Install two runtimes from Microsoft first. Get them on Microsoft's page [Download .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0):
+
+1. In the section **.NET Desktop Runtime 10.0.n**, download the **x64** installer for Windows.
+2. In the section **ASP.NET Core Runtime 10.0.n**, download the **x64** installer for Windows.
+3. Run both installers. `n` is the newest patch.
+
+If a runtime is missing, the MSI stops before it installs anything. It says "Automated Packaging needs the .NET 10 Desktop Runtime (x64)…" or "Automated Packaging needs the ASP.NET Core 10 Runtime (x64)…". Install that runtime, then start the MSI again.
+
+## Run the installer
 
 === "GUI"
 
@@ -21,6 +33,17 @@ The installer is `AutomatedPackaging.msi`. It installs the program to `%ProgramF
     ```
 
     Without `WORKINGDIR`, the installer uses the value of an earlier installation, or `C:\AutomatedPackaging`.
+
+## Check the installation
+
+| Check | Correct result |
+|---|---|
+| The Start menu | **Automated Packaging** is there |
+| **Services** (`services.msc`) | **AppVentiX Automated Packaging** shows **Running**, with startup type **Automatic** |
+| The registry, `HKLM\Software\AppVentiX\Automated Packaging` | The value `WorkingDirectory` holds the folder that you selected |
+| `net localgroup "AppVentiX Packaging Operators"` | The group exists. It has no members yet |
+
+If the service is not running, start it in **Services**. If it does not start, read `<workingDir>\Logs\service-<date>.log`.
 
 ## Select the working directory with care
 
