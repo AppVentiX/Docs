@@ -10,7 +10,7 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 
 ## Before you start
 
-- **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`.
+- **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
 - **Your account in the local group `AppVentiX Packaging Operators`.** The installer creates the group, empty. Only its members can use the service. Membership of Administrators alone is not sufficient.
 
 ## Set it up
@@ -57,7 +57,7 @@ The AI key is for your MCP client. Automated Packaging does not keep or read AI 
 
 ## What an agent may do
 
-Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The service reads these settings at each tool call.
+Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The service reads these settings at each tool call. It reads them again just before it signs or starts the job. If they changed during the call, for example to **Off** while your client asks you, the tool stops. Nothing is signed and no job starts.
 
 | Signing setting | What happens |
 |---|---|
@@ -100,7 +100,7 @@ These tools start or change work:
 | Tool | What it does |
 |---|---|
 | `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes |
-| `cancel_job` | Stops a running job. The service puts the worker back |
+| `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
 | `export_job` | Copies the package of a job to the export location again |
@@ -109,6 +109,8 @@ These tools start or change work:
 | `worker_status` | The steps and the result of a worker operation |
 | `worker_remove` | Removes a worker and its disks, if the setting allows it |
 | `image_forget` | Forgets an image that no worker uses, if the setting allows it |
+
+Each tool tells the client if it only reads, and if it can stop or remove work. Some clients use this to approve a tool with no question. `cancel_job`, `worker_update`, `worker_remove` and `image_forget` are marked as tools that can stop or remove work, so such a client asks you first.
 
 Agents run one worker operation at a time. The service also gives the list of error codes as the resource `automatedpackaging://error-codes`.
 

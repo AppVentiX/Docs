@@ -46,12 +46,15 @@ This signs the package that the job built, in seconds, with no worker. A package
 
 ## Sign a package for release
 
-An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. That job signs with a test certificate that has your publisher. The product does not export its package, and shows `AP-SG-014`. **Export again** is not shown for it. See [The test certificate](mcp.md#the-test-certificate).
+An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. That job signs with a test certificate that has your publisher. The product does not export its package, and shows `AP-SG-014`, also when the job did not ask for an export. **Export again** is not shown for it. See [The test certificate](mcp.md#the-test-certificate).
+
+Before it signs, the product shows the certificate and its thumbprint, the publisher, the installer and its SHA-256, the SHA-256 of the package, and where it exports the package. It signs only the package with that SHA-256.
 
 === "GUI"
 
     1. Select the job on the **Jobs** screen.
     2. Click **Sign for release**.
+    3. Read the lines that the screen shows. Then click **Sign**, or **Cancel** to sign nothing.
 
 === "CLI"
 
@@ -61,7 +64,15 @@ An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. Tha
     AutomatedPackaging.Cli sign-for-release <job-id>
     ```
 
-    Exit code 0 when the package is signed, 1 when it is refused.
+    This shows the lines and signs nothing. To sign, run it again with `--confirm`:
+
+    ```
+    AutomatedPackaging.Cli sign-for-release <job-id> --confirm
+    ```
+
+    Exit code 0 when the package is signed, 1 when it is refused or not confirmed.
+
+Only one Sign for release runs for a job at a time, in the application or on the command line. A second one stops and signs nothing.
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.
 
