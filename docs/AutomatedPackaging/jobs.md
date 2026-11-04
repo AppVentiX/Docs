@@ -75,7 +75,7 @@ You can sign an `.msix` or `.appx` file that the product did not build. For exam
 === "GUI"
 
     1. On the **Jobs** screen, click **Re-sign a package…**. With no jobs, the button is in the middle of the screen.
-    2. Click **Browse…** and select the package. **Publisher now** shows its Publisher.
+    2. Click **Browse…** and select the package. **Publisher now** shows its Publisher. **Capabilities**, **Extensions**, **Signed before by** and **SHA-256** show what your certificate will vouch for.
     3. Select the certificate in **Certificate**. **Publisher after** shows the Publisher that the package gets.
     4. To change the version, type it in **Version**. Leave it empty to keep the version.
     5. Click **Re-sign**.
@@ -90,11 +90,22 @@ You can sign an `.msix` or `.appx` file that the product did not build. For exam
 
     The certificate is selected as for `convert`. Exit code 0 when the package is signed, 1 when it is refused.
 
+    The output gives the lines `Capabilities`, `Extensions`, `Signed before by` and `SHA-256`. With `--json`, they are in `packageFacts`.
+
+Before you sign, read what the package asks for:
+
+| Line | What it tells you |
+|---|---|
+| **Capabilities** | What the package may do, for example `runFullTrust` or `allowElevation` |
+| **Extensions** | What the package adds to Windows, for example `windows.service` or `windows.firewallRules` |
+| **Signed before by** | `none`, `this host` (a certificate with its key in this computer's store), or `unknown`. The old subject is in quotes |
+| **SHA-256** | The hash of the file. The product signs only a file with this hash. If the file changes, select it again |
+
 The product works on a copy of the package. It removes the old signature and catalog, packs the package again, signs it, and reads it back. The name, version, Publisher and signer must agree, or the product does not keep the package.
 
-The signed package goes to the output folder, with a `.notes.txt` file that names the old and the new Publisher and signer. The product never replaces a package in the output folder: a second package gets `_2` in its name. It does not export the package, and it does not smoke-test it. Install and start the package one time before you use it.
+The signed package goes to the output folder, with a `.notes.txt` file. It names the old and the new Publisher and signer, the capabilities, the extensions and the SHA-256 before. The product never replaces a package in the output folder: a second package gets `_2` in its name. It does not export the package, and it does not smoke-test it. Install and start the package one time before you use it.
 
-The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each package in it. It also refuses a test certificate for AI agents, and a package that needs more free space than the drive of the working directory has.
+The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each package in it. It also refuses a test certificate for AI agents, and a package that needs more free space than the drive of the working directory has. It refuses a package whose name or version the MSIX format does not allow. A name has 3 to 50 letters, digits, dots or hyphens.
 
 ## After a crash
 
