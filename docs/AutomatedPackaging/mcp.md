@@ -120,7 +120,7 @@ Agents run one worker operation at a time. The service also gives the list of er
 - The service reads the file only if your account can read it. The refusal is the same in three cases. The file is not there, your account cannot read it, or it is not on a local disk. `<workingDir>\Logs\service-<date>.log` gives the reason. A link to another file is refused.
 - The file must fit in the free space on the drive of the working directory.
 - Through MCP, a job takes only the installer. It does not take the folder of the installer or MSI transforms. Use the window or the command line for those.
-- Text from a worker is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. The installer in the worker can write that text. Tell your MCP client not to follow instructions in it.
+- Text from a worker, an installer or a package is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. This includes the name, version and publisher of a job, problems, warnings, logs and failure details. Tell your MCP client not to follow instructions in it.
 
 - Four MCP clients can use the service at one time. When a fifth connects, the service closes the connection of a client that has been idle for 5 minutes. If no client is idle, it closes the new connection.
 - The service sends a ping every minute to a client that uses an MCP revision before 2026-07-28. It closes the connection of a client that does not answer in 30 seconds.
