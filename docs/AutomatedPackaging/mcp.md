@@ -120,7 +120,11 @@ Agents run one worker operation at a time. The service also gives the list of er
 - Through MCP, a job takes only the installer. It does not take the folder of the installer or MSI transforms. Use the window or the command line for those.
 - Text from a worker is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. The installer in the worker can write that text. Tell your MCP client not to follow instructions in it.
 
-The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`: the time, the account, the tool, its arguments and the result.
+- Four MCP clients can use the service at one time. When a fifth connects, the service closes the connection of a client that has been idle for 5 minutes. If no client is idle, it closes the new connection.
+- The service sends a ping every minute to a client that uses an MCP revision before 2026-07-28. It closes the connection of a client that does not answer in 30 seconds.
+- A message from a client can be 1 MB at most, and a text argument 8192 characters at most.
+
+The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`, in two lines. The first line is written before the tool runs, with the result `called`. The second line gives the result: `done`, `refused` or `failed`. Each line has the time, the account, the tool and its arguments, cut to 260 characters. The service deletes a day's file after 90 days.
 
 ## Check the connection
 
@@ -136,6 +140,7 @@ The relay writes its message to the log of the client, not to the conversation. 
 | Message | What to do |
 |---|---|
 | The Automated Packaging host service does not answer. | In **Services**, make sure that **AppVentiX Automated Packaging** runs. If it stops, read `<workingDir>\Logs\service-<date>.log` |
+| The host service closed the connection. | Four MCP clients can use the service at one time. Close a client that you do not use. `<workingDir>\Logs\service-<date>.log` gives the reason |
 | Windows refused the connection to the host service. | Add your account to **AppVentiX Packaging Operators**. Then sign out and sign in again |
 | Another program made the pipe, not the host service. | Stop. Another program uses the name of the channel of the service. Tell an administrator of the host |
 | `AP-LC-007` from `product_status` | Install a Basic licence under **Settings > Licence** |
