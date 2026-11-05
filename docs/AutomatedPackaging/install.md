@@ -95,6 +95,6 @@ The data folder `%ProgramData%\AppVentiX\Automated Packaging` holds:
 | `host.json` | Host settings, for example the managed name prefix, housekeeping and export |
 | `secrets\` | Worker passwords, encrypted, one file for each worker |
 | `certificates\` | Channel certificates. Never your signing key |
-| `diagnostics\` | Diagnostics bundles |
+| `diagnostics\` | Support information files |
 
 Next: [Prepare the host](prepare-host.md).

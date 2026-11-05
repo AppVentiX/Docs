@@ -104,6 +104,7 @@ These tools start or change work:
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
 | `export_job` | Copies the package of a job to the export location again |
+| `collect_support_bundle` | Writes the support information, as **Settings > Diagnostics** does. Give the IDs of at most 10 jobs, or none for the newest failed job. The answer gives the path, the files, what is left out and what redaction replaced. The agent tells you what is in the file before anything is sent. The product does not send it. Only an administrator of the host can open the data folder |
 | `worker_build` | Builds a worker and its image. It gives an operation ID at once |
 | `worker_update` | Updates a worker. It gives an operation ID at once |
 | `worker_status` | The steps and the result of a worker operation |

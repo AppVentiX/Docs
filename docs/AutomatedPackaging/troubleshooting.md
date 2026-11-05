@@ -133,9 +133,9 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 
 On MCP, the tool `explain_code` gives the cause and remedy of each code.
 
-## The diagnostics bundle
+## The support information
 
-**Settings > Diagnostics > Write diagnostics…** writes one zip file. See [Settings](settings.md#diagnostics). Send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
+**Settings > Diagnostics > Collect support information** writes one redacted zip file. See [Settings](settings.md#diagnostics). Read it, then send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
 
 ## Report a finding while you test
 

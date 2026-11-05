@@ -11,7 +11,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 | **AI agents (MCP)** | How to connect an MCP client, and what an agent may do. See [AI agents (MCP)](mcp.md) |
 | **Appearance** | **Follow Windows**, **Light** or **Dark** |
 | **Export** | The export location. See [Export packages](export.md) |
-| **Diagnostics** | **Write diagnostics…** |
+| **Diagnostics** | **Collect support information** |
 | **Advanced** | The managed name prefix, and the configuration bundle |
 
 ## This host
@@ -37,16 +37,32 @@ The application follows the app mode of Windows by default. **Light** or **Dark*
 
 ## Diagnostics
 
-**Write diagnostics…** writes one zip file to `<dataFolder>\diagnostics\`. It holds:
+**Collect support information** writes one zip file for AppVentiX support to `<dataFolder>\diagnostics\`.
 
-- the product version, the operating system, the computer name and the licence summary,
-- the 20 newest jobs and their logs,
+1. Tick the jobs whose logs go in, at most 10. The newest failed job is ticked when you open the section.
+2. Click **Collect support information**.
+
+The screen gives the path of the file, what is in it and what redaction replaced. The file holds:
+
+- the product version, the operating system, the data folder and the licence state,
+- the checks of **This host**,
+- the 20 newest jobs, and the logs of the jobs that you ticked,
 - the images, workers, claims and holds of this host,
-- the logs of the last 7 days.
+- the logs of the last 7 days, also the MCP audit log.
 
-It does not hold worker passwords, the licence file, installers or packages. Read `manifest.txt` before you send the bundle outside your organization: it holds the computer name.
+Before a file goes into the zip file, redaction replaces these values with a numbered name, for example `<host-1>`:
 
-Not in the bundle: the `Collected files` folder of a job, and the host preparation records. Attach them yourself when necessary.
+- the names of this host, its domain and its users, and the name of the licence holder,
+- certificates, certificate subjects, thumbprints, GUIDs such as tenant IDs,
+- e-mail addresses, domain names, IP addresses, server and share names,
+- folder names outside the data folder, the working directory, Windows, Program Files and ProgramData (file names stay),
+- registry values, and the values of MSI properties and installer switches (their names stay).
+
+Redaction cannot find a name that it does not know, for example the name of another computer in a log line. Read the file before you send it. The product does not send the file.
+
+It does not hold worker passwords, the licence file, installers or packages. Not in the file: the `Collected files` folder of a job, and the host preparation records. Attach them yourself when necessary. They are not redacted.
+
+An AI agent can write the same file with the MCP tool `collect_support_bundle`. See [MCP](mcp.md).
 
 ## Advanced
 
