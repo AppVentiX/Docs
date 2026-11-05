@@ -46,6 +46,28 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
 !!! warning "An update seals the machine as it is"
     An update makes the current disk the new baseline. Do not experiment in a worker before you update it. If you did, use **Rebuild from media** instead.
 
+## When an image is behind
+
+The product compares each image with this version of the product and with the settings of this host. An image that is behind shows a mark on its row, and the same mark shows after **Images** in the menu. Select the image to see each reason and its remedy.
+
+| Mark | What it means for jobs |
+|---|---|
+| **Update required** (red) | The product does not start a job on the image. When another image for the target is current, the job goes to that image. Otherwise the job stops with `AP-IM-023` |
+| **Update recommended** (orange) | Jobs still run. An update gives the image something better |
+
+| Reason | Mark | Remedy |
+|---|---|---|
+| The agent in the image is older than 0.2.14 | Red | **Update** |
+| The agent in the image is older than 0.2.25 | Orange | **Update** |
+| A worker of the image connects to a different address or port than the listener of this host | Red | **Update** |
+| The channel authority that signed the certificate of the worker is no longer trusted | Red | **Update** |
+| An earlier channel authority signed the certificate of the worker, during a change of authority | Orange | **Update** |
+| The packaging account of the worker is not the account of the image | Red | **Rebuild from media** |
+| The exclusion set does not leave out the cache of Windows Installer | Orange | **Update** |
+| The image was calibrated 180 days ago or more | Orange | **Update** |
+
+A development build of the product counts as current. An older image does not record its channel authority, so the product does not judge it. The next update of the image records it.
+
 ## Put it back
 
 **Put it back** reverts the worker to its `baseline` checkpoint, and releases a hold on it. If Hyper-V has no machine of that name, it says so. Then use **Remove the machine…** to forget the worker.

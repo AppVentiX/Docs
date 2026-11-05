@@ -87,6 +87,7 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | "The Automated Packaging service does not answer." | The service is stopped | In **Services**, start **AppVentiX Automated Packaging** |
 | A certificate is not in the list of the Build screen | It is in your own store, not in the computer store | **Move to this computer** on **Settings > Signing** |
 | "No image can build for …" | No image serves the target | Build an image for the target, or select a different target |
+| "AP-IM-023: the job was not started. … must be updated." | Each image for the target reads **Update required** | Do what each reason says on the **Images** screen. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
 | "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker** on **Jobs**, or **Put it back** on **Images** |
 | The job fails after three minutes and captured nothing | The agent never connected. Usually the firewall | Run host preparation |
 | `AP-IN-008` or `AP-IN-010` | The installer waits on a dialog. The silent arguments are not correct | Check the arguments. Read the conversion log in `Collected files` |
