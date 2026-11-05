@@ -43,6 +43,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 
 | Option | What it does |
 |---|---|
+| `--from-job <job-id>` | Build a new version of the application of an earlier job. The job must have built a package. The job gives the settings, and the other options change them. See [Build a new version of an application](jobs.md#build-a-new-version-of-an-application) |
 | `--name <text>` | The name of the application. Necessary for an EXE |
 | `--publisher <text>` | The publisher, as people know it. The publisher of the package is the subject of the certificate |
 | `--package-version <version>` | Up to four numbers. Missing parts become zeros |

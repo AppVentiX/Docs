@@ -76,6 +76,47 @@ Only one Sign for release runs for a job at a time, in the application or on the
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.
 
+## Build a new version of an application
+
+When a vendor releases a new installer of an application that you packaged, start from the job that built the earlier package. The product fills in the settings of that job, and you select the new installer.
+
+The job gives these settings: the name and the publisher, the arguments, the MSI properties and the transforms. It also gives the files beside the installer, the prerequisites, the logs, **Must run on**, the machine, the certificate and **Advanced**. The identity Name of the package stays the same, so the new package updates the earlier package.
+
+=== "GUI"
+
+    1. On the **Jobs** screen, select a job that built a package, then click **New version…**.
+    2. The Build screen opens. A note above the installer names the earlier job and its version.
+    3. Select the new installer. The product fills in the settings of the earlier job.
+    4. Read the notes in the box. Change what you must, then click **Build**.
+
+    **Clear** in the note keeps what the form contains, and makes it an ordinary build.
+
+=== "CLI"
+
+    From an elevated prompt:
+
+    ```
+    AutomatedPackaging.Cli convert <installer> --from-job <job-id> [options]
+    ```
+
+    `check` takes `--from-job` too. Each other option that you give changes only that setting. `--machine` replaces the machine of the earlier job. When that machine cannot take the job now, a warning tells you, and the planner selects a worker.
+
+The version:
+
+- The product uses the version of the new installer, if it is higher than the version of the earlier job.
+- If not, the product uses the version of the earlier job plus one in the last part, and a note tells you. An EXE gives no version, so this occurs for each EXE.
+- The product refuses a version that is not higher than the version of the earlier job.
+
+The product refuses the new version when:
+
+- The earlier job did not build a package.
+- The new installer is not the same type (MSI or EXE) as the earlier installer.
+- A transform of the earlier job is not at its path now. Put the file back.
+- A version of the product before 0.2.40 built the earlier job. That version did not record the settings of a job. Build the new version on the Build screen, and enter the settings again.
+
+!!! warning "A different Publisher makes a different application"
+    A note tells you when this host does not have the certificate of the earlier job. A package with a different publisher does not update the earlier package.
+
 ## Re-sign a package
 
 You can sign an `.msix` or `.appx` file that the product did not build. For example, a package from a vendor, or a package that an earlier tool made. The Publisher of the package becomes the subject of the certificate.
