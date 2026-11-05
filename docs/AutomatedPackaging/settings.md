@@ -11,7 +11,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 | **AI agents (MCP)** | How to connect an MCP client, and what an agent may do. See [AI agents (MCP)](mcp.md) |
 | **Appearance** | **Follow Windows**, **Light** or **Dark** |
 | **Export** | The export location. See [Export packages](export.md) |
-| **Diagnostics** | **Collect support information** |
+| **Diagnostics** | **Collect support information**, and **Improvement data** |
 | **Advanced** | The managed name prefix, and the configuration bundle |
 
 ## This host
@@ -63,6 +63,34 @@ Redaction cannot find a name that it does not know, for example the name of anot
 It does not hold worker passwords, the licence file, installers or packages. Not in the file: the `Collected files` folder of a job, and the host preparation records. Attach them yourself when necessary. They are not redacted.
 
 An AI agent can write the same file with the MCP tool `collect_support_bundle`. See [MCP](mcp.md).
+
+### Improvement data
+
+**Improvement data** helps AppVentiX make the product better. It is off until you tick **Collect improvement data on this host**. While it is on, the host keeps one record for each job, each worker build and each worker update. The support information does not contain these records.
+
+**Collected:**
+
+- For a job: how it ended, its error code, its duration and the exit code of the installer.
+- For a job: MSI or EXE, the install mode, the target, and the number of MSI properties, transforms and prerequisites.
+- For a job: the Package Support Framework and the export on or off, and the Windows build and edition.
+- For a job: the versions of the packaging tool, the agent and the application, and the name of the application.
+- For a worker build or update: how it ended, the step that failed, its error code and the duration of each step.
+- For AI agents: how many times they called each MCP tool, and the error codes of the refusals. Only the days since you turned the setting on.
+
+**Never collected:**
+
+- File contents, registry values, user, host and domain names, certificates and publishers, and tenant IDs.
+- Paths, installer arguments, MSI property values, worker and image names, job IDs and error text.
+- The time of day. A record has the date only.
+- The account of an AI agent's client, its arguments and the text of the answers.
+
+Mark your own application as **Internal** when you convert it. Then its jobs have no name in the data. A name with a path, a domain name, or the name of this host or one of its users is also left out.
+
+1. Click **Show**. The screen shows the full file, exactly as **Save** writes it.
+2. Click **Save**. The file goes to `<dataFolder>\diagnostics\automatedpackaging-improvement-<date>-<time>.json`.
+3. Read the file before you send it. The product does not send the file.
+
+When you turn the setting off, the product removes the records.
 
 ## Advanced
 

@@ -68,6 +68,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |
 | `--no-export` | Does not export |
+| `--internal` | The application is your own. Its name stays out of the improvement data |
 | `--json` | Writes the result as one JSON object, and nothing else |
 
 ## Options for worker and image commands

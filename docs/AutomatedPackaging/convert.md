@@ -44,6 +44,7 @@ You can see what the product reads from an installer before you start a job.
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
     | **The machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
+    | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
     | **Beside it** | "Include the files and folders beside the installer". Off by default |
     | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Check them for your installer |
     | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
@@ -71,6 +72,7 @@ You can see what the product reads from an installer before you start a job.
     | `--machine <name>` | **The machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
+    | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
     | `--include-folder` | **Beside it** | Sends the files and folders beside the installer |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
     | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |

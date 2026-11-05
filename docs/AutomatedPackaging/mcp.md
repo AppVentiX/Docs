@@ -99,7 +99,7 @@ These tools start or change work:
 
 | Tool | What it does |
 |---|---|
-| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes |
+| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
