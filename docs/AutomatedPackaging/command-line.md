@@ -52,6 +52,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--certificate-thumbprint <thumbprint>` | The signing certificate. Necessary when the host has more than one. `--certificate` also works |
 | `--signing-profile <id>` | An Azure Artifact Signing profile that passed **Test**. Not together with `--certificate-thumbprint` |
 | `--arguments <text>` | The silent arguments. Necessary for an EXE, for example `"/S"` |
+| `--interactive` | You use the installer in a window onto the worker, and click **Finish packaging** on its desktop. See [Interactive installs](convert.md#interactive-installs) |
 | `--msi-property <NAME=VALUE>` | An MSI public property. You can give it more than once. `REBOOT=ReallySuppress` is added unless you set `REBOOT` |
 | `--no-install-log` | Does not collect the verbose conversion log |
 | `--include-folder` | Sends the files and folders beside the installer. At most 4 GB and 20,000 files |
@@ -63,7 +64,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--exit-codes <list>` | Exit codes that mean success, for example `"0,1"`. 3010 and 1641 are refused |
 | `--exclude <path>` | A file, folder or registry key that the capture leaves out. You can give it more than once |
 | `--min-free-disk-gb <n>` | Free disk space that the worker needs. 1 to 1024 (default 10) |
-| `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40) |
+| `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40, or 120 with `--interactive`) |
 | `--package-name <name>` | The Name of the package, instead of the name made from `--name` |
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |
@@ -171,7 +172,7 @@ AutomatedPackaging.Cli resign D:\Packages\Vendor.App_2.1.0.0_x64.msix --package-
 ## What it does not do
 
 - One installer for each call. For a list, use a loop in your script.
-- No interactive installs.
+- MCP does not start interactive jobs. Only `convert --interactive` and the Build screen do.
 - `check` does not ask for a free worker. A job that `check` passes can still be refused if no worker serves the target.
 - The command line listens on nothing. The service opens the worker listener.
 - Its log is `cli-<date>.log`, in `<workingDir>\Logs`.

@@ -40,7 +40,7 @@ You can see what the product reads from an installer before you start a job.
 
     | Setting | What it does |
     |---|---|
-    | **Install mode** | Leave **Silent** selected. **Interactive** is refused |
+    | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
     | **The machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
@@ -74,6 +74,7 @@ You can see what the product reads from an installer before you start a job.
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
     | `--include-folder` | **Beside it** | Sends the files and folders beside the installer |
+    | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
     | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |
     | `--transform <path>` | **Transforms** | MSI only. Applied in the order given |
@@ -169,6 +170,43 @@ Leave the installer and its folder unchanged while the job runs. The job checks 
 A job tries again once, by itself, only after a lost connection, an agent that stopped, or a worker that stopped.
 
 The smoke test passes when a program of the package starts and still runs a minute later. When every application of the package is a service, the smoke test starts the service instead.
+
+## Interactive installs
+
+Use this for an installer that has no silent mode. The job does not run the installer. You use it, in a window onto the worker.
+
+The image must have the shortcut **Finish packaging** on the desktop of the worker. An image built or updated before this release does not have it, and the job stops before it touches a worker with `AP-IM-024`. Click **Update** for the worker on the **Images** screen. See [Maintain images](maintain-images.md).
+
+=== "GUI"
+
+    1. Under **Install**, select **Interactive** for **Install mode**. The silent arguments and the MSI properties are not used.
+    2. Click **Build**. The job reverts the worker, copies the installer to it, and starts the capture.
+    3. The Jobs screen says "The worker waits for you", and the window onto the worker opens (**Virtual Machine Connection**). The folder with the installer is open in it. If you close the window, click **Open the worker's window** on the card of the job.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --interactive
+    ```
+
+    The command line opens the window onto the worker when the job waits, also with `--json`. `--arguments` and `--first-launch` are refused with `--interactive`.
+
+Then, in the worker:
+
+1. Run the installer, and use it as you would on a computer.
+2. Start the application one time, so the package also has what it writes when it starts first.
+3. On the desktop, double-click **Finish packaging**. It asks one time. Click **Finish packaging**, or **Not yet** to go on.
+
+Everything that you do from the time that the folder opens until you click **Finish packaging** goes into the package. The job then makes, signs and smoke-tests the package as for a silent install.
+
+| Limit | What to do |
+|---|---|
+| A restart | The MSIX Packaging Tool cannot continue a capture after a restart. If the installer asks for one, select the option to restart later. Its `RunOnce` work runs in the capture. A restart of Windows fails the job with `AP-IN-009` |
+| Time | The job waits 120 minutes for **Finish packaging**, unless you set another time for the packaging tool in **Advanced** (`--timeout-minutes`). Then it stops with `AP-IN-017` |
+| Cancel | **Cancel job** works while the job waits. The worker goes back to its baseline |
+| Network | The worker reaches only the host. An installer that must activate online cannot do that |
+| A licence key | In the window onto the worker, use **Clipboard > Type clipboard text** |
+| AI agents | The MCP `convert` tool has no install mode. An agent cannot start an interactive job |
 
 ## Installers that ask for a restart
 
