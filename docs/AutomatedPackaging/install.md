@@ -1,6 +1,6 @@
 # Install
 
-The installer is `AutomatedPackaging.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always.
+The installer is `AutomatedPackaging-<version>.msi`, for example `AutomatedPackaging-0.2.41.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always.
 
 ## Before you start: two runtimes
 
@@ -16,7 +16,7 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
 
 === "GUI"
 
-    1. Start `AutomatedPackaging.msi`.
+    1. Start `AutomatedPackaging-<version>.msi`.
     2. Read the welcome page and accept the licence.
     3. On the folder page, select the **working directory**. The default is `C:\AutomatedPackaging`.
     4. Complete the installation.
@@ -29,7 +29,7 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
     Install with no user interface. Give the working directory with `WORKINGDIR`:
 
     ```
-    msiexec /i AutomatedPackaging.msi /qn WORKINGDIR=D:\AutomatedPackaging
+    msiexec /i AutomatedPackaging-<version>.msi /qn WORKINGDIR=D:\AutomatedPackaging
     ```
 
     Without `WORKINGDIR`, the installer uses the value of an earlier installation, or `C:\AutomatedPackaging`.
