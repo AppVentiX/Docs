@@ -91,6 +91,7 @@ These tools read and change nothing:
 | `list_jobs` | The newest jobs, at most 100, with their state |
 | `job_status` | The state of one job, its package, and its error code |
 | `job_log` | The end of the log of one job, at most 32,768 characters |
+| `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer |
 | `check_job` | What stops a job, or what it builds. It does not start the job |
@@ -99,7 +100,7 @@ These tools start or change work:
 
 | Tool | What it does |
 |---|---|
-| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data |
+| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |

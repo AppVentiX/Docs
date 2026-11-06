@@ -96,7 +96,7 @@ When you turn the setting off, the product removes the records.
 
 **The managed name prefix** is the prefix that each worker name must have, `PKGMGR-` by default. The product creates, changes and removes only machines with this prefix. Change it only if it is the same as names that you use. Click **Save prefix**, then start the application again. Earlier prefixes stay managed.
 
-**The conversion engine** is the engine that converts the installer to a package. A job uses it when nobody selects an engine on the Build screen or on the command line. MCP jobs always use it. **Microsoft's MSIX Packaging Tool** is the default. **Built-in engine (experimental)** is in the list, but you cannot select it. It comes in a later version. Select an engine and click **Save engine**.
+**The conversion engine** is the engine that converts the installer to a package. A job uses it when nobody selects an engine on the Build screen or on the command line. An MCP job uses Microsoft's MSIX Packaging Tool when the client gives no engine. **Microsoft's MSIX Packaging Tool** is the default. **Built-in engine (experimental)** is the product's own engine. A job on it needs a worker whose image records it. Select an engine and click **Save engine**.
 
 **The configuration bundle** holds the configuration of this host, with its package identities. A package identity is how Windows knows that a new package updates an installed application. **Export configuration…** writes it, and **Import configuration…** reads it. The bundle holds no passwords, no private keys and no certificates.
 

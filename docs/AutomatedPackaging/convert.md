@@ -44,7 +44,7 @@ You can see what the product reads from an installer before you start a job.
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
     | **The machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
-    | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is in the list, but you cannot select it. It comes in a later version. A new version of an application uses the engine of the earlier job |
+    | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
     | **Beside it** | "Include the files and folders beside the installer". Off by default |
     | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Check them for your installer |
@@ -73,7 +73,7 @@ You can see what the product reads from an installer before you start a job.
     | `--machine <name>` | **The machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
-    | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool. Without it, the default of **Settings > Advanced**. `builtin` is refused before a worker is touched (`AP-IM-025`) |
+    | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
     | `--include-folder` | **Beside it** | Sends the files and folders beside the installer |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |

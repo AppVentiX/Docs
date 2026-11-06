@@ -49,7 +49,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--package-version <version>` | Up to four numbers. Missing parts become zeros |
 | `--target <target>` | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
-| `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. This version refuses `builtin` before a worker is touched (`AP-IM-025`) |
+| `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
 | `--certificate-thumbprint <thumbprint>` | The signing certificate. Necessary when the host has more than one. `--certificate` also works |
 | `--signing-profile <id>` | An Azure Artifact Signing profile that passed **Test**. Not together with `--certificate-thumbprint` |
 | `--arguments <text>` | The silent arguments. Necessary for an EXE, for example `"/S"` |
