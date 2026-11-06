@@ -11,6 +11,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 | **AI agents (MCP)** | How to connect an MCP client, and what an agent may do. See [AI agents (MCP)](mcp.md) |
 | **Appearance** | **Follow Windows**, **Light** or **Dark** |
 | **Export** | The export location. See [Export packages](export.md) |
+| **Exclusions** | What a capture leaves out of a package, layer by layer. See [Exclusions](#exclusions) |
 | **Diagnostics** | **Collect support information**, and **Improvement data** |
 | **Advanced** | The managed name prefix, the default conversion engine, and the configuration bundle |
 
@@ -34,6 +35,48 @@ When a newer PSF release is available, a notice shows above every screen. Jobs u
 ## Appearance
 
 The application follows the app mode of Windows by default. **Light** or **Dark** overrides it. The choice applies at once, and only for your account.
+
+## Exclusions
+
+An exclusion is a path that a capture leaves out of a package. **Settings > Exclusions** shows all the exclusions that a job uses, in layers:
+
+| Layer | Where it comes from | What you can do |
+|---|---|---|
+| **Built-in rules** | The product. `FL-001` to `FL-004` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
+| **This host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
+| **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
+| **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
+
+### Write a rule
+
+A rule names one path. It removes the path and all that is below it. A rule has no wildcards. Write the rule in one of these forms:
+
+- A full path, for example `C:\ProgramData\Vendor\Logs`.
+- A path in the profile of the packaging account, for example `%USERPROFILE%\AppData\Local\Vendor`.
+- A registry key, for example `HKLM\SOFTWARE\Vendor\Telemetry` or `HKCU\Software\Vendor`.
+- A service, for example `SERVICE\VendorUpdate`.
+
+Both engines use the same rules. The product gives each engine the rule in the form that it reads. The product refuses a rule that removes a whole drive, a whole hive or the whole profile. It also refuses the whole `HKCU\Software\Classes` key, because the package then loses its COM and file type keys.
+
+1. Type the rule in the box. Optionally, type a note.
+2. Click **Add**.
+
+To change a rule, select it, click **Edit**, change the boxes, and click **Save change**. To remove a rule, select it and click **Remove**. The next job uses the change.
+
+### IDs and the evidence of a job
+
+Each rule has an ID. A rule of this host is `HO-001`, `HO-002` and up. The ID of a removed rule is not used again. Each job writes `exclusions.json` into its folder. The file lists each rule that the job used, each rule that is off, and what each engine got. The evidence of the built-in engine gives the ID of the rule that removed each entry.
+
+### Turn off a built-in rule
+
+!!! warning
+    Turn off a built-in rule only when a package needs what the rule removes. Without the rule, the packages that this host makes can hold files and keys that Windows wrote by itself.
+
+Click **Turn off** beside the rule, and then click **OK**. While a built-in rule is off, the Settings list shows a warning sign beside **Exclusions**. Click **Turn on** to use the rule again.
+
+### Export and import
+
+**Export…** writes the rules of this host and the built-in rules that are off to a JSON file. **Import…** adds the rules of such a file that this host does not have. If one rule in the file is not correct, the product imports nothing.
 
 ## Diagnostics
 
