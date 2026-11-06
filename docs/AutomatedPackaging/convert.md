@@ -193,9 +193,10 @@ The image must have the shortcut **Finish packaging** on the desktop of the work
 
 Then, in the worker:
 
-1. Run the installer, and use it as you would on a computer.
-2. Start the application one time, so the package also has what it writes when it starts first.
-3. On the desktop, double-click **Finish packaging**. It asks one time. Click **Finish packaging**, or **Not yet** to go on.
+1. A dialog **Connect to** and the name of the worker can open beside the window. Close it with **X**. Do not click **Connect**: it asks for the sign-in of the worker, which you do not have.
+2. Run the installer, and use it as you would on a computer.
+3. Start the application one time, so the package also has what it writes when it starts first.
+4. On the desktop, double-click **Finish packaging**. It asks one time. Click **Finish packaging**, or **Not yet** to go on.
 
 Everything that you do from the time that the folder opens until you click **Finish packaging** goes into the package. The job then makes, signs and smoke-tests the package as for a silent install.
 
