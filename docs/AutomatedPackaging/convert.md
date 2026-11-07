@@ -153,6 +153,7 @@ The **Jobs** screen shows each job and its log, from the window, the command lin
 ## The installer and its files
 
 - **Silent arguments.** A known framework gets its usual switches. Some installers need more. An EXE with no arguments is refused, because it would wait on a dialog until the job times out.
+- **msiexec switches.** For an MSI, a switch that msiexec does not know is refused before the job, for example `/noreboot`. The message gives the msiexec switch when there is one, for example `/norestart`. A value with a `"` in an MSI property is written with the quote doubled, as msiexec reads it. A transform name with `;`, or that starts with `@`, `|` or `:`, is refused.
 - **The folder beside the installer.** Only the installer goes to the worker, unless you include the folder. Include it for an MSI with external `.cab` files, or a `setup.exe` with a data folder. The limits are 4 GB and 20,000 files. A drive root or a folder with a link is refused.
 - **Restarts.** `REBOOT=ReallySuppress` stops an MSI from restarting the worker. Untick it only for an installer that needs it.
 - **Logs.** For an MSI, an Inno Setup or a WiX Burn installer, the job also collects the log of the installer as `install.log`. A log larger than 32 MB is not collected. A job collects at most 64 files and 256 MB.
