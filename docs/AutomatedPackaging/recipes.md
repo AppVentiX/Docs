@@ -67,14 +67,36 @@ A version never changes. `recipe add` refuses other content under a name and ver
 
 An AI agent checks a recipe with the MCP tool `validate_recipe`, and lists the recipes with `list_recipes`. Only a person adds a recipe.
 
+## See the recipes of this host
+
+=== "GUI"
+
+    Open **Settings > Exclusions**. The **Recipes** card shows each file of the `recipes` folder: the name, the version, the application and the SHA-256. A file that a job cannot use shows why, for example `AP-IM-027`. You cannot change a recipe there.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli recipe list
+    ```
+
 ## Use a recipe for a job
 
-```powershell
-AutomatedPackaging.Cli convert D:\Installers\7z2408-x64.msi --recipe 7-zip
-AutomatedPackaging.Cli convert D:\Installers\7z2408-x64.msi --recipe 7-zip@2 --engine builtin
-```
+=== "GUI"
 
-Without `@version`, the job uses the highest version. An AI agent sets the `recipe` parameter of `convert`.
+    On the **Build** screen, select the recipe in **Recipe**. **None** is the default. The list has each recipe of this host, with its version and application. The line under the list shows the SHA-256 of the recipe.
+
+    **New version…** on the **Jobs** screen shows the recipe of the earlier job. Select **None** to build without it. If the recipe file changed or is gone, the list beside **Build** shows `AP-IM-029` before you start the job.
+
+    The **Jobs** screen shows the recipe of each job under its facts: the name, the version and the SHA-256.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli convert D:\Installers\7z2408-x64.msi --recipe 7-zip
+    AutomatedPackaging.Cli convert D:\Installers\7z2408-x64.msi --recipe 7-zip@2 --engine builtin
+    ```
+
+    Without `@version`, the job uses the highest version. `convert --from-job <id>` uses the recipe of the earlier job. An AI agent sets the `recipe` parameter of `convert`.
 
 The job records the name, the version and the SHA-256 of the recipe. A new version of the job uses the same recipe. If the recipe file changed or is gone, the job is refused with `AP-IM-029`, and no worker is touched.
 
