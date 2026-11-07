@@ -19,7 +19,8 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
     1. Start `AutomatedPackaging-<version>.msi`.
     2. Read the welcome page and accept the licence.
     3. On the folder page, select the **working directory**. The default is `C:\AutomatedPackaging`.
-    4. Complete the installation.
+    4. On the **Ready to install** page, click **Install**.
+    5. Complete the installation.
 
     !!! note
         The folder page uses the standard WiX folder dialog, so it can look like the program folder. The folder that you select is the working directory.

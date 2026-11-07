@@ -109,7 +109,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | 0 | Built. For `check`: nothing is in the way. For `inspect`: the installer was read. For a worker or image command: done |
 | 1 | Refused before anything started. The reasons follow, one on each line. For `inspect`: the installer could not be read. Also `worker remove` without `--confirm` |
 | 2 | The job or the command ran and failed. The `AP-` code and the detail follow |
-| 3 | Cannot run here: not elevated, the window is open, the service does not run, or the host cannot run jobs yet |
+| 3 | Cannot run here: not elevated, the service does not run, or the host cannot run jobs yet. A worker or image command also stops here while the window or another command line is open |
 | 4 | Built, but the package did not reach the export location, or not completely. The warning `AP-PK-010` gives the reason |
 | 64 | The command line is not correct: an unknown option, an option given twice, or a missing value |
 | 130 | Cancelled with Ctrl+C |

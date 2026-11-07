@@ -1,6 +1,6 @@
 # Prepare the host
 
-Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application. It checks the host and fixes what it can: Hyper-V, an internal virtual switch, group membership, a certificate authority, firewall rules, the data folders and two configuration files.
+Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application. It checks the host and fixes what it can. It turns on Hyper-V, creates an internal virtual switch, and adds you to Hyper-V Administrators. It creates a certificate authority and the listener certificate. It adds firewall rules for the DNS responder, the agent listener and KMS activation. It also creates the data folders, closes them and the working directory to other accounts, installs the ADK Deployment Tools, and writes two configuration files.
 
 === "GUI"
 

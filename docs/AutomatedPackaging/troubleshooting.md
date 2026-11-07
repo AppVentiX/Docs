@@ -42,7 +42,7 @@ The application, the host service and the command line read the value when they 
 |---|---|---|
 | The MSI stops: "needs the .NET 10 Desktop Runtime (x64)" or "the ASP.NET Core 10 Runtime (x64)" | A runtime is missing | Install both runtimes, then start the MSI again |
 | The MSI stops: "The data folder … is not safe to use" | Another account owns or can change the data folder | See [Install](install.md#what-the-installer-does) |
-| SmartScreen or "unknown publisher" on the MSI | Check builds are not signed | Expected |
+| SmartScreen or "unknown publisher" on the MSI | A check build is signed for checking, not with a certificate that Windows trusts by default | Expected for a check build |
 | Exit code 3010, or the Apply page asks for a restart | Host preparation turned on Hyper-V | Restart, then apply again |
 | Exit code 3011, or `hyperv.operatorgroup` still fails | You were added to Hyper-V Administrators | Sign out of Windows and sign in again |
 | `hyperv.workervolume` fails | Less than 60 GB free, or the volume is not NTFS or ReFS | Free disk space, or install again on a different volume |

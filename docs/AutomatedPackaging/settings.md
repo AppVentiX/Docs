@@ -210,9 +210,9 @@ The file `agent-channel.json` in the data folder holds four limits on what a wor
 
 | Setting | Default | What it does |
 |---|---|---|
-| `MaxJobUploadMegabytes` | `8192` | The most that one job can upload from its worker. One file can be half of it, so the package limit is 4 GB. Above it, the job fails with `AP-NW-007` |
-| `MaxJobLogMegabytes` | `64` | The most log text that one job can write |
-| `AgentHeartbeatSeconds` | `15` | How often the agent reports that it is there |
-| `MissedHeartbeatsAllowed` | `12` | How many reports can be missing before the worker is lost. The default is three minutes |
+| `maxJobUploadMegabytes` | `8192` | The most that one job can upload from its worker. One file can be half of it, so the package limit is 4 GB. Above it, the job fails with `AP-NW-007` |
+| `maxJobLogMegabytes` | `64` | The most log text that one job can write |
+| `agentHeartbeatSeconds` | `15` | How often the agent reports that it is there |
+| `missedHeartbeatsAllowed` | `12` | How many reports can be missing before the worker is lost. The default is three minutes |
 
 Before you raise the upload limit, look at the exclusion set of the image. The largest packages measured so far are about 2 GB.
