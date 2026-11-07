@@ -96,6 +96,7 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | `AP-IN-012` | The installer exit code is not in the accepted list | Check the silent arguments. The detail explains common Windows Installer codes |
 | `AP-IN-009` | Something restarted the worker during the capture | Use a switch that stops the restart. For an MSI, keep `REBOOT=ReallySuppress` |
 | `AP-IN-013` | The installer left work that only a restart can do | Find what the installer replaces at the next start |
+| "The installer finished. Then MakeAppx refused the package that the packaging tool made: …" | The install worked. Then MakeAppx refused what the packaging tool captured. The installer is not the cause | Send the support information of the job with the error after the colon |
 | `AP-SG-010` | Another account can change the tools or the packages | Run host preparation, and apply **Working directory access** |
 | `AP-SG-008` | Signing failed. For example, a token waited for a PIN | **Retry signing** on the **Jobs** screen |
 | `AP-PK-010`, **Built, not exported** | The copy to the export location failed. Usually permissions of the computer account | See [Export packages](export.md#permissions), then **Export again** |
