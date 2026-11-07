@@ -34,33 +34,47 @@ You can see what the product reads from an installer before you start a job.
 
 === "GUI"
 
-    The form is on the left. **Package identity** and the buttons are in a column on the right.
+    The Build screen is one column of cards. The bar with **Build** stays at the bottom while the page scrolls.
 
-    **Install** shows when you select a file:
+    ![The Build screen with an MSI selected: the installer, the package identity and the install settings](images/build-screen.png)
+
+    The **Installer** card shows the file, its size and type, the full SHA-256, and **Installer folder**:
+
+    | Setting | What it does |
+    |---|---|
+    | **Installer folder** | "Include the other files and folders in the installer's folder". Off by default: then only the installer goes to the worker |
+
+    **Package identity**:
+
+    - **Publisher**, **Name** and **Version** come from an MSI. For an EXE, type them.
+    - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
+    - **Identity** shows beside the title. It is remembered. The same application gets the same identity next time, so a new package is an update.
+    - **Manifest publisher**, also beside the title, comes from the signing certificate, not from the **Publisher** field.
+
+    **Install** shows when you select a file. Each setting has its label above it. A wide window shows three settings in a row, a narrow window two:
 
     | Setting | What it does |
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
-    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
-    | **The machine** | The box below **Must run on**. **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
+    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
+    | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
     | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
+    | **Prerequisites** | **Select…** selects prerequisites for this job only. The list shows one line for each item, and the label shows how many there are |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
-    | **Beside it** | "Include the files and folders beside the installer". Off by default |
-    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Check them for your installer |
-    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
+
+    The install parameters are rows under the settings. **Silent arguments** is always open. A closed row shows in one line what it holds, for example "1 of 2 on". Click the name of a row to open or close it. **Transforms** and **MSI properties** open by themselves when a row in them is ticked.
+
+    ![The install parameters: silent arguments, transforms, MSI properties, logs and the install command](images/build-parameters.png)
+
+    | Row | What it does |
+    |---|---|
+    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Until you edit them, the box is red and a note under it asks you to check them for your installer |
     | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
+    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
+    | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The blue help mark explains what the job collects |
     | **Install command** | The full command as the worker runs it |
-    | **Prerequisites** | **Select…** selects prerequisites for this job only |
-    | **Logs** | "Capture the install log (verbose)" is on by default. Add other log paths, one on each line |
-
-    **Package identity**, in the right column:
-
-    - **Publisher**, **Name** and **Version** come from an MSI. For an EXE, type them.
-    - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
-    - **Identity** is remembered. The same application gets the same identity next time, so a new package is an update.
-    - **Manifest publisher** comes from the signing certificate, not from the **Publisher** field.
 
 === "CLI"
 
@@ -71,12 +85,12 @@ You can see what the product reads from an installer before you start a job.
     | Option | Build screen | What it does |
     |---|---|---|
     | `--target <target>` | **Must run on** | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
-    | `--machine <name>` | **The machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
+    | `--machine <name>` | **Machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
     | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
-    | `--include-folder` | **Beside it** | Sends the files and folders beside the installer |
+    | `--include-folder` | **Installer folder** | Sends the other files and folders in the installer's folder |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
     | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |
@@ -123,11 +137,11 @@ On the command line, a `--package-name` that is different from the last Name of 
 
     Click **Build**.
 
-    - If **Build** is not available, the reasons show under the buttons as **Standing in the way**.
+    - If **Build** is not available, the bar at the bottom shows each reason on its own line, with a warning mark.
     - If **Build** in the navigation is not available, the host needs preparation first.
-    - **About this installer** shows notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
+    - Lines with an information mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
 
-    While the job runs, the Build screen shows a bar, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job.
+    While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job.
 
     At the end, the screen says "Built `<file>` in `<folder>`." or "Failed `<code>`: …".
 
