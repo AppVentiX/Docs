@@ -96,12 +96,14 @@ These tools read and change nothing:
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer |
 | `check_job` | What stops a job, or what it builds. It does not start the job |
+| `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
+| `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
 
 These tools start or change work:
 
 | Tool | What it does |
 |---|---|
-| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines |
+| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines. Set `recipe` to a recipe from `list_recipes`: see [Recipes](recipes.md) |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |

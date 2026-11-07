@@ -46,6 +46,7 @@ After that:
 - [Export packages](export.md) to a share, for example for AppVentiX Central View.
 - [Keep images current](maintain-images.md): update, rebuild and remove workers.
 - [Prerequisites](prerequisites.md): runtimes that an application needs outside its package.
+- [Recipes](recipes.md): what a job changes for one application, written once and applied each time.
 - [Settings](settings.md), and [Troubleshooting](troubleshooting.md) when something stops.
 - [Report findings with an AI](tester-kit.md) when you test a build.
 

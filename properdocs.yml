@@ -88,6 +88,7 @@ extra:
     - Export packages: AutomatedPackaging/export.md
     - Keep images current: AutomatedPackaging/maintain-images.md
     - Prerequisites: AutomatedPackaging/prerequisites.md
+    - Recipes: AutomatedPackaging/recipes.md
     - AI agents (MCP): AutomatedPackaging/mcp.md
     - Example prompts for agents: AutomatedPackaging/mcp-prompts.md
     - Settings: AutomatedPackaging/settings.md

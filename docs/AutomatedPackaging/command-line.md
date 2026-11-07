@@ -32,6 +32,9 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `worker update <name> [options]` | Updates a worker, as **Update** does |
 | `worker remove <name> [--confirm]` | Removes a worker and its disks, or a machine from **Incomplete machines** |
 | `image forget <image-id>` | Forgets an image record that no worker uses |
+| `recipe validate <file> [--json]` | Checks a recipe file and changes nothing. It does not need an elevated prompt. See [Recipes](recipes.md) |
+| `recipe add <file> [--json]` | Adds a recipe file to the recipes of this host. A name and version that the host has keep their content (`AP-IM-029`) |
+| `recipe list [--json]` | Lists the recipes of this host. `--recipe` takes these names |
 | `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
 | `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
 | `exclusions list [--json]` | Lists every layer of the exclusion list: the built-in rules with their IDs and states, the rules of this host, and the sets of each image. See [Exclusions](settings.md#exclusions) |
@@ -58,6 +61,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--target <target>` | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
 | `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
+| `--recipe <name[@version]>` | A recipe of this host for the job (see `recipe list`). Without `@version`, the highest version. Microsoft's MSIX Packaging Tool takes only its exclusions. The built-in engine applies all of it. A recipe that is not on this host is refused before a worker is touched (`AP-IM-029`). See [Recipes](recipes.md) |
 | `--certificate-thumbprint <thumbprint>` | The signing certificate. Necessary when the host has more than one. `--certificate` also works |
 | `--signing-profile <id>` | An Azure Artifact Signing profile that passed **Test**. Not together with `--certificate-thumbprint` |
 | `--arguments <text>` | The silent arguments. Necessary for an EXE, for example `"/S"` |
