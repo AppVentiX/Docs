@@ -34,6 +34,14 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `image forget <image-id>` | Forgets an image record that no worker uses |
 | `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
 | `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
+| `exclusions list [--json]` | Lists every layer of the exclusion list: the built-in rules with their IDs and states, the rules of this host, and the sets of each image. See [Exclusions](settings.md#exclusions) |
+| `exclusions add <rule> [--note <text>]` | Adds a rule to the list of this host. It gets the next `HO-` ID |
+| `exclusions change <HO-nnn> <rule> [--note <text>]` | Changes a rule of this host. The ID stays |
+| `exclusions remove <HO-nnn>` | Removes a rule of this host. The ID is not used again |
+| `exclusions turn-off <FL-nnn\|BI-nnn> [--confirm]` | Turns off a built-in rule on this host. Without `--confirm`, it shows the warning and changes nothing. `FL-001` and `FL-002` stay on |
+| `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
+| `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
+| `exclusions import <file>` | Adds the rules of an export file. A file with one bad rule adds nothing |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 

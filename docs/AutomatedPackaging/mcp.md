@@ -92,6 +92,7 @@ These tools read and change nothing:
 | `job_status` | The state of one job, its package, and its error code |
 | `job_log` | The end of the log of one job, at most 32,768 characters |
 | `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
+| `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer |
 | `check_job` | What stops a job, or what it builds. It does not start the job |

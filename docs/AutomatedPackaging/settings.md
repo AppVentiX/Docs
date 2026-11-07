@@ -1,6 +1,6 @@
 # Settings
 
-The **Settings** screen has these sections. Settings are set in the application window. The command line uses them, and cannot change them.
+The **Settings** screen has these sections. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list is the exception: the command line can change it too. See [Exclusions](#exclusions).
 
 | Section | What it holds |
 |---|---|
@@ -47,6 +47,25 @@ An exclusion is a path that a capture leaves out of a package. **Settings > Excl
 | **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
 | **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
 
+=== "GUI"
+
+    Open **Settings > Exclusions**. The section reads the list again each time you open it.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli exclusions list
+    AutomatedPackaging.Cli exclusions list --json
+    ```
+
+    The list shows each built-in rule with its ID and its state: `on`, `off` or `always-on`. Then it shows the rules of this host with their IDs and notes. Then, for each image, it shows the set for the packaging tool and how many entries the built-in engine calibrated. Run the `exclusions` commands from an elevated prompt. They can run while the window is open.
+
+An AI agent can read the list with the MCP tool `list_exclusions`. MCP cannot change the list. See [AI agents (MCP)](mcp.md).
+
+### The image's calibration
+
+The **Image** card shows the set of the selected image for the packaging tool. Below the set, a line tells how many entries the built-in engine calibrated on the image. The built-in engine leaves these entries out of each capture on that image. An image with no calibration of the built-in engine cannot run the built-in engine. An **Update** of the image calibrates it. You cannot change the sets of an image.
+
 ### Write a rule
 
 A rule names one path. It removes the path and all that is below it. A rule has no wildcards. Write the rule in one of these forms:
@@ -58,10 +77,24 @@ A rule names one path. It removes the path and all that is below it. A rule has 
 
 Both engines use the same rules. The product gives each engine the rule in the form that it reads. The product refuses a rule that removes a whole drive, a whole hive or the whole profile. It also refuses the whole `HKCU\Software\Classes` key, because the package then loses its COM and file type keys.
 
-1. Type the rule in the box. Optionally, type a note.
-2. Click **Add**.
+=== "GUI"
 
-To change a rule, select it, click **Edit**, change the boxes, and click **Save change**. To remove a rule, select it and click **Remove**. The next job uses the change.
+    1. Type the rule in the box. Optionally, type a note.
+    2. Click **Add**.
+
+    To change a rule, select it, click **Edit**, change the boxes, and click **Save change**. To remove a rule, select it and click **Remove**.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli exclusions add "C:\ProgramData\Vendor\Logs" --note "Logs of the vendor"
+    AutomatedPackaging.Cli exclusions change HO-001 "HKLM\SOFTWARE\Vendor\Telemetry"
+    AutomatedPackaging.Cli exclusions remove HO-001
+    ```
+
+    `exclusions add` gives the ID of the new rule. `exclusions change` keeps the ID, and keeps the note when you give no `--note`. A rule that the screen refuses is refused here too, with the same reason, and exit code 1.
+
+The next job uses the change. A job that runs now keeps the rules that it started with.
 
 ### IDs and the evidence of a job
 
@@ -72,11 +105,38 @@ Each rule has an ID. A rule of this host is `HO-001`, `HO-002` and up. The ID of
 !!! warning
     Turn off a built-in rule only when a package needs what the rule removes. Without the rule, the packages that this host makes can hold files and keys that Windows wrote by itself.
 
-Click **Turn off** beside the rule, and then click **OK**. While a built-in rule is off, the Settings list shows a warning sign beside **Exclusions**. Click **Turn on** to use the rule again.
+=== "GUI"
+
+    Click **Turn off** beside the rule, and then click **OK**. Click **Turn on** to use the rule again.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli exclusions turn-off FL-003
+    AutomatedPackaging.Cli exclusions turn-off FL-003 --confirm
+    AutomatedPackaging.Cli exclusions turn-on FL-003
+    ```
+
+    Without `--confirm`, the command shows what the rule removes and the warning, and changes nothing.
+
+`FL-001` and `FL-002` stay on. While a built-in rule is off, the Settings list shows a warning sign beside **Exclusions**.
 
 ### Export and import
 
-**Export…** writes the rules of this host and the built-in rules that are off to a JSON file. **Import…** adds the rules of such a file that this host does not have. If one rule in the file is not correct, the product imports nothing.
+The export file holds the rules of this host and the built-in rules that are off. An import adds the rules of such a file that this host does not have. It also turns off the built-in rules that the file turned off. If one rule in the file is not correct, the product imports nothing.
+
+=== "GUI"
+
+    Click **Export…** and select a file. On the other host, click **Import…** and select the file.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli exclusions export D:\Exports\exclusions.json
+    AutomatedPackaging.Cli exclusions import D:\Exports\exclusions.json
+    ```
+
+    `exclusions export` does not write over a file. Give the name of a new file.
 
 ## Diagnostics
 
