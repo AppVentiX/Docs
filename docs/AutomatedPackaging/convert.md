@@ -205,12 +205,39 @@ Everything that you do from the time that the folder opens until you click **Fin
 
 | Limit | What to do |
 |---|---|
-| A restart | The MSIX Packaging Tool cannot continue a capture after a restart. If the installer asks for one, select the option to restart later. Its `RunOnce` work runs in the capture. A restart of Windows fails the job with `AP-IN-009` |
-| Time | The job waits 120 minutes for **Finish packaging**, unless you set another time for the packaging tool in **Advanced** (`--timeout-minutes`). Then it stops with `AP-IN-017` |
+| A restart, with the packaging tool | The MSIX Packaging Tool cannot continue a capture after a restart. If the installer asks for one, select the option to restart later. Its `RunOnce` work runs in the capture. A restart of Windows fails the job with `AP-IN-009` |
+| A restart, with the built-in engine | Use the built-in engine for an installer that must restart: see [A restart in an interactive install](#a-restart-in-an-interactive-install) |
+| Time | The job waits 120 minutes for **Finish packaging**, unless you set another time for the packaging tool in **Advanced** (`--timeout-minutes`). The time includes the restarts. Then it stops with `AP-IN-017` |
 | Cancel | **Cancel job** works while the job waits. The worker goes back to its baseline |
 | Network | The worker reaches only the host. An installer that must activate online cannot do that |
 | A licence key | In the window onto the worker, use **Clipboard > Type clipboard text** |
 | AI agents | The MCP `convert` tool has no install mode. An agent cannot start an interactive job |
+
+### A restart in an interactive install
+
+With the built-in engine, the capture continues after a restart of the worker.
+
+=== "GUI"
+
+    Under **Install**, select **Interactive** for **Install mode**, and **Built-in engine (experimental)** for **Engine**. Then click **Build**.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --interactive --engine builtin
+    ```
+
+In the worker:
+
+1. Run the installer. When it asks for a restart, let it restart. You can also click **Restart first** in the **Finish packaging** dialog, or restart Windows yourself.
+2. The worker signs in again by itself. The window onto the worker stays open, and the log of the job says that the capture continues. The folder with the installer does not open again.
+3. The worker completes the `RunOnce` work of the installer. Do what you must do after the restart, and start the application one time.
+4. Double-click **Finish packaging** again, and click **Finish packaging**.
+
+The package holds what you did before and after the restart.
+
+- The capture can have 3 restarts. A fourth restart stops the job with `AP-IN-020`.
+- Do not shut down the worker. A worker that is off, or that had a stop error, stops the job.
 
 ## Installers that ask for a restart
 
@@ -221,7 +248,7 @@ Two things refuse the package with `AP-IN-013`:
 - files that the installer replaces or deletes at the next start,
 - `RunOnceEx` work.
 
-An installer that restarts Windows by itself fails the job with `AP-IN-009`.
+An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use an interactive job on the built-in engine for it: see [A restart in an interactive install](#a-restart-in-an-interactive-install).
 
 ## More than one job at a time
 
