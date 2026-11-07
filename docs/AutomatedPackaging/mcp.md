@@ -98,6 +98,8 @@ These tools read and change nothing:
 | `check_job` | What stops a job, or what it builds. It does not start the job |
 | `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
 | `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
+| `recipe_schema` | The JSON Schema of the recipe format, for an AI agent that writes a recipe. `validate_recipe` is the check that counts |
+| `preview_recipe` | Runs a recipe on the capture of a finished job of the built-in engine, with no worker and no package. Gives what each rule matches and what the recipe drops or changes. See [Recipes](recipes.md) |
 
 These tools start or change work:
 

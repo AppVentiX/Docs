@@ -2,12 +2,13 @@
 
 A recipe tells a job what to change for one application. It is a JSON file that a person or an AI agent writes. The job applies it in the same way each time, without a person or an AI deciding again.
 
-A recipe can do four things:
+A recipe can do five things:
 
 - **Exclusions.** Leave files, folders and registry keys out of the package. Both engines use them.
 - **Shortcuts.** Keep or drop shortcuts. The built-in engine only.
 - **File types.** Keep or drop file type associations. The built-in engine only.
-- **Fix-ups.** Change the display name of an application, or keep it off the Start list. The built-in engine only.
+- **Protocols, execution aliases and COM classes.** Keep or drop each of them. The built-in engine only.
+- **Fix-ups.** Change the display name of an application, keep it off the Start list, give it arguments, or set its working folder. The built-in engine only.
 
 !!! warning "What a recipe cannot add"
     A recipe cannot add capabilities, services, startup tasks or firewall rules. A person must approve each of these. A recipe with such a field is refused with `AP-IM-028`.
@@ -47,9 +48,24 @@ In this version, you use recipes from the command line and from AI agents (MCP).
 | `exclusions` | No | At most 500 rules, each with `rule` and an optional `note`. A rule uses the syntax of [Exclusions](settings.md#exclusions). The rules get the IDs `RC-001`, `RC-002` and so on |
 | `shortcuts` | No | `keep` or `drop`, not both: shortcut names, without the folder and without `.lnk`. With `keep`, the job keeps only these |
 | `fileTypes` | No | `keep` or `drop`, not both: file types with their dot, for example `.7z` |
-| `fixUps` | No | Each has `kind` and `application`, the file name of the program. `displayName` also needs `value`. `hide` keeps the application off the Start list |
+| `protocols` | No | `keep` or `drop`, not both: URL schemes, for example `sevenzip-help`. A scheme starts with a letter |
+| `executionAliases` | No | `keep` or `drop`, not both: alias names, for example `7z.exe` |
+| `comClasses` | No | `keep` or `drop`, not both: COM class IDs, with or without braces. A dropped class takes its shell menu handlers with it |
+| `fixUps` | No | At most 200. Each has `kind` and `application`, the file name of the program. The kinds are in the next table |
+
+| Fix-up `kind` | `value` | What it does |
+|---|---|---|
+| `displayName` | The new display name | Changes the name of the application on the Start list |
+| `hide` | None | Keeps the application off the Start list |
+| `arguments` | The arguments, 2000 characters at most | Starts the application with these arguments |
+| `workingFolder` | A folder of the package, for example `VFS\ProgramFilesX64\7-Zip` | Starts the application in this folder. An older version of Windows ignores it |
+
+A fix-up that matches no application, or a `workingFolder` that the package does not have, is not applied. The job's `engine\writer-evidence.json` names each one.
 
 Any other field is refused with `AP-IM-027`. The error names the field.
+
+!!! note "A schema for AI agents"
+    An AI agent gets the JSON Schema of the recipe format with the MCP tool `recipe_schema`. The product's own check is the authority. Always check a recipe with `recipe validate` or `validate_recipe`.
 
 A dropped shortcut is not in the package, and does not make an application.
 
@@ -66,6 +82,8 @@ AutomatedPackaging.Cli recipe list
 A version never changes. `recipe add` refuses other content under a name and version that the host has (`AP-IM-029`). Give the recipe a higher version.
 
 An AI agent checks a recipe with the MCP tool `validate_recipe`, and lists the recipes with `list_recipes`. Only a person adds a recipe.
+
+An AI agent can see what a recipe changes before a job, with the MCP tool `preview_recipe`. It runs the recipe on the capture of a finished job of the built-in engine. It does not use a worker and makes no package. It gives the number of captured entries that each `RC-` rule matches, the applications with their programs, and each item that the recipe drops or changes.
 
 ## See the recipes of this host
 
@@ -105,6 +123,7 @@ The job records the name, the version and the SHA-256 of the recipe. A new versi
 | Exclusions | Yes | Yes |
 | Shortcuts | No | Yes |
 | File types | No | Yes |
+| Protocols, execution aliases, COM classes | No | Yes |
 | Fix-ups | No | Yes |
 
 The job folder has `recipe.json`. It names the recipe and the engine, and tells for each part if the engine applied it.
