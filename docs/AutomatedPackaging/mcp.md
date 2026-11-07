@@ -95,7 +95,7 @@ These tools read and change nothing:
 | `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer |
-| `check_job` | What stops a job, or what it builds. It does not start the job |
+| `check_job` | What stops a job, or what it builds. It does not start the job. It asks the questions of `check` on the command line: the signing tools (`AP-SG-010`), and the images (`AP-IM-023`, `AP-IM-026`). It does not ask for a free worker |
 | `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
 | `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
 | `recipe_schema` | The JSON Schema of the recipe format, for an AI agent that writes a recipe. `validate_recipe` is the check that counts |

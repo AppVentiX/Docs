@@ -24,7 +24,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | Command | What it does |
 |---|---|
 | `convert <installer> [options]` | Converts an MSI or EXE into a signed MSIX package on a worker. Shows the job log, then the result |
-| `check <installer> [options]` | Lists what stops a conversion. Starts nothing. It does not ask for a free worker |
+| `check <installer> [options]` | Lists what stops a conversion, as the Build screen lists it. Starts nothing. It asks what the job asks before it starts. Can somebody who is not an administrator change the signing tools, the packages or the jobs folder (`AP-SG-010`)? Is there an image and a worker for the target? Must the image be updated (`AP-IM-023`)? For an interactive job, does the image have **Finish packaging** (`AP-IM-024`)? Does the image record the engine (`AP-IM-026`)? With `--machine`, it asks about the image of that worker. It does not ask for a free worker |
 | `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options |
 | `certificates [--json]` | Lists the certificates and the Azure Artifact Signing profiles that this host can sign with |
 | `machines [--json]` | Lists the workers: name, image, Windows release, target, state and activation |
@@ -186,6 +186,6 @@ AutomatedPackaging.Cli resign D:\Packages\Vendor.App_2.1.0.0_x64.msix --package-
 
 - One installer for each call. For a list, use a loop in your script.
 - MCP does not start interactive jobs. Only `convert --interactive` and the Build screen do.
-- `check` does not ask for a free worker. A job that `check` passes can still be refused if no worker serves the target.
+- `check` does not ask for a free worker. The job asks that when `convert` runs. A worker given with `--machine` that is busy then refuses the job.
 - The command line listens on nothing. The service opens the worker listener.
 - Its log is `cli-<date>.log`, in `<workingDir>\Logs`.
