@@ -16,7 +16,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     | 1 | **What this will change** | Lists every change to the host that host preparation can make |
     | 2 | **Working directory** | Shows the folder selected at installation, read-only, and the folders it creates in it |
     | 3 | **The hypervisor** | The Hyper-V settings: **Virtual switch** (`PkgRobot-Internal`), **Host address** (`172.31.7.1`), **Host port** (`8443`), **Managed name prefix** and **Worker folder** |
-    | 4 | **This host** | All checks, in two tables. Filter on **In the way**, **Worth knowing** or **Fine**. The last column says what happens to each item. **Re-read this host** reads the host again |
+    | 4 | **This host** | All checks, in two tables. Filter on **In the way**, **Worth knowing** or **Fine**. The last column says what happens to each item. **Re-read this host** reads the host again. **Listener port** fails when another program listens on the port of the listener, `8443` by default |
     | 5 | **Media** | What a worker is built from, the folder for each item, and what is missing. **Download** gets `adksetup.exe` into `<workingDir>\Tools` |
     | 6 | **Accounts** | The account in a new worker (`pkgbuilder`), and its password |
     | 7 | **The authority** | The private certificate authority that workers use to authenticate. Created if it is not there |
