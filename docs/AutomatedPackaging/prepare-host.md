@@ -39,7 +39,18 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     |---|---|
     | "This machine has to restart before they take effect…" | Click **Restart now**. The wizard opens again at your next sign-in, on the Apply page. Click **Apply the changes** again. Set again any value that you changed on the other pages |
     | "Sign out and back in before running a job…" | Sign out of Windows and sign in again. You are now in Hyper-V Administrators, and Windows reads the groups at sign-in |
-    | "This host is ready. Restart Automated Packaging…" | Close the application and start it again. Also restart the service `AutomatedPackaging` when no job runs. Both read `agent-channel.json` only when they start, and the wizard restarts neither |
+    | "This host is ready. Close the Automated Packaging window and open it again…" | Close the application and start it again. It reads `agent-channel.json` and `media.json` only when it starts |
+
+    Below the result, the Apply page says what host preparation did with the service **AppVentiX Automated Packaging**:
+
+    | The Apply page says | Do this |
+    |---|---|
+    | "Host preparation restarted the AppVentiX Automated Packaging service…" | Nothing. The service uses the new settings |
+    | "…because a restart stops the jobs that run: …" | Let the jobs that it names end. Then restart the service in **Services** |
+    | "…because the service did not say whether a job runs…" | When no job runs, restart the service in **Services** |
+    | "The AppVentiX Automated Packaging service is stopped…" | Nothing. The service reads the new settings when it starts |
+
+    Host preparation restarts the service only when the service says that no job runs, because a stop of the service stops each job. When the machine has to restart, it leaves the service alone.
 
 === "CLI"
 
@@ -51,7 +62,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     ```
 
     - `--check` changes nothing. It lists what `--apply` would do.
-    - `--apply` fixes what it can.
+    - `--apply` fixes what it can. After a change, it restarts the service **AppVentiX Automated Packaging** when no job runs. Its last line says what it did with the service, as the GUI tab shows.
     - `--set <name>=<value>` gives a hypervisor setting. `--help` shows the other options.
 
     | Exit code | Meaning |
