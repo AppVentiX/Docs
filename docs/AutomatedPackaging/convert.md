@@ -42,7 +42,7 @@ You can see what the product reads from an installer before you start a job.
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
-    | **The machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
+    | **The machine** | The box below **Must run on**. **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
     | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |

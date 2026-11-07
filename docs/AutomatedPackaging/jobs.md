@@ -10,7 +10,7 @@
 
     - **Open the worker's window** shows while an interactive job waits for you. The window opens by itself one time. See [Interactive installs](convert.md#interactive-installs).
     - **Cancel job**, under the facts of a running job, stops it. The service puts the worker back to its baseline first. The job then shows Cancelled.
-    - **Copy log** and **Open log file** give you the log.
+    - **Copy log** and **Open log file** give you the log. The screen shows the last 2,000 lines, and 200 lines of one entry. **Open log file** shows all lines.
     - A failed job shows a failure card above its log: the code, the step, a headline, **What to try** and **Copy diagnostic**.
 
 === "CLI"
@@ -193,7 +193,7 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 - **Exported packages in the output folder**: a package in `<workingDir>\Packages\` that its job exported. The product removes it only when it is the same file that was exported, and the copy is still at the export location.
 
 1. Tick what to remove.
-2. Click **Remove ticked…**.
+2. Click **Remove selected…**.
 3. Read the confirmation. It gives the size, for example "Remove 1.2 GB from this host?".
 4. Click **Remove**.
 
