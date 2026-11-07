@@ -206,7 +206,7 @@ When you turn the setting off, the product removes the records.
 
 ## Worker limits
 
-The file `agent-channel.json` in the data folder holds four limits on what a worker can do during a job. Most hosts do not need to change them. Edit the file, then start the application and the service again.
+The file `agent-channel.json` in the data folder holds four limits on what a worker can do during a job. Most hosts do not need to change them. The service `AutomatedPackaging` runs the jobs, and it reads these limits only when it starts. Edit the file, then restart the service, for example with `Restart-Service AutomatedPackaging` in an elevated PowerShell. Do this when no job runs: a stop of the service stops each job that runs.
 
 | Setting | Default | What it does |
 |---|---|---|

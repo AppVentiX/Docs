@@ -39,7 +39,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     |---|---|
     | "This machine has to restart before they take effect…" | Click **Restart now**. The wizard opens again at your next sign-in, on the Apply page. Click **Apply the changes** again. Set again any value that you changed on the other pages |
     | "Sign out and back in before running a job…" | Sign out of Windows and sign in again. You are now in Hyper-V Administrators, and Windows reads the groups at sign-in |
-    | "This host is ready. Restart Automated Packaging…" | Close the application and start it again. It reads `agent-channel.json` only when it starts |
+    | "This host is ready. Restart Automated Packaging…" | Close the application and start it again. Also restart the service `AutomatedPackaging` when no job runs. Both read `agent-channel.json` only when they start, and the wizard restarts neither |
 
 === "CLI"
 
