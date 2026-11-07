@@ -38,11 +38,11 @@ You can see what the product reads from an installer before you start a job.
 
     ![The Build screen with an MSI selected: the installer, the package identity and the install settings](images/build-screen.png)
 
-    The **Installer** card shows the file, its size and type, the full SHA-256, and **Installer folder**:
+    The **Installer** card shows the file, its size and type, the full SHA-256, and a check box for the installer's folder:
 
     | Setting | What it does |
     |---|---|
-    | **Installer folder** | "Include the other files and folders in the installer's folder". Off by default: then only the installer goes to the worker |
+    | Installer's folder | "Include the other files and folders in the installer's folder". Off by default: then only the installer goes to the worker |
 
     **Package identity**:
 
@@ -90,7 +90,7 @@ You can see what the product reads from an installer before you start a job.
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
     | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
-    | `--include-folder` | **Installer folder** | Sends the other files and folders in the installer's folder |
+    | `--include-folder` | "Include the other files and folders in the installer's folder" | Sends the other files and folders in the installer's folder |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
     | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |
