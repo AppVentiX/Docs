@@ -57,10 +57,16 @@ In this version, you use recipes from the command line and from AI agents (MCP).
 |---|---|---|
 | `displayName` | The new display name | Changes the name of the application on the Start list |
 | `hide` | None | Keeps the application off the Start list |
-| `arguments` | The arguments, 2000 characters at most | Starts the application with these arguments |
-| `workingFolder` | A folder of the package, for example `VFS\ProgramFilesX64\7-Zip` | Starts the application in this folder. An older version of Windows ignores it |
+| `arguments` | The arguments, 2000 characters at most | Starts the application with these arguments, from the Start list too |
+| `workingFolder` | A folder of the package, for example `VFS\ProgramFilesX64\7-Zip` | Starts the application in this folder on Windows 11. Windows 10 ignores it |
 
 A fix-up that matches no application, or a `workingFolder` that the package does not have, is not applied. The job's `engine\writer-evidence.json` names each one.
+
+Where `arguments` and `workingFolder` apply:
+
+- From the Start list, Windows 11 starts the application with the arguments and in the folder. Windows 10 gives the arguments and ignores the folder.
+- On Windows 11, **Open** on the application in `shell:AppsFolder` gives neither. That is how Windows starts it from there.
+- With the Package Support Framework on, its launcher starts the program. The program gets the arguments, and starts in the folder.
 
 Any other field is refused with `AP-IM-027`. The error names the field.
 

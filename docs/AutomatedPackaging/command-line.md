@@ -82,6 +82,8 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |
 | `--no-export` | Does not export |
+| `--psf` | Puts the Package Support Framework in front of the programs of the package, as **Package Support Framework** in Advanced. Get PSF first on Settings > This host. Without it, the job stops with `AP-PK-011` after the capture |
+| `--no-psf` | Does not use the Package Support Framework, also when the job of `--from-job` used it. Not with `--psf` |
 | `--internal` | The application is your own. Its name stays out of the improvement data |
 | `--json` | Writes the result as one JSON object, and nothing else |
 

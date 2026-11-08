@@ -26,7 +26,7 @@ Some applications write into their own installation folder. A package does not a
 The product uses Tim Mangan's release of PSF, pinned at `v2026.07.01`. It does not ship PSF. Most jobs do not need it.
 
 1. On the card **Package Support Framework**, click **Get PSF**. The product downloads the release from GitHub, and the Visual C++ runtime from Microsoft.
-2. In the **Advanced** settings of a job, turn on **Package Support Framework**.
+2. In the **Advanced** settings of a job, turn on **Package Support Framework**. On the command line, give `--psf` to `convert`.
 
 The product keeps the files only when each PSF file is signed by TMurgent Technologies LLP, and each runtime file by Microsoft. Before each job with PSF, it checks the files again. A file that fails stops the job with `AP-PK-011`.
 
