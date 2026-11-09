@@ -15,7 +15,7 @@ The Central View console can be installed on any machine and does not need any (
 | [AppVentiX Agent](agent/index.md) | The agent service, its interface, and the refresh cycle |
 | [App Delivery](app-delivery/index.md) | Content stores and publishing App-V, MSIX, and app attach packages |
 | [Workspace Control](user-settings/index.md) | Shortcuts, drive mappings, printers, registry settings, and filters |
-| [Security and Access Control](security/index.md) | Console access, App Control (WDAC), App Masking, and audit logging |
+| [Security and Access Control](security/index.md) | Console access, App Control, App Masking, and audit logging |
 | [Integrations](integrations/index.md) | Entra ID, Azure Virtual Desktop, and the supported share types |
 | [Advanced Configuration](advanced-configuration/index.md) | Permissions, roaming profiles, image building, and firewall ports |
 

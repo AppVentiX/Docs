@@ -115,7 +115,7 @@ From version 5.2 onward, new sites use the layout below. The main change is that
 | Folder | Contents |
 | --- | --- |
 | `Agent/` | The agent installer and its readme, ready to deploy to your machines. |
-| `AppControl/` | Base policies under `Base/<guid>/` and supplemental policies under `Policies/`. See [App Control (WDAC)](../app-control/index.md). |
+| `AppControl/` | Base policies under `Base/<guid>/` and supplemental policies under `Policies/`. See [App Control](../app-control/index.md). |
 | `AppMask/Rules/` | FSLogix App Masking rule sets (`.fxa` and `.fxr` per rule). See [FSLogix App Masking](../app-masking/index.md). |
 | `Audit/` | The audit trail. See [Audit Trail](../audit-trail/index.md). |
 | `Configuration/CentralView/` | Central View console configuration. |

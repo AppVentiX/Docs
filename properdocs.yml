@@ -209,7 +209,7 @@ nav:
       - Role Based Access Control (RBAC): admin-guide/rbac/index.md
       - Firewall and Communication Ports: admin-guide/firewall-ports/index.md
       - FSLogix App Masking: admin-guide/app-masking/index.md
-      - App Control (WDAC/AppLocker): admin-guide/app-control/index.md
+      - App Control (App Control for Business/AppLocker): admin-guide/app-control/index.md
       - App Control Signing Certificate: admin-guide/app-control-create-certificate/index.md
       - Audit Trail: admin-guide/audit-trail/index.md
     - Integrations:
