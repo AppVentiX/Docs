@@ -78,6 +78,8 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--exclude <path>` | A file, folder or registry key that the capture leaves out. You can give it more than once |
 | `--min-free-disk-gb <n>` | Free disk space that the worker needs. 1 to 1024 (default 10) |
 | `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40, or 120 with `--interactive`) |
+| `--restarts <n>` | How many times the worker can restart during a capture with the built-in engine. 1 to 10 (default 3) |
+| `--restart-wait-minutes <n>` | How long a capture with the built-in engine waits for the worker after a restart or a shutdown. 5 to 30 (default 5) |
 | `--package-name <name>` | The Name of the package, instead of the name made from `--name` |
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |
