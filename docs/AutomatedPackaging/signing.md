@@ -83,6 +83,14 @@ The service principal needs the *Artifact Signing Certificate Profile Signer* ro
 
 A profile must pass **Test** before it can sign a job. The publisher of the package is the subject that the last test signed as. A Private Trust package shows a warning on the host (`AP-VF-004`), because its root is not trusted there. This is not a failure.
 
+## A certificate on a hardware token
+
+A certificate on a hardware token asks for its PIN each time SignTool signs. The product stops SignTool after 2 minutes. If nobody types the PIN in that time, the job fails with `AP-SG-008`.
+
+To give more time, go to **Settings > Signing**, card **Time limit for SignTool**. Type a number of minutes from 1 to 30, and click **Save time limit**. The next job, **Test** and **Retry signing** use it.
+
+A job that failed this way keeps its package. Click **Retry signing** on the **Jobs** screen to sign it again without a new capture.
+
 ## Change the certificate of an application
 
 The certificate or profile of a job is the publisher of the package. A package with a new publisher installs beside the old package. It does not update it. Remove the old package from the machines that have it. The package name stays the same.

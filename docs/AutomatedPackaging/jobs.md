@@ -8,8 +8,9 @@
 
     ![The facts of a built job, with its six steps and their times](images/jobs-facts.png)
 
+    - **Open the worker's window** shows while an interactive job waits for you. The window opens by itself one time. See [Interactive installs](convert.md#interactive-installs).
     - **Cancel job**, under the facts of a running job, stops it. The service puts the worker back to its baseline first. The job then shows Cancelled.
-    - **Copy log** and **Open log file** give you the log.
+    - **Copy log** and **Open log file** give you the log. The screen shows the last 2,000 lines, and 200 lines of one entry. **Open log file** shows all lines.
     - A failed job shows a failure card above its log: the code, the step, a headline, **What to try** and **Copy diagnostic**.
 
 === "CLI"
@@ -46,12 +47,15 @@ This signs the package that the job built, in seconds, with no worker. A package
 
 ## Sign a package for release
 
-An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. That job signs with a test certificate that has your publisher. The product does not export its package, and shows `AP-SG-014`. **Export again** is not shown for it. See [The test certificate](mcp.md#the-test-certificate).
+An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. That job signs with a test certificate that has your publisher. The product does not export its package, and shows `AP-SG-014`, also when the job did not ask for an export. **Export again** is not shown for it. See [The test certificate](mcp.md#the-test-certificate).
+
+Before it signs, the product shows the certificate and its thumbprint, the publisher, the installer and its SHA-256, the SHA-256 of the package, and where it exports the package. It signs only the package with that SHA-256.
 
 === "GUI"
 
     1. Select the job on the **Jobs** screen.
     2. Click **Sign for release**.
+    3. Read the lines that the screen shows. Then click **Sign**, or **Cancel** to sign nothing.
 
 === "CLI"
 
@@ -61,9 +65,58 @@ An AI agent can start a job while **Settings > AI agents (MCP)** is **Off**. Tha
     AutomatedPackaging.Cli sign-for-release <job-id>
     ```
 
-    Exit code 0 when the package is signed, 1 when it is refused.
+    This shows the lines and signs nothing. To sign, run it again with `--confirm`:
+
+    ```
+    AutomatedPackaging.Cli sign-for-release <job-id> --confirm
+    ```
+
+    Exit code 0 when the package is signed, 1 when it is refused or not confirmed.
+
+Only one Sign for release runs for a job at a time, in the application or on the command line. A second one stops and signs nothing.
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.
+
+## Build a new version of an application
+
+When a vendor releases a new installer of an application that you packaged, start from the job that built the earlier package. The product fills in the settings of that job, and you select the new installer.
+
+The job gives these settings: the name and the publisher, the arguments, the MSI properties and the transforms. It also gives the files beside the installer, the prerequisites, the logs, **Must run on**, the machine, the certificate and **Advanced**. The identity Name of the package stays the same, so the new package updates the earlier package.
+
+=== "GUI"
+
+    1. On the **Jobs** screen, select a job that built a package, then click **New version…**.
+    2. The Build screen opens. A note above the installer names the earlier job and its version.
+    3. Select the new installer. The product fills in the settings of the earlier job.
+    4. Read the notes in the box. Change what you must, then click **Build**.
+
+    **Clear** in the note keeps what the form contains, and makes it an ordinary build.
+
+=== "CLI"
+
+    From an elevated prompt:
+
+    ```
+    AutomatedPackaging.Cli convert <installer> --from-job <job-id> [options]
+    ```
+
+    `check` takes `--from-job` too. Each other option that you give changes only that setting. `--machine` replaces the machine of the earlier job. When that machine cannot take the job now, a warning tells you, and the planner selects a worker.
+
+The version:
+
+- The product uses the version of the new installer, if it is higher than the version of the earlier job.
+- If not, the product uses the version of the earlier job plus one in the last part, and a note tells you. An EXE gives no version, so this occurs for each EXE.
+- The product refuses a version that is not higher than the version of the earlier job.
+
+The product refuses the new version when:
+
+- The earlier job did not build a package.
+- The new installer is not the same type (MSI or EXE) as the earlier installer.
+- A transform of the earlier job is not at its path now. Put the file back.
+- A version of the product before 0.2.40 built the earlier job. That version did not record the settings of a job. Build the new version on the Build screen, and enter the settings again.
+
+!!! warning "A different Publisher makes a different application"
+    A note tells you when this host does not have the certificate of the earlier job. A package with a different publisher does not update the earlier package.
 
 ## Re-sign a package
 
@@ -140,7 +193,7 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 - **Exported packages in the output folder**: a package in `<workingDir>\Packages\` that its job exported. The product removes it only when it is the same file that was exported, and the copy is still at the export location.
 
 1. Tick what to remove.
-2. Click **Remove ticked…**.
+2. Click **Remove selected…**.
 3. Read the confirmation. It gives the size, for example "Remove 1.2 GB from this host?".
 4. Click **Remove**.
 

@@ -1,6 +1,6 @@
 # Prepare the host
 
-Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application. It checks the host and fixes what it can: Hyper-V, an internal virtual switch, group membership, a certificate authority, firewall rules, the data folders and two configuration files.
+Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application. It checks the host and fixes what it can. It turns on Hyper-V, creates an internal virtual switch, and adds you to Hyper-V Administrators. It creates a certificate authority and the listener certificate. It adds firewall rules for the DNS responder, the agent listener and KMS activation. It also creates the data folders, closes them and the working directory to other accounts, installs the ADK Deployment Tools, and writes two configuration files.
 
 === "GUI"
 
@@ -16,7 +16,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     | 1 | **What this will change** | Lists every change to the host that host preparation can make |
     | 2 | **Working directory** | Shows the folder selected at installation, read-only, and the folders it creates in it |
     | 3 | **The hypervisor** | The Hyper-V settings: **Virtual switch** (`PkgRobot-Internal`), **Host address** (`172.31.7.1`), **Host port** (`8443`), **Managed name prefix** and **Worker folder** |
-    | 4 | **This host** | All checks, in two tables. Filter on **In the way**, **Worth knowing** or **Fine**. The last column says what happens to each item. **Re-read this host** reads the host again |
+    | 4 | **This host** | All checks, in two tables. Filter on **In the way**, **Worth knowing** or **Fine**. The last column says what happens to each item. **Re-read this host** reads the host again. **Listener port** fails when another program listens on the port of the listener, `8443` by default |
     | 5 | **Media** | What a worker is built from, the folder for each item, and what is missing. **Download** gets `adksetup.exe` into `<workingDir>\Tools` |
     | 6 | **Accounts** | The account in a new worker (`pkgbuilder`), and its password |
     | 7 | **The authority** | The private certificate authority that workers use to authenticate. Created if it is not there |
@@ -39,7 +39,18 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     |---|---|
     | "This machine has to restart before they take effect…" | Click **Restart now**. The wizard opens again at your next sign-in, on the Apply page. Click **Apply the changes** again. Set again any value that you changed on the other pages |
     | "Sign out and back in before running a job…" | Sign out of Windows and sign in again. You are now in Hyper-V Administrators, and Windows reads the groups at sign-in |
-    | "This host is ready. Restart Automated Packaging…" | Close the application and start it again. It reads `agent-channel.json` only when it starts |
+    | "This host is ready. Close the Automated Packaging window and open it again…" | Close the application and start it again. It reads `agent-channel.json` and `media.json` only when it starts |
+
+    Below the result, the Apply page says what host preparation did with the service **AppVentiX Automated Packaging**:
+
+    | The Apply page says | Do this |
+    |---|---|
+    | "Host preparation restarted the AppVentiX Automated Packaging service…" | Nothing. The service uses the new settings |
+    | "…because a restart stops the jobs that run: …" | Let the jobs that it names end. Then restart the service in **Services** |
+    | "…because the service did not say whether a job runs…" | When no job runs, restart the service in **Services** |
+    | "The AppVentiX Automated Packaging service is stopped…" | Nothing. The service reads the new settings when it starts |
+
+    Host preparation restarts the service only when the service says that no job runs, because a stop of the service stops each job. When the machine has to restart, it leaves the service alone.
 
 === "CLI"
 
@@ -51,7 +62,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     ```
 
     - `--check` changes nothing. It lists what `--apply` would do.
-    - `--apply` fixes what it can.
+    - `--apply` fixes what it can. After a change, it restarts the service **AppVentiX Automated Packaging** when no job runs. Its last line says what it did with the service, as the GUI tab shows.
     - `--set <name>=<value>` gives a hypervisor setting. `--help` shows the other options.
 
     | Exit code | Meaning |

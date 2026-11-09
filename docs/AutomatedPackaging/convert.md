@@ -34,30 +34,47 @@ You can see what the product reads from an installer before you start a job.
 
 === "GUI"
 
-    The form is on the left. **Package identity** and the buttons are in a column on the right.
+    The Build screen is one column of cards. The bar with **Build** stays at the bottom while the page scrolls.
 
-    **Install** shows when you select a file:
+    ![The Build screen with an MSI selected: the installer, the package identity and the install settings](images/build-screen.png)
+
+    The **Installer** card shows the file, its size and type, the full SHA-256, and a check box for the installer's folder:
 
     | Setting | What it does |
     |---|---|
-    | **Install mode** | Leave **Silent** selected. **Interactive** is refused |
-    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". The line "Captures on …" names the image that the target needs |
-    | **The machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
-    | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
-    | **Beside it** | "Include the files and folders beside the installer". Off by default |
-    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Check them for your installer |
-    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
-    | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
-    | **Install command** | The full command as the worker runs it |
-    | **Prerequisites** | **Select…** selects prerequisites for this job only |
-    | **Logs** | "Capture the install log (verbose)" is on by default. Add other log paths, one on each line |
+    | Installer's folder | "Include the other files and folders in the installer's folder". Off by default: then only the installer goes to the worker |
 
-    **Package identity**, in the right column:
+    **Package identity**:
 
     - **Publisher**, **Name** and **Version** come from an MSI. For an EXE, type them.
     - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
-    - **Identity** is remembered. The same application gets the same identity next time, so a new package is an update.
-    - **Manifest publisher** comes from the signing certificate, not from the **Publisher** field.
+    - **Identity** shows beside the title. It is remembered. The same application gets the same identity next time, so a new package is an update.
+    - **Manifest publisher**, also beside the title, comes from the signing certificate, not from the **Publisher** field.
+
+    **Install** shows when you select a file. Each setting has its label above it. A wide window shows three settings in a row, a narrow window two:
+
+    | Setting | What it does |
+    |---|---|
+    | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
+    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
+    | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. A worker that is busy then refuses the job |
+    | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
+    | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
+    | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
+    | **Prerequisites** | **Select…** selects prerequisites for this job only. The list shows one line for each item, and the label shows how many there are |
+    | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
+
+    The install parameters are rows under the settings. **Silent arguments** is always open. A closed row shows in one line what it holds, for example "1 of 2 on". Click the name of a row to open or close it. **Transforms** and **MSI properties** open by themselves when a row in them is ticked.
+
+    ![The install parameters: silent arguments, transforms, MSI properties, logs and the install command](images/build-parameters.png)
+
+    | Row | What it does |
+    |---|---|
+    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Until you edit them, the box is red and a note under it asks you to check them for your installer |
+    | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
+    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
+    | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The blue help mark explains what the job collects |
+    | **Install command** | The full command as the worker runs it |
 
 === "CLI"
 
@@ -68,10 +85,13 @@ You can see what the product reads from an installer before you start a job.
     | Option | Build screen | What it does |
     |---|---|---|
     | `--target <target>` | **Must run on** | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
-    | `--machine <name>` | **The machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
+    | `--machine <name>` | **Machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
-    | `--include-folder` | **Beside it** | Sends the files and folders beside the installer |
+    | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
+    | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
+    | `--include-folder` | "Include the other files and folders in the installer's folder" | Sends the other files and folders in the installer's folder |
+    | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
     | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |
     | `--transform <path>` | **Transforms** | MSI only. Applied in the order given |
@@ -101,11 +121,12 @@ These settings apply to one job.
 | First-start capture | `--first-launch` | After the installer, the capture starts the application one time. Then the package also contains what the application writes at the first start | On or off (default off) |
 | First-start settle time | `--settle-seconds <n>` | How long the application runs at that first start before the job closes it | 1 to 600 seconds (default 20) |
 | Valid installer exit codes | `--exit-codes <list>` | Exit codes that mean success. 3010 and 1641 are refused here | Default `0` |
-| Additional exclusions | `--exclude <path>` | Files, folders or registry keys that the capture leaves out | Fully expanded paths. `REGISTRY\MACHINE\...` for the registry |
+| Additional exclusions | `--exclude <path>` | Files, folders or registry keys that the capture leaves out, in addition to the other exclusions | A rule as on [Settings > Exclusions](settings.md#exclusions): a full path, `%USERPROFILE%\...`, `HKLM\...`, `HKCU\...` or `SERVICE\name` |
 | Minimum free disk space | `--min-free-disk-gb <n>` | Free space that the worker needs before the capture | 1 to 1024 GB (default 10) |
 | Packaging tool timeout | `--timeout-minutes <n>` | How long the packaging tool can take | 5 to 480 minutes (default 40) |
 | Package identity | `--package-name <name>` | The Name of the package. To Windows, a different Name is a different application | 3 to 50 characters: letters, digits, `.` and `-` |
 | Export the package | `--export`, `--no-export` | Copies the package to the export location. See [Export packages](export.md) | Default: the Settings value |
+| Package Support Framework | `--psf`, `--no-psf` | Puts PSF in front of the programs of the package. See [Package Support Framework](settings.md#package-support-framework). Without PSF on this host, the job stops with `AP-PK-011` after the capture | On or off (default off) |
 
 Network mode shows on the Advanced dialog, and only host-only is available.
 
@@ -117,11 +138,11 @@ On the command line, a `--package-name` that is different from the last Name of 
 
     Click **Build**.
 
-    - If **Build** is not available, the reasons show under the buttons as **Standing in the way**.
+    - If **Build** is not available, the bar at the bottom shows each reason on its own line, with a warning mark.
     - If **Build** in the navigation is not available, the host needs preparation first.
-    - **About this installer** shows notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
+    - Lines with an information mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
 
-    While the job runs, the Build screen shows a bar, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job.
+    While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job.
 
     At the end, the screen says "Built `<file>` in `<folder>`." or "Failed `<code>`: …".
 
@@ -148,6 +169,7 @@ The **Jobs** screen shows each job and its log, from the window, the command lin
 ## The installer and its files
 
 - **Silent arguments.** A known framework gets its usual switches. Some installers need more. An EXE with no arguments is refused, because it would wait on a dialog until the job times out.
+- **msiexec switches.** For an MSI, a switch that msiexec does not know is refused before the job, for example `/noreboot`. The message gives the msiexec switch when there is one, for example `/norestart`. A value with a `"` in an MSI property is written with the quote doubled, as msiexec reads it. A transform name with `;`, or that starts with `@`, `|` or `:`, is refused.
 - **The folder beside the installer.** Only the installer goes to the worker, unless you include the folder. Include it for an MSI with external `.cab` files, or a `setup.exe` with a data folder. The limits are 4 GB and 20,000 files. A drive root or a folder with a link is refused.
 - **Restarts.** `REBOOT=ReallySuppress` stops an MSI from restarting the worker. Untick it only for an installer that needs it.
 - **Logs.** For an MSI, an Inno Setup or a WiX Burn installer, the job also collects the log of the installer as `install.log`. A log larger than 32 MB is not collected. A job collects at most 64 files and 256 MB.
@@ -168,6 +190,70 @@ A job tries again once, by itself, only after a lost connection, an agent that s
 
 The smoke test passes when a program of the package starts and still runs a minute later. When every application of the package is a service, the smoke test starts the service instead.
 
+## Interactive installs
+
+Use this for an installer that has no silent mode. The job does not run the installer. You use it, in a window onto the worker.
+
+The image must have the shortcut **Finish packaging** on the desktop of the worker. An image built or updated before this release does not have it, and the job stops before it touches a worker with `AP-IM-024`. Click **Update** for the worker on the **Images** screen. See [Maintain images](maintain-images.md).
+
+=== "GUI"
+
+    1. Under **Install**, select **Interactive** for **Install mode**. The silent arguments and the MSI properties are not used.
+    2. Click **Build**. The job reverts the worker, copies the installer to it, and starts the capture.
+    3. The Jobs screen says "The worker waits for you", and the window onto the worker opens (**Virtual Machine Connection**). The folder with the installer is open in it. If you close the window, click **Open the worker's window** on the card of the job.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --interactive
+    ```
+
+    The command line opens the window onto the worker when the job waits, also with `--json`. `--arguments` and `--first-launch` are refused with `--interactive`.
+
+The window shows the desktop of the worker. You do not sign in. Then, in the worker:
+
+1. Run the installer, and use it as you would on a computer.
+2. Start the application one time, so the package also has what it writes when it starts first.
+3. On the desktop, double-click **Finish packaging**. It asks one time. Click **Finish packaging**, or **Not yet** to go on.
+
+Everything that you do from the time that the folder opens until you click **Finish packaging** goes into the package. The job then makes, signs and smoke-tests the package as for a silent install.
+
+| Limit | What to do |
+|---|---|
+| A restart, with the packaging tool | The MSIX Packaging Tool cannot continue a capture after a restart. If the installer asks for one, select the option to restart later. Its `RunOnce` work runs in the capture. A restart of Windows fails the job with `AP-IN-009` |
+| A restart, with the built-in engine | Use the built-in engine for an installer that must restart: see [A restart in an interactive install](#a-restart-in-an-interactive-install) |
+| Time | The job waits 120 minutes for **Finish packaging**, unless you set another time for the packaging tool in **Advanced** (`--timeout-minutes`). The time includes the restarts. Then it stops with `AP-IN-017` |
+| Cancel | **Cancel job** works while the job waits. The worker goes back to its baseline |
+| Network | The worker reaches only the host. An installer that must activate online cannot do that |
+| A licence key | In the window onto the worker, use **Clipboard > Type clipboard text** |
+| AI agents | The MCP `convert` tool has no install mode. An agent cannot start an interactive job |
+
+### A restart in an interactive install
+
+With the built-in engine, the capture continues after a restart of the worker.
+
+=== "GUI"
+
+    Under **Install**, select **Interactive** for **Install mode**, and **Built-in engine (experimental)** for **Engine**. Then click **Build**.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --interactive --engine builtin
+    ```
+
+In the worker:
+
+1. Run the installer. When it asks for a restart, let it restart. You can also click **Restart first** in the **Finish packaging** dialog, or restart Windows yourself.
+2. The worker signs in again by itself. The window onto the worker stays open, and the log of the job says that the capture continues. The folder with the installer does not open again.
+3. The worker completes the `RunOnce` work of the installer. Do what you must do after the restart, and start the application one time.
+4. Double-click **Finish packaging** again, and click **Finish packaging**.
+
+The package holds what you did before and after the restart.
+
+- The capture can have 3 restarts. A fourth restart stops the job with `AP-IN-020`.
+- Do not shut down the worker. A worker that is off, or that had a stop error, stops the job.
+
 ## Installers that ask for a restart
 
 The worker does not restart during a capture. When an installer exits with 3010 or 1641, the product runs the `RunOnce` work of the installer in the capture. The package then holds the result. The job succeeds with a warning that names the commands.
@@ -177,7 +263,7 @@ Two things refuse the package with `AP-IN-013`:
 - files that the installer replaces or deletes at the next start,
 - `RunOnceEx` work.
 
-An installer that restarts Windows by itself fails the job with `AP-IN-009`.
+An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use an interactive job on the built-in engine for it: see [A restart in an interactive install](#a-restart-in-an-interactive-install).
 
 ## More than one job at a time
 

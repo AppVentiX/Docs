@@ -127,8 +127,10 @@ Each image in the list has an icon for its state:
 |---|---|
 | **Ready** | The image can serve jobs |
 | **Ageing** | Calibrated 90 days ago or more |
-| **Refresh needed** | Calibrated 180 days ago or more |
+| **Refresh needed** | Calibrated 180 days ago or more. Jobs still run. An update is worth doing |
 | **No worker** | No worker that is in service is built from the image |
+| **Update required** | The image is behind this product or the settings of this host. The product does not start a job on it. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
+| **Update recommended** | The image is behind, and jobs still run. An update is worth doing |
 
 The **Activation** fact shows the state of Windows when the image was sealed. A warning shows when a KMS activation ends within 30 days. **Update** renews it. See [Keep images current](maintain-images.md).
 

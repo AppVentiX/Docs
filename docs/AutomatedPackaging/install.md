@@ -1,6 +1,6 @@
 # Install
 
-The installer is `AutomatedPackaging.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always.
+The installer is `AutomatedPackaging-<version>.msi`, for example `AutomatedPackaging-0.2.41.msi`. It installs the program to `%ProgramFiles%\Automated Packaging`, always.
 
 ## Before you start: two runtimes
 
@@ -16,10 +16,11 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
 
 === "GUI"
 
-    1. Start `AutomatedPackaging.msi`.
+    1. Start `AutomatedPackaging-<version>.msi`.
     2. Read the welcome page and accept the licence.
     3. On the folder page, select the **working directory**. The default is `C:\AutomatedPackaging`.
-    4. Complete the installation.
+    4. On the **Ready to install** page, click **Install**.
+    5. Complete the installation.
 
     !!! note
         The folder page uses the standard WiX folder dialog, so it can look like the program folder. The folder that you select is the working directory.
@@ -29,7 +30,7 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
     Install with no user interface. Give the working directory with `WORKINGDIR`:
 
     ```
-    msiexec /i AutomatedPackaging.msi /qn WORKINGDIR=D:\AutomatedPackaging
+    msiexec /i AutomatedPackaging-<version>.msi /qn WORKINGDIR=D:\AutomatedPackaging
     ```
 
     Without `WORKINGDIR`, the installer uses the value of an earlier installation, or `C:\AutomatedPackaging`.
@@ -95,6 +96,6 @@ The data folder `%ProgramData%\AppVentiX\Automated Packaging` holds:
 | `host.json` | Host settings, for example the managed name prefix, housekeeping and export |
 | `secrets\` | Worker passwords, encrypted, one file for each worker |
 | `certificates\` | Channel certificates. Never your signing key |
-| `diagnostics\` | Diagnostics bundles |
+| `diagnostics\` | Support information files |
 
 Next: [Prepare the host](prepare-host.md).

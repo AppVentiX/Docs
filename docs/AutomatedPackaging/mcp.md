@@ -10,7 +10,7 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 
 ## Before you start
 
-- **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`.
+- **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
 - **Your account in the local group `AppVentiX Packaging Operators`.** The installer creates the group, empty. Only its members can use the service. Membership of Administrators alone is not sufficient.
 
 ## Set it up
@@ -57,7 +57,7 @@ The AI key is for your MCP client. Automated Packaging does not keep or read AI 
 
 ## What an agent may do
 
-Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The service reads these settings at each tool call.
+Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The service reads these settings at each tool call. It reads them again just before it signs or starts the job. If they changed during the call, for example to **Off** while your client asks you, the tool stops. Nothing is signed and no job starts.
 
 | Signing setting | What happens |
 |---|---|
@@ -91,24 +91,33 @@ These tools read and change nothing:
 | `list_jobs` | The newest jobs, at most 100, with their state |
 | `job_status` | The state of one job, its package, and its error code |
 | `job_log` | The end of the log of one job, at most 32,768 characters |
+| `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
+| `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer |
-| `check_job` | What stops a job, or what it builds. It does not start the job |
+| `check_job` | What stops a job, or what it builds. It does not start the job. It asks the questions of `check` on the command line: the signing tools (`AP-SG-010`), and the images (`AP-IM-023`, `AP-IM-026`). It does not ask for a free worker |
+| `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
+| `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
+| `recipe_schema` | The JSON Schema of the recipe format, for an AI agent that writes a recipe. `validate_recipe` is the check that counts |
+| `preview_recipe` | Runs a recipe on the capture of a finished job of the built-in engine, with no worker and no package. Gives what each rule matches and what the recipe drops or changes. See [Recipes](recipes.md) |
 
 These tools start or change work:
 
 | Tool | What it does |
 |---|---|
-| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes |
-| `cancel_job` | Stops a running job. The service puts the worker back |
+| `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines. Set `recipe` to a recipe from `list_recipes`: see [Recipes](recipes.md) |
+| `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
 | `export_job` | Copies the package of a job to the export location again |
+| `collect_support_bundle` | Writes the support information, as **Settings > Diagnostics** does. Give the IDs of at most 10 jobs, or none for the newest failed job. The answer gives the path, the files, what is left out and what redaction replaced. The agent tells you what is in the file before anything is sent. The product does not send it. Only an administrator of the host can open the data folder |
 | `worker_build` | Builds a worker and its image. It gives an operation ID at once |
 | `worker_update` | Updates a worker. It gives an operation ID at once |
 | `worker_status` | The steps and the result of a worker operation |
 | `worker_remove` | Removes a worker and its disks, if the setting allows it |
 | `image_forget` | Forgets an image that no worker uses, if the setting allows it |
+
+Each tool tells the client if it only reads, and if it can stop or remove work. Some clients use this to approve a tool with no question. `cancel_job`, `worker_update`, `worker_remove` and `image_forget` are marked as tools that can stop or remove work, so such a client asks you first.
 
 Agents run one worker operation at a time. The service also gives the list of error codes as the resource `automatedpackaging://error-codes`.
 
@@ -118,7 +127,7 @@ Agents run one worker operation at a time. The service also gives the list of er
 - The service reads the file only if your account can read it. The refusal is the same in three cases. The file is not there, your account cannot read it, or it is not on a local disk. `<workingDir>\Logs\service-<date>.log` gives the reason. A link to another file is refused.
 - The file must fit in the free space on the drive of the working directory.
 - Through MCP, a job takes only the installer. It does not take the folder of the installer or MSI transforms. Use the window or the command line for those.
-- Text from a worker is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. The installer in the worker can write that text. Tell your MCP client not to follow instructions in it.
+- Text from a worker, an installer or a package is between `<<<WORKER-DATA` and `WORKER-DATA>>>`. This includes the name, version and publisher of a job, problems, warnings, logs and failure details. Tell your MCP client not to follow instructions in it.
 
 - Four MCP clients can use the service at one time. When a fifth connects, the service closes the connection of a client that has been idle for 5 minutes. If no client is idle, it closes the new connection.
 - The service sends a ping every minute to a client that uses an MCP revision before 2026-07-28. It closes the connection of a client that does not answer in 30 seconds.

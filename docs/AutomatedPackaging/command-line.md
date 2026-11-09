@@ -24,7 +24,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | Command | What it does |
 |---|---|
 | `convert <installer> [options]` | Converts an MSI or EXE into a signed MSIX package on a worker. Shows the job log, then the result |
-| `check <installer> [options]` | Lists what stops a conversion. Starts nothing. It does not ask for a free worker |
+| `check <installer> [options]` | Lists what stops a conversion, as the Build screen lists it. Starts nothing. It asks what the job asks before it starts. Can somebody who is not an administrator change the signing tools, the packages or the jobs folder (`AP-SG-010`)? Is there an image and a worker for the target? Must the image be updated (`AP-IM-023`)? For an interactive job, does the image have **Finish packaging** (`AP-IM-024`)? Does the image record the engine (`AP-IM-026`)? With `--machine`, it asks about the image of that worker. It does not ask for a free worker |
 | `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options |
 | `certificates [--json]` | Lists the certificates and the Azure Artifact Signing profiles that this host can sign with |
 | `machines [--json]` | Lists the workers: name, image, Windows release, target, state and activation |
@@ -32,8 +32,19 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `worker update <name> [options]` | Updates a worker, as **Update** does |
 | `worker remove <name> [--confirm]` | Removes a worker and its disks, or a machine from **Incomplete machines** |
 | `image forget <image-id>` | Forgets an image record that no worker uses |
-| `sign-for-release <job-id> [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
+| `recipe validate <file> [--json]` | Checks a recipe file and changes nothing. It does not need an elevated prompt. See [Recipes](recipes.md) |
+| `recipe add <file> [--json]` | Adds a recipe file to the recipes of this host. A name and version that the host has keep their content (`AP-IM-029`) |
+| `recipe list [--json]` | Lists the recipes of this host. `--recipe` takes these names |
+| `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
 | `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
+| `exclusions list [--json]` | Lists every layer of the exclusion list: the built-in rules with their IDs and states, the rules of this host, and the sets of each image. See [Exclusions](settings.md#exclusions) |
+| `exclusions add <rule> [--note <text>]` | Adds a rule to the list of this host. It gets the next `HO-` ID |
+| `exclusions change <HO-nnn> <rule> [--note <text>]` | Changes a rule of this host. The ID stays |
+| `exclusions remove <HO-nnn>` | Removes a rule of this host. The ID is not used again |
+| `exclusions turn-off <FL-nnn\|BI-nnn> [--confirm]` | Turns off a built-in rule on this host. Without `--confirm`, it shows the warning and changes nothing. `FL-001` and `FL-002` stay on |
+| `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
+| `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
+| `exclusions import <file>` | Adds the rules of an export file. A file with one bad rule adds nothing |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 
@@ -43,14 +54,18 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 
 | Option | What it does |
 |---|---|
+| `--from-job <job-id>` | Build a new version of the application of an earlier job. The job must have built a package. The job gives the settings, and the other options change them. See [Build a new version of an application](jobs.md#build-a-new-version-of-an-application) |
 | `--name <text>` | The name of the application. Necessary for an EXE |
 | `--publisher <text>` | The publisher, as people know it. The publisher of the package is the subject of the certificate |
 | `--package-version <version>` | Up to four numbers. Missing parts become zeros |
 | `--target <target>` | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
+| `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
+| `--recipe <name[@version]>` | A recipe of this host for the job (see `recipe list`). Without `@version`, the highest version. Microsoft's MSIX Packaging Tool takes only its exclusions. The built-in engine applies all of it. A recipe that is not on this host is refused before a worker is touched (`AP-IM-029`). See [Recipes](recipes.md) |
 | `--certificate-thumbprint <thumbprint>` | The signing certificate. Necessary when the host has more than one. `--certificate` also works |
 | `--signing-profile <id>` | An Azure Artifact Signing profile that passed **Test**. Not together with `--certificate-thumbprint` |
 | `--arguments <text>` | The silent arguments. Necessary for an EXE, for example `"/S"` |
+| `--interactive` | You use the installer in a window onto the worker, and click **Finish packaging** on its desktop. See [Interactive installs](convert.md#interactive-installs) |
 | `--msi-property <NAME=VALUE>` | An MSI public property. You can give it more than once. `REBOOT=ReallySuppress` is added unless you set `REBOOT` |
 | `--no-install-log` | Does not collect the verbose conversion log |
 | `--include-folder` | Sends the files and folders beside the installer. At most 4 GB and 20,000 files |
@@ -62,11 +77,14 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--exit-codes <list>` | Exit codes that mean success, for example `"0,1"`. 3010 and 1641 are refused |
 | `--exclude <path>` | A file, folder or registry key that the capture leaves out. You can give it more than once |
 | `--min-free-disk-gb <n>` | Free disk space that the worker needs. 1 to 1024 (default 10) |
-| `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40) |
+| `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40, or 120 with `--interactive`) |
 | `--package-name <name>` | The Name of the package, instead of the name made from `--name` |
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |
 | `--no-export` | Does not export |
+| `--psf` | Puts the Package Support Framework in front of the programs of the package, as **Package Support Framework** in Advanced. Get PSF first on Settings > This host. Without it, the job stops with `AP-PK-011` after the capture |
+| `--no-psf` | Does not use the Package Support Framework, also when the job of `--from-job` used it. Not with `--psf` |
+| `--internal` | The application is your own. Its name stays out of the improvement data |
 | `--json` | Writes the result as one JSON object, and nothing else |
 
 ## Options for worker and image commands
@@ -93,7 +111,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | 0 | Built. For `check`: nothing is in the way. For `inspect`: the installer was read. For a worker or image command: done |
 | 1 | Refused before anything started. The reasons follow, one on each line. For `inspect`: the installer could not be read. Also `worker remove` without `--confirm` |
 | 2 | The job or the command ran and failed. The `AP-` code and the detail follow |
-| 3 | Cannot run here: not elevated, the window is open, the service does not run, or the host cannot run jobs yet |
+| 3 | Cannot run here: not elevated, the service does not run, or the host cannot run jobs yet. A worker or image command also stops here while the window or another command line is open |
 | 4 | Built, but the package did not reach the export location, or not completely. The warning `AP-PK-010` gives the reason |
 | 64 | The command line is not correct: an unknown option, an option given twice, or a missing value |
 | 130 | Cancelled with Ctrl+C |
@@ -161,13 +179,15 @@ AutomatedPackaging.Cli image forget img-0123456789ab
 
 AutomatedPackaging.Cli sign-for-release 20261103-120000-abcdef
 
+AutomatedPackaging.Cli sign-for-release 20261103-120000-abcdef --confirm
+
 AutomatedPackaging.Cli resign D:\Packages\Vendor.App_2.1.0.0_x64.msix --package-version 2.1.1.0
 ```
 
 ## What it does not do
 
 - One installer for each call. For a list, use a loop in your script.
-- No interactive installs.
-- `check` does not ask for a free worker. A job that `check` passes can still be refused if no worker serves the target.
+- MCP does not start interactive jobs. Only `convert --interactive` and the Build screen do.
+- `check` does not ask for a free worker. The job asks that when `convert` runs. A worker given with `--machine` that is busy then refuses the job.
 - The command line listens on nothing. The service opens the worker listener.
 - Its log is `cli-<date>.log`, in `<workingDir>\Logs`.

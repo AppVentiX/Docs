@@ -46,6 +46,7 @@ After that:
 - [Export packages](export.md) to a share, for example for AppVentiX Central View.
 - [Keep images current](maintain-images.md): update, rebuild and remove workers.
 - [Prerequisites](prerequisites.md): runtimes that an application needs outside its package.
+- [Recipes](recipes.md): what a job changes for one application, written once and applied each time.
 - [Settings](settings.md), and [Troubleshooting](troubleshooting.md) when something stops.
 - [Report findings with an AI](tester-kit.md) when you test a build.
 
@@ -64,9 +65,9 @@ A build that enforces a licence runs on the **starter allowance** until you inst
 
 | Not supported | What you see |
 |---|---|
-| Interactive installs | **Interactive** shows on the Build screen, and a job with it is refused |
+| A restart in an interactive install | The MSIX Packaging Tool cannot continue a capture after a restart. Select the option to restart later |
 | A network mode other than host-only | The **Advanced** settings show host-only, and you cannot change it |
 | MSIs that install a driver | The job is refused before it starts (`AP-AN-013`). A package cannot install a driver |
 | Installers that need a real restart | Files replaced at the next boot, or `RunOnceEx` work, refuse the package (`AP-IN-013`) |
 | Windows Server 2022 as a worker | Microsoft publishes no capture driver for build 20348 |
-| Signed release builds | The MSI of a check build is not signed. Windows SmartScreen shows an unknown publisher |
+| Release builds signed for shipping | A check build is signed for checking, not for shipping. Windows SmartScreen can show an unknown publisher |

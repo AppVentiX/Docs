@@ -42,7 +42,7 @@ The application, the host service and the command line read the value when they 
 |---|---|---|
 | The MSI stops: "needs the .NET 10 Desktop Runtime (x64)" or "the ASP.NET Core 10 Runtime (x64)" | A runtime is missing | Install both runtimes, then start the MSI again |
 | The MSI stops: "The data folder … is not safe to use" | Another account owns or can change the data folder | See [Install](install.md#what-the-installer-does) |
-| SmartScreen or "unknown publisher" on the MSI | Check builds are not signed | Expected |
+| SmartScreen or "unknown publisher" on the MSI | A check build is signed for checking, not with a certificate that Windows trusts by default | Expected for a check build |
 | Exit code 3010, or the Apply page asks for a restart | Host preparation turned on Hyper-V | Restart, then apply again |
 | Exit code 3011, or `hyperv.operatorgroup` still fails | You were added to Hyper-V Administrators | Sign out of Windows and sign in again |
 | `hyperv.workervolume` fails | Less than 60 GB free, or the volume is not NTFS or ReFS | Free disk space, or install again on a different volume |
@@ -87,12 +87,16 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | "The Automated Packaging service does not answer." | The service is stopped | In **Services**, start **AppVentiX Automated Packaging** |
 | A certificate is not in the list of the Build screen | It is in your own store, not in the computer store | **Move to this computer** on **Settings > Signing** |
 | "No image can build for …" | No image serves the target | Build an image for the target, or select a different target |
+| "AP-IM-024: the job was not started. … has no Finish packaging shortcut." | The job is interactive, and the image was built or updated before it got the shortcut | Click **Update** for the worker on the **Images** screen, or select **Silent** |
+| "AP-IM-023: the job was not started. … must be updated." | Each image for the target reads **Update required** | Do what each reason says on the **Images** screen. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
 | "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker** on **Jobs**, or **Put it back** on **Images** |
 | The job fails after three minutes and captured nothing | The agent never connected. Usually the firewall | Run host preparation |
+| `AP-IN-017` | Nobody clicked **Finish packaging** before the time of the interactive job ended | Start the job again, or set a longer time in **Advanced** |
 | `AP-IN-008` or `AP-IN-010` | The installer waits on a dialog. The silent arguments are not correct | Check the arguments. Read the conversion log in `Collected files` |
 | `AP-IN-012` | The installer exit code is not in the accepted list | Check the silent arguments. The detail explains common Windows Installer codes |
 | `AP-IN-009` | Something restarted the worker during the capture | Use a switch that stops the restart. For an MSI, keep `REBOOT=ReallySuppress` |
 | `AP-IN-013` | The installer left work that only a restart can do | Find what the installer replaces at the next start |
+| "The installer finished. Then MakeAppx refused the package that the packaging tool made: …" | The install worked. Then MakeAppx refused what the packaging tool captured. The installer is not the cause | Send the support information of the job with the error after the colon |
 | `AP-SG-010` | Another account can change the tools or the packages | Run host preparation, and apply **Working directory access** |
 | `AP-SG-008` | Signing failed. For example, a token waited for a PIN | **Retry signing** on the **Jobs** screen |
 | `AP-PK-010`, **Built, not exported** | The copy to the export location failed. Usually permissions of the computer account | See [Export packages](export.md#permissions), then **Export again** |
@@ -132,9 +136,9 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 
 On MCP, the tool `explain_code` gives the cause and remedy of each code.
 
-## The diagnostics bundle
+## The support information
 
-**Settings > Diagnostics > Write diagnostics…** writes one zip file. See [Settings](settings.md#diagnostics). Send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
+**Settings > Diagnostics > Collect support information** writes one redacted zip file. See [Settings](settings.md#diagnostics). Read it, then send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
 
 ## Report a finding while you test
 

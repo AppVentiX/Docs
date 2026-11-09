@@ -16,6 +16,8 @@ The list has two groups:
 
 Select an item to see its facts, how it installs, and **Used by**: the images, jobs and items that use it.
 
+The screen opens at once. While it reads the library and the files of each item, a ring shows above the list.
+
 ![The Prerequisites screen, with a Visual C++ item selected](images/prerequisites.png)
 
 ### Download from the vendor
