@@ -104,8 +104,13 @@
 }
 
 /* Keep the footer visible at the bottom of the window on wide screens.
-   The sidebars get extra bottom padding so their last items are not hidden behind it. */
+   The sidebars are capped so they always end above the footer:
+   window height - header and tabs (4.8rem) - sidebar padding (2.4rem) - footer. */
 @media screen and (min-width: 76.25em) {
+  :root {
+    --avx-footer-height: 3.5rem;
+  }
+
   .md-footer {
     position: sticky;
     bottom: 0;
@@ -113,7 +118,7 @@
   }
 
   .md-sidebar__scrollwrap {
-    padding-bottom: 3.5rem;
+    max-height: calc(100vh - 4.8rem - 2.4rem - var(--avx-footer-height));
   }
 }
 
