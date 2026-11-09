@@ -290,7 +290,7 @@ A job on the built-in engine writes these files in `<workingDir>\jobs\<job id>\e
 | File | What it holds |
 |---|---|
 | `difference.txt` | The files and registry values that the capture found |
-| `noise-removed.txt` | What the noise rules and the calibration removed, with the rule |
+| `noise-removed.txt` | What the noise rules and the calibration removed, with the rule. In this file and in `difference.txt`, a tab or a line break in a name shows as `\t`, `\r` or `\n` |
 | `attribution.txt` | The processes that wrote each change (ETW) |
 | `writer-evidence.json` | What the package writer made, left out or changed, and why |
 | `failed-step.txt` | The step that stopped the job. It is there only when the job made no package |

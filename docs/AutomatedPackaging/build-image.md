@@ -117,6 +117,8 @@ A build that fails or stops after step 3 **does not remove the machine that it m
 
     Without `--confirm`, the command says what it found, and removes nothing.
 
+When the machine is gone, the product also deletes the guest password that the build stored for it.
+
 The product first makes sure that it can remove the machine. It then turns the machine off and removes it. To build again with the same name, remove the machine first.
 
 ## Image states

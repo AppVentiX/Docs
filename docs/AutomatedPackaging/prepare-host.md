@@ -84,7 +84,9 @@ Each run writes a record to `<workingDir>\Logs\host-preparation-<date>-<time>.js
 
 The application runs elevated. It runs the signing tools in `<workingDir>\Tools`, and it reads its settings from the data folder. So host preparation closes both folders to other accounts. Two checks on the **This host** page show the state.
 
-**Working directory access** gives full control to `Administrators`, `SYSTEM` and `Hyper-V Administrators`, and **Modify** to `NT VIRTUAL MACHINE\Virtual Machines`. It removes the entries of other accounts in the folder tree. It also gives items owned by other accounts to `Administrators`. Read the list in the outcome: it names each item that it took back.
+**Working directory access** gives full control to `Administrators`, `SYSTEM` and `Hyper-V Administrators`, and **Modify** to `NT VIRTUAL MACHINE\Virtual Machines`. It removes the entries of other accounts in the folder tree. The fix does not change the owner of an item. When an item has an owner that is not an administrator, the result names each such item, and the check fails until it is gone. Find out what each item is, and delete it. If Windows refuses, run `takeown /a /f <item>` first, then delete it. Media that you copied in before the folder was closed can be such an item: delete it and copy it again.
+
+When the working directory does not exist, the product creates it closed: only `Administrators`, `SYSTEM`, `Hyper-V Administrators` and the virtual machines that Hyper-V runs can change it. A working directory that exists already is not changed when the product starts.
 
 **Data folder access** gives full control to `Administrators`, `SYSTEM` and `Hyper-V Administrators` only. Standard users can then not read the data folder.
 
