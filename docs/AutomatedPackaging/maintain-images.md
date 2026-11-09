@@ -1,6 +1,6 @@
 # Keep images current
 
-Select an image on the **Images** screen. Its actions are on the card under its facts. **Update**, **Put it back** and **Retire** are buttons. **Rebuild from media…**, **Remove the machine…** and **Forget this image record** are in the **More actions** menu.
+Select an image on the **Workers** screen. Its actions are on the card under its facts. **Update**, **Put it back** and **Retire** are buttons. **Rebuild from media…**, **Remove the machine…** and **Forget this image record** are in the **More actions** menu.
 
 | Action | Window | Command line |
 |---|---|---|
@@ -32,7 +32,7 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
     2. Optional: change the KMS server or the prerequisites on the card.
     3. Click **Update**.
 
-    ![The Images screen, with an image selected and its actions](images/images-screen.png)
+    ![The Workers screen, with an image selected and its actions](images/images-screen.png)
 
 === "CLI"
 
@@ -48,7 +48,7 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
 
 ## When an image is behind
 
-The product compares each image with this version of the product and with the settings of this host. An image that is behind shows a mark on its row, and the same mark shows after **Images** in the menu. Select the image to see each reason and its remedy.
+The product compares each image with this version of the product and with the settings of this host. An image that is behind shows a mark on its row, and the same mark shows after **Workers** in the menu. Select the image to see each reason and its remedy.
 
 | Mark | What it means for jobs |
 |---|---|
@@ -130,4 +130,4 @@ Forget removes an image record that no worker uses. It touches no machine.
 - **While an action runs, the image list is locked.** The result stays on the card until you select another image.
 - **Closing the window asks first** during a scan, a build, an update, a rebuild, a put back, a retire or a removal. A job continues when the window closes.
 - **The managed prefix can change.** Earlier prefixes stay managed, so you can still see and remove the old workers.
-- The Images screen acts on the first worker of each image. A second worker of the same image is refused on the command line.
+- The Workers screen acts on the first worker of each image. A second worker of the same image is refused on the command line.

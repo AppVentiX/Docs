@@ -49,7 +49,7 @@ is in the title bar of the application, after "Automated Packaging".
 Then test. Each time you notice something, tell the AI in your own words, for example:
 
 ```{.text .wrap}
-Finding: on the Images screen, Update stopped after 20 minutes with AP-HV-006.
+Finding: on the Workers screen, Update stopped after 20 minutes with AP-HV-006.
 ```
 
 The AI asks for what is still missing, one question at a time. It shows you each finding before

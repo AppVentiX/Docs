@@ -1,6 +1,6 @@
 # Command line
 
-`AutomatedPackaging.Cli.exe` converts one installer for each call into a signed MSIX package. It does the same checks and the same job as the **Build** screen. It also builds, updates and removes workers, as the **Images** screen does.
+`AutomatedPackaging.Cli.exe` converts one installer for each call into a signed MSIX package. It does the same checks and the same job as the **Build** screen. It also builds, updates and removes workers, as the **Workers** screen does.
 
 The program is in the installation folder, by default `C:\Program Files\Automated Packaging`. The installer does not add the folder to `PATH`. Use the full path, or run it from that folder.
 
@@ -28,7 +28,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options |
 | `certificates [--json]` | Lists the certificates and the Azure Artifact Signing profiles that this host can sign with |
 | `machines [--json]` | Lists the workers: name, image, Windows release, target, state and activation |
-| `worker build <name> [options]` | Builds a worker and its image, as **Build an image** does |
+| `worker build <name> [options]` | Builds a worker and its image, as **Build a worker** does |
 | `worker update <name> [options]` | Updates a worker, as **Update** does |
 | `worker remove <name> [--confirm]` | Removes a worker and its disks, or a machine from **Incomplete machines** |
 | `image forget <image-id>` | Forgets an image record that no worker uses |
@@ -91,7 +91,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 
 | Option | Command | What it does |
 |---|---|---|
-| `--medium <id>` | `worker build` | The Windows release, by the ID that the **Build an image** form lists |
+| `--medium <id>` | `worker build` | The Windows release, by the ID that the **Build a worker** form lists |
 | `--edition <name>` | `worker build` | The edition. Default: the default edition of the release |
 | `--account <name>` | `worker build` | The administrator account in the worker. Default: `pkgbuilder` |
 | `--address <IPv4>` | `worker build` | The address on the internal switch. Default: the next free address |
@@ -102,7 +102,7 @@ For an MSI, the product fills in the name, publisher and version from the Produc
 | `--confirm` | `worker remove` | Removes the machine and its disks. Without it, nothing is removed |
 | `--json` | all four | Writes the result as one JSON object |
 
-**Rebuild from media**, **Put it back** and **Retire** are not on the command line. Use the Images screen.
+**Rebuild from media**, **Put it back** and **Retire** are not on the command line. Use the Workers screen.
 
 ## Exit codes
 

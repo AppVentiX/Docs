@@ -37,7 +37,7 @@ Which workers does this host have? For each target (Windows10And11, Windows11Onl
 - **What it can change:** Nothing.
 - **A good result:** A table for each target, with the name, the image, the Windows build, and free or busy. One worker for each target is marked as recommended. A target with no worker says "No worker builds for" that target.
 
-`list_machines` shows the workers, and the image of each worker. It does not show an image that no worker uses. The **Images** screen shows all images.
+`list_machines` shows the workers, and the image of each worker. It does not show an image that no worker uses. The **Workers** screen shows all images.
 
 ### What did the last jobs do?
 
@@ -101,7 +101,7 @@ List the workers for each target (Windows10And11, Windows11Only, WindowsServer) 
 - **What it can change:** Nothing.
 - **A good result:** The workers, with the image and the Windows build of each.
 
-An agent cannot see which image needs an update. The **Images** screen shows the agent version, the packaging tool version and the KMS activation of each image. Update a worker after you install a newer build of the product. See [Keep images current](maintain-images.md#update).
+An agent cannot see which image needs an update. The **Workers** screen shows the agent version, the packaging tool version and the KMS activation of each image. Update a worker after you install a newer build of the product. See [Keep images current](maintain-images.md#update).
 
 To update a worker through the agent, use this prompt:
 
@@ -117,7 +117,7 @@ Update the worker <worker name>. Then follow the update with worker_status until
 
 An agent cannot free up space. No MCP tool removes job files. On the **Jobs** screen, click **Free up space…**. See [Free up space](jobs.md#free-up-space).
 
-`worker_remove` removes a worker, its machine and its disks. It works only when **Agents can remove workers and forget images** is on. Use **More actions** > **Remove the machine…** on the **Images** screen instead, where you can see what it removes. See [Keep images current](maintain-images.md).
+`worker_remove` removes a worker, its machine and its disks. It works only when **Agents can remove workers and forget images** is on. Use **More actions** > **Remove the machine…** on the **Workers** screen instead, where you can see what it removes. See [Keep images current](maintain-images.md).
 
 ## Fix a problem
 

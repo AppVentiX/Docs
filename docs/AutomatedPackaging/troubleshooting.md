@@ -20,7 +20,7 @@ Many failures do not look like their cause. A missing licence file looks like a 
 
 === "GUI"
 
-    A failed job on the **Jobs** screen shows a failure card: the code, the step, **What to try** and **Copy diagnostic**. A failed image build shows the code under the step list on the Images screen.
+    A failed job on the **Jobs** screen shows a failure card: the code, the step, **What to try** and **Copy diagnostic**. A failed image build shows the code under the step list on the Workers screen.
 
 === "CLI"
 
@@ -87,9 +87,9 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | "The Automated Packaging service does not answer." | The service is stopped | In **Services**, start **AppVentiX Automated Packaging** |
 | A certificate is not in the list of the Build screen | It is in your own store, not in the computer store | **Move to this computer** on **Settings > Signing** |
 | "No image can build for …" | No image serves the target | Build an image for the target, or select a different target |
-| "AP-IM-024: the job was not started. … has no Finish packaging shortcut." | The job is interactive, and the image was built or updated before it got the shortcut | Click **Update** for the worker on the **Images** screen, or select **Silent** |
-| "AP-IM-023: the job was not started. … must be updated." | Each image for the target reads **Update required** | Do what each reason says on the **Images** screen. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
-| "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker** on **Jobs**, or **Put it back** on **Images** |
+| "AP-IM-024: the job was not started. … has no Finish packaging shortcut." | The job is interactive, and the image was built or updated before it got the shortcut | Click **Update** for the worker on the **Workers** screen, or select **Silent** |
+| "AP-IM-023: the job was not started. … must be updated." | Each image for the target reads **Update required** | Do what each reason says on the **Workers** screen. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
+| "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker** on **Jobs**, or **Put it back** on **Workers** |
 | The job fails after three minutes and captured nothing | The agent never connected. Usually the firewall | Run host preparation |
 | `AP-IN-017` | Nobody clicked **Finish packaging** before the time of the interactive job ended | Start the job again, or set a longer time in **Advanced** |
 | `AP-IN-008` or `AP-IN-010` | The installer waits on a dialog. The silent arguments are not correct | Check the arguments. Read the conversion log in `Collected files` |

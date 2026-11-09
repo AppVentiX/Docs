@@ -25,7 +25,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     !!! warning "Leave three settings at their defaults"
         - The application attaches workers to the switch `PkgRobot-Internal`, and keeps them in `<workingDir>\Workers`. Leave **Virtual switch** and **Worker folder** at their defaults on page 3.
         - **Managed name prefix** on page 3 shows `PKG-`. The application uses the prefix under **Settings > Advanced**, `PKGMGR-` by default.
-        - Workers built from the Images screen always use the account `pkgbuilder` and a generated password, whatever page 6 shows.
+        - Workers built from the Workers screen always use the account `pkgbuilder` and a generated password, whatever page 6 shows.
 
     ![Host preparation, page 3: The hypervisor. Managed name prefix shows PKG-](images/wizard-hypervisor.png)
 

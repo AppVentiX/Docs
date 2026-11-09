@@ -72,7 +72,7 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 
 === "GUI"
 
-    On the **Build an image** card, or on the card of an image, click **Prerequisites: Select…** and tick the items. On an existing image, click **Update** to install what you added.
+    On the **Build a worker** card, or on the card of an image, click **Prerequisites: Select…** and tick the items. On an existing image, click **Update** to install what you added.
 
 === "CLI"
 

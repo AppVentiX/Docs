@@ -79,7 +79,7 @@ The folder name tells the product the release of the two ISOs. See [Supported Wi
 
 ## 4. Scan and prepare
 
-1. In the application, go to **OS media** in the navigation, below **Images**. While a release is not ready, the **OS media** entry shows a count, for example **2 waiting**. You see the count from all screens. The entry is grey until this host is prepared, as **Build** and **Images** are.
+1. In the application, go to **OS media** in the navigation, below **Workers**. While a release is not ready, the **OS media** entry shows a count, for example **2 waiting**. You see the count from all screens. The entry is grey until this host is prepared, as **Build** and **Workers** are.
 2. Click **Look again** after you add files or install the ADK. It reads the drop folders again, and checks again for `oscdimg`.
 3. Select the release under **Release to prepare into**.
 4. Click **Scan and prepare…**.

@@ -194,7 +194,7 @@ The smoke test passes when a program of the package starts and still runs a minu
 
 Use this for an installer that has no silent mode. The job does not run the installer. You use it, in a window onto the worker.
 
-The image must have the shortcut **Finish packaging** on the desktop of the worker. An image built or updated before this release does not have it, and the job stops before it touches a worker with `AP-IM-024`. Click **Update** for the worker on the **Images** screen. See [Maintain images](maintain-images.md).
+The image must have the shortcut **Finish packaging** on the desktop of the worker. An image built or updated before this release does not have it, and the job stops before it touches a worker with `AP-IM-024`. Click **Update** for the worker on the **Workers** screen. See [Maintain images](maintain-images.md).
 
 === "GUI"
 

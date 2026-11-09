@@ -6,7 +6,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
 
 === "GUI"
 
-    Go to **Images**. The **Build an image** card is the last row of the list of images.
+    Go to **Workers**. The **Build a worker** card is the last row of the list of images.
 
     | Field | What to enter |
     |---|---|
@@ -17,7 +17,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
     | **Prerequisites** | **Select…** selects the prerequisites to install on the image. See [Prerequisites](prerequisites.md) |
     | **Windows activation** | **KMS server**, or **Not activated**. See [Windows activation](#windows-activation) |
 
-    When you open the Images screen, the card reads the staged media again. Meanwhile it shows **Reading the staged media…**, and **Build image** waits.
+    When you open the Workers screen, the card reads the staged media again. Meanwhile it shows **Reading the staged media…**, and **Build image** waits.
 
     Click **Build image**, at the bottom of the card. If something is in the way, the card says so before anything starts.
 
@@ -33,7 +33,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
 
     | Option | What it does |
     |---|---|
-    | `--medium <id>` | The Windows release, by the ID that the **Build an image** form lists. Necessary when more than one release is staged |
+    | `--medium <id>` | The Windows release, by the ID that the **Build a worker** form lists. Necessary when more than one release is staged |
     | `--edition <name>` | The edition to install. Default: the default edition of the release |
     | `--account <name>` | The administrator account in the worker. Default: `pkgbuilder` |
     | `--address <IPv4>` | The address on the internal switch. Default: the next free address |
@@ -89,7 +89,7 @@ A build always ends with the worker turned off. The full log is `<workingDir>\Lo
 
 === "GUI"
 
-    A build that worked shows all twelve steps as completed, each with its time. The new image is in the list of the Images screen, with the state **Ready**. See [Image states](#image-states).
+    A build that worked shows all twelve steps as completed, each with its time. The new image is in the list of the Workers screen, with the state **Ready**. See [Image states](#image-states).
 
     A build that failed shows the `AP-` code and the reason under the step list, at the step that failed. Find the step and the code in [Troubleshooting](troubleshooting.md#building-a-worker-image).
 
@@ -101,7 +101,7 @@ A build always ends with the worker turned off. The full log is `<workingDir>\Lo
 
 ## When a build fails
 
-A build that fails or stops after step 3 **does not remove the machine that it made**. The machine shows on the Images screen under **Incomplete machines**.
+A build that fails or stops after step 3 **does not remove the machine that it made**. The machine shows on the Workers screen under **Incomplete machines**.
 
 === "GUI"
 
