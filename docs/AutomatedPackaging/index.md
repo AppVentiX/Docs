@@ -65,7 +65,7 @@ A build that enforces a licence runs on the **starter allowance** until you inst
 
 | Not supported | What you see |
 |---|---|
-| A restart in an interactive install | The MSIX Packaging Tool cannot continue a capture after a restart. Select the option to restart later |
+| A restart in an interactive install with the packaging tool | The MSIX Packaging Tool cannot continue a capture after a restart. Select the option to restart later. The built-in engine (experimental) continues after a restart |
 | A network mode other than host-only | The **Advanced** settings show host-only, and you cannot change it |
 | MSIs that install a driver | The job is refused before it starts (`AP-AN-013`). A package cannot install a driver |
 | Installers that need a real restart | Files replaced at the next boot, or `RunOnceEx` work, refuse the package (`AP-IN-013`) |

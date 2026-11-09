@@ -13,7 +13,7 @@ A recipe can do five things:
 !!! warning "What a recipe cannot add"
     A recipe cannot add capabilities, services, startup tasks or firewall rules. A person must approve each of these. A recipe with such a field is refused with `AP-IM-028`.
 
-In this version, you use recipes from the command line and from AI agents (MCP). The Build screen cannot select a recipe yet.
+You select a recipe on the **Build** screen, from the command line (`--recipe`), and from AI agents (MCP).
 
 ## The format
 
