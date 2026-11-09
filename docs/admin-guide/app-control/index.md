@@ -1,6 +1,6 @@
 # App Control Setup and Best Practices
 
-AppVentiX makes it easy to set up and manage Microsoft App Control for Business (formerly known as Windows Defender Application Control, or WDAC) or AppLocker. Both are managed from the **App Control** tab in Central View. App Control for Business controls which applications are allowed to run on your devices, while AppLocker controls which applications are allowed to run for your users. Only explicitly trusted applications can execute, which results in a very secure workspace because users cannot run processes that are not covered by an allow policy.
+AppVentiX makes it easy to set up and manage Microsoft App Control for Business (formerly known as Windows Defender Application Control, or WDAC) or AppLocker. Both are managed from the **App&nbsp;Control** tab in Central View. App Control for Business controls which applications are allowed to run on your devices, while AppLocker controls which applications are allowed to run for your users. Only explicitly trusted applications can execute, which results in a very secure workspace because users cannot run processes that are not covered by an allow policy.
 
 From a single interface you can create and manage policies, collect triggered application events from your clients, and build new policies based on those events.
 
@@ -25,7 +25,7 @@ You have two options to enable App Control and AppLocker: directly from the App 
 
 Click the **App Control** tab in Central View. On the left you will see your policies (once created), and on the right the Machine Groups configured in AppVentiX.
 
-Right-click a Machine Group and select **Enable AppControl Feature**.
+Right-click a Machine Group and select **Enable App Control Feature**.
 
 !!! important
     This only enables App Control for Business, not AppLocker. To enable AppLocker, use Option 2.
@@ -50,7 +50,7 @@ In the Machine Group General settings you can also fine-tune the history and eve
 
 ![App Control history and event collection settings](app-control-03.png)
 
-If you enable both AppLocker and App Control for Business, a message appears. We recommend choosing only one of the two. Read the message and click **Close** to close the popup.
+If you enable both AppLocker and App Control for Business, a message appears. We recommend choosing only one of the two. Read the message and click **Close**.
 
 ![Enable App Control for Business and AppLocker](app-control.png)
 
@@ -110,7 +110,7 @@ Windows runs software on two separate levels:
 - **User Mode** is where everyday applications run: browsers, Office, business applications, and essentially everything you deploy through an installer or package. These programs have limited privileges and cannot directly access hardware or critical system components.
 - **Kernel Mode** is the domain of drivers and system components that have direct access to hardware and the Windows core, such as printer drivers, network drivers, antivirus kernel components, or storage controllers. Software at this level runs with the highest privileges, which makes strict control through policies especially valuable.
 
-When you create a policy, checkboxes determine where the rule applies. Standard applications (`.exe`, `.msi`, `.msix`) fall under User Mode; drivers (`.sys`) and kernel components fall under Kernel Mode. In most cases you can leave both checked and Windows applies the rule at the appropriate level. To deliberately limit the scope, for example to whitelist applications only while managing drivers through a separate policy or other tooling, uncheck one of the two.
+When you create a policy, checkboxes determine where the rule applies. Standard applications (`.exe`, `.msi`, `.msix`) fall under User Mode; drivers (`.sys`) and kernel components fall under Kernel Mode. In most cases you can leave both checked and Windows applies the rule at the appropriate level. To deliberately limit the scope, for example to manage only applications while managing drivers through a separate policy or other tooling, uncheck one of the two.
 
 ![User Mode and Kernel Mode options](app-control-08.png)
 
@@ -248,7 +248,7 @@ In the example below Notepad++ starts because it was allowed and its policy was 
 
 ![Notepad++ allowed and 7-Zip blocked](app-control-25.png)
 
-When an application is blocked, the user can review the event in the App Control log and create an allow policy in the same way as a learned event. After the new policy is created, the user can click **Refresh Workspace** and start the application immediately, without needing to log off and back on.
+When an application is blocked, an administrator can review the event in the App Control log and create an allow policy in the same way as a learned event. After the new policy is created, the user can click **Refresh Workspace** and start the application immediately, without needing to log off and back on.
 
 ---
 
