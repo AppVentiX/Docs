@@ -30,6 +30,13 @@ The product ships no Microsoft binaries. This is a licensing decision.
 | `adksetup.exe` | One | Microsoft's ADK download. Host preparation can download it for you |
 | A code signing certificate | One | Your certificate authority, Azure Artifact Signing, or a test certificate that the product makes |
 
+For Windows 11, Microsoft also publishes the Features on Demand ISO as a direct download. The product does not download it for you:
+
+| Release | Features on Demand ISO |
+|---|---|
+| Windows 11 24H2 and 25H2 (build 26100) | [26100.1.240331-1435.ge_release_amd64fre_CLIENT_LOF_PACKAGES_OEM.iso](https://software-static.download.prss.microsoft.com/dbazure/888969d5-f34g-4e03-ac9d-1f9786c66749/26100.1.240331-1435.ge_release_amd64fre_CLIENT_LOF_PACKAGES_OEM.iso), about 6.3 GB |
+| Windows 11 22H2 (build 22621) | [22621.1.220506-1250.ni_release_amd64fre_CLIENT_LOF_PACKAGES_OEM.iso](https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/22621.1.220506-1250.ni_release_amd64fre_CLIENT_LOF_PACKAGES_OEM.iso), about 7.2 GB |
+
 ## Supported Windows releases
 
 The product creates one drop folder for each supported release:
