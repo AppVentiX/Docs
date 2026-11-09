@@ -180,7 +180,7 @@ Leave the installer and its folder unchanged while the job runs. The job checks 
 
 1. It takes a free worker for the target, and puts it back to `baseline`.
 2. It sends the installer to the worker, and starts the agent.
-3. It runs the pre-flight checks, then the capture with the MSIX Packaging Tool.
+3. It runs the pre-flight checks, then the capture with the MSIX Packaging Tool or the built-in engine.
 4. It collects the logs from the worker, also when the capture fails.
 5. On the host, it unpacks, checks, corrects and signs the package.
 6. Smoke test: it puts the worker back to `baseline`, installs the signed package and starts the application.
@@ -281,5 +281,22 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 | Notes of the package | `<PackageName>_<Version>.notes.txt` and `.PackageInfo.json`, beside the package |
 | The job log | `<workingDir>\jobs\<job id>\job.log`, and on the **Jobs** screen |
 | Collected logs | `<workingDir>\jobs\<job id>\Collected files\` |
+| What the built-in engine found | `<workingDir>\jobs\<job id>\engine\`. See below |
+
+### What the built-in engine found
+
+A job on the built-in engine writes these files in `<workingDir>\jobs\<job id>\engine\`. The text comes from the worker.
+
+| File | What it holds |
+|---|---|
+| `difference.txt` | The files and registry values that the capture found |
+| `noise-removed.txt` | What the noise rules and the calibration removed, with the rule |
+| `attribution.txt` | The processes that wrote each change (ETW) |
+| `writer-evidence.json` | What the package writer made, left out or changed, and why |
+| `failed-step.txt` | The step that stopped the job. It is there only when the job made no package |
+
+The MCP tool `engine_evidence` gives a summary of these files.
+
+By default, the engine removes each entry that the installer did not write, when the trace is complete. To keep these entries in the package, set `"etwRemoval": false` in `host.json` in `%ProgramData%\AppVentiX\Automated Packaging`. Then start the next job. The entries are then listed only, as "ETW would remove". Do this if a package misses a change that Windows made for the installer.
 
 Next: [Jobs and packages](jobs.md).
