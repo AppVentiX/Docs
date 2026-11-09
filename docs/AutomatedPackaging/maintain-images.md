@@ -124,6 +124,31 @@ Forget removes an image record that no worker uses. It touches no machine.
 
     The command is refused while a worker is built from the image. Remove the worker instead.
 
+## Replace the channel authority
+
+The channel authority is the private certificate authority of this host. It issues the certificate of the listener and one certificate for each worker. Its private key cannot be exported, so you cannot back it up or move it. When the authority is lost, you make a new one and give each worker a new certificate.
+
+### A new host, or a host that you install again
+
+The workers do not move to a different host. Their passwords are encrypted for this computer only.
+
+1. Install the product and run host preparation. Page 7 creates a new authority. Host preparation also issues the certificate of the listener and writes `agent-channel.json`.
+2. Stage the media again. See [Stage media](stage-media.md).
+3. Build each worker again on the Workers screen. See [Build a worker image](build-image.md).
+
+### The same host: the authority is lost or must be replaced
+
+Do this when host preparation says "This host has no channel authority", or when somebody could have a copy of the key. Run no job until the last step is done.
+
+1. If the old authority is still there and you replace it, remove it. Open `certlm.msc`, **Personal > Certificates**. Delete the certificate with the friendly name **Automated Packaging channel authority**.
+2. Open `<dataFolder>\agent-channel.json`. Remove the value of `serverCertificateThumbprint`: the certificate of the listener comes from the old authority.
+3. Run host preparation, and apply the changes. It creates a new authority and puts it first in `trustedAuthorityThumbprints`. It keeps the old thumbprints, and issues a new certificate for the listener.
+4. Restart the service **AppVentiX Automated Packaging**.
+5. Click **Update** for each worker on the Workers screen. Step 6 gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**.
+6. In `agent-channel.json`, remove each old thumbprint from `trustedAuthorityThumbprints`. Keep the first one. Then run host preparation again, and restart the service.
+
+After step 3, the Workers screen marks each worker that is not updated. After step 6, such a worker reads **Update required**, and the product starts no job on it.
+
 ## Good to know
 
 - **No action takes a worker from a running job.** These actions refuse a worker that something else holds, and name the holder.
