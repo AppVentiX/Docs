@@ -77,6 +77,8 @@ An Azure Artifact Signing profile signs with a certificate that stays in Azure. 
 5. Click **Save profile**.
 6. Click **Test** on the row of the profile.
 
+**Remove** asks first. It deletes the client secret of the profile from this host, and you cannot undo it.
+
 **Get the client tools** gets the Artifact Signing client tools from NuGet. **Test** also gets them when they are missing.
 
 The service principal needs the *Artifact Signing Certificate Profile Signer* role on the certificate profile. The product keeps the client secret encrypted in the data folder.

@@ -164,7 +164,7 @@ The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each
 
 If the application, the service or the host stopped during a job, the **Jobs** screen shows a panel at the next start. For each job or worker operation that did not end:
 
-- **Revert worker** puts the worker back to its baseline.
+- **Revert worker** puts the worker back to its baseline. It asks first: the state kept for diagnosis is lost, and you cannot undo it.
 - **Keep for diagnosis** keeps the worker as it is. A kept worker takes no jobs until you revert it.
 
 Nothing is reverted without your decision, because the worker is the evidence.
@@ -191,6 +191,7 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 - **Build folders of jobs**: the three build folders of each job that still has them.
 - **Job logs**: the logs of each job that ended.
 - **Exported packages in the output folder**: a package in `<workingDir>\Packages\` that its job exported. The product removes it only when it is the same file that was exported, and the copy is still at the export location.
+- **Entries in the Jobs list**: the line of each ended job whose folder is no longer in the jobs folder. **Retry signing**, **Export again** and **New version…** need the entry. Removing entries does not change the starter allowance: each package that a job built still counts.
 
 1. Tick what to remove.
 2. Click **Remove selected…**.
@@ -198,6 +199,8 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 4. Click **Remove**.
 
 The screen then says how much it removed, and names each item that it kept. You cannot get back what it removed.
+
+**Remove one job from the list.** Right-click a job in the list and click **Remove…**. The same panel opens for that job only, with its entry ticked. Tick what else goes with the entry: its build folders, its logs, and its exported package in the output folder. Then click **Remove selected…** and **Remove**. A file that you do not tick stays in the jobs folder. **Remove…** is not available for a job that still runs, waits or copies its package.
 
 ## What the notes of a package say
 

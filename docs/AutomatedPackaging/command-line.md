@@ -25,7 +25,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 |---|---|
 | `convert <installer> [options]` | Converts an MSI or EXE into a signed MSIX package on a worker. Shows the job log, then the result |
 | `check <installer> [options]` | Lists what stops a conversion, as the Build screen lists it. Starts nothing. It asks what the job asks before it starts. Can somebody who is not an administrator change the signing tools, the packages or the jobs folder (`AP-SG-010`)? Is there an image and a worker for the target? Must the image be updated (`AP-IM-023`)? For an interactive job, does the image have **Finish packaging** (`AP-IM-024`)? Does the image record the engine (`AP-IM-026`)? With `--machine`, it asks about the image of that worker. It does not ask for a free worker |
-| `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options |
+| `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options. It names the source of the name, publisher and version. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource |
 | `certificates [--json]` | Lists the certificates and the Azure Artifact Signing profiles that this host can sign with |
 | `machines [--json]` | Lists the workers: name, image, Windows release, target, state and activation |
 | `worker build <name> [options]` | Builds a worker and its image, as **Build a worker** does |
@@ -45,19 +45,21 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
 | `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
 | `exclusions import <file>` | Adds the rules of an export file. A file with one bad rule adds nothing |
+| `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
+| `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. See [Improvement data](settings.md#improvement-data) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 
 ## Options for convert and check
 
-For an MSI, the product fills in the name, publisher and version from the ProductName, Manufacturer and ProductVersion. An option overrides each value.
+First, the program fills in what the installer tells, as the Build screen does. The ProductName, Manufacturer and ProductVersion of an MSI become the name, publisher and version, unless an option gives a different value. For an EXE, the ProductName, CompanyName and ProductVersion of its version resource do the same. A version that a package cannot have stays empty, so give it. An EXE that only wraps the installer, such as Adobe's self-extractor, gives none of them.
 
 | Option | What it does |
 |---|---|
 | `--from-job <job-id>` | Build a new version of the application of an earlier job. The job must have built a package. The job gives the settings, and the other options change them. See [Build a new version of an application](jobs.md#build-a-new-version-of-an-application) |
-| `--name <text>` | The name of the application. Necessary for an EXE |
-| `--publisher <text>` | The publisher, as people know it. The publisher of the package is the subject of the certificate |
-| `--package-version <version>` | Up to four numbers. Missing parts become zeros |
+| `--name <text>` | The name of the application. Default: the ProductName of the MSI or of the version resource of the EXE |
+| `--publisher <text>` | The publisher, as people know it. Default: the Manufacturer of the MSI, or the CompanyName of the EXE. The publisher of the package is always the subject of the signing certificate |
+| `--package-version <version>` | The package version, up to four numbers. The program fills missing parts with zeros. Default: the ProductVersion of the MSI or of the EXE |
 | `--target <target>` | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
 | `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |

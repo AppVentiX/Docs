@@ -19,8 +19,9 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
     1. Start `AutomatedPackaging-<version>.msi`.
     2. Read the welcome page and accept the licence.
     3. On the folder page, select the **working directory**. The default is `C:\AutomatedPackaging`.
-    4. On the **Ready to install** page, click **Install**.
-    5. Complete the installation.
+    4. On the **Improvement data** page, select **Off**, **Minimal** or **All**. Off is selected. See [Improvement data](settings.md#improvement-data).
+    5. On the **Ready to install** page, click **Install**.
+    6. Complete the installation.
 
     !!! note
         The folder page uses the standard WiX folder dialog, so it can look like the program folder. The folder that you select is the working directory.
@@ -34,6 +35,8 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
     ```
 
     Without `WORKINGDIR`, the installer uses the value of an earlier installation, or `C:\AutomatedPackaging`.
+
+    The installer asks which improvement data this host keeps: **Off**, **Minimal** or **All**. Off is selected. For an unattended installation, add `IMPROVEMENTDATA=Off`, `Minimal` or `All`.
 
 ## Check the installation
 
@@ -65,6 +68,8 @@ If the data folder is already there and is not safe, the installation stops. Not
 ## Uninstall
 
 Uninstalling keeps the working directory, the data folder, the channel certificate authority and the `WorkingDirectory` registry value. A later installation then finds the same folder.
+
+**An upgrade cannot change the working directory.** If the host has a working directory and the installation gives a different one, the installation stops and names both folders. A silent installation ends with that error. Remove `WORKINGDIR=` from the command line, or give the folder that the host has.
 
 ## What lives where
 

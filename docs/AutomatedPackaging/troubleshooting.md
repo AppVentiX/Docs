@@ -144,6 +144,8 @@ On MCP, the tool `explain_code` gives the cause and remedy of each code.
 
 **Settings > Diagnostics > Collect support information** writes one redacted zip file. See [Settings](settings.md#diagnostics). Read it, then send it with a problem report. Add the `Collected files` folder of the job when the problem is in a job.
 
+The product writes one file at a time. The folder keeps the newest five files and removes older ones. A log larger than 8 MB goes in with its last 8 MB only, and the file says so.
+
 ## Report a finding while you test
 
 When you test a build, an AI can help you write down what you find. It asks for the build first, then asks questions about each problem, and writes a Markdown file for each day. Give it this as your first message:

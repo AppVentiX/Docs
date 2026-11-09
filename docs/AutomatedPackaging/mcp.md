@@ -85,7 +85,7 @@ These tools read and change nothing:
 
 | Tool | What it gives |
 |---|---|
-| `product_status` | The product version and the licence state, and if the licence allows MCP |
+| `product_status` | Gives the product version on this host and the licence state. It also says if the licence allows MCP. It gives the improvement data level, and "Set by your organisation" when a policy limits it. An agent cannot change the level |
 | `list_machines` | The workers for a target, free or busy, and the recommended one |
 | `list_certificates` | The certificates and Azure profiles that can sign, with their IDs |
 | `list_jobs` | The newest jobs, at most 100, with their state |
@@ -110,7 +110,7 @@ These tools start or change work:
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
 | `export_job` | Copies the package of a job to the export location again |
-| `collect_support_bundle` | Writes the support information, as **Settings > Diagnostics** does. Give the IDs of at most 10 jobs, or none for the newest failed job. The answer gives the path, the files, what is left out and what redaction replaced. The agent tells you what is in the file before anything is sent. The product does not send it. Only an administrator of the host can open the data folder |
+| `collect_support_bundle` | Writes the support information, as **Settings > Diagnostics** does. Give the IDs of at most 10 jobs, or none for the newest failed job. The answer gives the path, the files, what is left out and what redaction replaced. The agent tells you what is in the file before anything is sent. The product does not send it. Only an administrator of the host can open the data folder. The service writes one file at a time, also when the application writes one. A second call during a collection is refused. Try it again when the first ends |
 | `worker_build` | Builds a worker and its image. It gives an operation ID at once |
 | `worker_update` | Updates a worker. It gives an operation ID at once |
 | `worker_status` | The steps and the result of a worker operation |
@@ -131,9 +131,11 @@ Agents run one worker operation at a time. The service also gives the list of er
 
 - Four MCP clients can use the service at one time. When a fifth connects, the service closes the connection of a client that has been idle for 5 minutes. If no client is idle, it closes the new connection.
 - The service sends a ping every minute to a client that uses an MCP revision before 2026-07-28. It closes the connection of a client that does not answer in 30 seconds.
-- A message from a client can be 1 MB at most, and a text argument 8192 characters at most.
+- A message from a client can be 1 MB at most. A text argument can have 8192 characters at most. The service refuses a call with a longer one. The recipe text of `validate_recipe` and `preview_recipe` can have 262,144 characters, the size of a recipe file.
 
 The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`, in two lines. The first line is written before the tool runs, with the result `called`. The second line gives the result: `done`, `refused` or `failed`. Each line has the time, the account, the tool and its arguments, cut to 260 characters. The service deletes a day's file after 90 days.
+
+Each account can write 16 MB of lines in a day. After that, one line with the result `limit` says so, and the service writes no more calls of that account that day. The count starts again when the service starts.
 
 ## Check the connection
 

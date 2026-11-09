@@ -46,7 +46,7 @@ You can see what the product reads from an installer before you start a job.
 
     **Package identity**:
 
-    - **Publisher**, **Name** and **Version** come from an MSI. For an EXE, type them.
+    - **Publisher**, **Name** and **Version** come from the installer. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource. A value that you type wins. An EXE that only wraps the installer gives none of them: then type them.
     - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
     - **Identity** shows beside the title. It is remembered. The same application gets the same identity next time, so a new package is an update.
     - **Manifest publisher**, also beside the title, comes from the signing certificate, not from the **Publisher** field.
@@ -70,9 +70,9 @@ You can see what the product reads from an installer before you start a job.
 
     | Row | What it does |
     |---|---|
-    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. Until you edit them, the box is red and a note under it asks you to check them for your installer |
+    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. The installers of 7-Zip and WinRAR are recognised and get `/S`. Until you edit them, the box is red and a note under it asks you to check them for your installer |
     | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
-    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties |
+    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties. A value with a tab is put in quotes. A value with a line break cannot go on the install command: the screen says "Remove the line break from the value of `<NAME>`." |
     | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The blue help mark explains what the job collects |
     | **Install command** | The full command as the worker runs it |
 
@@ -93,14 +93,14 @@ You can see what the product reads from an installer before you start a job.
     | `--include-folder` | "Include the other files and folders in the installer's folder" | Sends the other files and folders in the installer's folder |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
     | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
-    | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once |
+    | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once. A value with a tab is put in quotes. A value with a line break is refused: `check` says "Remove the line break from the value of `<NAME>`." |
     | `--transform <path>` | **Transforms** | MSI only. Applied in the order given |
     | `--prerequisite <PRQ-nnn>` | **Prerequisites** | You can give it more than once |
     | `--no-install-log` | **Logs** | Does not collect the verbose conversion log |
     | `--collect-log <path>` | **Logs** | A log file in the worker to collect. You can give it more than once |
-    | `--name <text>` | **Name** | Default: the ProductName of the MSI. Necessary for an EXE |
-    | `--publisher <text>` | **Publisher** | Default: the Manufacturer of the MSI |
-    | `--package-version <version>` | **Version** | Default: the ProductVersion of the MSI |
+    | `--name <text>` | **Name** | Default: the ProductName of the MSI or of the version resource of the EXE |
+    | `--publisher <text>` | **Publisher** | Default: the Manufacturer of the MSI, or the CompanyName of the EXE |
+    | `--package-version <version>` | **Version** | Default: the ProductVersion of the MSI or of the EXE |
 
     The options of the **Advanced** dialog are in the next section. [Command line](command-line.md) has all options.
 
@@ -201,7 +201,7 @@ The image must have the shortcut **Finish packaging** on the desktop of the work
 === "GUI"
 
     1. Under **Install**, select **Interactive** for **Install mode**. The silent arguments and the MSI properties are not used.
-    2. Click **Build**. The job reverts the worker, copies the installer to it, and starts the capture.
+    2. Click **Build**. When the job starts, the application shows the **Jobs** screen with the job selected. The window onto the worker opens only while the job is selected there. The job reverts the worker, copies the installer to it, and starts the capture.
     3. The Jobs screen says "The worker waits for you", and the window onto the worker opens (**Virtual Machine Connection**). The folder with the installer is open in it. If you close the window, click **Open the worker's window** on the card of the job.
 
 === "CLI"

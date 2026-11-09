@@ -130,6 +130,8 @@ The export file holds the rules of this host and the built-in rules that are off
 
     Click **Export…** and select a file. On the other host, click **Import…** and select the file.
 
+    If the list turns off built-in rules that are on here, the application names them and asks first, as it does for one rule. Click **OK** to import, or **Cancel** to import nothing.
+
 === "CLI"
 
     ```
@@ -170,16 +172,34 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 
 ### Improvement data
 
-**Improvement data** helps AppVentiX make the product better. It is off until you tick **Collect improvement data on this host**. While it is on, the host keeps one record for each job, each worker build and each worker update. The support information does not contain these records.
+**Improvement data** helps AppVentiX make the product better. Select a level: **Off**, **Minimal** or **All**. Off is the default. The installer asks for the level. While the level is not Off, the host keeps one record for each job, each worker build and each worker update. The support information does not contain these records.
 
-**Collected:**
+=== "GUI"
+
+    Go to **Settings > Diagnostics**, section **Improvement data**. Select **Off**, **Minimal** or **All**. A level above the policy of your organisation is not available. Then the line under the buttons says, for example, "Set by your organisation: Minimal at most."
+
+=== "CLI"
+
+    | Command | What it does |
+    |---|---|
+    | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
+    | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records |
+
+**Minimal collects:**
 
 - For a job: how it ended, its error code, its duration and the exit code of the installer.
 - For a job: MSI or EXE, the install mode, the target, and the number of MSI properties, transforms and prerequisites.
-- For a job: the Package Support Framework and the export on or off, and the Windows build and edition.
-- For a job: the versions of the packaging tool, the agent and the application, and the name of the application.
+- For a job: the Package Support Framework and the export on or off, and the Windows build.
+- For a job: the versions of the packaging tool and the agent, and the conversion engine.
 - For a worker build or update: how it ended, the step that failed, its error code and the duration of each step.
-- For AI agents: how many times they called each MCP tool, and the error codes of the refusals. Only the days since you turned the setting on.
+- For AI agents: how many times they called each MCP tool, and the error codes of the refusals. Only the days since the level was set.
+
+**All also collects:**
+
+- For a job: the name and the version of the application, if it is not internal.
+- For a job: the size of the package, and if the job used a recipe.
+- The Windows edition of each worker.
+- A random ID of this installation. Off removes the ID, and All later makes a new one.
 
 **Never collected:**
 
@@ -188,13 +208,33 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 - The time of day. A record has the date only.
 - The account of an AI agent's client, its arguments and the text of the answers.
 
-Mark your own application as **Internal** when you convert it. Then its jobs have no name in the data. A name with a path, a domain name, or the name of this host or one of its users is also left out.
+**The name of an application.** Only All collects names. Tick **Internal** on the Build screen, or use `--internal` on the command line, for your own application. Then its jobs have no name and no version in the data. A name with a path, a domain name, or the name of this host or one of its users is also left out.
+
+**The outbox.** Each record is a JSON file in `<dataFolder>\improvement\outbox`. The folder keeps the newest 5000 records.
 
 1. Click **Show**. The screen shows the full file, exactly as **Save** writes it.
 2. Click **Save**. The file goes to `<dataFolder>\diagnostics\automatedpackaging-improvement-<date>-<time>.json`.
 3. Read the file before you send it. The product does not send the file.
 
-When you turn the setting off, the product removes the records.
+When you select **Off**, the product removes the records and the outbox folder.
+
+**A policy of your organisation.** An administrator can limit the level on each host with a registry value. The product then uses the lower of the two levels. Settings, `improvement` on the command line and the MCP tool `product_status` say "Set by your organisation". The levels above the policy are not available.
+
+| Key | Value | Data |
+|---|---|---|
+| `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\AppVentiX\AutomatedPackaging` | `ImprovementDataLevel` | `0` or `Off`, `1` or `Minimal`, `2` or `All` (REG_DWORD or REG_SZ) |
+
+A value that is not one of these reads as Off. Set the value with Group Policy Preferences or with a script. The product reads it each time it writes a record, so a change applies at once.
+
+**A silent install.** The property `IMPROVEMENTDATA` sets the level without the question:
+
+```
+msiexec /i AutomatedPackaging-<version>.msi /qn IMPROVEMENTDATA=Minimal
+```
+
+The installer writes the answer to `HKEY_LOCAL_MACHINE\SOFTWARE\AppVentiX\Automated Packaging`, value `ImprovementDataLevel`. The product uses it until a level is saved on Settings or with the command line. Without the property, a silent install uses Off, or the answer of the install before.
+
+**Records from before 0.2.47.** Before 0.2.47 the setting was on or off, and the records were in the database. The product removes those records at the first start of 0.2.47. On becomes Minimal.
 
 ## Advanced
 
