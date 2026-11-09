@@ -103,6 +103,20 @@
   background-color: #171e2e;
 }
 
+/* Keep the footer visible at the bottom of the window on wide screens.
+   The sidebars get extra bottom padding so their last items are not hidden behind it. */
+@media screen and (min-width: 76.25em) {
+  .md-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+  }
+
+  .md-sidebar__scrollwrap {
+    padding-bottom: 3.5rem;
+  }
+}
+
 /* Admonition color - note uses blue */
 .md-typeset .admonition.note,
 .md-typeset details.note {
