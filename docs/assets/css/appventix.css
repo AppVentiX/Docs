@@ -210,9 +210,16 @@ html {
   margin-top: 0.8em;
 }
 
+/* Top padding includes the 1.5rem gap removed from .md-main__inner below */
 .md-content__inner {
-  padding-top: 1.2rem;
+  padding-top: 2.7rem;
   padding-bottom: 1.2rem;
+}
+
+/* No gap above the main area, so the sidebars stick right away instead of
+   scrolling up a little first */
+.md-main__inner {
+  margin-top: 0;
 }
 
 /* Content headers (H1-H6) - bold and colored with a near-black navy for more
