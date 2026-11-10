@@ -107,6 +107,7 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | `AP-PK-010` with "is not the package this job built" | Another job with the same name and version replaced the file in the output folder | Build the job again |
 | `AP-VF-001` with "The shortcut variable 'Desktop' is not supported" | Windows 11 22H2 refuses a package with a desktop shortcut | Use a Windows 11 24H2 or later worker, or turn off the desktop shortcut of the installer |
 | `AP-VF-002` or `AP-VF-003` | The application did not start, or closed at once | Often an application that writes to its own folder. Try the Package Support Framework |
+| "The smoke test did not find the PSF fixup …" | The application started, but the fixup of the Package Support Framework did not load in it. The package was built | Test the package on a target computer before you use it. Without the fixup, the application cannot write in its own folder |
 | `AP-AG-008` | The worker refused its password. Workers built before 0.2.14 have a password that expires after 42 days | Run `Repair-WorkerPassword.ps1` from the product `scripts\image` folder, then **Update** the worker. Or use **Rebuild from media** |
 | "Attempt 1 of 2 hit a transient infrastructure failure…" | One automatic retry after a lost connection | Nothing, unless the second attempt also fails |
 
