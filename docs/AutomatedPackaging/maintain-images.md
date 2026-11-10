@@ -32,7 +32,7 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
     2. Optional: change the KMS server or the prerequisites on the card.
     3. Click **Update**.
 
-    ![The Workers screen, with an image selected and its actions](images/images-screen.png)
+    ![The Workers screen: the workers with Build a worker as the last row, and the card of the selected worker with its actions](images/images-screen.png)
 
 === "CLI"
 

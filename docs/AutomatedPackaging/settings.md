@@ -178,6 +178,8 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 
     Go to **Settings > Diagnostics**, section **Improvement data**. Select **Off**, **Minimal** or **All**. A level above the policy of your organisation is not available. Then the line under the buttons says, for example, "Set by your organisation: Minimal at most."
 
+    ![Settings, Diagnostics, Improvement data: what Minimal and All collect, and the levels Off, Minimal and All](images/settings-improvement-data.png)
+
 === "CLI"
 
     | Command | What it does |

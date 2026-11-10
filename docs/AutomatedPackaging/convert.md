@@ -51,6 +51,8 @@ You can see what the product reads from an installer before you start a job.
     - **Identity** shows beside the title. It is remembered. The same application gets the same identity next time, so a new package is an update.
     - **Manifest publisher**, also beside the title, comes from the signing certificate, not from the **Publisher** field.
 
+    ![The Build screen with the 7-Zip EXE selected: publisher, name and version come from the EXE, and the silent arguments are /S](images/build-screen-exe.png)
+
     **Install** shows when you select a file. Each setting has its label above it. A wide window shows three settings in a row, a narrow window two:
 
     | Setting | What it does |

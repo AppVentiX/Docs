@@ -188,6 +188,8 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 
 **Free up space…**, under the job list on the **Jobs** screen, removes files sooner, of any age. It measures each kind when it opens:
 
+![The Free up space panel: build folders, job logs, exported packages and entries in the Jobs list](images/jobs-free-up-space.png)
+
 - **Build folders of jobs**: the three build folders of each job that still has them.
 - **Job logs**: the logs of each job that ended.
 - **Exported packages in the output folder**: a package in `<workingDir>\Packages\` that its job exported. The product removes it only when it is the same file that was exported, and the copy is still at the export location.
@@ -201,6 +203,8 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 The screen then says how much it removed, and names each item that it kept. You cannot get back what it removed.
 
 **Remove one job from the list.** Right-click a job in the list and click **Remove…**. The same panel opens for that job only, with its entry ticked. Tick what else goes with the entry: its build folders, its logs, and its exported package in the output folder. Then click **Remove selected…** and **Remove**. A file that you do not tick stays in the jobs folder. **Remove…** is not available for a job that still runs, waits or copies its package.
+
+![The panel that Remove… opens for one job: its entry in the Jobs list is ticked](images/jobs-remove-panel.png)
 
 ## What the notes of a package say
 
