@@ -38,6 +38,8 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
 
     The installer asks which improvement data this host keeps: **Off**, **Minimal** or **All**. Off is selected. For an unattended installation, add `IMPROVEMENTDATA=Off`, `Minimal` or `All`.
 
+The installer also creates the working directory, closed from the start, before it starts the service. Only `Administrators`, `SYSTEM` and `Hyper-V Administrators` can change it. The virtual machines can write in it. When the folder is already there, the installer does not change it and does not stop. Host preparation checks it in **Working directory access**. See [Folder access](prepare-host.md#folder-access).
+
 ## Check the installation
 
 | Check | Correct result |

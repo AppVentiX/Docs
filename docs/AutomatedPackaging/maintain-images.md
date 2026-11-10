@@ -58,7 +58,7 @@ The product compares each image with this version of the product and with the se
 | Reason | Mark | Remedy |
 |---|---|---|
 | The agent in the image is older than 0.2.14 | Red | **Update** |
-| The agent in the image is older than 0.2.25 | Orange | **Update** |
+| The agent in the image does not have a feature of this version of the product. The reason names each feature: "Update this worker to use: …" | Orange | **Update** |
 | A worker of the image connects to a different address or port than the listener of this host | Red | **Update** |
 | The channel authority that signed the certificate of the worker is no longer trusted | Red | **Update** |
 | An earlier channel authority signed the certificate of the worker, during a change of authority | Orange | **Update** |
@@ -67,6 +67,16 @@ The product compares each image with this version of the product and with the se
 | The image was calibrated 180 days ago or more | Orange | **Update** |
 
 A development build of the product counts as current. An older image does not record its channel authority, so the product does not judge it. The next update of the image records it.
+
+Each feature that needs the agent names the agent version that brought it. These features need the agent in the worker:
+
+- the built-in engine, restarts in a built-in capture, and the trace of the installer
+- interactive installs, and restarts in an interactive built-in capture
+- the MakeAppx error in a failed job, and the check that PSF fixups loaded
+
+An image with an older agent reads **Update recommended**, and its reason lists the features that it does not have. When a job uses one of these features, the product does not give the job to that image. It gives the job to another image for the target whose agent has the feature. If no image has it, the job stops with `AP-IM-030` before it touches a worker. A job pinned to a worker of that image stops too. The Build screen, `check` and the MCP tool `check_job` show this before you start the job.
+
+The built-in engine, its restarts and the trace apply to a job on the built-in engine. Interactive installs apply to an interactive job, and their restarts to an interactive job on the built-in engine. The MakeAppx error and the PSF check never stop a job: without them, the job runs as before.
 
 ## Put it back
 
