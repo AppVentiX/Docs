@@ -12,6 +12,7 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 
 - **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
 - **Your account in the local group `AppVentiX Packaging Operators`.** The installer creates the group, empty. Only its members can use the service. Membership of Administrators alone is not sufficient.
+- **The account of the service in Hyper-V Administrators,** for `worker_build`. Host preparation adds it: apply **Host service in Hyper-V Administrators**. The service uses the group after it starts again.
 
 ## Set it up
 
@@ -118,6 +119,16 @@ These tools start or change work:
 | `image_forget` | Forgets an image that no worker uses, if the setting allows it |
 
 Each tool tells the client if it only reads, and if it can stop or remove work. Some clients use this to approve a tool with no question. `cancel_job`, `worker_update`, `worker_remove` and `image_forget` are marked as tools that can stop or remove work, so such a client asks you first.
+
+### Windows release names
+
+`worker_build` builds from one Windows release that is staged on this host. The `medium` parameter names that release. The name is the name of the release folder under `_import`, for example `Windows11-25H2` or `Server2025`. The **OS media** screen and the **Build a worker** form show the same names. Case does not matter: `windows11-25h2` is also correct. A short form such as `win11-25h2` is not a release name, and the tool refuses it.
+
+- **One release staged:** leave out `medium`. The tool uses that release.
+- **More than one release staged:** give `medium`. Without it, the tool stops and lists the staged releases.
+- **To see the staged releases:** open the **OS media** screen. Or look at the folders under `<working directory>\Distro\OS`. A refused `worker_build` also lists them, and it changes nothing.
+
+How to stage a release is in [Stage media](stage-media.md).
 
 Agents run one worker operation at a time. The service also gives the list of error codes as the resource `automatedpackaging://error-codes`.
 

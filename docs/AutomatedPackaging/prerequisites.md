@@ -77,7 +77,7 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 === "CLI"
 
     ```
-    AutomatedPackaging.Cli worker build PKGMGR-002 --medium W11-25H2 --kms-server kms.example.com --prerequisite PRQ-001 --prerequisite PRQ-003
+    AutomatedPackaging.Cli worker build PKGMGR-002 --medium Windows11-25H2 --kms-server kms.example.com --prerequisite PRQ-001 --prerequisite PRQ-003
     ```
 
     `worker update` keeps the prerequisites of the image.

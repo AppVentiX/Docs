@@ -28,12 +28,12 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
     Run from an elevated prompt, with the application window closed:
 
     ```
-    AutomatedPackaging.Cli worker build PKGMGR-001 --medium W11-25H2 --kms-server kms.example.com
+    AutomatedPackaging.Cli worker build PKGMGR-001 --medium Windows11-25H2 --kms-server kms.example.com
     ```
 
     | Option | What it does |
     |---|---|
-    | `--medium <id>` | The Windows release, by the ID that the **Build a worker** form lists. Necessary when more than one release is staged |
+    | `--medium <id>` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** form lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
     | `--edition <name>` | The edition to install. Default: the default edition of the release |
     | `--account <name>` | The administrator account in the worker. Default: `pkgbuilder` |
     | `--address <IPv4>` | The address on the internal switch. Default: the next free address |

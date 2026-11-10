@@ -30,6 +30,8 @@ The product uses Tim Mangan's release of PSF, pinned at `v2026.07.01`. It does n
 
 The product keeps the files only when each PSF file is signed by TMurgent Technologies LLP, and each runtime file by Microsoft. Before each job with PSF, it checks the files again. A file that fails stops the job with `AP-PK-011`.
 
+The smoke test checks the fixup. It reads the modules of the started application. The job log names the fixup that it found. When the fixup did not load, the job shows a warning. When the modules could not be read, the job log says so.
+
 When a newer PSF release is available, a notice shows above every screen. Jobs use your current release until you click **Adopt**.
 
 ## Appearance
@@ -141,7 +143,7 @@ The export file holds the rules of this host and the built-in rules that are off
 
     `exclusions export` does not write over a file. Give the name of a new file.
 
-    If the file turns off built-in rules that are on here, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing.
+    `exclusions import <file> [--confirm] [--json]`: Adds the rules of a file that `exclusions export` or **Export…** made. It skips the rules that the list has already. It turns off the built-in rules that the file turned off. If the file turns off a built-in rule that is on, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing. A file with one bad rule adds nothing.
 
 ## Diagnostics
 

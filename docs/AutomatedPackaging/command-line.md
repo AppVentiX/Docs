@@ -44,7 +44,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `exclusions turn-off <FL-nnn\|BI-nnn> [--confirm]` | Turns off a built-in rule on this host. Without `--confirm`, it shows the warning and changes nothing. `FL-001` and `FL-002` stay on |
 | `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
 | `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
-| `exclusions import <file> [--confirm]` | Adds the rules of an export file. A file with one bad rule adds nothing. If the file turns off a built-in rule that is on, give `--confirm`. Without it, nothing changes |
+| `exclusions import <file> [--confirm] [--json]` | Adds the rules of a file that `exclusions export` or **Export…** made. It skips the rules that the list has already. It turns off the built-in rules that the file turned off. If the file turns off a built-in rule that is on, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing. A file with one bad rule adds nothing. |
 | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
 | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. See [Improvement data](settings.md#improvement-data) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
@@ -95,7 +95,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 | Option | Command | What it does |
 |---|---|---|
-| `--medium <id>` | `worker build` | The Windows release, by the ID that the **Build a worker** form lists |
+| `--medium <id>` | `worker build` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** form lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
 | `--edition <name>` | `worker build` | The edition. Default: the default edition of the release |
 | `--account <name>` | `worker build` | The administrator account in the worker. Default: `pkgbuilder` |
 | `--address <IPv4>` | `worker build` | The address on the internal switch. Default: the next free address |
@@ -173,7 +173,7 @@ AutomatedPackaging.Cli convert D:\installers\7z2408-x64.msi --machine PKGMGR-W11
 
 AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --arguments "/S" --certificate-thumbprint 0123456789ABCDEF0123456789ABCDEF01234567 --json
 
-AutomatedPackaging.Cli worker build PKGMGR-W1125H2 --medium W11-25H2 --kms-server kms.example.com
+AutomatedPackaging.Cli worker build PKGMGR-W1125H2 --medium Windows11-25H2 --kms-server kms.example.com
 
 AutomatedPackaging.Cli worker update PKGMGR-W1125H2
 

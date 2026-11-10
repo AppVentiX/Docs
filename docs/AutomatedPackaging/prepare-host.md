@@ -80,6 +80,10 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
 
 Each run writes a record to `<workingDir>\Logs\host-preparation-<date>-<time>.json`.
 
+## Host service in Hyper-V Administrators
+
+This check gives a warning when `NT SERVICE\AutomatedPackaging` is not in Hyper-V Administrators. MCP clients cannot build a worker until it is. Apply adds only that account to only that group. The service uses the group after it starts again. Host preparation restarts it when no job runs.
+
 ## Folder access
 
 The application runs elevated. It runs the signing tools in `<workingDir>\Tools`, and it reads its settings from the data folder. So host preparation closes both folders to other accounts. Two checks on the **This host** page show the state.

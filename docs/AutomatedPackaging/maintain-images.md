@@ -97,6 +97,8 @@ Removing deletes the machine and its disks, and forgets the worker. If no other 
     3. Read the confirmation. It names the machine, says what goes, and says if jobs for the target can still run.
     4. Click the button of the confirmation. **Cancel** or **Esc** goes back.
 
+    A row marked **password only** is a stored packaging-account password with no worker and no machine. An older build left it. **Remove...** deletes only that password. The product keeps it when a worker has the name, a build holds the name, or a virtual machine has the name. It also keeps it when Hyper-V does not answer.
+
 === "CLI"
 
     ```
@@ -105,6 +107,8 @@ Removing deletes the machine and its disks, and forgets the worker. If no other 
     ```
 
     Without `--confirm`, the command says what the confirmation on the screen says, and removes nothing. It exits with code 1.
+
+    For a **password only** row, `worker remove <name> --confirm` then deletes only that password. It refuses when a worker or a virtual machine has the name, or when Hyper-V does not answer.
 
 If Hyper-V has no machine of that name, the product deletes nothing and only forgets the worker. If the delete fails, the worker is marked retired, so it gets no jobs.
 
