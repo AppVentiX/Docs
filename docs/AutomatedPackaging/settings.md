@@ -141,6 +141,8 @@ The export file holds the rules of this host and the built-in rules that are off
 
     `exclusions export` does not write over a file. Give the name of a new file.
 
+    If the file turns off built-in rules that are on here, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing.
+
 ## Diagnostics
 
 **Collect support information** writes one zip file for AppVentiX support to `<dataFolder>\diagnostics\`.
@@ -173,6 +175,8 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 ### Improvement data
 
 **Improvement data** helps AppVentiX make the product better. Select a level: **Off**, **Minimal** or **All**. Off is the default. The installer asks for the level. While the level is not Off, the host keeps one record for each job, each worker build and each worker update. The support information does not contain these records.
+
+**At an upgrade**, the question shows the answer of the install before. If you select a different level, or give a different `IMPROVEMENTDATA`, the product uses it. This is also true when you saved a level on Settings. If the answer is the same, the level of Settings stays. When the level goes down, or a policy limits it, the product removes the records of a higher level.
 
 === "GUI"
 

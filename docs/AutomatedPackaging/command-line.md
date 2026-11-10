@@ -44,7 +44,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `exclusions turn-off <FL-nnn\|BI-nnn> [--confirm]` | Turns off a built-in rule on this host. Without `--confirm`, it shows the warning and changes nothing. `FL-001` and `FL-002` stay on |
 | `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
 | `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
-| `exclusions import <file>` | Adds the rules of an export file. A file with one bad rule adds nothing |
+| `exclusions import <file> [--confirm]` | Adds the rules of an export file. A file with one bad rule adds nothing. If the file turns off a built-in rule that is on, give `--confirm`. Without it, nothing changes |
 | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
 | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. See [Improvement data](settings.md#improvement-data) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
