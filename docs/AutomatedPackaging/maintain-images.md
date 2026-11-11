@@ -152,7 +152,7 @@ The workers do not move to a different host. Their passwords are encrypted for t
 
 ### The same host: the authority is lost or must be replaced
 
-Do this when host preparation says "This host has no channel authority", or when somebody could have a copy of the key. Run no job until the last step is done. A worker that is not updated cannot connect to the new listener: its job fails with `AP-AG-005`.
+Do this when host preparation says "This host has no channel authority", or when somebody could have a copy of the key. Run no job until the last step is done. A worker that is not updated cannot connect to the new listener.
 
 1. If the old authority is still there and you replace it, remove it. Open `certlm.msc`, **Personal > Certificates**. Delete the certificate with the friendly name **Automated Packaging channel authority**.
 2. Open `<dataFolder>\agent-channel.json`. Remove the value of `serverCertificateThumbprint`: the certificate of the listener comes from the old authority.
@@ -161,7 +161,7 @@ Do this when host preparation says "This host has no channel authority", or when
 5. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
 6. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**.
 
-After step 4, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). Do step 4 before the updates: an update copies each trusted authority into the worker. While the file names the deleted authority, the update stops at its step 6 with "No certificate … in LocalMachine\My or LocalMachine\Root".
+After step 3, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 6 names it.
 
 ## Good to know
 
