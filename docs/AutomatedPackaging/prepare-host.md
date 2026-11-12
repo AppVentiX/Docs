@@ -49,8 +49,12 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     | "…because a restart stops the jobs that run: …" | Let the jobs that it names end. Then restart the service in **Services** |
     | "…because the service did not say whether a job runs…" | When no job runs, restart the service in **Services** |
     | "The AppVentiX Automated Packaging service is stopped…" | Nothing. The service reads the new settings when it starts |
+    | "Host preparation removed … earlier listener certificate(s) and the key of each one: …" | Nothing. After a new listener certificate, the earlier one and its key are of no use. Host preparation removes them when the service uses the new one |
+    | "Host preparation did not remove … earlier listener certificate(s)…" | The service does not use the new listener certificate yet, or it is from an earlier version and does not say. Restart the service in **Services** when no job runs. Then run host preparation again and apply |
 
     Host preparation restarts the service only when the service says that no job runs, because a stop of the service stops each job. When the machine has to restart, it leaves the service alone.
+
+    When host preparation issues a new listener certificate, the earlier one stays in the computer's store until the service uses the new one. At the end of each run that applies changes, host preparation asks the service which listener certificate it uses. When that is the new one, or the service is stopped, host preparation removes the earlier certificate and its key. It removes only a certificate that it replaced itself, or one that a channel authority in the store issued.
 
 === "CLI"
 
