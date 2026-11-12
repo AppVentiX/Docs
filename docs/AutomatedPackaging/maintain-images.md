@@ -161,6 +161,8 @@ Do this when host preparation says "This host has no channel authority", or when
 4. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
 5. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**.
 
+**With the window of host preparation.** On page 7, select **Create another and issue from it from now on**, then apply the changes. That does step 2 without step 1: the window creates a second authority and deletes nothing. The old certificate stays in the store of the computer, and step 3 removes its trust. Continue with step 3.
+
 After step 2, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). An older image does not record its channel authority. It also reads **Update required**, because its last update was before this host made the new authority.
 
 An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 6 names it. Step 6 stops before it changes the worker when the first thumbprint in `trustedAuthorityThumbprints` is not the newest authority of this host. Then run host preparation.
