@@ -15,6 +15,7 @@ AutomatedPackaging.Cli <command> [arguments]
 - **Run it from an elevated prompt.** The program does not ask for elevation itself. If it is not elevated, it says so and exits with code 3.
 - **The service must run.** `convert` gives the job to the service **AppVentiX Automated Packaging**, and follows it to its end. With the service stopped, `convert` exits with code 3.
 - **Close the window for worker and image commands.** One program at a time changes workers. These commands exit with code 3 while the window is open. `check`, `inspect`, `certificates` and `machines` can run beside the window.
+- **Keep the working directory safe.** When the program starts, it examines the working directory as the service does. An account that is not an administrator must not own it or change it, and it must hold no link. If it is not safe, the program writes nothing in it, and its log goes to the data folder. Each command that uses the working directory then exits with code 3 and names each problem. `certificates`, `machines`, `exclusions`, `recipe` and `improvement` use only the data folder, and they still run. See [Troubleshooting](troubleshooting.md#running-a-job).
 - **Prepare the host first.** The command line uses the settings of the host: workers, images, certificates and the export location.
 
 Before it converts, `convert` finds jobs that a stopped program left. It marks them **Abandoned**, and shows a warning for each. It does not touch their workers. Revert them on the **Jobs** screen.
@@ -46,7 +47,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
 | `exclusions import <file> [--confirm] [--json]` | Adds the rules of a file that `exclusions export` or **Export…** made. It skips the rules that the list has already. It turns off the built-in rules that the file turned off. If the file turns off a built-in rule that is on, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing. A file with one bad rule adds nothing. |
 | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
-| `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. See [Improvement data](settings.md#improvement-data) |
+| `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade. See [Improvement data](settings.md#improvement-data) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 
@@ -115,7 +116,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | 0 | Built. For `check`: nothing is in the way. For `inspect`: the installer was read. For a worker or image command: done |
 | 1 | Refused before anything started. The reasons follow, one on each line. For `inspect`: the installer could not be read. Also `worker remove` without `--confirm` |
 | 2 | The job or the command ran and failed. The `AP-` code and the detail follow |
-| 3 | Cannot run here: not elevated, the service does not run, or the host cannot run jobs yet. A worker or image command also stops here while the window or another command line is open |
+| 3 | Cannot run here: not elevated, the service does not run, or the host cannot run jobs yet. A worker or image command also stops here while the window or another command line is open. Each command that uses the working directory also stops here when the working directory is not safe to use |
 | 4 | Built, but the package did not reach the export location, or not completely. The warning `AP-PK-010` gives the reason |
 | 64 | The command line is not correct: an unknown option, an option given twice, or a missing value |
 | 130 | Cancelled with Ctrl+C |

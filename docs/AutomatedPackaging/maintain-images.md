@@ -61,12 +61,13 @@ The product compares each image with this version of the product and with the se
 | The agent in the image does not have a feature of this version of the product. The reason names each feature: "Update this worker to use: …" | Orange | **Update** |
 | A worker of the image connects to a different address or port than the listener of this host | Red | **Update** |
 | The channel authority that signed the certificate of the worker is no longer trusted | Red | **Update** |
-| An earlier channel authority signed the certificate of the worker, during a change of authority | Orange | **Update** |
+| An earlier channel authority, which is still trusted, signed the certificate of the worker. The agent in the worker does not trust the current authority | Red | **Update** |
+| The image does not record its channel authority, and its last update was before this host made its current authority | Red | **Update** |
 | The packaging account of the worker is not the account of the image | Red | **Rebuild from media** |
 | The exclusion set does not leave out the cache of Windows Installer | Orange | **Update** |
 | The image was calibrated 180 days ago or more | Orange | **Update** |
 
-A development build of the product counts as current. An older image does not record its channel authority, so the product does not judge it. The next update of the image records it.
+A development build of the product counts as current. An older image does not record its channel authority. For such an image, the product compares the date of its last update with the date of the current authority of this host. The next update of the image records the authority.
 
 Each feature that needs the agent names the agent version that brought it. These features need the agent in the worker:
 
@@ -74,7 +75,7 @@ Each feature that needs the agent names the agent version that brought it. These
 - interactive installs, and restarts in an interactive built-in capture
 - the MakeAppx error in a failed job, and the check that PSF fixups loaded
 
-An image with an older agent reads **Update recommended**, and its reason lists the features that it does not have. When a job uses one of these features, the product does not give the job to that image. It gives the job to another image for the target whose agent has the feature. If no image has it, the job stops with `AP-IM-030` before it touches a worker. A job pinned to a worker of that image stops too. The Build screen, `check` and the MCP tool `check_job` show this before you start the job.
+An image with an older agent reads **Update recommended**, and its reason lists the features that it does not have. When a job uses one of these features, the product does not give the job to that image. It gives the job to another image for the target whose agent has the feature. If no image has it, the job stops with `AP-IM-030` before it touches a worker. When the images for the target are passed over for different reasons, the message gives each code, for example `AP-IM-023` and `AP-IM-030`. A job pinned to a worker of that image stops too. The Build screen, `check` and the MCP tool `check_job` show this before you start the job.
 
 The built-in engine, its restarts and the trace apply to a job on the built-in engine. Interactive installs apply to an interactive job, and their restarts to an interactive job on the built-in engine. The MakeAppx error and the PSF check never stop a job: without them, the job runs as before.
 
@@ -155,13 +156,14 @@ The workers do not move to a different host. Their passwords are encrypted for t
 Do this when host preparation says "This host has no channel authority", or when somebody could have a copy of the key. Run no job until the last step is done. A worker that is not updated cannot connect to the new listener.
 
 1. If the old authority is still there and you replace it, remove it. Open `certlm.msc`, **Personal > Certificates**. Delete the certificate with the friendly name **Automated Packaging channel authority**.
-2. Open `<dataFolder>\agent-channel.json`. Remove the value of `serverCertificateThumbprint`: the certificate of the listener comes from the old authority.
-3. Run host preparation, and apply the changes. It creates a new authority and puts it first in `trustedAuthorityThumbprints`. It also issues a new certificate for the listener. "Service certificates" still fails, because the file names the old authority.
-4. In `agent-channel.json`, remove each old thumbprint from `trustedAuthorityThumbprints`. Keep the first one.
-5. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
-6. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**.
+2. Run host preparation, and apply the changes. It creates a new authority and puts it first in `trustedAuthorityThumbprints`. "Listener certificate" fails, because the old authority issued the certificate of the listener. Host preparation issues a new one and writes its thumbprint in `agent-channel.json`. "Certificates of the service" still fails, because the file names the old authority.
+3. Open `<dataFolder>\agent-channel.json`. Remove each old thumbprint from `trustedAuthorityThumbprints`. Keep the first one.
+4. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
+5. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**.
 
-After step 3, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 6 names it.
+After step 2, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). An older image does not record its channel authority. It also reads **Update required**, because its last update was before this host made the new authority.
+
+An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 6 names it. Step 6 stops before it changes the worker when the first thumbprint in `trustedAuthorityThumbprints` is not the newest authority of this host. Then run host preparation.
 
 ## Good to know
 

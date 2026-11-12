@@ -38,7 +38,15 @@ If a runtime is missing, the MSI stops before it installs anything. It says "Aut
 
     The installer asks which improvement data this host keeps: **Off**, **Minimal** or **All**. Off is selected. For an unattended installation, add `IMPROVEMENTDATA=Off`, `Minimal` or `All`.
 
-The installer also creates the working directory, closed from the start, before it starts the service. Only `Administrators`, `SYSTEM` and `Hyper-V Administrators` can change it. The virtual machines can write in it. When the folder is already there, the installer does not change it and does not stop. Host preparation checks it in **Working directory access**. See [Folder access](prepare-host.md#folder-access).
+The installer also creates the working directory, closed from the start, before it starts the service. Only `Administrators`, `SYSTEM` and `Hyper-V Administrators` can change it. The virtual machines can write in it. When the folder is already there, the installer does not change it.
+
+An upgrade does not stop for a folder that is already there. An installation on a host that had the product before does not stop either. Host preparation checks the folder in **Working directory access**. See [Folder access](prepare-host.md#folder-access).
+
+A first installation on a host checks a folder that is already there. It stops if an account that is not an administrator owns the folder, can write it, or can replace it from a folder above. It also stops if the folder holds a link. The installer then names the folder and each problem, and installs nothing. If nothing in the folder is yours, delete it. If it holds files that you need, move them to a different folder, then delete it. Then run the installer again. You can also give the installer a different working directory.
+
+**The working directory must be a folder, not a drive.** A first installation with the root of a drive, for example `WORKINGDIR=D:\`, stops and installs nothing. Run the installer again and give a folder, for example `D:\AutomatedPackaging`. A host that already has the root of a drive as its working directory keeps it at an upgrade.
+
+When the service starts, it examines the working directory again. The window and the command line do this too when they start. If the folder is not safe, none of them writes in it. See [Troubleshooting](troubleshooting.md#running-a-job).
 
 ## Check the installation
 
@@ -70,6 +78,8 @@ If the data folder is already there and is not safe, the installation stops. Not
 ## Uninstall
 
 Uninstalling keeps the working directory, the data folder, the channel certificate authority and the `WorkingDirectory` registry value. A later installation then finds the same folder.
+
+Uninstalling removes `NT SERVICE\AutomatedPackaging` from `Administrators` and from `Hyper-V Administrators`. It also removes the inbound firewall rules that host preparation made. These are the rules named "Automated Packaging DNS sinkhole", "Automated Packaging worker channel", and "Automated Packaging KMS relay", with or without "(service)" or "(command line)". A rule with one of these names for a different program stays, and so do all other rules. The group `AppVentiX Packaging Operators` stays, with its members. An upgrade removes none of these. When a first installation fails, the installer also removes the service from `Administrators`.
 
 **An upgrade cannot change the working directory.** If the host has a working directory and the installation gives a different one, the installation stops and names both folders. A silent installation ends with that error. Remove `WORKINGDIR=` from the command line, or give the folder that the host has.
 

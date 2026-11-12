@@ -87,7 +87,7 @@ These tools read and change nothing:
 | Tool | What it gives |
 |---|---|
 | `product_status` | Gives the product version on this host and the licence state. It also says if the licence allows MCP. It gives the improvement data level, and "Set by your organisation" when a policy limits it. An agent cannot change the level |
-| `list_machines` | The workers for a target, free or busy, and the recommended one |
+| `list_machines` | The workers for a target, free or busy, and the recommended one. The recommendation is for a silent job with the packaging tool. An MCP job is silent, and it uses the packaging tool unless it names an engine |
 | `list_certificates` | The certificates and Azure profiles that can sign, with their IDs |
 | `list_jobs` | The newest jobs, at most 100, with their state |
 | `job_status` | The state of one job, its package, and its error code |
@@ -161,7 +161,7 @@ The relay writes its message to the log of the client, not to the conversation. 
 
 | Message | What to do |
 |---|---|
-| The Automated Packaging host service does not answer. | In **Services**, make sure that **AppVentiX Automated Packaging** runs. If it stops, read `<workingDir>\Logs\service-<date>.log` |
+| The Automated Packaging host service does not answer. | In **Services**, make sure that **AppVentiX Automated Packaging** runs. If it stops, read `<workingDir>\Logs\service-<date>.log`. When the working directory is not safe to use, the log is in `%ProgramData%\AppVentiX\Automated Packaging\logs`, and the service gives no worker tools. See "Running a job" in [Troubleshooting](troubleshooting.md#running-a-job) |
 | The host service closed the connection. | Four MCP clients can use the service at one time. Close a client that you do not use. `<workingDir>\Logs\service-<date>.log` gives the reason |
 | Windows refused the connection to the host service. | Add your account to **AppVentiX Packaging Operators**. Then sign out and sign in again |
 | Another program made the pipe, not the host service. | Stop. Another program uses the name of the channel of the service. Tell an administrator of the host |

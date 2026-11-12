@@ -178,7 +178,11 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 
 **Improvement data** helps AppVentiX make the product better. Select a level: **Off**, **Minimal** or **All**. Off is the default. The installer asks for the level. While the level is not Off, the host keeps one record for each job, each worker build and each worker update. The support information does not contain these records.
 
-**At an upgrade**, the question shows the answer of the install before. If you select a different level, or give a different `IMPROVEMENTDATA`, the product uses it. This is also true when you saved a level on Settings. If the answer is the same, the level of Settings stays. When the level goes down, or a policy limits it, the product removes the records of a higher level.
+Settings and `improvement set` also write the level that they save to the value of the installer. Without `IMPROVEMENTDATA`, a silent installation uses the value that is there, or Off.
+
+**At an upgrade**, the question shows the level of this host: the level saved on Settings or with the command line, else the answer of the install before. If you select a different level, or give a different `IMPROVEMENTDATA`, the product uses it. If the answer is the same, the level stays. When the level goes down, or a policy limits it, the product removes the records of a higher level. It does this when the application starts and when the host service starts.
+
+If the product cannot write the value, Settings and `improvement set` save the level and tell you. Then the question at an upgrade can show an earlier level. The application writes the value again each time it starts.
 
 === "GUI"
 
@@ -191,7 +195,7 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
     | Command | What it does |
     |---|---|
     | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
-    | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records |
+    | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade |
 
 **Minimal collects:**
 
