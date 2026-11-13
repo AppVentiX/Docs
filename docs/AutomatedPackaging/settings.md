@@ -12,7 +12,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 | **Appearance** | **Follow Windows**, **Light** or **Dark** |
 | **Export** | The export location. See [Export packages](export.md) |
 | **Exclusions** | What a capture leaves out of a package, layer by layer. See [Exclusions](#exclusions) |
-| **Diagnostics** | **Collect support information**, and **Improvement data** |
+| **Diagnostics** | **Collect support information**, **Record steps**, and **Improvement data** |
 | **Advanced** | The managed name prefix, the default conversion engine, and the configuration bundle |
 
 ## This host
@@ -179,6 +179,48 @@ Redaction cannot find a name that it does not know, for example the name of anot
 It does not hold worker passwords, the licence file, installers or packages. Not in the file: the `Collected files` folder of a job, and the host preparation records. Attach them yourself when necessary. They are not redacted.
 
 An AI agent can write the same file with the MCP tool `collect_support_bundle`. See [MCP](mcp.md).
+
+### Record steps
+
+**Settings > Diagnostics > Record steps** writes the steps that you do in the application to a file.
+Support reads the file to see what happened before a problem.
+
+1. Click **Start**.
+2. Do the steps that cause the problem.
+3. Go back to **Settings > Diagnostics** and click **Stop**.
+4. Click **Collect support information**. The zip file includes the steps file.
+
+The file is `<workingDir>\Logs\steps-<date>-<time>.log`. Click **Show** to open it. Each start makes a
+new file. Record steps stops after 30 minutes or 2000 steps, and when the application closes.
+
+Each line has the time, the screen, the step and the name of the control. A step is a screen or a
+dialog that opens, a button that you click, or a setting that you change. The name is the text that
+the product gives the control, for example `Collect support information`.
+
+| The control | What the line says |
+|---|---|
+| A button | Its name |
+| A check box, a radio button or a switch | Its name and `on` or `off` |
+| A text box or a password box | Its name and `changed`. One line each time that you go into the box and type |
+| A list or a drop-down list | Its name and `changed` when you select an item |
+| A control in an item of a list | Its type and the name of the list, for example `a button in the list JobList` |
+| A dialog | The name of its class, not its title |
+
+**Never in the file:** text that you type, passwords, paths, file names, the names of jobs, and the
+text of the items in a list. The file has no pictures of the screen. A message box is not a step.
+`manifest.txt` names each steps file in the zip file.
+
+An example of the lines:
+
+```
+# Automated Packaging Record steps. Names only, never values. It stops after 30 minutes or 2000 steps.
+# Time | Screen | Step | Control | State
+2026-11-14 00:00:47 | Settings > Appearance | screen opened | Settings > Appearance
+2026-11-14 00:00:47 | Settings > Appearance | selection changed | Settings sections | changed
+2026-11-14 00:01:08 | Settings > Diagnostics | screen opened | Settings > Diagnostics
+2026-11-14 00:01:20 | Settings > Diagnostics | button clicked | Stop Record steps
+# Stopped: You stopped Record steps.
+```
 
 ### Improvement data
 
