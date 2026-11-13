@@ -79,6 +79,10 @@ If the data folder is already there and is not safe, the installation stops. Not
 
 Uninstalling keeps the working directory, the data folder, the channel certificate authority and the `WorkingDirectory` registry value. A later installation then finds the same folder.
 
+A first installation that fails removes its changes, but two empty folders can stay. These are
+the data folder and, when the installation made it, the working directory. Only administrators
+can change them. The next installation examines them and uses them. You can also delete them.
+
 Uninstalling removes `NT SERVICE\AutomatedPackaging` from `Administrators` and from `Hyper-V Administrators`. It also removes the inbound firewall rules that host preparation made. These are the rules named "Automated Packaging DNS sinkhole", "Automated Packaging worker channel", and "Automated Packaging KMS relay", with or without "(service)" or "(command line)". A rule with one of these names for a different program stays, and so do all other rules. The group `AppVentiX Packaging Operators` stays, with its members. An upgrade removes none of these. When a first installation fails, the installer also removes the service from `Administrators`.
 
 **An upgrade cannot change the working directory.** If the host has a working directory and the installation gives a different one, the installation stops and names both folders. A silent installation ends with that error. Remove `WORKINGDIR=` from the command line, or give the folder that the host has.

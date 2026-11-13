@@ -73,6 +73,9 @@ Before it signs, the product shows the certificate and its thumbprint, the publi
 
     Exit code 0 when the package is signed, 1 when it is refused or not confirmed.
 
+    When it refuses, the reason is in `problems` and `detail` is `null`. The text output shows the reason
+    one time, under "Standing in the way:". `resign` does the same.
+
 Only one Sign for release runs for a job at a time, in the application or on the command line. A second one stops and signs nothing.
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.

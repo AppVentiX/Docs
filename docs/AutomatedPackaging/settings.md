@@ -32,7 +32,13 @@ The product keeps the files only when each PSF file is signed by TMurgent Techno
 
 The smoke test checks the fixup. It reads the modules of the started application. The job log names the fixup that it found. When the fixup did not load, the job shows a warning. When the modules could not be read, the job log says so.
 
-When a newer PSF release is available, a notice shows above every screen. Jobs use your current release until you click **Adopt**.
+After the download of PSF, the product asks GitHub at start if the fork has published a newer release. If it has, the product downloads that release one time, in the background. It checks that TMurgent Technologies LLP signed each of the eight files, and it keeps nothing. The product remembers the result for that release.
+
+- **The files are signed.** A notice above each screen says that the release is available. The card offers **Adopt** with the name of the release. Jobs continue to use your release until you adopt the new one. Adopt downloads the release again and runs the same checks.
+- **The files are not signed.** No notice shows. The card on **Settings > This host** shows one line: the release, the date of the release, and that it cannot be adopted. The card shows no **Adopt** button for that release. A newer release gets a new check.
+- **Not now** hides the notice for that release. The notice shows again only for a newer release.
+- **On a host with no internet**, the question gets no answer, and nothing shows.
+- If **Adopt** refuses a release, the product says why. It gives each reason one time, with the files under it. The product keeps the release that you have, and it does not offer the refused release again.
 
 ## Appearance
 
