@@ -207,7 +207,8 @@ the product gives the control, for example `Collect support information`.
 | A dialog | The name of its class, not its title |
 
 **Never in the file:** text that you type, passwords, paths, file names, the names of jobs, and the
-text of the items in a list. The file has no pictures of the screen. A message box is not a step.
+text of the items in a list. The file has no pictures of the window, unless you tick **Take a
+picture of the window for each step** (below). A message box is not a step.
 `manifest.txt` names each steps file in the zip file.
 
 An example of the lines:
@@ -221,6 +222,35 @@ An example of the lines:
 2026-11-14 00:01:20 | Settings > Diagnostics | button clicked | Stop Record steps
 # Stopped: You stopped Record steps.
 ```
+
+#### Pictures of the window
+
+Record steps can also keep one picture of the window for each step. Support then sees what the
+screen showed, for example the state of a dialog.
+
+1. Tick **Take a picture of the window for each step**. The tick is off each time the application
+   starts.
+2. Click **Start**, do the steps, and click **Stop**.
+3. Click **Review the pictures**.
+4. Select each picture and look at it. **Next picture** goes to the next one that you did not see.
+5. Untick **Keep this picture** for each picture that must not go to support. **Remove all**
+   unticks all of them.
+6. Click **Use the kept pictures**. The product deletes the pictures that you removed.
+7. Click **Collect support information**.
+
+!!! warning "Redaction cannot read a picture"
+    A picture can show host names, user names, job names and paths. Look at each picture before
+    you keep it. Remove each picture that must not go to AppVentiX support.
+
+The pictures are in `<workingDir>\Logs\steps-<date>-<time>-captures\step-<n>.png`. The number is
+the step in the steps file. A picture shows only the window of the application, also when another
+window is in front of it. Record steps keeps 100 pictures or 50 MB at most for each steps file. After
+that, it writes only the steps, and the steps file says so.
+
+**Use the kept pictures** is available only when you saw each picture that you keep. The zip file
+takes a picture only after your review, and only if the picture did not change after it. A picture
+that you did not review stays out, and `manifest.txt` says how many. After the application
+restarts, review the pictures again. In the zip file, the pictures are in `captures\`.
 
 ### Improvement data
 
