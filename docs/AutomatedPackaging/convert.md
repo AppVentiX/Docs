@@ -270,7 +270,7 @@ Two things refuse the package with `AP-IN-013`:
 - files that the installer replaces or deletes at the next start,
 - `RunOnceEx` work.
 
-A `RunOnce` entry can still be in the capture, for example when the work did not run in the wrapper. Windows never runs a `RunOnce` entry of a package. The job then succeeds with the warning `AP-PK-009`, which names the entries, at most ten. The warning is on the Build screen and in the result of `convert`. It is also in the job log on the Jobs screen and in the MCP tool `job_log`. Find what each entry does. If the application needs that work, the package is not complete.
+A `RunOnce` entry can still be in the package, for example when the `RunOnce` work adds more `RunOnce` work. With the built-in engine, the work of an installer that asks for no restart also stays. The product reads the registry of the finished package for `RunOnce` and `RunOnceEx` entries. Windows never runs a `RunOnce` entry of a package. The job then succeeds with the warning `AP-PK-009`, which names the entries, at most ten. The warning is on the Build screen and in the result of `convert`. It is also in the job log on the Jobs screen and in the MCP tool `job_log`. Find what each entry does. If the application needs that work, the package is not complete.
 
 An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use an interactive job on the built-in engine for it: see [A restart in an interactive install](#a-restart-in-an-interactive-install).
 
