@@ -159,6 +159,17 @@ On MCP, the tool `explain_code` gives the cause and remedy of each code.
 
 The product writes one file at a time. The folder keeps the newest five files and removes older ones. A log larger than 8 MB goes in with its last 8 MB only, and the file says so.
 
+## Product updates
+
+The card **Product updates** on **Settings > Licence** tells what the check at start found. See [Product updates](settings.md#product-updates).
+
+| The card says | What to do |
+|---|---|
+| "This build has no address for the update information." | Nothing. A test build has no address. A release sets it |
+| "This build has no issuing key …" | Nothing. A build without a licence issuing key cannot examine the signature |
+| "The application could not get the update information." | Make sure that the host can open HTTPS addresses on the internet. The check tries again at the next start |
+| "The application did not use the update information." | Send the line to AppVentiX support. The file was not signed by AppVentiX, was older than a file that the host used before, or had an incorrect field |
+
 ## Report a finding while you test
 
 When you test a build, an AI can help you write down what you find. It asks for the build first, then asks questions about each problem, and writes a Markdown file for each day. Give it this as your first message:
