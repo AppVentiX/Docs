@@ -243,7 +243,7 @@ An example of the lines:
 #### Pictures of the window
 
 Record steps can also keep one picture of the window for each step. Support then sees what the
-screen showed, for example the state of a dialog.
+screen showed, for example the state of a dialog. When a click closes a dialog, the picture of that step shows the window behind the dialog.
 
 1. Tick **Take a picture of the window for each step**. The tick is off each time the application
    starts.
