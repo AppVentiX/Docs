@@ -4,7 +4,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 
 | Section | What it holds |
 |---|---|
-| **Licence** | The licence state and the starter allowance. **Install licence…** installs a licence file |
+| **Licence** | The licence state and the starter allowance. **Install licence…** installs a licence file. **Product updates**: see [Product updates](#product-updates) |
 | **Folders** | The finished packages folder, the working directory, the data folder, and **Housekeeping** |
 | **This host** | The host checks, **Prepare this host…**, Hyper-V, **Packaging tools** and **Package Support Framework** |
 | **Signing** | Signing certificates, a test certificate, and Azure Artifact Signing profiles. See [Signing](signing.md) |
@@ -39,6 +39,23 @@ After the download of PSF, the product asks GitHub at start if the fork has publ
 - **Not now** hides the notice for that release. The notice shows again only for a newer release.
 - **On a host with no internet**, the question gets no answer, and nothing shows.
 - If **Adopt** refuses a release, the product says why. It gives each reason one time, with the files under it. The product keeps the release that you have, and it does not offer the refused release again.
+
+## Product updates
+
+The application can tell you when AppVentiX publishes a newer version of the product. The setting is **Check for product updates**, in the card **Product updates** on **Settings > Licence**. It is on by default. The command line does not check for product updates.
+
+When the check is on, the application sends one request when it starts. The request goes to an AppVentiX address over HTTPS. The server sees the IP address of this host and the product version. The application sends nothing else.
+
+The answer is a file that AppVentiX signs with the key that also signs licences. The application uses the file only when the signature is correct. It also refuses a file with a lower issue number than the last file that it used. Thus an old file cannot hide a security update.
+
+- **A newer version is available.** A notice shows above each screen. For a security update, the notice says so. Click **Download page…** or **Release notes…** to open the page in your browser.
+- **The application does not download or install the update.** You download the MSI and install it yourself.
+- **Not now** hides the notice until the next start.
+- **On a host with no internet**, the check gets no answer, and nothing shows. It tries again at the next start.
+
+The check is off, and the application sends no request, when you untick **Check for product updates**. It is also off in a build without an address for the update information: only a release of the product sets the address. Then the box is not available, and the card says why.
+
+**Check for updates** on the **Prerequisites** screen is a different check. It looks for newer prerequisites.
 
 ## Appearance
 
