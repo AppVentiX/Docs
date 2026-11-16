@@ -95,7 +95,7 @@ These tools read and change nothing:
 | `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
 | `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
-| `inspect_installer` | What the Build screen fills in for an installer |
+| `inspect_installer` | What the Build screen fills in for an installer. For an MSI, also each installer repair rule that matches and the rows that it removes. See [Installer repair rules](settings.md#installer-repair-rules) |
 | `check_job` | What stops a job, or what it builds. It does not start the job. It asks the questions of `check` on the command line: the signing tools (`AP-SG-010`), and the images (`AP-IM-023`, `AP-IM-026`, `AP-IM-030`). It does not ask for a free worker |
 | `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
 | `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
