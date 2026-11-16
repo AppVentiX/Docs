@@ -182,7 +182,7 @@ The **Installer repair rules** card is a list of its own, beside the exclusions.
 | `IR-002` | The values `ProxyEnable`, `ProxyServer` and `ProxyOverride` of `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`, and the key `Wpad` below it | The proxy settings of the user who made the MSI. On the worker, they send connections to a proxy that is not there |
 | `IR-003` | The values `PendingFileRenameOperations` and `PendingFileRenameOperations2` of `HKLM\SYSTEM\CurrentControlSet\Control\Session Manager` | The files that the computer which made the MSI had to rename or delete at its next start |
 
-The Build screen, `inspect`, `check` and the MCP tools `inspect_installer` and `check_job` show the rows before the job starts. The job writes `installer-repair.json` into its folder, with each rule that matched, its rows and the hash of the transform.
+The Build screen, `inspect`, `check` and the MCP tools `inspect_installer` and `check_job` show the rows before the job starts. The job writes `installer-repair.json` into its folder, with each rule that matched, its rows and the hash of the transform. The job also leaves out the copy of its transform that Windows Installer keeps for an installation for one user. `exclusions.json` lists it as rule `PR-001`.
 
 An interactive job does not apply the transform: you run the installer yourself, and the job log names the rows. An EXE installer, or an MSI that writes these rows through a custom action, cannot be read before the job. The rules read the MSI only: a row that one of your transforms adds is not seen.
 
@@ -226,7 +226,7 @@ A key starts with `HKLM`, `HKCU`, `HKCR` or `HKU`, and has at least two levels b
     AutomatedPackaging.Cli repair-rules remove IH-001
     ```
 
-    Run the `repair-rules` commands from an elevated prompt. A rule that the screen refuses is refused here too, with the same reason, and exit code 1.
+    Run the `repair-rules` commands from an elevated prompt. Put each key in quotes: a space or the `|` character splits it in the shell otherwise. A rule that the screen refuses is refused here too, with the same reason, and exit code 1.
 
 The next job uses the change. A job that runs now keeps the rules that it started with.
 
