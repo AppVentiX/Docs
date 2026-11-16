@@ -63,6 +63,8 @@ You can see what the product reads from an installer before you start a job.
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
     | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
+    | **Program to start** | The program that the package starts, for an installer that makes no shortcut to it. For an MSI, the list under the box has each EXE of the MSI. For an EXE installer, type the path, for example `Contoso\Tool\tool.exe`, or only `tool.exe`. The job adds an application on the program. See [The program to start](#the-program-to-start) |
+    | **No application** | The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs the package on the worker and removes it again, instead of the start test, and warns |
     | **Prerequisites** | **Select…** selects prerequisites for this job only. The list shows one line for each item, and the label shows how many there are |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
 
@@ -91,6 +93,8 @@ You can see what the product reads from an installer before you start a job.
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
     | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
+    | `--application <path>` | **Program to start** | The program that the package starts, as a path that ends in `.exe`. `inspect` lists the programs of an MSI |
+    | `--no-application` | **No application** | Builds the package with no application. The job installs and removes it instead of the start test |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
     | `--include-folder` | "Include the other files and folders in the installer's folder" | Sends the other files and folders in the installer's folder |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
@@ -105,6 +109,30 @@ You can see what the product reads from an installer before you start a job.
     | `--package-version <version>` | **Version** | Default: the ProductVersion of the MSI or of the EXE |
 
     The options of the **Advanced** dialog are in the next section. [Command line](command-line.md) has all options.
+
+## The program to start
+
+A package starts a program through an application in its manifest. The product makes an application from each shortcut that the installer makes. An installer with no shortcut gives a package with no application, and the job fails with `AP-PK-005`.
+
+For an MSI, the product reads the shortcuts before the job, with the ticked transforms. A shortcut to a document or a folder does not count. When the MSI installs a program and no shortcut starts one, the job is refused with `AP-AN-015` before a worker starts. Then select the program, or select **No application**. An MSI that installs a service is not refused: the package carries the service.
+
+For an EXE installer, the product cannot read the shortcuts first. Give the program only when you know that the installer makes no shortcut.
+
+The job finds the program in the package by the end of its path. So the program is found also when the installation folder is different. When two files agree with the path, give more of it. The application stays on the Start list, with the name of the package. When the capture already has an application on the same program, it stays as it is.
+
+=== "GUI"
+
+    Type the path in **Program to start**, or select it in the list under the box. Or tick **No application**. The line under the box says what **No application** does.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli inspect setup.msi
+    AutomatedPackaging.Cli convert setup.msi --application "Contoso\Tool\tool.exe"
+    AutomatedPackaging.Cli convert setup.msi --no-application
+    ```
+
+    `inspect` shows **Shortcuts** and **Programs** for an MSI. `--application` and `--no-application` cannot go together.
 
 ## Advanced settings
 
