@@ -114,7 +114,7 @@ You can see what the product reads from an installer before you start a job.
 
 A package starts a program through an application in its manifest. The product makes an application from each shortcut that the installer makes. An installer with no shortcut gives a package with no application, and the job fails with `AP-PK-005`.
 
-For an MSI, the product reads the shortcuts before the job, with the ticked transforms. A shortcut to a document or a folder does not count. When the MSI installs a program and no shortcut starts one, the job is refused with `AP-AN-015` before a worker starts. Then select the program, or select **No application**. An MSI that installs a service is not refused: the package carries the service.
+For an MSI, the product reads the shortcuts before the job, with the ticked transforms. A shortcut to a document or a folder does not count. When the MSI installs a program and no shortcut starts one, the job is refused with `AP-AN-015` before a worker starts. Then select the program, or select **No application**. An MSI that installs a service is not refused: the package carries the service. When a custom action of the MSI runs one of its own programs, `AP-AN-015` is only a note, and the job goes on: that program can make the shortcut. If the package then has no application, the job fails with `AP-PK-005`, and the detail names the programs.
 
 For an EXE installer, the product cannot read the shortcuts first. Give the program only when you know that the installer makes no shortcut.
 

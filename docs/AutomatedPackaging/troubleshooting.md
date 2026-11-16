@@ -144,7 +144,7 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-AN-011` | The installer declares a Windows service. Only a note |
 | `AP-AN-012` | The file cannot be read as an installer. Often an incomplete download |
 | `AP-AN-013` | The installer installs a driver. The job is refused |
-| `AP-AN-015` | No shortcut of the MSI starts a program. Select the program to start, or **No application**. See [The program to start](convert.md#the-program-to-start) |
+| `AP-AN-015` | No shortcut of the MSI starts a program. Select the program to start, or **No application**. When a custom action of the MSI runs one of its programs, it is only a note. See [The program to start](convert.md#the-program-to-start) |
 | `AP-LC-006` | The starter allowance is used. Install a licence |
 | `AP-PK-005` | The package has nothing to start. The installer made no Start menu shortcut. Give the program to start, or select **No application**. When the detail names programs, the program that you gave is not one of them |
 | `AP-SG-008` | The package could not be signed. Use **Retry signing** |
