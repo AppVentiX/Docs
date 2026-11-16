@@ -184,7 +184,7 @@ The **Installer repair rules** card is a list of its own, beside the exclusions.
 
 The Build screen, `inspect`, `check` and the MCP tools `inspect_installer` and `check_job` show the rows before the job starts. The job writes `installer-repair.json` into its folder, with each rule that matched, its rows and the hash of the transform.
 
-An interactive job does not apply the transform: you run the installer yourself, and the job log names the rows. An EXE installer, or an MSI that writes these rows through a custom action, cannot be read before the job.
+An interactive job does not apply the transform: you run the installer yourself, and the job log names the rows. An EXE installer, or an MSI that writes these rows through a custom action, cannot be read before the job. The rules read the MSI only: a row that one of your transforms adds is not seen.
 
 #### Turn off a repair rule
 
