@@ -38,13 +38,14 @@ After the download, check the **On the target** text of the item, under **Edit�
 
 ### Add your own
 
-Click **Add a prerequisite…**. An item has one of three types:
+Click **Add a prerequisite…**. An item has one of four types:
 
 | Type | What runs |
 |---|---|
 | **EXE installer** | The file, with its arguments |
 | **MSI package** | `msiexec /i <file> <arguments>`, with `/qn`, `/norestart` and a log added |
 | **PowerShell script** | The script, in Windows PowerShell 5.1 or PowerShell 7 (**Engine**) |
+| **Windows feature** | DISM turns on a feature of Windows, such as .NET Framework 3.5. See [A Windows feature](#a-windows-feature) |
 
 **Items must install offline.** A worker has no route to the internet. A web installer fails.
 
@@ -65,6 +66,19 @@ The important fields:
 Click **Save**. The product records the hash of the files. A file changed by hand in `Distro\Prerequisites` stops the item with `AP-PK-012`.
 
 To change the files, select **New version…**. The item keeps its ID.
+
+### A Windows feature
+
+Some applications need a feature of Windows that is off, such as .NET Framework 3.5. Select the type **Windows feature**. Then select the feature in **Feature**, or type its name as DISM knows it, for example `NetFx3`. `Get-WindowsOptionalFeature -Online` shows the names.
+
+- The item has no files and no arguments. The source is the Windows installation ISO of the worker, which the worker keeps as a DVD. The product gives DISM the folder `sources\sxs` of that DVD, with `/LimitAccess`.
+- The product finds the item by the state of the feature.
+- DISM exits with 3010 when the feature needs a restart. **Restart allowed** is ticked for a new item.
+- When **On the target** is empty, the notes of the package say "The Windows feature `<feature>`, enabled."
+
+For .NET Framework 3.5 on Windows 10 and 11, use this type. The offline installer of Microsoft exits with 1603 there.
+
+If DISM does not find the files, the item fails. The message says that the worker needs its installation ISO as a DVD.
 
 ## On an image
 
