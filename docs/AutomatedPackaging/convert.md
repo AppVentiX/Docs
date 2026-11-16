@@ -263,12 +263,14 @@ The package holds what you did before and after the restart.
 
 ## Installers that ask for a restart
 
-The worker does not restart during a capture. When an installer exits with 3010 or 1641, the product runs the `RunOnce` work of the installer in the capture. The package then holds the result. The job succeeds with a warning that names the commands.
+With the packaging tool, the worker does not restart during a capture. When an installer exits with 3010 or 1641, the product runs the `RunOnce` work of the installer in the capture. The package then holds the result. The job succeeds with a warning that names the commands.
 
 Two things refuse the package with `AP-IN-013`:
 
 - files that the installer replaces or deletes at the next start,
 - `RunOnceEx` work.
+
+The built-in engine does not refuse the files. It restarts the worker and the capture continues after the restart. The job log names the files. With each engine, the delete of a temporary file at the next start is not such work, because the package does not contain that file.
 
 A `RunOnce` entry can still be in the package, for example when the `RunOnce` work adds more `RunOnce` work. With the built-in engine, the work of an installer that asks for no restart also stays. The product reads the registry of the finished package for `RunOnce` and `RunOnceEx` entries. Windows never runs a `RunOnce` entry of a package. The job then succeeds with the warning `AP-PK-009`, which names the entries, at most ten. The warning is on the Build screen and in the result of `convert`. It is also in the job log on the Jobs screen and in the MCP tool `job_log`. Find what each entry does. If the application needs that work, the package is not complete.
 
