@@ -78,7 +78,9 @@ Some applications need a feature of Windows that is off, such as .NET Framework 
 
 For .NET Framework 3.5 on Windows 10 and 11, use this type. The offline installer of Microsoft exits with 1603 there.
 
-If DISM does not find the files, the item fails. The message says that the worker needs its installation ISO as a DVD.
+If DISM does not find the files, the item fails. The message names the Windows release of the worker and its DVDs. Rebuild the worker from its media if the DVD is missing.
+
+**Limits.** A feature whose files are not in Windows and not in `sources\sxs` cannot be installed. Windows capabilities, such as language packs or RSAT tools, are not supported.
 
 ## On an image
 
