@@ -18,6 +18,8 @@ Select an item to see its facts, how it installs, and **Used by**: the images, j
 
 The screen opens at once. While it reads the library and the files of each item, a ring shows above the list.
 
+A newer version of the product can store an item of a kind that this version does not know. You can see this after you go back to an earlier version, or restore a backup from a newer one. The list does not show such an item, and a message names it. The product keeps the item and its files as they are. An image or a job that asks for it is refused, with that reason. Update the product to use the item again.
+
 ![The Prerequisites screen, with a Visual C++ item selected](images/prerequisites.png)
 
 ### Download from the vendor
