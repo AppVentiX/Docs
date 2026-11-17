@@ -6,7 +6,7 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1117.1700
+module_version: 2026.1117.2000
 ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AppVentiXUserSettings
@@ -41,6 +41,9 @@ Filters can be combined.
 Type and Id are matched on the file name, so only the matching files are read.
 This is faster,
 especially for an Azure Blob Configuration Store.
+The Enabled property is $false for a disabled User Setting.
+A User Setting without an Enabled
+element (created with an older version) is enabled.
 
 ## EXAMPLES
 
@@ -189,6 +192,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
+- [Disable-AppVentiXUserSetting](Disable-AppVentiXUserSetting.md)
+- [Enable-AppVentiXUserSetting](Enable-AppVentiXUserSetting.md)
 - [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
 - [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
 - [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)

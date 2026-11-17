@@ -6,7 +6,7 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1117.1700
+module_version: 2026.1117.2000
 ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Get-AppVentiXContentStorePackage
@@ -24,14 +24,16 @@ Retrieves packages from the AppVentiX content shares.
 
 ```
 Get-AppVentiXContentStorePackage [-IncludeDependencies] [-ListOnly] [-CachePackages]
- [-ThrottleLimit <int>] [-ConfigShare <string>] [<CommonParameters>]
+ [-ThrottleLimit <int>] [-ContentCache <string>] [-UpdateContentCache] [-ConfigShare <string>]
+ [<CommonParameters>]
 ```
 
 ### Named
 
 ```
 Get-AppVentiXContentStorePackage [-MachineGroupFriendlyName <string>] [-IncludeDependencies]
- [-ListOnly] [-CachePackages] [-ThrottleLimit <int>] [-ConfigShare <string>] [<CommonParameters>]
+ [-ListOnly] [-CachePackages] [-ThrottleLimit <int>] [-ContentCache <string>] [-UpdateContentCache]
+ [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -70,6 +72,16 @@ Retrieves all packages including those in Dependencies folders.
 
 Get-AppVentiXContentStorePackage -ListOnly
 Lists Type/Filename/Fullname for every package without opening any manifests.
+
+### EXAMPLE 5
+
+Get-AppVentiXContentStorePackage -ContentCache Ignore
+Scans all content shares, also the Azure content shares.
+
+### EXAMPLE 6
+
+Get-AppVentiXContentStorePackage -UpdateContentCache
+Updates the content cache of all content shares, then reads the packages from it.
 
 ## PARAMETERS
 
@@ -122,6 +134,39 @@ ParameterSets:
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false
 - Name: All
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ContentCache
+
+(Optional) Controls the use of the ContentCache.json that AppVentiX Central View writes to each
+content share (see Invoke-AppVentiXUpdateContentCache).
+Reading it is much faster than a scan,
+but it is only as recent as the last content cache update.
+    Auto   : Use the content cache for Azure content shares, scan SMB content shares (default).
+    Use    : Use the content cache for all content shares.
+    Ignore : Always scan the content shares.
+A content share without a readable or complete content cache is scanned.
+Packages read from
+the content cache have no Publisher and no MemberOf, and can include MSIX App Attach packages
+(Type 'AppAttach').
+For MSIX packages the content cache only has the IdentityName (the package
+identity name), Name (the display name) is empty.
+
+```yaml
+Type: System.String
+DefaultValue: Auto
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
   Position: Named
   IsRequired: false
   ValueFromPipeline: false
@@ -229,6 +274,30 @@ AcceptedValues: []
 HelpMessage: ''
 ```
 
+### -UpdateContentCache
+
+(Optional) Updates the content cache of the content shares with Invoke-AppVentiXUpdateContentCache
+first, and uses it for all content shares (unless -ContentCache Ignore is given).
+Only works on
+the machine where AppVentiX Central View is installed, otherwise a warning is shown.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
@@ -242,6 +311,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
+- [Invoke-AppVentiXUpdateContentCache](Invoke-AppVentiXUpdateContentCache.md)
 - [Add-AppVentiXPackage](Add-AppVentiXPackage.md)
 - [New-AppVentiXConnectionGroup](New-AppVentiXConnectionGroup.md)
 - [Get-AppVentiXMachineGroup](Get-AppVentiXMachineGroup.md)

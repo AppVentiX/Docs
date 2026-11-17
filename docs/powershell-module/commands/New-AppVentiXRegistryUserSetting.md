@@ -6,7 +6,7 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1117.1700
+module_version: 2026.1117.2000
 ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXRegistryUserSetting
@@ -24,18 +24,18 @@ Creates an AppVentiX UserSetting XML file for a registry configuration.
 
 ```
 New-AppVentiXRegistryUserSetting -InputObject <psobject> [-FriendlyName <string>]
- [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
- [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-Description <string>] [-ExecutionOrder <int>] [-Enabled <bool>] [-ProcessAtLogin <bool>]
+ [-ProcessAtRefresh <bool>] [-ProcessAtReconnectAndUnlock <bool>]
+ [-MachineGroupFriendlyName <string[]>] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ### RegistryEntries
 
 ```
 New-AppVentiXRegistryUserSetting -FriendlyName <string> -RegistryEntries <hashtable[]>
- [-Description <string>] [-ExecutionOrder <int>] [-ProcessAtLogin <bool>] [-ProcessAtRefresh <bool>]
- [-ProcessAtReconnectAndUnlock <bool>] [-MachineGroupFriendlyName <string[]>]
- [-ConfigShare <string>] [<CommonParameters>]
+ [-Description <string>] [-ExecutionOrder <int>] [-Enabled <bool>] [-ProcessAtLogin <bool>]
+ [-ProcessAtRefresh <bool>] [-ProcessAtReconnectAndUnlock <bool>]
+ [-MachineGroupFriendlyName <string[]>] [-ConfigShare <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -95,6 +95,35 @@ Optional description for the UserSetting.
 ```yaml
 Type: System.String
 DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: InputObject
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+- Name: RegistryEntries
+  Position: Named
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Enabled
+
+Whether the User Setting is enabled.
+Defaults to $true.
+Use Disable-AppVentiXUserSetting or Enable-AppVentiXUserSetting to change it later.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
 SupportsWildcards: false
 Aliases: []
 ParameterSets:

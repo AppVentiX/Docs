@@ -6,7 +6,7 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1117.1700
+module_version: 2026.1117.2000
 ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXFilesAndFoldersUserSetting
@@ -24,9 +24,10 @@ Creates an AppVentiX Files and Folders UserSetting to copy or delete files and f
 
 ```
 New-AppVentiXFilesAndFoldersUserSetting [-FriendlyName] <string> [[-Description] <string>]
- [[-ExecutionOrder] <int>] [[-ProcessAtLogin] <bool>] [[-ProcessAtRefresh] <bool>]
- [[-ProcessAtReconnectAndUnlock] <bool>] [[-MachineGroupFriendlyName] <string[]>]
- [-FileOperations] <hashtable[]> [[-RunOnce] <bool>] [[-ConfigShare] <string>] [<CommonParameters>]
+ [[-ExecutionOrder] <int>] [[-Enabled] <bool>] [[-ProcessAtLogin] <bool>]
+ [[-ProcessAtRefresh] <bool>] [[-ProcessAtReconnectAndUnlock] <bool>]
+ [[-MachineGroupFriendlyName] <string[]>] [-FileOperations] <hashtable[]> [[-RunOnce] <bool>]
+ [[-ConfigShare] <string>] [<CommonParameters>]
 ```
 
 ## ALIASES
@@ -76,7 +77,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 9
+  Position: 10
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -98,6 +99,29 @@ Aliases: []
 ParameterSets:
 - Name: (All)
   Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -Enabled
+
+Whether the User Setting is enabled.
+Defaults to $true.
+Use Disable-AppVentiXUserSetting or Enable-AppVentiXUserSetting to change it later.
+
+```yaml
+Type: System.Boolean
+DefaultValue: True
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -146,7 +170,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 7
+  Position: 8
   IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -189,7 +213,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 6
+  Position: 7
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -211,7 +235,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 3
+  Position: 4
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -233,7 +257,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 5
+  Position: 6
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -255,7 +279,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 4
+  Position: 5
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -277,7 +301,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 8
+  Position: 9
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
