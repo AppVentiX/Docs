@@ -57,7 +57,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 | Option | What it does |
 |---|---|
-| `--from-capture <job-id>` | Continue from the capture of an earlier job that failed with `AP-PK-005`. The new job installs nothing. It packs that capture with the program of `--application`, given by its whole path in the package. See [Select the program of a capture](jobs.md#select-the-program-of-a-capture) |
+| `--from-capture <job-id>` | Continue from the capture of an earlier job that failed with `AP-PK-005`. The new job does not run the installer; it installs the prerequisites of the earlier job. It packs that capture with the program of `--application`, given by its whole path in the package. See [Select the program of a capture](jobs.md#select-the-program-of-a-capture) |
 | `--from-job <job-id>` | Build a new version of the application of an earlier job. The job must have built a package. The job gives the settings, and the other options change them. See [Build a new version of an application](jobs.md#build-a-new-version-of-an-application) |
 | `--name <text>` | The name of the application. Default: the ProductName of the MSI or of the version resource of the EXE |
 | `--publisher <text>` | The publisher, as people know it. Default: the Manufacturer of the MSI, or the CompanyName of the EXE. The publisher of the package is always the subject of the signing certificate |
