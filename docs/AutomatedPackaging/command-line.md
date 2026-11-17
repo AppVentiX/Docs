@@ -62,6 +62,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 | Option | What it does |
 |---|---|
+| `--from-capture <job-id>` | Continue from the capture of an earlier job that failed with `AP-PK-005`. The new job does not run the installer; it installs the prerequisites of the earlier job. It packs that capture with the program of `--application`, given by its whole path in the package. See [Select the program of a capture](jobs.md#select-the-program-of-a-capture) |
 | `--from-job <job-id>` | Build a new version of the application of an earlier job. The job must have built a package. The job gives the settings, and the other options change them. See [Build a new version of an application](jobs.md#build-a-new-version-of-an-application) |
 | `--name <text>` | The name of the application. Default: the ProductName of the MSI or of the version resource of the EXE |
 | `--publisher <text>` | The publisher, as people know it. Default: the Manufacturer of the MSI, or the CompanyName of the EXE. The publisher of the package is always the subject of the signing certificate |
@@ -70,6 +71,8 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
 | `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
 | `--recipe <name[@version]>` | A recipe of this host for the job (see `recipe list`). Without `@version`, the highest version. Microsoft's MSIX Packaging Tool takes only its exclusions. The built-in engine applies all of it. A recipe that is not on this host is refused before a worker is touched (`AP-IM-029`). See [Recipes](recipes.md) |
+| `--application <path>` | The program that the package starts, as a path that ends in `.exe`, for example `Contoso\Tool\tool.exe`. The job finds it in the package by the end of its path, and adds an application on it. An MSI with no shortcut to a program needs this or `--no-application` (`AP-AN-015`). See [The program to start](convert.md#the-program-to-start) |
+| `--no-application` | Builds the package with no application. Nothing in it can start. Only a service or a shell extension in it still works. The job installs and removes the package instead of the start test, and warns |
 | `--certificate-thumbprint <thumbprint>` | The signing certificate. Necessary when the host has more than one. `--certificate` also works |
 | `--signing-profile <id>` | An Azure Artifact Signing profile that passed **Test**. Not together with `--certificate-thumbprint` |
 | `--arguments <text>` | The silent arguments. Necessary for an EXE, for example `"/S"` |

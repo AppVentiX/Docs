@@ -80,6 +80,34 @@ Only one Sign for release runs for a job at a time, in the application or on the
 
 The product signs the package with the certificate that the agent named, and puts it in the output folder. Then it exports the package if the job was to export. It signs the package that the job checked before the test certificate signed it. The job keeps that package until you sign it for release, and housekeeping does not remove it.
 
+## Select the program of a capture
+
+A job fails with `AP-PK-005` when its capture has no application: the installer made no shortcut. When the capture has programs, the job keeps it, and the detail of `AP-PK-005` names some of them. Then select the program, and a new job starts from that capture. The new job does not run the installer. It installs the prerequisites of the earlier job on the worker, as before. It packs the capture with the program, signs it, and the start test starts that program. The earlier job gives the other settings.
+
+=== "GUI"
+
+    1. On the **Jobs** screen, select the job, then click **Select the program…**.
+    2. A window shows the programs of the capture, in the tree of their folders. Select the program that the package starts. A folder cannot start.
+    3. Click **Start the job**. A line on the Jobs screen names the new job.
+
+=== "CLI"
+
+    From an elevated prompt:
+
+    ```
+    AutomatedPackaging.Cli convert --from-capture <job-id> --application <path>
+    ```
+
+    Give the whole path of the program in the package, as the detail of `AP-PK-005` names it, for example `VFS\ProgramFilesX86\Contoso\Tool\tool.exe`. `check` takes `--from-capture` too. Only `--application`, `--no-application`, `--machine` and `--json` go with it.
+
+The product refuses the new job before a worker starts when:
+
+- The earlier job did not fail with `AP-PK-005`, or a version before this one ran it.
+- The captured package is gone from the folder of the job, or it changed: `AP-PK-019`. **Free up space** removes captured packages.
+- The program is not a program of the capture, by its whole path.
+
+The names of the programs come from the worker. The product reads them on the host, from the package itself, and lists only plain paths in the package, 500 at most.
+
 ## Build a new version of an application
 
 When a vendor releases a new installer of an application that you packaged, start from the job that built the earlier package. The product fills in the settings of that job, and you select the new installer.
