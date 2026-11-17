@@ -125,7 +125,7 @@ Other useful parameters of `New-AppVentiXShortcutUserSetting`:
 |-----------|---------|
 | `-MachineGroupFriendlyName` | Limit the shortcut to one or more machine groups. Defaults to all machine groups. Check the names with `Get-AppVentiXMachineGroup`: a name that does not exist is skipped without a warning. |
 | `-ProcessAtRefresh` | Also apply the setting when the user refreshes the workspace. Defaults to `$true`. |
-| `-ExecutionOrder` | Lower numbers run first. Defaults to `0`. Central View uses `100` for new settings. |
+| `-ExecutionOrder` | Lower numbers run first. Defaults to `100`, the same as Central View. |
 
 ## Assign the shortcut
 

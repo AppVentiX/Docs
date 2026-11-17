@@ -107,11 +107,11 @@ HelpMessage: ''
 ### -ExecutionOrder
 
 Execution order for the UserSetting.
-Defaults to 0.
+Defaults to 100, like AppVentiX Central View.
 
 ```yaml
 Type: System.Int32
-DefaultValue: 0
+DefaultValue: 100
 SupportsWildcards: false
 Aliases: []
 ParameterSets:

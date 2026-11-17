@@ -43,7 +43,7 @@ Set-AppVentiXSite -Name 'Test'
 | `-ProcessAtLogin` | `$true` | Apply at login. |
 | `-ProcessAtRefresh` | `$true` | Also apply when the user refreshes the workspace. Central View enables only login for new settings. |
 | `-ProcessAtReconnectAndUnlock` | `$false` | Also apply when the user reconnects or unlocks the session. |
-| `-ExecutionOrder` | `0` | Lower numbers run first. Central View uses `100` for new settings. |
+| `-ExecutionOrder` | `100` | Lower numbers run first. Same default as Central View. |
 | `-Description` | empty | Free text shown in Central View. |
 
 !!! warning
@@ -53,13 +53,13 @@ Set-AppVentiXSite -Name 'Test'
 
 When you create several settings with the same options, put those options in a hashtable once and pass it to each command with `@` ([splatting](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_splatting)). You can combine a splatted hashtable with normal parameters.
 
-**Scenario:** all settings for developers should only apply on the **Developer Desktops** machine group, only at login (like Central View), and with the Central View default Execution Order:
+**Scenario:** all settings for developers should only apply on the **Developer Desktops** machine group, only at login (like Central View), and run after the settings with the default Execution Order (100):
 
 ```powershell
 $developerDefaults = @{
     MachineGroupFriendlyName = 'Developer Desktops'
     ProcessAtRefresh         = $false
-    ExecutionOrder           = 100
+    ExecutionOrder           = 200
 }
 
 $sourceDrive = New-AppVentiXDriveMappingUserSetting @developerDefaults -FriendlyName 'S: Source' `
