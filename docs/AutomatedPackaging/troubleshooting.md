@@ -146,7 +146,8 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-AN-013` | The installer installs a driver. The job is refused |
 | `AP-AN-015` | No shortcut of the MSI starts a program. Select the program to start, or **No application**. When a custom action of the MSI runs one of its programs, it is only a note. See [The program to start](convert.md#the-program-to-start) |
 | `AP-LC-006` | The starter allowance is used. Install a licence |
-| `AP-PK-005` | The package has nothing to start. The installer made no Start menu shortcut. Give the program to start, or select **No application**. When the detail names programs, the program that you gave is not one of them |
+| `AP-PK-005` | The package has nothing to start. The installer made no Start menu shortcut. Give the program to start, or select **No application**. When the capture has programs, click **Select the program…** on the Jobs screen |
+| `AP-PK-019` | The capture of the earlier job is gone or changed. Build the application again from its installer |
 | `AP-SG-008` | The package could not be signed. Use **Retry signing** |
 | `AP-SG-011` | The package changed after the job built it. Build the job again |
 | `AP-SG-014` | An AI agent's job signed with a test certificate. The product does not export it. Use **Sign for release** on the **Jobs** screen |

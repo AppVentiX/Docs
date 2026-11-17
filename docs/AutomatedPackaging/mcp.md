@@ -92,6 +92,7 @@ These tools read and change nothing:
 | `list_jobs` | The newest jobs, at most 100, with their state |
 | `job_status` | The state of one job, its package, and its error code |
 | `job_log` | The end of the log of one job, at most 32,768 characters |
+| `capture_programs` | The programs in the kept capture of a job that failed with `AP-PK-005`, by their whole paths in the package, 50 at most. The product reads the names on the host, from the package |
 | `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
 | `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
@@ -107,6 +108,7 @@ These tools start or change work:
 | Tool | What it does |
 |---|---|
 | `convert` | Starts a job and gives its ID. Use `job_status` to follow it. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines. For a `builtin` job, set `restarts` (1 to 10, default 3) and `restartWaitMinutes` (5 to 30, default 5): how many times the worker can restart, and how long the job waits for it after a restart. `check_job` takes them too. Set `recipe` to a recipe from `list_recipes`: see [Recipes](recipes.md). Set `application` to the program the package starts, or `noApplication` to true for a package with no application. An MSI with no shortcut to a program needs one of the two (`AP-AN-015`). `check_job` takes them too. See [The program to start](convert.md#the-program-to-start) |
+| `convert_capture` | Starts a job from the kept capture of a job that failed with `AP-PK-005`, with `application`: the whole path of a program from `capture_programs`. Or with `noApplication`. The job installs nothing. It signs with the certificate of the earlier job, which must be one that agents may use, as for `convert` |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
