@@ -1,6 +1,6 @@
 # Settings
 
-The **Settings** screen has these sections. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list is the exception: the command line can change it too. See [Exclusions](#exclusions).
+The **Settings** screen has these sections. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list and the installer repair rules are the exceptions: the command line can change them too. See [Exclusions](#exclusions) and [Installer repair rules](#installer-repair-rules).
 
 | Section | What it holds |
 |---|---|
@@ -11,7 +11,7 @@ The **Settings** screen has these sections. Settings are set in the application 
 | **AI agents (MCP)** | How to connect an MCP client, and what an agent may do. See [AI agents (MCP)](mcp.md) |
 | **Appearance** | **Follow Windows**, **Light** or **Dark** |
 | **Export** | The export location. See [Export packages](export.md) |
-| **Exclusions** | What a capture leaves out of a package, layer by layer. See [Exclusions](#exclusions) |
+| **Exclusions** | What a capture leaves out of a package, layer by layer, and the installer repair rules. See [Exclusions](#exclusions) |
 | **Diagnostics** | **Collect support information**, **Record steps**, and **Improvement data** |
 | **Advanced** | The managed name prefix, the default conversion engine, and the configuration bundle |
 
@@ -167,6 +167,68 @@ The export file holds the rules of this host and the built-in rules that are off
     `exclusions export` does not write over a file. Give the name of a new file.
 
     `exclusions import <file> [--confirm] [--json]`: Adds the rules of a file that `exclusions export` or **Export…** made. It skips the rules that the list has already. It turns off the built-in rules that the file turned off. If the file turns off a built-in rule that is on, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing. A file with one bad rule adds nothing.
+
+### Installer repair rules
+
+Some MSI files hold registry rows from the computer that made them. A repackaging tool can copy them from its own computer. Examples are the run history of Windows, the proxy settings of a user, and files that the computer had to rename at its next start. On a worker, these rows can stop the installation, or send the connections of the worker to a proxy that is not there.
+
+Before a job, the product reads the MSI with the installer repair rules. When a rule matches a row, the product makes a transform of its own for that job. The transform removes the rows from the installation. The MSI does not change. The job applies the transform after your own transforms, with both engines. Each row that a rule removes shows in the job log, with the code `AP-AN-014`.
+
+The **Installer repair rules** card is a list of its own, beside the exclusions. An exclusion works after the installer, on what the capture found. A repair rule works before the installer, on the rows of the MSI.
+
+| Rule | What it removes | Why |
+|---|---|---|
+| `IR-001` | `HKLM\SYSTEM\CurrentControlSet\Services\bam\State` and all keys below it | Windows writes this key for each program that ran. Windows protects it, and the installation fails with error 1406. This was measured on an installation for one user |
+| `IR-002` | The values `ProxyEnable`, `ProxyServer` and `ProxyOverride` of `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`, and the key `Wpad` below it | The proxy settings of the user who made the MSI. On the worker, they send connections to a proxy that is not there |
+| `IR-003` | The values `PendingFileRenameOperations` and `PendingFileRenameOperations2` of `HKLM\SYSTEM\CurrentControlSet\Control\Session Manager` | The files that the computer which made the MSI had to rename or delete at its next start |
+
+The Build screen, `inspect`, `check` and the MCP tools `inspect_installer` and `check_job` show the rows before the job starts. The job writes `installer-repair.json` into its folder, with each rule that matched, its rows and the hash of the transform. The job also leaves out the copy of its transform that Windows Installer keeps for an installation for one user. `exclusions.json` lists it as rule `PR-001`.
+
+An interactive job does not apply the transform: you run the installer yourself, and the job log names the rows. An EXE installer, or an MSI that writes these rows through a custom action, cannot be read before the job. The rules read the MSI only: a row that one of your transforms adds is not seen.
+
+#### Turn off a repair rule
+
+To keep the rows that a built-in rule removes, turn off the rule. The next job keeps them.
+
+=== "GUI"
+
+    Click **Turn off** beside the rule, and then click **OK**. Click **Turn on** to use the rule again.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli repair-rules list
+    AutomatedPackaging.Cli repair-rules turn-off IR-002
+    AutomatedPackaging.Cli repair-rules turn-on IR-002
+    ```
+
+#### Add a repair rule
+
+Write one registry key on each line:
+
+- `HKLM\SOFTWARE\Vendor\Key` removes the key, its values and all keys below it.
+- `HKCU\Software\Vendor\Key|Name` removes one value of the key.
+
+A key starts with `HKLM`, `HKCU`, `HKCR` or `HKU`, and has at least two levels below the hive. A key has no wildcards. A row of the MSI with `-1` as its root is `HKCU` or `HKLM` at install time, so both match it. A row whose key holds a property, such as `[SID]`, does not match. A rule of this host gets the ID `IH-001`, `IH-002` and up. The ID of a removed rule is not used again.
+
+=== "GUI"
+
+    1. Type the keys in the box, one on each line.
+    2. Type the reason. The job shows it with each row. Optionally, type a case.
+    3. Click **Add**.
+
+    To remove a rule of this host, click **Remove** beside it, and then click **OK**.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli repair-rules add "HKCU\Software\Vendor\App\Recent Files" --reason "The recent files of the computer that made the MSI."
+    AutomatedPackaging.Cli repair-rules remove IH-001
+    ```
+
+    Run the `repair-rules` commands from an elevated prompt. Put each key in quotes: a space or the `|` character splits it in the shell otherwise. A rule that the screen refuses is refused here too, with the same reason, and exit code 1.
+
+The next job uses the change. A job that runs now keeps the rules that it started with.
 
 ## Diagnostics
 

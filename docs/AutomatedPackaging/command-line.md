@@ -15,7 +15,7 @@ AutomatedPackaging.Cli <command> [arguments]
 - **Run it from an elevated prompt.** The program does not ask for elevation itself. If it is not elevated, it says so and exits with code 3.
 - **The service must run.** `convert` gives the job to the service **AppVentiX Automated Packaging**, and follows it to its end. With the service stopped, `convert` exits with code 3.
 - **Close the window for worker and image commands.** One program at a time changes workers. These commands exit with code 3 while the window is open. `check`, `inspect`, `certificates` and `machines` can run beside the window.
-- **Keep the working directory safe.** When the program starts, it examines the working directory as the service does. An account that is not an administrator must not own it or change it, and it must hold no link. If it is not safe, the program writes nothing in it, and its log goes to the data folder. Each command that uses the working directory then exits with code 3 and names each problem. `certificates`, `machines`, `exclusions`, `recipe` and `improvement` use only the data folder, and they still run. See [Troubleshooting](troubleshooting.md#running-a-job).
+- **Keep the working directory safe.** When the program starts, it examines the working directory as the service does. An account that is not an administrator must not own it or change it, and it must hold no link. If it is not safe, the program writes nothing in it, and its log goes to the data folder. Each command that uses the working directory then exits with code 3 and names each problem. `certificates`, `machines`, `exclusions`, `repair-rules`, `recipe` and `improvement` use only the data folder, and they still run. See [Troubleshooting](troubleshooting.md#running-a-job).
 - **Prepare the host first.** The command line uses the settings of the host: workers, images, certificates and the export location.
 
 Before it converts, `convert` finds jobs that a stopped program left. It marks them **Abandoned**, and shows a warning for each. It does not touch their workers. Revert them on the **Jobs** screen.
@@ -46,6 +46,11 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `exclusions turn-on <FL-nnn\|BI-nnn>` | Turns on a built-in rule again |
 | `exclusions export <file>` | Writes the rules of this host and the built-in rules that are off to a new file |
 | `exclusions import <file> [--confirm] [--json]` | Adds the rules of a file that `exclusions export` or **Export…** made. It skips the rules that the list has already. It turns off the built-in rules that the file turned off. If the file turns off a built-in rule that is on, give `--confirm`. Without it, the command names the rules, shows the warning and changes nothing. A file with one bad rule adds nothing. |
+| `repair-rules list [--json]` | Lists the installer repair rules: the built-in rules with their states, then the rules of this host. See [Installer repair rules](settings.md#installer-repair-rules) |
+| `repair-rules add <key> [<key> ...] --reason <text> [--case <text>]` | Adds a repair rule to this host. It gets the next `IH-` ID |
+| `repair-rules remove <IH-nnn>` | Removes a repair rule of this host. The ID is not used again |
+| `repair-rules turn-off <IR-nnn>` | Turns off a built-in repair rule on this host. The next job keeps the rows that it removes |
+| `repair-rules turn-on <IR-nnn>` | Turns on a built-in repair rule again |
 | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
 | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade. See [Improvement data](settings.md#improvement-data) |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
