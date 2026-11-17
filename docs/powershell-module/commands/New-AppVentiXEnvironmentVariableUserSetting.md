@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXEnvironmentVariableUserSetting
 ---
@@ -53,6 +53,13 @@ Supports two input modes:
 from an Ivanti export pipeline).
 
 ## EXAMPLES
+
+### EXAMPLE 1
+
+New-AppVentiXEnvironmentVariableUserSetting -FriendlyName "Source Paths" -EnvironmentVariables @(
+    @{ Name = "SOURCE"; Value = "%USERPROFILE%\Source" }
+    @{ Name = "TOOLS"; Value = "C:\Tools"; AppendToExisting = $true; Scope = "System" }
+)
 
 ## PARAMETERS
 
@@ -109,7 +116,7 @@ HelpMessage: ''
 
 Array of hashtables describing environment variables.
 Each entry must contain: Name, Value.
-Optional key: AppendToExisting (bool, defaults to $false).
+Optional keys: AppendToExisting (bool, defaults to $false), Scope (User or System, defaults to User).
 
 ```yaml
 Type: System.Collections.Hashtable[]

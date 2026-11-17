@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: New-AppVentiXShortcutUserSetting
 ---
@@ -161,10 +161,18 @@ HelpMessage: ''
 
 ### -EnforceFileTypeAssociations
 
-Whether the file type associations are enforced.
+Whether the default program is re-applied for the file types at every logon and refresh.
+This
+overrides a choice the user made under 'Open with'.
+With $false the default program is set once and
+users can change it.
 Defaults to $true.
-Written as False when no
-file type associations are defined.
+Written as False when no file type associations are defined.
+Note: Windows 10/11 protects the default program for some file types (e.g.
+.htm, .html, .pdf) with
+the User Choice Protection Driver.
+For those the shortcut is offered under 'Open with' but does not
+become the default program.
 
 ```yaml
 Type: System.Boolean
@@ -246,8 +254,10 @@ HelpMessage: ''
 
 ### -IconFile
 
-Path to a PNG, ICO, or EXE file used as icon source when icon data is absent in the entries.
+Path to a PNG, ICO, EXE or DLL file used as icon source when icon data is absent in the entries.
 The function will generate all required icon sizes from this file.
+For an EXE or DLL the first
+icon is extracted at each size.
 
 ```yaml
 Type: System.String

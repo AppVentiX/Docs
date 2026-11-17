@@ -167,6 +167,16 @@
   padding: 0.55em 0.8em;
 }
 
+/* Keep parameter and key names in the first column on one line */
+.md-typeset table:not([class]) td:first-child code {
+  white-space: nowrap;
+}
+
+/* Use more of wide screens (Material default is 61rem) */
+.md-grid {
+  max-width: 70rem;
+}
+
 [data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
   background-color: #2e3a55;
   color: #cdd6f4;

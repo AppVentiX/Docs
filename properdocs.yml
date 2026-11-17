@@ -235,8 +235,14 @@ nav:
       - Example Agent Configurations: admin-guide/example-configurations/index.md
   - HowTo Guides:
     - howto/index.md
-    - Import from App-V Management Database: howto/Import-packages-from-AppV-Management-Database.md
-    - Import from Ivanti Workspace Control: howto/Import-user-settings-from-Ivanti-Workspace-Control.md
+    - Migration Guides:
+      - Import from App-V Management Database: howto/Import-packages-from-AppV-Management-Database.md
+      - Import from Ivanti Workspace Control: howto/Import-user-settings-from-Ivanti-Workspace-Control.md
+    - User Settings with PowerShell:
+      - Create Managed Shortcuts: howto/Create-managed-shortcuts-with-PowerShell.md
+      - Configure Prelaunch and Postlaunch Settings: howto/Configure-prelaunch-and-postlaunch-settings.md
+      - Create Common User Settings: howto/Create-user-settings-with-PowerShell.md
+      - Organize User Settings in Folders: howto/Organize-user-settings-in-folders.md
   - PowerShell Module:
     - powershell-module/index.md
     # Command reference nav is generated from the 'category' front matter of each

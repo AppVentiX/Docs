@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Connect-AppVentiXAzure
 ---
@@ -20,10 +20,31 @@ Signs in to Azure with an Entra ID account.
 
 ## SYNTAX
 
-### __AllParameterSets
+### DeviceCode (Default)
 
 ```
-Connect-AppVentiXAzure [[-ConfigShare] <string>] [-ForceLogin] [-WhatIf] [-Confirm]
+Connect-AppVentiXAzure [-ConfigShare <string>] [-ForceLogin] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### ClientSecret
+
+```
+Connect-AppVentiXAzure -TenantId <string> -ClientId <string> -ClientSecret <securestring>
+ [-ConfigShare <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### AzPowerShell
+
+```
+Connect-AppVentiXAzure -UseAzPowerShell [-ConfigShare <string>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### AzureCli
+
+```
+Connect-AppVentiXAzure -UseAzureCli [-ConfigShare <string>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -50,6 +71,23 @@ group prompts for the sign-in itself when needed.
 Run this once per machine/user (or
 again with -ForceLogin to switch accounts).
 
+When a device code sign-in is not possible, sign in with an app registration instead
+(-TenantId, -ClientId and -ClientSecret).
+The client id and secret are cached
+DPAPI-encrypted per user, so later sessions get a new token silently.
+The app registration
+needs the 'Storage Blob Data Contributor' role on the storage account for an Azure Blob
+store, and the Microsoft Graph application permission 'Group.Read.All' (admin consent)
+for Entra ID group lookups.
+
+An existing sign-in of Azure PowerShell (Connect-AzAccount, -UseAzPowerShell) or the
+Azure CLI (az login, -UseAzureCli) can be reused instead.
+The choice is cached, later
+sessions request a new token from the same tool silently, so that tool must stay signed
+in.
+Sign in to the correct tenant there (e.g.
+'az login --tenant contoso.onmicrosoft.com').
+
 This function was named Connect-AppVentiXAzureBlobStore, that name is still available as
 an alias.
 
@@ -73,7 +111,70 @@ Connect-AppVentiXAzure -ForceLogin
 
 Signs in again, for example with a different account.
 
+### EXAMPLE 4
+
+$secret = Read-Host -Prompt 'Client secret' -AsSecureString
+Connect-AppVentiXAzure -TenantId 'contoso.onmicrosoft.com' -ClientId '00000000-0000-0000-0000-000000000000' -ClientSecret $secret
+
+Signs in with the client id and secret of an app registration.
+
+### EXAMPLE 5
+
+az login --tenant contoso.onmicrosoft.com
+Connect-AppVentiXAzure -UseAzureCli
+
+Reuses the Azure CLI sign-in.
+
+### EXAMPLE 6
+
+Connect-AzAccount -Tenant contoso.onmicrosoft.com
+Connect-AppVentiXAzure -UseAzPowerShell
+
+Reuses the Azure PowerShell sign-in.
+
 ## PARAMETERS
+
+### -ClientId
+
+Application (client) id of the app registration.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ClientSecret
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -ClientSecret
+
+Client secret of the app registration, as a SecureString.
+
+```yaml
+Type: System.Security.SecureString
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ClientSecret
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
 ### -ConfigShare
 
@@ -88,7 +189,7 @@ SupportsWildcards: false
 Aliases: []
 ParameterSets:
 - Name: (All)
-  Position: 0
+  Position: Named
   IsRequired: false
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
@@ -130,9 +231,74 @@ DefaultValue: False
 SupportsWildcards: false
 Aliases: []
 ParameterSets:
-- Name: (All)
+- Name: DeviceCode
   Position: Named
   IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -TenantId
+
+Tenant id or domain name (e.g.
+'contoso.onmicrosoft.com') of the app registration.
+
+```yaml
+Type: System.String
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: ClientSecret
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -UseAzPowerShell
+
+Reuses the sign-in of the Az PowerShell module (Connect-AzAccount).
+Requires Az.Accounts.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AzPowerShell
+  Position: Named
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
+
+### -UseAzureCli
+
+Reuses the sign-in of the Azure CLI (az login).
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+DefaultValue: False
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: AzureCli
+  Position: Named
+  IsRequired: true
   ValueFromPipeline: false
   ValueFromPipelineByPropertyName: false
   ValueFromRemainingArguments: false

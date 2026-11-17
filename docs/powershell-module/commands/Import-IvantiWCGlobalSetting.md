@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Import-IvantiWCGlobalSetting
 ---

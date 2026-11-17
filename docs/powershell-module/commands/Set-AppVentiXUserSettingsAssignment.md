@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Set-AppVentiXUserSettingsAssignment
 ---
@@ -40,6 +40,8 @@ file, a new entry is created.
 If the assignment already exists, no changes are made.
 
 Supports the special built-in group "Everyone" in addition to standard AD groups.
+A user setting that is linked to a Shortcuts user setting (prelaunch or postlaunch) cannot be
+assigned to a user group and returns an error.
 The function requires a valid AppVentiX license.
 
 ## EXAMPLES
@@ -172,7 +174,9 @@ HelpMessage: ''
 
 The type of user setting to assign.
 Valid values are:
-EnvironmentVariables, PrinterMapping, DriveMapping, GroupPolicy, RegistrySettings, Shortcuts.
+EnvironmentVariables, PrinterMapping, DriveMapping, GroupPolicy, RegistrySettings, Shortcuts,
+ExternalTasks (External Tasks) and ManageFiles (Files and Folders).
+The FriendlyName of the user setting is stored as UserSettingName, as AppVentiX Central View does.
 
 ```yaml
 Type: System.String
@@ -212,3 +216,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 - [New-AppVentiXRegistryUserSetting](New-AppVentiXRegistryUserSetting.md)
 - [New-AppVentiXShortcutUserSetting](New-AppVentiXShortcutUserSetting.md)
 - [Set-AppVentiXUserSettingFolder](Set-AppVentiXUserSettingFolder.md)
+- [Set-AppVentiXShortcutLinkedUserSetting](Set-AppVentiXShortcutLinkedUserSetting.md)

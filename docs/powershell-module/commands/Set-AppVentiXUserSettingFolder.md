@@ -6,8 +6,8 @@ external help file: AppVentiX-Help.xml
 HelpUri: ''
 Locale: en-US
 Module Name: AppVentiX
-module_version: 2026.1008.1800
-ms.date: 10-12-2026
+module_version: 2026.1117.1700
+ms.date: 11-17-2026
 PlatyPS schema version: 2024-05-01
 title: Set-AppVentiXUserSettingFolder
 ---
@@ -34,11 +34,11 @@ This cmdlet has the following aliases,
 ## DESCRIPTION
 
 Creates or updates the UserSettingFolders XML file at the configured ConfigShare location.
-Adds the FolderName to the Folders list if not already present, and creates or updates
-the Assignment for the given UserSettingId.
-Existing assignments are updated when the
-FolderName changes.
-Folders no longer referenced by any assignment are removed.
+Adds the FolderName (and its parent folders) to the Folders list if not already present, and
+creates or updates the Assignment for the given UserSettingId.
+Existing assignments are updated
+when the FolderName changes.
+Empty folders are kept, like AppVentiX Central View does.
 
 ## EXAMPLES
 
@@ -49,6 +49,13 @@ Set-AppVentiXUserSettingFolder -FolderName "Printers" -Id "9e429a7c-46de-4026-8f
 ### EXAMPLE 2
 
 Set-AppVentiXUserSettingFolder -FolderName "Printers" -Id "9e429a7c-46de-4026-8faf-5b043bf272f0" -PassThru
+
+### EXAMPLE 3
+
+Set-AppVentiXUserSettingFolder -FolderName "Applications\Office" -Id "9e429a7c-46de-4026-8faf-5b043bf272f0"
+
+Assigns the UserSetting to subfolder "Office" of folder "Applications".
+Both folders are created when missing.
 
 ## PARAMETERS
 
@@ -77,6 +84,12 @@ HelpMessage: ''
 ### -FolderName
 
 The name of the folder to assign the UserSetting to.
+Use a backslash for a subfolder,
+e.g.
+"New Folder\Subfolder1".
+Missing parent folders are created.
+An existing folder is
+matched case-insensitively and keeps its casing.
 
 ```yaml
 Type: System.String
@@ -151,6 +164,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 - [Get-AppVentiXUserSettings](Get-AppVentiXUserSettings.md)
+- [New-AppVentiXUserSettingFolder](New-AppVentiXUserSettingFolder.md)
 - [New-AppVentiXDriveMappingUserSetting](New-AppVentiXDriveMappingUserSetting.md)
 - [New-AppVentiXEnvironmentVariableUserSetting](New-AppVentiXEnvironmentVariableUserSetting.md)
 - [New-AppVentiXGroupPolicyUserSetting](New-AppVentiXGroupPolicyUserSetting.md)
