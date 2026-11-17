@@ -67,7 +67,7 @@ An exclusion is a path that a capture leaves out of a package. **Settings > Excl
 
 | Layer | Where it comes from | What you can do |
 |---|---|---|
-| **Built-in rules** | The product. `FL-001` to `FL-004` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
+| **Built-in rules** | The product. `FL-001` to `FL-016` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
 | **This host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
 | **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
 | **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
@@ -147,6 +147,15 @@ Each rule has an ID. A rule of this host is `HO-001`, `HO-002` and up. The ID of
 
 `FL-001` and `FL-002` stay on. While a built-in rule is off, the Settings list shows a warning sign beside **Exclusions**.
 
+`FL-005` to `FL-016` remove state of a different computer from a package that the packaging tool makes. A repackaged installer can hold this state from the computer that made it. Examples are the files and keys of the Edge browser of that user, and a cache of sign-in tokens. Other examples are the Start menu caches and the notification data of Windows. The package then carries the state to each computer. Three of these rules name files that Windows writes on the worker during a capture. The built-in engine removes the same state with its own rules.
+
+| Rule | What it removes |
+|---|---|
+| `FL-005`, `FL-006` | The folders `Microsoft\Edge` and `Microsoft\TokenBroker` in `%USERPROFILE%\AppData\Local` |
+| `FL-007` to `FL-009` | `C:\Windows\appcompat`, and the file `ngen.log` of .NET Framework 4 (64-bit and 32-bit) |
+| `FL-010` to `FL-013` | `HKCU\Software\Microsoft\Edge`, and the keys of the Edge browser in the Edge updater. The keys of a WebView2 runtime stay |
+| `FL-014` to `FL-016` | `CloudStore` and `UFH\SHC` in `HKCU\Software\Microsoft\Windows\CurrentVersion`, and `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications\Data` |
+
 ### Export and import
 
 The export file holds the rules of this host and the built-in rules that are off. An import adds the rules of such a file that this host does not have. It also turns off the built-in rules that the file turned off. If one rule in the file is not correct, the product imports nothing.
@@ -181,6 +190,9 @@ The **Installer repair rules** card is a list of its own, beside the exclusions.
 | `IR-001` | `HKLM\SYSTEM\CurrentControlSet\Services\bam\State` and all keys below it | Windows writes this key for each program that ran. Windows protects it, and the installation fails with error 1406. This was measured on an installation for one user |
 | `IR-002` | The values `ProxyEnable`, `ProxyServer` and `ProxyOverride` of `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`, and the key `Wpad` below it | The proxy settings of the user who made the MSI. On the worker, they send connections to a proxy that is not there |
 | `IR-003` | The values `PendingFileRenameOperations` and `PendingFileRenameOperations2` of `HKLM\SYSTEM\CurrentControlSet\Control\Session Manager` | The files that the computer which made the MSI had to rename or delete at its next start |
+| `IR-004` | The value `Inno Setup: User` of each key in `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall` whose name ends with `_is1` | The name of the user who ran the original setup on the computer that made the MSI. The package carries the name to each computer. The other values of the key stay |
+
+Only a built-in rule can have a `*` in a key. It stands for any characters in one key name.
 
 The Build screen, `inspect`, `check` and the MCP tools `inspect_installer` and `check_job` show the rows before the job starts. The job writes `installer-repair.json` into its folder, with each rule that matched, its rows and the hash of the transform. The job also leaves out the copy of its transform that Windows Installer keeps for an installation for one user. `exclusions.json` lists it as rule `PR-001`.
 
