@@ -67,7 +67,7 @@ An exclusion is a path that a capture leaves out of a package. **Settings > Excl
 
 | Layer | Where it comes from | What you can do |
 |---|---|---|
-| **Built-in rules** | The product. `FL-001` to `FL-016` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
+| **Built-in rules** | The product. `FL-001` to `FL-021` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
 | **This host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
 | **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
 | **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
@@ -155,6 +155,9 @@ Each rule has an ID. A rule of this host is `HO-001`, `HO-002` and up. The ID of
 | `FL-007` to `FL-009` | `C:\Windows\appcompat`, and the file `ngen.log` of .NET Framework 4 (64-bit and 32-bit) |
 | `FL-010` to `FL-013` | `HKCU\Software\Microsoft\Edge`, and the keys of the Edge browser in the Edge updater. The keys of a WebView2 runtime stay |
 | `FL-014` to `FL-016` | `CloudStore` and `UFH\SHC` in `HKCU\Software\Microsoft\Windows\CurrentVersion`, and `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications\Data` |
+| `FL-017` to `FL-021` | In `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate`: the state of the Edge browser, the `CurrentState` keys of the updater and of the WebView2 Runtime, `UsageStats` and `PersistedPings` |
+
+`FL-017` to `FL-021` remove what the Edge updater of the worker writes during a capture. The registration of a WebView2 Runtime stays in the package. An application reads that registration to find the runtime.
 
 ### Export and import
 
