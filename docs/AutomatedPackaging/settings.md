@@ -191,6 +191,7 @@ The **Installer repair rules** card is a list of its own, beside the exclusions.
 | `IR-002` | The values `ProxyEnable`, `ProxyServer` and `ProxyOverride` of `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`, and the key `Wpad` below it | The proxy settings of the user who made the MSI. On the worker, they send connections to a proxy that is not there |
 | `IR-003` | The values `PendingFileRenameOperations` and `PendingFileRenameOperations2` of `HKLM\SYSTEM\CurrentControlSet\Control\Session Manager` | The files that the computer which made the MSI had to rename or delete at its next start |
 | `IR-004` | The value `Inno Setup: User` of each key in `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall` whose name ends with `_is1` | The name of the user who ran the original setup on the computer that made the MSI. The package carries the name to each computer. The other values of the key stay |
+| `IR-005` | The values `LastUsedSource` and `InstallSource`, and the key `SourceList\Net`, in the registration that Windows Installer keeps for a product | The folder from which a different product was installed on the computer that made the MSI. The folder name can hold the name of a user. The registration of that product stays |
 
 Only a built-in rule can have a `*` in a key. It stands for any characters in one key name.
 
