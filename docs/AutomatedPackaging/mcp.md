@@ -95,6 +95,7 @@ These tools read and change nothing:
 | `capture_programs` | The programs in the kept capture of a job that failed with `AP-PK-005`, by their whole paths in the package, 50 at most. The product reads the names on the host, from the package |
 | `engine_evidence` | What the built-in engine kept for one job: the number of files and registry values, and what the noise rules removed by rule. Also what the package writer left out and why, and the step that failed |
 | `list_exclusions` | The exclusion list of this host: the built-in rules with their IDs and states, the rules of this host, and for each image how many entries it calibrated for each engine. MCP cannot change the list. See [Exclusions](settings.md#exclusions) |
+| `list_repair_rules` | The installer repair rules of this host: the built-in rules with their IDs and states, then the rules of this host. For each rule, the MSI table, the reason and the keys. MCP cannot change the rules |
 | `explain_code` | The title, cause and remedy of an `AP-` error code |
 | `inspect_installer` | What the Build screen fills in for an installer. For an MSI, also its shortcuts and its programs, as `application` takes them. Also each installer repair rule that matches and the rows that it removes. See [Installer repair rules](settings.md#installer-repair-rules) |
 | `check_job` | What stops a job, or what it builds. It does not start the job. It asks the questions of `check` on the command line: the signing tools (`AP-SG-010`), and the images (`AP-IM-023`, `AP-IM-026`, `AP-IM-030`). It does not ask for a free worker |
