@@ -246,6 +246,30 @@ A key starts with `HKLM`, `HKCU`, `HKCR` or `HKU`, and has at least two levels b
 
 The next job uses the change. A job that runs now keeps the rules that it started with.
 
+## Configuration bundle
+
+**Settings > Configuration** has the card **Configuration bundle**. **Export configuration…** writes one JSON file with the configuration of this host. You can keep it in a configuration repository, and import it on a new host. The command line has no command for the bundle. The file has:
+
+- the package identities, and the signing history of each application;
+- the signing profiles, by thumbprint only;
+- the images, each with its build specification;
+- the installer repair rules of this host, and the built-in repair rules that are off;
+- the exclusions of this host, and the built-in exclusions that are off.
+
+The file has no passwords, no private keys and no certificate content. The message after the export gives the number of each item.
+
+**Import configuration…** adds what this host does not have. It changes nothing that is already here:
+
+- A package identity that this host has with a different name stays as it is. The message names it.
+- A signing profile needs its certificate on this host before it can sign.
+- A repair rule or an exclusion that this host has already is not added again. A repair rule with the same keys is the same rule, also with a different reason.
+- A new repair rule gets the next `IH-` ID of this host. A new exclusion gets the next `HO-` ID.
+- The import checks each rule as **Add** does. If a rule is not correct, the import does not add it, and adds the other rules. The message names each rule that it did not add, with the reason.
+
+If the file has built-in rules off that are on here, the import asks first. Click **Yes** to turn them off on this host too. Click **No** to keep them on: the import adds the other items. `FL-001` and `FL-002` always stay on. A rule that this version does not know also stays on.
+
+A file of an earlier version has no rules. The import reads it and adds the other items.
+
 ## Diagnostics
 
 **Collect support information** writes one zip file for AppVentiX support to `<dataFolder>\diagnostics\`.
