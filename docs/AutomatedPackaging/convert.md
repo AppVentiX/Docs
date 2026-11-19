@@ -118,7 +118,7 @@ For an MSI, the product reads the shortcuts before the job, with the ticked tran
 
 For an EXE installer, the product cannot read the shortcuts first. Give the program only when you know that the installer makes no shortcut.
 
-The job finds the program in the package by the end of its path. So the program is found also when the installation folder is different. When two files agree with the path, give more of it. The application stays on the Start list, with the name of the package. When the capture already has an application on the same program, it stays as it is.
+The job finds the program in the package by the end of its path. So the program is found also when the installation folder is different. When two files agree with the path, give more of it. The application stays on the Start list, with the name of the package. When the capture already has an application on the same program, the job keeps it. In both cases the job puts the application first, and the start test starts that program. When the capture hid the application in Start, the job shows it.
 
 === "GUI"
 
@@ -220,7 +220,7 @@ Leave the installer and its folder unchanged while the job runs. The job checks 
 
 A job tries again once, by itself, only after a lost connection, an agent that stopped, or a worker that stopped.
 
-The smoke test passes when a program of the package starts and still runs a minute later. When every application of the package is a service, the smoke test starts the service instead.
+The smoke test starts the first application that the package shows in Start and that is not the program of a service. When the job names the program to start, that application is first. The smoke test passes when a program of the package starts and still runs a minute later. When every application of the package is a service, the smoke test starts the service instead.
 
 ## Interactive installs
 

@@ -82,7 +82,7 @@ The product signs the package with the certificate that the agent named, and put
 
 ## Select the program of a capture
 
-A job fails with `AP-PK-005` when its capture has no application: the installer made no shortcut. When the capture has programs, the job keeps it, and the detail of `AP-PK-005` names some of them. Then select the program, and a new job starts from that capture. The new job does not run the installer. It installs the prerequisites of the earlier job on the worker, as before. It packs the capture with the program, signs it, and the start test starts that program. The earlier job gives the other settings.
+A job fails with `AP-PK-005` when its capture has no application: the installer made no shortcut. When the capture has programs, the job keeps it, and the detail of `AP-PK-005` names some of them. Then select the program, and a new job starts from that capture. The new job does not run the installer. It installs the prerequisites of the earlier job on the worker, as before. It packs the capture with the program as the first application, signs it, and the start test starts that program. The earlier job gives the other settings.
 
 === "GUI"
 
