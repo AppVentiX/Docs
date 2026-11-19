@@ -63,7 +63,7 @@ You can see what the product reads from an installer before you start a job.
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
     | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
-    | **Program to start** | The program that the package starts, for an installer that makes no shortcut to it. For an MSI, the list under the box has each EXE of the MSI. For an EXE installer, type the path, for example `Contoso\Tool\tool.exe`, or only `tool.exe`. The job adds an application on the program. See [The program to start](#the-program-to-start) |
+    | **Program to start** | One of three. **Automatic**, the default: the job makes an application from each shortcut that the installer makes. **This program**: the job adds an application on the program that you select in the list or type, for example `Contoso\Tool\tool.exe`, and the start test starts it. **No application**: the package gets no application. See [The program to start](#the-program-to-start) |
     | **No application** | The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs the package on the worker and removes it again, instead of the start test, and warns |
     | **Prerequisites** | **Select…** selects prerequisites for this job only. The list shows one line for each item, and the label shows how many there are |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
@@ -122,7 +122,13 @@ The job finds the program in the package by the end of its path. So the program 
 
 === "GUI"
 
-    Type the path in **Program to start**, or select it in the list under the box. Or tick **No application**. The line under the box says what **No application** does.
+    Under **Program to start**, select one of three:
+
+    - **Automatic** (the default). The job makes an application from each shortcut that the installer makes.
+    - **This program.** Select the program in the list under it, or type its path. For an EXE installer, type the path. When you select or type a program, **This program** turns on. With no program, the screen shows "Select or type the program to start." and **Build** is not available.
+    - **No application.** The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs and removes the package on the worker instead of the start test. The screen shows this text only when **No application** is on.
+
+    When an MSI shows `AP-AN-015`, select **This program** and a program, or **No application**. The product does not select a program for you. A new version of an application takes the choice of the earlier job.
 
 === "CLI"
 
