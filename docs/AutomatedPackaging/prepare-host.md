@@ -51,6 +51,7 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     | "The AppVentiX Automated Packaging service is stopped…" | Nothing. The service reads the new settings when it starts |
     | "Host preparation removed … earlier listener certificate(s) and the key of each one: …" | Nothing. After a new listener certificate, the earlier one and its key are of no use. Host preparation removes them when the service uses the new one |
     | "Host preparation did not remove … earlier listener certificate(s)…" | The service does not use the new listener certificate yet, or it is from an earlier version and does not say. Restart the service in **Services** when no job runs. Then run host preparation again and apply |
+    | "Host preparation removed the key of the earlier listener certificate …, but the certificate stays in the store." | Another program wrote the store at the same time. The certificate has no key now and cannot be used. Open **Manage computer certificates**, then **Personal** > **Certificates**, and delete it |
 
     Host preparation restarts the service only when the service says that no job runs, because a stop of the service stops each job. When the machine has to restart, it leaves the service alone.
 
