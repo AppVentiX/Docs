@@ -176,6 +176,8 @@ On the command line, a `--package-name` that is different from the last Name of 
 
     Select **Priority** under "Captures on …": **Low**, **Normal** (the default) or **High**. Then click **Build**.
 
+    ![The bottom of column 3: Before the job starts, Captures on Windows 10 22H2, Priority Normal and Build](images/build-priority.png)
+
     - If **Build** is not available, the bar at the bottom of column 3 shows each reason on its own line. Each has a red warning mark. Under the reasons, at the left of **Build**, "Captures on …" names the image that the target needs.
     - If the **Build** tab is grey, the host needs preparation first.
     - Lines with an orange warning mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
