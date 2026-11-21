@@ -21,7 +21,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
 
     Click **Build image**, at the bottom of the window. If something is in the way, the window shows each problem at the left of the button before anything starts.
 
-    During the build, a bar of twelve segments shows the steps. Hold the pointer on a segment to see its name. Under the bar, "Step N of 12: …" shows the current step, and each completed step shows its time. **Stop**, at the bottom of the window, cancels the build. You can close the window: the build goes on, and the **Workers** tab shows it.
+    During the build, a bar of twelve segments shows the steps. Each segment shows the number of its step. Hold the pointer on a segment to see its name. Under the bar, "Step N of 12: …" shows the current step, and each completed step shows its time. **Stop**, at the bottom of the window, cancels the build. You can close the window: the build goes on, and the **Workers** tab shows it.
 
 === "CLI"
 
@@ -123,7 +123,7 @@ The product first makes sure that it can remove the machine. It then turns the m
 
 ## Image states
 
-Each image has a card on the **Workers** screen, with the name of its worker. A chip on the card shows the state of the worker, for example **Ready**, **Updating** or **Retired**. **Updated** on the card tells how many days ago the image was calibrated.
+Each image has a card on the **Workers** screen, with the name of its worker. **Cards** and **Rows**, under **Incomplete machines…**, show the workers as cards or as one row each. A chip on the card shows the state of the worker, for example **Ready**, **Updating** or **Retired**. **Updated** on the card tells how many days ago the image was calibrated.
 
 A warning line shows on the card when the image was calibrated 90 days ago or more, or when no active worker is built from it.
 

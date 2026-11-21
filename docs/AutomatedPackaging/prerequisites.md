@@ -79,7 +79,11 @@ To change the files, select **New version…**. The item keeps its ID.
 
 ### A Windows feature
 
-Some applications need a feature of Windows that is off, such as .NET Framework 3.5. Select the type **Windows feature**. Then select the feature in **Feature**, or type its name as DISM knows it, for example `NetFx3`. `Get-WindowsOptionalFeature -Online` shows the names.
+Some applications need a feature of Windows that is off, such as .NET Framework 3.5. Select the type **Windows feature**. Then click **Feature**, or press Alt+Down, to see the list. The list shows 16 features that applications often need. Each row has the name that Windows shows and the name that DISM knows. For example, `NetFx3` is ".NET Framework 3.5 (includes .NET 2.0 and 3.0)". The item keeps the DISM name.
+
+When you select a feature, the product writes "Microsoft" in **Vendor** and the Windows name in **Name**, but only when the field is empty. A second selection replaces only the text that the first selection wrote. **Version** stays as you type it.
+
+For a feature that is not in the list, type its name as DISM knows it. The product does not fill **Vendor** or **Name** for a typed name. `Get-WindowsOptionalFeature -Online` on a Windows machine shows the names. Letters, digits, dots, dashes and underscores only.
 
 - The item has no files and no arguments. The source is the Windows installation ISO of the worker, which the worker keeps as a DVD. The product gives DISM the folder `sources\sxs` of that DVD, with `/LimitAccess`.
 - The product finds the item by the state of the feature.

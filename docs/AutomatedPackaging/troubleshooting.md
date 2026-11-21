@@ -20,7 +20,7 @@ Many failures do not look like their cause. A missing licence file looks like a 
 
 === "GUI"
 
-    Select a failed job on the **Jobs** screen. The detail of the job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed. A failed image build shows the code under the step list in the **Build a worker** window.
+    Select a failed job on the **Jobs** screen. The detail of the job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed, with the number of each step in its segment. A failed image build shows the code under the step list in the **Build a worker** window.
 
 === "CLI"
 

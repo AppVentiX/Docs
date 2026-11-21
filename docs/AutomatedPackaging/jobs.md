@@ -11,7 +11,7 @@
     - **Open the worker's window** shows while an interactive job waits for you. The window opens by itself one time. See [Interactive installs](convert.md#interactive-installs).
     - **Cancel job** (Ctrl+K), on the toolbar of the Jobs screen, stops a running job. It asks first. The service puts the worker back to its baseline first. The job then shows Cancelled.
     - **Copy log** and **Open log file** give you the log. The screen shows the last 2,000 lines, and 200 lines of one entry. **Open log file** shows all lines.
-    - The detail of a failed job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed.
+    - The detail of a failed job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed, with the number of each step in its segment.
 
 === "CLI"
 

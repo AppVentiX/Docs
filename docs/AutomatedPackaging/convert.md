@@ -42,7 +42,7 @@ You can see what the product reads from an installer before you start a job.
 
     | Setting | What it does |
     |---|---|
-    | **Installer folder** | "Include the other files and folders". Off by default: then only the installer goes to the worker |
+    | **Installer folder** | "Include the other files and folders". Off by default: then only the installer goes to the worker. The product ticks it for you when the `Media` table of the MSI names a cabinet beside the MSI. A line under the box tells which cabinet. When you remove the tick, the product does not tick it again for this installer. A mark after the box tells you more: point to it, or press Tab to it. A warning mark and an orange border tell you that the job fails. The MSI then needs a cabinet that is not included or not beside the MSI. An information mark and a blue border tell you that other files are beside the installer and the job does not include them. The same text shows in the list above **Build**, with a button: **Include files** ticks the box. The marks do not turn **Build** off |
 
     The identity of the package is in column 1 too:
 
@@ -67,7 +67,7 @@ You can see what the product reads from an installer before you start a job.
     | **Program to start** | In column 3. One of three. **Automatic**, the default: the job makes an application from each shortcut that the installer makes. **This program**: the job adds an application on the program that you select in the list or type, for example `Contoso\Tool\tool.exe`, and the start test starts it. **No application**: the package gets no application. See [The program to start](#the-program-to-start) |
     | **No application** | The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs the package on the worker and removes it again, instead of the start test, and warns |
     | **Prerequisites** | In column 3. Tick the prerequisites for this job only. The line under the label shows how many you selected. **Library…** opens the **Prerequisites** tab |
-    | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
+    | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. The improvement data then has no name and no version for its jobs, and records that the application is internal. Nothing else changes. The blue question mark after **Internal** gives the same help: point to it, or press Tab to it. See [Settings](settings.md#improvement-data) |
 
     The install parameters are in column 2, under the settings: **Arguments**, then **More**, then **Logs**. **More** has **MSI properties…**, **Add transform…** and **Advanced…**, and each opens a window. Lines under them show what the job has, for example "MSI properties: 1 of 2 on."
 
@@ -76,7 +76,7 @@ You can see what the product reads from an installer before you start a job.
     | Parameter | What it does |
     |---|---|
     | **Arguments** | Filled in for a known framework, for example `/qn` for an MSI. The installers of 7-Zip and WinRAR are recognised and get `/S`. Until you edit them, the box has a border in the warning colour. A note under it asks you to check them for your installer |
-    | **Add transform…** | MSI only. Opens the **Transforms** window. Tick the `.mst` files to apply, or click **Browse…** to select others. Then click **Use these** |
+    | **Add transform…** | MSI only. Opens the **Transforms** window. Tick the `.mst` files to apply, or click **Browse…** to select others. Then click **Use these**. When transforms are beside the MSI and none is ticked, an information mark shows after the **Transforms** line, and a line above **Build** says so. Its button **Apply transform** ticks the one transform. With more than one, **Select transforms** opens the **Transforms** window |
     | **MSI properties…** | MSI only. Opens a window, where `REBOOT=ReallySuppress` is ticked. The window has the full list of public properties of the installer, with a filter. Click **Use these**. A value with a tab is put in quotes. A value with a line break cannot go on the install command: the screen says "Remove the line break from the value of `<NAME>`." |
     | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The lines under the box explain what the job collects |
 
@@ -125,7 +125,7 @@ The job finds the program in the package by the end of its path. So the program 
     Under **Program to start**, select one of three:
 
     - **Automatic** (the default). The job makes an application from each shortcut that the installer makes.
-    - **This program.** Select the program in the list under it, or type its path. For an EXE installer, type the path. When you select or type a program, **This program** turns on. With no program, the screen shows "Select or type the program to start." and **Build** is not available.
+    - **This program.** Select the program in the list under it, or type its path. A click in the field, Alt+Down or F4 opens the list. When the list is empty, a line in it tells you to type the path. For an EXE installer, type the path. When you select or type a program, **This program** turns on. With no program, the screen shows "Select or type the program to start." and **Build** is not available.
     - **No application.** The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs and removes the package on the worker instead of the start test. The screen shows this text only when **No application** is on.
 
     When an MSI shows `AP-AN-015`, select **This program** and a program, or **No application**. The product does not select a program for you. A new version of an application takes the choice of the earlier job.
