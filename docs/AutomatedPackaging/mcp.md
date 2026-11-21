@@ -88,7 +88,7 @@ These tools read and change nothing:
 | Tool | What it gives |
 |---|---|
 | `product_status` | Gives the product version on this host and the licence state. It also says if the licence allows MCP. It gives the improvement data level, and "Set by your organisation" when a policy limits it. An agent cannot change the level |
-| `list_machines` | The workers for a target, free or busy, and the recommended one. The recommendation is for a silent job with the packaging tool. An MCP job is silent, and it uses the packaging tool unless it names an engine |
+| `list_machines` | The workers for a target, free or busy, and the recommended one. A second line for each worker gives the Windows build and the newest installed Windows update. The recommendation is for a silent job with the packaging tool. An MCP job is silent, and it uses the packaging tool unless it names an engine |
 | `list_certificates` | The certificates and Azure profiles that can sign, with their IDs |
 | `list_jobs` | The newest jobs, at most 100, with their state |
 | `job_status` | The state of one job, its package, and its error code |
