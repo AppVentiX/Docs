@@ -17,7 +17,7 @@ The **Settings** tab (Ctrl+6) has these sections in a list at the left. **Find a
 | **Record steps** | Writes the steps that you do in the window to a file. See [Record steps](#record-steps) |
 | **Improvement data** | **Off**, **Minimal** or **All**. See [Improvement data](#improvement-data) |
 | **Advanced** | The managed name prefix and the default conversion engine |
-| **Configuration** | The configuration bundle. See [Configuration bundle](#configuration-bundle) |
+| **Configuration** | The configuration bundle, and **Backup**. See [Configuration bundle](#configuration-bundle) and [Back up, restore and move](backup-restore.md) |
 
 ## This host
 
@@ -275,6 +275,12 @@ The file has no passwords, no private keys and no certificate content. The messa
 If the file has built-in rules off that are on here, the import asks first. Click **Yes** to turn them off on this host too. Click **No** to keep them on: the import adds the other items. `FL-001` and `FL-002` always stay on. A rule that this version does not know also stays on.
 
 A file of an earlier version has no rules. The import reads it and adds the other items.
+
+## Backup
+
+**Settings > Configuration** has the card **Backup**. **Back up now…** writes the job history and the settings of this host to a new folder. **Restore…** opens host preparation on its **Restore a backup** page, and closes the application. See [Back up, restore and move](backup-restore.md).
+
+A backup is not the configuration bundle. The bundle carries settings between hosts and merges them. A backup holds the whole database, and a restore replaces it.
 
 ## Diagnostics
 

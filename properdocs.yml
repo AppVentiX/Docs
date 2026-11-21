@@ -91,6 +91,7 @@ extra:
     - Recipes: AutomatedPackaging/recipes.md
     - AI agents (MCP): AutomatedPackaging/mcp.md
     - Example prompts for agents: AutomatedPackaging/mcp-prompts.md
+    - Back up, restore and move: AutomatedPackaging/backup-restore.md
     - Settings: AutomatedPackaging/settings.md
     - Command line: AutomatedPackaging/command-line.md
     - Troubleshooting: AutomatedPackaging/troubleshooting.md

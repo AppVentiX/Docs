@@ -148,7 +148,8 @@ The workers do not move to a different host. Their passwords are encrypted for t
 
 1. Install the product and run host preparation. Page 7 creates a new authority. Host preparation also issues the certificate of the listener and writes `agent-channel.json`.
 2. Stage the media again. See [Stage media](stage-media.md).
-3. Build each worker again on the Workers screen. See [Build a worker image](build-image.md).
+3. Restore a backup of the old host. The restore keeps each worker aside with its build settings. See [Back up, restore and move](backup-restore.md#move-to-a-new-host).
+4. Build each worker again: click **Build again** on its card on the Workers screen. Without a backup, build each worker as new. See [Build a worker image](build-image.md).
 
 ### The same host: the authority is lost or must be replaced
 

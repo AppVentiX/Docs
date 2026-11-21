@@ -53,6 +53,8 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `repair-rules turn-on <IR-nnn>` | Turns on a built-in repair rule again |
 | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
 | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade. See [Improvement data](settings.md#improvement-data) |
+| `backup <folder> [--json]` | Backs up the job history and the settings of this host to a new folder. It holds no passwords and no certificates. See [Back up, restore and move](backup-restore.md) |
+| `restore <folder> [--confirm] [--json]` | Checks a backup against this host and tells what a restore would do. With `--confirm`, it restores the backup. Stop the service and close the application first |
 | `help` | Shows the usage. Also `--help`, `-h` and `-?` |
 | `version` | Shows the version. Also `--version` |
 
@@ -104,6 +106,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 | Option | Command | What it does |
 |---|---|---|
+| `--from-image <image-id>` | `worker build` | Takes the Windows release, the edition, the account, the Windows activation and the prerequisites from an image record of this host. For a worker that a restore kept aside, under its own name, it also takes the address. The other options change them. See [Move to a new host](backup-restore.md#move-to-a-new-host) |
 | `--medium <id>` | `worker build` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** window lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
 | `--edition <name>` | `worker build` | The edition. Default: the default edition of the release |
 | `--account <name>` | `worker build` | The administrator account in the worker. Default: `pkgbuilder` |
