@@ -85,6 +85,7 @@ The restore changes nothing when one of these is true. It names each one.
 | A worker has its password on this host, but no machine | Open the application and remove it under **Incomplete machines** on the **Workers** screen. Then restore |
 | This host has a worker that the backup does not name: it was built after the backup | Make a new backup, or remove the worker. Then restore |
 | Hyper-V did not list the machines of this host | Run host preparation. Then restore |
+| Somebody other than Administrators and SYSTEM can change the backup folder, or a folder above it | Copy the backup into a new folder that only administrators can change, for example under `C:\ProgramData`. Then restore from there |
 
 ### Which workers stay
 
@@ -97,6 +98,8 @@ The restore asks this host about each worker in the backup:
 | The machine, but no password; or the password, but no machine | The restore stops and names the worker |
 
 A worker that was updated after the backup shows its image as the backup recorded it. Click **Update** on its card to bring the image record up to date again. When `host.json` names signing certificates that this host does not have, the restore names them.
+
+The restore keeps the managed name prefix of this host, so the product touches only machines of this host. When the backup has a different prefix, the restore says so, and **Build again** names each worker under the prefix of this host.
 
 ## Move to a new host
 
