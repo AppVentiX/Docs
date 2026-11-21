@@ -4,14 +4,14 @@
 
 === "GUI"
 
-    The **Jobs** screen shows each job and its log, from the window, the command line and MCP. Select a job to see its facts and its log while it runs.
+    The **Jobs** screen shows each job and its log, from the window, the command line and MCP. Select a job: its detail and its log show under the list, also while it runs.
 
-    ![The facts of a built job, with its six steps and their times](images/jobs-facts.png)
+    ![The detail of a built job: the step bar with all six steps done, and the facts of the job](images/jobs-facts.png)
 
     - **Open the worker's window** shows while an interactive job waits for you. The window opens by itself one time. See [Interactive installs](convert.md#interactive-installs).
-    - **Cancel job**, under the facts of a running job, stops it. The service puts the worker back to its baseline first. The job then shows Cancelled.
+    - **Cancel job** (Ctrl+K), on the toolbar of the Jobs screen, stops a running job. It asks first. The service puts the worker back to its baseline first. The job then shows Cancelled.
     - **Copy log** and **Open log file** give you the log. The screen shows the last 2,000 lines, and 200 lines of one entry. **Open log file** shows all lines.
-    - A failed job shows a failure card above its log: the code, the step, a headline, **What to try** and **Copy diagnostic**.
+    - The detail of a failed job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed.
 
 === "CLI"
 
@@ -28,7 +28,7 @@ The job log tags each line `host`, `agent` or `pipeline`. The last lines give th
 | **Built** | The package is built, signed and smoke-tested |
 | **Built, exporting** | The package is built. The copy to the export location runs now |
 | **Built, not exported** | The package is built, and the copy to the export location failed. The reason is under the facts of the job. See [Export packages](export.md) |
-| Failed | The job failed. The failure card gives the code and what to try |
+| Failed | The job failed. The detail of the job gives the code and what to try |
 | Cancelled | Somebody stopped the job |
 | Abandoned | The program that ran the job ended before the job did |
 
@@ -54,8 +54,8 @@ Before it signs, the product shows the certificate and its thumbprint, the publi
 === "GUI"
 
     1. Select the job on the **Jobs** screen.
-    2. Click **Sign for release**.
-    3. Read the lines that the screen shows. Then click **Sign**, or **Cancel** to sign nothing.
+    2. Click **Sign for release…**.
+    3. Read the lines of the question. Then click **OK**, or **Cancel** to sign nothing.
 
 === "CLI"
 
@@ -103,7 +103,7 @@ A job fails with `AP-PK-005` when its capture has no application: the installer 
 The product refuses the new job before a worker starts when:
 
 - The earlier job did not fail with `AP-PK-005`, or a version before this one ran it.
-- The captured package is gone from the folder of the job, or it changed: `AP-PK-019`. **Free up space** removes captured packages.
+- The captured package is gone from the folder of the job, or it changed: `AP-PK-019`. **Free up space…** removes captured packages.
 - The program is not a program of the capture, by its whole path.
 
 The names of the programs come from the worker. The product reads them on the host, from the package itself, and lists only plain paths in the package, 500 at most.
@@ -117,7 +117,7 @@ The job gives these settings: the name and the publisher, the arguments, the MSI
 === "GUI"
 
     1. On the **Jobs** screen, select a job that built a package, then click **New version…**.
-    2. The Build screen opens. A note above the installer names the earlier job and its version.
+    2. The Build screen opens. A note under the installer names the earlier job and its version.
     3. Select the new installer. The product fills in the settings of the earlier job.
     4. Read the notes in the box. Change what you must, then click **Build**.
 
@@ -158,7 +158,7 @@ You can sign an `.msix` or `.appx` file that the product did not build. For exam
 
 === "GUI"
 
-    1. On the **Jobs** screen, click **Re-sign a package…**. With no jobs, the button is in the middle of the screen.
+    1. On the **Jobs** screen, click **More…**, then **Re-sign a package…**. With no jobs, a **Re-sign a package…** button is also in the empty job list.
     2. Click **Browse…** and select the package. **Publisher now** shows its Publisher. **Capabilities**, **Extensions**, **Signed before by** and **SHA-256** show what your certificate will vouch for.
     3. Select the certificate in **Certificate**. **Publisher after** shows the Publisher that the package gets.
     4. To change the version, type it in **Version**. Leave it empty to keep the version.
@@ -208,8 +208,8 @@ The application removes the files that jobs leave. It does this when it starts, 
 
 | Setting | Default | What is removed after the days |
 |---|---|---|
-| **A failed job's build folders, kept for** | 14 days | `captured\`, `work\` and `out\` of a job that failed, was cancelled or was abandoned. The logs stay |
-| **Job logs, kept for** | 30 days | All other files in the folder of the job, then the folder. The job stays on the Jobs screen |
+| **Build folders of a failed job** | 14 days | `captured\`, `work\` and `out\` of a job that failed, was cancelled or was abandoned. The logs stay |
+| **Job logs** | 30 days | All other files in the folder of the job, then the folder. The job stays on the Jobs screen |
 
 A job that built removes its build folders itself. A job that runs or waits is never touched.
 
@@ -217,9 +217,9 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 
 ## Free up space
 
-**Free up space…**, under the job list on the **Jobs** screen, removes files sooner, of any age. It measures each kind when it opens:
+**Free up space…**, on the toolbar of the **Jobs** screen, removes files sooner, of any age. It opens a window, which measures each kind:
 
-![The Free up space panel: build folders, job logs, exported packages and entries in the Jobs list](images/jobs-free-up-space.png)
+![The Free up space window: build folders, job logs, exported packages and entries in the Jobs list](images/jobs-free-up-space.png)
 
 - **Build folders of jobs**: the three build folders of each job that still has them.
 - **Job logs**: the logs of each job that ended.
@@ -227,15 +227,14 @@ While `host.json` cannot be used as written, housekeeping removes nothing. The a
 - **Entries in the Jobs list**: the line of each ended job whose folder is no longer in the jobs folder. **Retry signing**, **Export again** and **New version…** need the entry. Removing entries does not change the starter allowance: each package that a job built still counts.
 
 1. Tick what to remove.
-2. Click **Remove selected…**.
-3. Read the confirmation. It gives the size, for example "Remove 1.2 GB from this host?".
-4. Click **Remove**.
+2. Read the window. It names the amount, for example "Remove 1.2 GB from this host?", and what it is.
+3. Click **Remove**. **Cancel**, Enter or Esc removes nothing.
 
-The screen then says how much it removed, and names each item that it kept. You cannot get back what it removed.
+The message above the status bar then says how much it removed, and names each item that it kept. You cannot get back what it removed.
 
-**Remove one job from the list.** Right-click a job in the list and click **Remove…**. The same panel opens for that job only, with its entry ticked. Tick what else goes with the entry: its build folders, its logs, and its exported package in the output folder. Then click **Remove selected…** and **Remove**. A file that you do not tick stays in the jobs folder. **Remove…** is not available for a job that still runs, waits or copies its package.
+**Remove one job from the list.** Select a job and click **Remove…** (Delete) on the toolbar. Or right-click a job in the list and click **Remove…**. The same window opens for that job only, with its entry ticked. Tick what else goes with the entry: its build folders, its logs, and its exported package in the output folder. Then click **Remove**. A file that you do not tick stays in the jobs folder. **Remove…** is not available for a job that still runs, waits or copies its package.
 
-![The panel that Remove… opens for one job: its entry in the Jobs list is ticked](images/jobs-remove-panel.png)
+![The window that Remove… opens for one job: its entry in the Jobs list is ticked](images/jobs-remove-panel.png)
 
 ## What the notes of a package say
 

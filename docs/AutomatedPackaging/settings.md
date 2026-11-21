@@ -1,19 +1,23 @@
 # Settings
 
-The **Settings** screen has these sections. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list and the installer repair rules are the exceptions: the command line can change them too. See [Exclusions](#exclusions) and [Installer repair rules](#installer-repair-rules).
+The **Settings** tab (Ctrl+6) has these sections in a list at the left. **Find a setting**, above the list, finds a setting by a word. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list and the installer repair rules are the exceptions: the command line can change them too. See [Exclusions](#exclusions) and [Installer repair rules](#installer-repair-rules).
 
 | Section | What it holds |
 |---|---|
-| **Licence** | The licence state and the starter allowance. **Install licence…** installs a licence file. **Product updates**: see [Product updates](#product-updates) |
+| **Licence** | The licence state and the starter allowance. **Install licence…** installs a licence file |
+| **Product updates** | **Check for product updates**, in the card **Update check**. See [Product updates](#product-updates) |
 | **Folders** | The finished packages folder, the working directory, the data folder, and **Housekeeping** |
-| **This host** | The host checks, **Prepare this host…**, Hyper-V, **Packaging tools** and **Package Support Framework** |
+| **This host** | The card **Host checks**, with **Check this host** and **Prepare this host…**. The cards **Packaging tools** and **Package Support Framework** |
 | **Signing** | Signing certificates, a test certificate, and Azure Artifact Signing profiles. See [Signing](signing.md) |
 | **AI agents (MCP)** | How to connect an MCP client, and what an agent may do. See [AI agents (MCP)](mcp.md) |
-| **Appearance** | **Follow Windows**, **Light** or **Dark** |
+| **Appearance** | **Follow Windows**, **Light** or **Dark**, and the keyboard shortcuts of the window |
 | **Export** | The export location. See [Export packages](export.md) |
 | **Exclusions** | What a capture leaves out of a package, layer by layer, and the installer repair rules. See [Exclusions](#exclusions) |
-| **Diagnostics** | **Collect support information**, **Record steps**, and **Improvement data** |
-| **Advanced** | The managed name prefix, the default conversion engine, and the configuration bundle |
+| **Diagnostics** | **Collect support information**. See [Diagnostics](#diagnostics) |
+| **Record steps** | Writes the steps that you do in the window to a file. See [Record steps](#record-steps) |
+| **Improvement data** | **Off**, **Minimal** or **All**. See [Improvement data](#improvement-data) |
+| **Advanced** | The managed name prefix and the default conversion engine |
+| **Configuration** | The configuration bundle. See [Configuration bundle](#configuration-bundle) |
 
 ## This host
 
@@ -38,11 +42,11 @@ After the download of PSF, the product asks GitHub at start if the fork has publ
 - **The files are not signed.** No notice shows. The card on **Settings > This host** shows one line: the release, the date of the release, and that it cannot be adopted. The card shows no **Adopt** button for that release. A newer release gets a new check.
 - **Not now** hides the notice for that release. The notice shows again only for a newer release.
 - **On a host with no internet**, the question gets no answer, and nothing shows.
-- If **Adopt** refuses a release, the product says why. It gives each reason one time, with the files under it. The product keeps the release that you have, and it does not offer the refused release again.
+- If **Adopt** refuses a release, the product says why, under **LAST ACTION** at the right of the section. It gives each reason one time, with the files under it. The product keeps the release that you have, and it does not offer the refused release again.
 
 ## Product updates
 
-The application can tell you when AppVentiX publishes a newer version of the product. The setting is **Check for product updates**, in the card **Product updates** on **Settings > Licence**. It is on by default. The command line does not check for product updates.
+The application can tell you when AppVentiX publishes a newer version of the product. The setting is **Check for product updates**, in the card **Update check** on **Settings > Product updates**. It is on by default. The command line does not check for product updates.
 
 When the check is on, the application sends one request when it starts. The request goes to an AppVentiX address over HTTPS. The server sees the IP address of this host and the product version. The application sends nothing else.
 
@@ -61,6 +65,8 @@ The check is off, and the application sends no request, when you untick **Check 
 
 The application follows the app mode of Windows by default. **Light** or **Dark** overrides it. The choice applies at once, and only for your account.
 
+The card **Keyboard shortcuts** lists the shortcuts of the window. Ctrl+1 to Ctrl+6 open the tabs, from **Build** to **Settings**.
+
 ## Exclusions
 
 An exclusion is a path that a capture leaves out of a package. **Settings > Exclusions** shows all the exclusions that a job uses, in layers:
@@ -68,7 +74,7 @@ An exclusion is a path that a capture leaves out of a package. **Settings > Excl
 | Layer | Where it comes from | What you can do |
 |---|---|---|
 | **Built-in rules** | The product. `FL-001` to `FL-021` are for the packaging tool. `BI-001` and up are for the built-in engine | Read them. Click **Turn off** to stop a rule on this host. `FL-001` and `FL-002` stay on |
-| **This host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
+| **Rules of this host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
 | **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
 | **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
 | **Recipes** | The recipes of this host, with the name, version, application, SHA-256 and problems of each. See [Recipes](recipes.md) | Read them. Add a recipe with the command line |
@@ -301,13 +307,13 @@ An AI agent can write the same file with the MCP tool `collect_support_bundle`. 
 
 ### Record steps
 
-**Settings > Diagnostics > Record steps** writes the steps that you do in the application to a file.
+**Settings > Record steps** writes the steps that you do in the application to a file.
 Support reads the file to see what happened before a problem.
 
 1. Click **Start**.
 2. Do the steps that cause the problem.
-3. Go back to **Settings > Diagnostics** and click **Stop**.
-4. Click **Collect support information**. The zip file includes the steps file.
+3. Go back to **Settings > Record steps** and click **Stop**.
+4. Go to **Settings > Diagnostics** and click **Collect support information**. The zip file includes the steps file.
 
 The file is `<workingDir>\Logs\steps-<date>-<time>.log`. Click **Show** to open it. Each start makes a
 new file. Record steps stops after 30 minutes or 2000 steps, and when the application closes.
@@ -355,7 +361,7 @@ screen showed, for example the state of a dialog. When a click closes a dialog, 
 5. Untick **Keep this picture** for each picture that must not go to support. **Remove all**
    unticks all of them.
 6. Click **Use the kept pictures**. The product deletes the pictures that you removed.
-7. Click **Collect support information**.
+7. Go to **Settings > Diagnostics** and click **Collect support information**.
 
 !!! warning "Redaction cannot read a picture"
     A picture can show host names, user names, job names and paths. Look at each picture before
@@ -383,16 +389,16 @@ If the product cannot write the value, Settings and `improvement set` save the l
 
 === "GUI"
 
-    Go to **Settings > Diagnostics**, section **Improvement data**. Select **Off**, **Minimal** or **All**. A level above the policy of your organisation is not available. Then the line under the buttons says, for example, "Set by your organisation: Minimal at most."
+    Go to **Settings > Improvement data**. Under **Level**, select **Off**, **Minimal** or **All**. A level above the policy of your organisation is not available. Then the line under the buttons says, for example, "Set by your organisation: Minimal at most."
 
-    ![Settings, Diagnostics, Improvement data: what Minimal and All collect, and the levels Off, Minimal and All](images/settings-improvement-data.png)
+    ![Settings, Improvement data: the levels Off, Minimal and All, what Minimal and All collect, and Show and Save](images/settings-improvement-data.png)
 
 === "CLI"
 
     | Command | What it does |
     |---|---|
     | `improvement [--json]` | Shows the improvement data level of this host: Off, Minimal or All, and how many records the outbox has. If a policy of your organisation limits the level, it says "Set by your organisation" |
-    | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Diagnostics** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade |
+    | `improvement set <Off\|Minimal\|All> [--json]` | Sets the improvement data level, as **Settings > Improvement data** does. A level above the policy of your organisation is refused with exit code 1. Off removes the records. The level is also written for the question at an upgrade |
 
 **Minimal collects:**
 
@@ -447,11 +453,13 @@ The installer writes the answer to `HKEY_LOCAL_MACHINE\SOFTWARE\AppVentiX\Automa
 
 ## Advanced
 
+**Settings > Advanced** has two cards.
+
 **The managed name prefix** is the prefix that each worker name must have, `PKGMGR-` by default. The product creates, changes and removes only machines with this prefix. Change it only if it is the same as names that you use. The prefix has 1 to 11 characters: letters, digits and hyphens. Click **Save prefix**, then start the application again. Earlier prefixes stay managed.
 
-**The conversion engine** is the engine that converts the installer to a package. A job uses it when nobody selects an engine on the Build screen or on the command line. An MCP job uses Microsoft's MSIX Packaging Tool when the client gives no engine. **Microsoft's MSIX Packaging Tool** is the default. **Built-in engine (experimental)** is the product's own engine. A job on it needs a worker whose image records it. Select an engine and click **Save engine**.
+**The conversion engine** is the engine that converts the installer to a package. A job uses it when nobody selects an engine on the Build screen or on the command line. An MCP job uses Microsoft's MSIX Packaging Tool when the client gives no engine. **Microsoft's MSIX Packaging Tool** is the default. **Built-in engine (experimental)** is the product's own engine. A job on it needs a worker whose image records it. Select an engine under **Default conversion engine** and click **Save engine**.
 
-**The configuration bundle** holds the configuration of this host, with its package identities. A package identity is how Windows knows that a new package updates an installed application. **Export configuration…** writes it, and **Import configuration…** reads it. The bundle holds no passwords, no private keys and no certificates.
+**Settings > Configuration** has the card **Configuration bundle**. It holds the configuration of this host, with its package identities. A package identity is how Windows knows that a new package updates an installed application. **Export configuration…** writes it, and **Import configuration…** reads it. The bundle holds no passwords, no private keys and no certificates.
 
 ## Worker limits
 

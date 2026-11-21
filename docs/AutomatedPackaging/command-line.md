@@ -36,8 +36,8 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `recipe validate <file> [--json]` | Checks a recipe file and changes nothing. It does not need an elevated prompt. See [Recipes](recipes.md) |
 | `recipe add <file> [--json]` | Adds a recipe file to the recipes of this host. A name and version that the host has keep their content (`AP-IM-029`) |
 | `recipe list [--json]` | Lists the recipes of this host. `--recipe` takes these names |
-| `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
-| `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
+| `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release…** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
+| `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package…** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
 | `exclusions list [--json]` | Lists every layer of the exclusion list: the built-in rules with their IDs and states, the rules of this host, and the sets of each image. See [Exclusions](settings.md#exclusions) |
 | `exclusions add <rule> [--note <text>]` | Adds a rule to the list of this host. It gets the next `HO-` ID |
 | `exclusions change <HO-nnn> <rule> [--note <text>]` | Changes a rule of this host. The ID stays |
@@ -104,7 +104,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 | Option | Command | What it does |
 |---|---|---|
-| `--medium <id>` | `worker build` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** form lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
+| `--medium <id>` | `worker build` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** window lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
 | `--edition <name>` | `worker build` | The edition. Default: the default edition of the release |
 | `--account <name>` | `worker build` | The administrator account in the worker. Default: `pkgbuilder` |
 | `--address <IPv4>` | `worker build` | The address on the internal switch. Default: the next free address |
@@ -115,7 +115,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--confirm` | `worker remove` | Removes the machine and its disks. Without it, nothing is removed |
 | `--json` | all four | Writes the result as one JSON object |
 
-**Rebuild from media**, **Put it back** and **Retire** are not on the command line. Use the Workers screen.
+**Rebuild from media…**, **Revert** and **Retire** are not on the command line. Use the Workers screen.
 
 ## Exit codes
 

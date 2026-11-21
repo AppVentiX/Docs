@@ -14,7 +14,7 @@ Set the export location in the application. The command line uses it, but cannot
 4. Optional: tick **Remove a package and its notes from the output folder after the export**.
 5. Click **Save export**. The next job uses the settings. No restart is necessary.
 
-![Settings, Export section](images/settings-export.png)
+![Settings, Export: the export location, Every package and Output folder, with Save export and Check location](images/settings-export.png)
 
 **Save export** also checks the location. **Check location** does the same check alone. The service makes a test folder, writes a file, replaces it and removes both. It says that the location can be written, or which step failed. A location that fails is still saved, and Settings shows a warning.
 
@@ -37,7 +37,7 @@ An empty location turns export off.
 
 === "GUI"
 
-    In **Advanced…** on the Build screen, set **Export the package** on or off for this job. It is not available while no location is set.
+    In **Advanced…**, under **More** on the Build screen, set **Export the package** on or off for this job. It is not available while no location is set.
 
 === "CLI"
 

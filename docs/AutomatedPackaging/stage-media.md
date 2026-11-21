@@ -79,12 +79,12 @@ The folder name tells the product the release of the two ISOs. See [Supported Wi
 
 ## 4. Scan and prepare
 
-1. In the application, go to **OS media** in the navigation, below **Workers**. While a release is not ready, the **OS media** entry shows a count, for example **2 waiting**. You see the count from all screens. The entry is grey until this host is prepared, as **Build** and **Workers** are.
+1. In the application, click the **OS media** tab (Ctrl+4). While a release is not ready, the **OS media** tab shows a count, for example **2 waiting**. You see the count from all screens. The tab is grey until this host is prepared, as **Build** and **Workers** are.
 2. Click **Look again** after you add files or install the ADK. It reads the drop folders again, and checks again for `oscdimg`.
-3. Select the release under **Release to prepare into**.
+3. Select the release in the list.
 4. Click **Scan and prepare…**.
 
-![The OS media screen, with five releases ready](images/os-media.png)
+![The OS media screen: five releases ready, and the panel at the right with the selected release](images/os-media.png)
 
 The scan reads each ISO in the drop folder of that release:
 
@@ -93,12 +93,12 @@ The scan reads each ISO in the drop folder of that release:
 | Windows installation ISO | Rebuilds it so that it starts with no key press | `Distro\OS\<release>\ISO\<name>-pkgmanaged.iso` |
 | Features on Demand ISO | Reduces it to the capture driver | `Distro\OS\<release>\FOD\<release>-CaptureDriver.iso` |
 
-A rebuild takes several minutes for each ISO. A bar and a line under the buttons show the ISO, the step and the time. The rest of the window stays available.
+A rebuild takes several minutes for each ISO. A moving bar shows in the panel at the right. A line above the bar shows the ISO, the step and the time. The rest of the window stays available.
 
 - **Stop** stops after the current ISO. The current ISO is completed first.
 - The scan writes each ISO with a temporary name, `.iso.partial`. It renames the file only when it is complete. An ISO that was not completed never counts as staged.
 - A release with both ISOs staged is not read again.
 
-The release is ready when its row says "Installation media and capture driver both staged — ready to build a worker." Its badge then shows **ready**. The other badges are **partway** (one of the two ISOs) and **not staged**.
+The release is ready when the right panel says "Installation media and capture driver both staged — ready to build a worker". Its badge then shows **ready**. The other badges are **partway** (one of the two ISOs) and **not staged**.
 
 Next: [Build a worker image](build-image.md).

@@ -77,7 +77,7 @@ With **Off**, the agent names one of the certificates that you ticked. The servi
 The job runs its smoke test with the test certificate, as each job does. Then:
 
 - The package stays in the output folder. The product does not export it. The job shows **Built, not exported** with `AP-SG-014`.
-- To sign the package with your certificate, use **Sign for release**. See [Sign a package for release](jobs.md#sign-a-package-for-release).
+- To sign the package with your certificate, use **Sign for release…** on the **Jobs** screen. See [Sign a package for release](jobs.md#sign-a-package-for-release).
 - An agent cannot sign for release. `retry_signing` signs a test-signed job again with its test certificate.
 
 ## The tools
@@ -112,7 +112,7 @@ These tools start or change work:
 | `convert_capture` | Starts a job from the kept capture of a job that failed with `AP-PK-005`, with `application`: the whole path of a program from `capture_programs`. Or with `noApplication`. The job does not run the installer; it installs the prerequisites of the earlier job. It signs with the certificate of the earlier job, which must be one that agents may use, as for `convert` |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
-| `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
+| `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package…** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
 | `export_job` | Copies the package of a job to the export location again |
 | `collect_support_bundle` | Writes the support information, as **Settings > Diagnostics** does. Give the IDs of at most 10 jobs, or none for the newest failed job. The answer gives the path, the files, what is left out and what redaction replaced. The agent tells you what is in the file before anything is sent. The product does not send it. Only an administrator of the host can open the data folder. The service writes one file at a time, also when the application writes one. A second call during a collection is refused. Try it again when the first ends |
 | `worker_build` | Builds a worker and its image. It gives an operation ID at once |
@@ -125,7 +125,7 @@ Each tool tells the client if it only reads, and if it can stop or remove work. 
 
 ### Windows release names
 
-`worker_build` builds from one Windows release that is staged on this host. The `medium` parameter names that release. The name is the name of the release folder under `_import`, for example `Windows11-25H2` or `Server2025`. The **OS media** screen and the **Build a worker** form show the same names. Case does not matter: `windows11-25h2` is also correct. A short form such as `win11-25h2` is not a release name, and the tool refuses it.
+`worker_build` builds from one Windows release that is staged on this host. The `medium` parameter names that release. The name is the name of the release folder under `_import`, for example `Windows11-25H2` or `Server2025`. The **OS media** screen and the **Build a worker** window show the same names. Case does not matter: `windows11-25h2` is also correct. A short form such as `win11-25h2` is not a release name, and the tool refuses it.
 
 - **One release staged:** leave out `medium`. The tool uses that release.
 - **More than one release staged:** give `medium`. Without it, the tool stops and lists the staged releases.

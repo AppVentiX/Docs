@@ -20,7 +20,7 @@ Many failures do not look like their cause. A missing licence file looks like a 
 
 === "GUI"
 
-    A failed job on the **Jobs** screen shows a failure card: the code, the step, **What to try** and **Copy diagnostic**. A failed image build shows the code under the step list on the Workers screen.
+    Select a failed job on the **Jobs** screen. The detail of the job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed. A failed image build shows the code under the step list in the **Build a worker** window.
 
 === "CLI"
 
@@ -40,7 +40,7 @@ The application, the host service and the command line read the value when they 
 
 | Symptom | Cause | What to do |
 |---|---|---|
-| The MSI stops: "needs the .NET 10 Desktop Runtime (x64)" or "the ASP.NET Core 10 Runtime (x64)" | A runtime is missing | Install both runtimes, then start the MSI again |
+| The MSI stops: "needs the .NET 10 Runtime (x64)" or "the ASP.NET Core 10 Runtime (x64)" | A runtime is missing. An older MSI also asks for the .NET 10 Desktop Runtime | Install the runtime that the message names, then start the MSI again. See [Install](install.md) |
 | The MSI stops: "The data folder … is not safe to use" | Another account owns or can change the data folder | See [Install](install.md#what-the-installer-does) |
 | The MSI stops: "The working directory … is not safe to use" or "must be a folder, not a drive" | A first installation checks a working directory that is already there. An account that is not an administrator owns it or can change it, or it holds a link. Or `WORKINGDIR` is the root of a drive | See [Install](install.md). Delete or move the folder, or give a folder, for example `D:\AutomatedPackaging` |
 | SmartScreen or "unknown publisher" on the MSI | A check build is signed for checking, not with a certificate that Windows trusts by default | Expected for a check build |
@@ -77,18 +77,18 @@ The application, the host service and the command line read the value when they 
 |---|---|---|---|
 | Before | **Build image** is not available, with a message about the name | The name rules | Use the prefix, 15 characters at most, letters, digits and hyphens |
 | 1 | "This host is not ready to build" | A host check fails | **Prepare this host…** on **Settings > This host** |
-| 3 | `AP-HV-008`, "A virtual machine named … already exists" | A failed build left the machine | Remove it under **Incomplete machines**, or use a different name |
+| 3 | `AP-HV-008`, "A virtual machine named … already exists" | A failed build left the machine | Remove it in **Incomplete machines…** on the **Workers** screen, or use a different name |
 | 4 | `AP-IM-014` after 60 minutes | Windows Setup waits on a dialog. Often the edition is not on the media | Open the console of the worker in Hyper-V Manager, and read it |
 | 5 | `AP-IM-010`, "The capture driver did not install" | The Features on Demand media is from a different release | Put the correct ISO in the drop folder, and scan again |
 | 5 | `AP-IM-009`, or "The packaging tool does not start" at step 11 | The licence file of the packaging tool is missing | Put the licence `.xml` beside the bundle in `Distro\Tools`, then build again |
 | 6 | `AP-AG-003` | Host preparation did not make the certificate authority | Run host preparation, start the application again, and build again |
 | 6 | "This host issues certificates from channel authority …, but agent-channel.json names … first" (`AP-AG-003`) | The first thumbprint in `trustedAuthorityThumbprints` is not the newest channel authority of this host. After the update, the worker would read **Update required** again. The product stops before it changes the worker | Run host preparation and apply the changes. It puts the authority of this host first. Then update the worker again |
 | 7 | `AP-IM-022` | A prerequisite failed | Check its arguments, success codes and detection rule on the **Prerequisites** screen |
-| 8 | `AP-IM-015`, "Tamper Protection is on" | Defender Tamper Protection is on in the worker | Use **Rebuild from media** |
+| 8 | `AP-IM-015`, "Tamper Protection is on" | Defender Tamper Protection is on in the worker | Use **Rebuild from media…** |
 | 9 | `AP-IM-021` | Windows did not activate through the KMS server. The message gives the answer | Correct the KMS server, or apply the **KMS relay reachable** firewall rule. Then **Update** |
 | 10 | `AP-IM-017` | Calibration recorded nothing, or recorded noise that it cannot exclude | Read the step 5 result in the preparation log. Run **Update** again |
 
-A build that fails or stops keeps its machine. Remove it under **Incomplete machines**.
+A build that fails or stops keeps its machine. Click **Incomplete machines…** on the **Workers** screen, and remove it there.
 
 ## Running a job
 
@@ -97,14 +97,14 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | "The Automated Packaging service does not answer." | The service is stopped, or it stopped when it started | In **Services**, start **AppVentiX Automated Packaging**. If it stops again, read `<workingDir>\Logs\service-<date>.log`. If that file has no new line, read `%ProgramData%\AppVentiX\Automated Packaging\logs\service-<date>.log`. The service writes there when it cannot use the working directory |
 | In the Windows System log, event 7024 says that the service stopped with a service-specific error, for example "Incorrect function" | The service stopped when it started, and gave Windows its exit code. Windows prints its own text for that number. That text is not the cause. Exit code 1: the service could not read or prepare its folders, or an error stopped the start. Exit code 2: the local group **AppVentiX Packaging Operators** does not exist. Exit code 3: the service refused the database. `sc start` shows no error for such a start. `Start-Service` and **Services** show it | Read the cause in the service log, as the row above says. For exit code 2, repair the installation |
 | "The Automated Packaging service cannot run jobs: the working directory … is not safe to use." | When the service starts, it examines the working directory and the folders above it. It also examines `Logs`, `_import`, `Distro`, `Tools` and `Packages`, where it writes at start. An account that is not an administrator owns one of them or can change it, or one of them holds a link. The message names each problem. The service wrote nothing in the working directory. It refuses each job, and MCP clients get no worker tools. Its log is in `%ProgramData%\AppVentiX\Automated Packaging\logs` | Run host preparation and apply **Working directory access**. Delete each item that it names. Then restart the service |
-| "Automated Packaging cannot build workers or start jobs: the working directory … is not safe to use." | The window shows this message when it starts. It examines the same folders as the service, and the message names each problem. The window wrote nothing in the working directory. Its log is in `%ProgramData%\AppVentiX\Automated Packaging\logs`. **Settings > This host** names the problem under **Working directory access**, and **Build**, **Workers**, **OS media** and **Prerequisites** are locked. The window does not remove old job folders. Some actions write in the working directory. They show this message and do nothing. On **Settings**, these are getting the packaging tools, PSF and the client tools. On **Jobs**, they are **Export again**, re-sign, **Sign for release**, **Re-sign a package** and **Free up space** | On **Settings > This host**, click **Prepare this host…** and apply **Working directory access**. Delete each item that it names. Restart the service. Then close the window and start it again |
+| "Automated Packaging cannot build workers or start jobs: the working directory … is not safe to use." | The window shows this message when it starts. It examines the same folders as the service, and the message names each problem. The window wrote nothing in the working directory. Its log is in `%ProgramData%\AppVentiX\Automated Packaging\logs`. **Settings > This host** names the problem under **Working directory access**, and **Build**, **Workers**, **OS media** and **Prerequisites** are locked. The window does not remove old job folders. Some actions write in the working directory. They show this message and do nothing. On **Settings**, these are getting the packaging tools, PSF and the client tools. On **Jobs**, they are **Export again**, re-sign, **Sign for release…**, **Re-sign a package…** and **Free up space…** | On **Settings > This host**, click **Prepare this host…** and apply **Working directory access**. Delete each item that it names. Restart the service. Then close the window and start it again |
 | "This command uses the working directory, so it did not start." | The command line examines the same folders as the service when it starts. The message names each problem. The command line wrote nothing in the working directory. Its log is in `%ProgramData%\AppVentiX\Automated Packaging\logs`. The exit code is 3. `certificates`, `machines`, `exclusions`, `recipe` and `improvement` use only the data folder, and they still run | Run host preparation and apply **Working directory access**. Delete each item that it names. Then restart the service |
 | A certificate is not in the list of the Build screen | It is in your own store, not in the computer store | **Move to this computer** on **Settings > Signing** |
 | "No image can build for …" | No image serves the target | Build an image for the target, or select a different target |
 | "AP-IM-024: the job was not started. … has no Finish packaging shortcut." | The job is interactive, and the image was built or updated before it got the shortcut | Click **Update** for the worker on the **Workers** screen, or select **Silent** |
 | "AP-IM-030: the job was not started. The agent of … is version …" and "Update this worker to use: …" | The job uses a feature that needs a newer agent, for example the built-in engine. The agent in the image of each worker for the target is older | Click **Update** for the worker on the **Workers** screen, or change the job so that it does not use the feature. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
 | "AP-IM-023: the job was not started. … must be updated." | Each image for the target reads **Update required** | Do what each reason says on the **Workers** screen. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
-| "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker** on **Jobs**, or **Put it back** on **Workers** |
+| "No worker for this image is free." | A job runs on the worker, or the worker is held | Wait. For a hold: **Revert worker…** on **Jobs**, or **Revert** on **Workers** |
 | The job fails after three minutes and captured nothing | The agent never connected. Usually the firewall | Run host preparation |
 | `AP-IN-017` | Nobody clicked **Finish packaging** before the time of the interactive job ended | Start the job again, or set a longer time in **Advanced** |
 | `AP-IN-008` or `AP-IN-010` | The installer waits on a dialog. The silent arguments are not correct | Check the arguments. Read the conversion log in `Collected files` |
@@ -120,7 +120,7 @@ A build that fails or stops keeps its machine. Remove it under **Incomplete mach
 | `AP-VF-001` with "The shortcut variable 'Desktop' is not supported" | Windows 11 22H2 refuses a package with a desktop shortcut | Use a Windows 11 24H2 or later worker, or turn off the desktop shortcut of the installer |
 | `AP-VF-002` or `AP-VF-003` | The application did not start, or closed at once | Often an application that writes to its own folder. Try the Package Support Framework |
 | "The smoke test did not find the PSF fixup …" | The application started, but the fixup of the Package Support Framework did not load in it. The package was built | Test the package on a target computer before you use it. Without the fixup, the application cannot write in its own folder |
-| `AP-AG-008` | The worker refused its password. Workers built before 0.2.14 have a password that expires after 42 days | Run `Repair-WorkerPassword.ps1` from the product `scripts\image` folder, then **Update** the worker. Or use **Rebuild from media** |
+| `AP-AG-008` | The worker refused its password. Workers built before 0.2.14 have a password that expires after 42 days | Run `Repair-WorkerPassword.ps1` from the product `scripts\image` folder, then **Update** the worker. Or use **Rebuild from media…** |
 | "Attempt 1 of 2 hit a transient infrastructure failure…" | One automatic retry after a lost connection | Nothing, unless the second attempt also fails |
 
 ## Common error codes
@@ -150,7 +150,7 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-PK-019` | The capture of the earlier job is gone or changed. Build the application again from its installer |
 | `AP-SG-008` | The package could not be signed. Use **Retry signing** |
 | `AP-SG-011` | The package changed after the job built it. Build the job again |
-| `AP-SG-014` | An AI agent's job signed with a test certificate. The product does not export it. Use **Sign for release** on the **Jobs** screen |
+| `AP-SG-014` | An AI agent's job signed with a test certificate. The product does not export it. Use **Sign for release…** on the **Jobs** screen |
 | `AP-VF-004` | The certificate is not trusted on the target. The package is correct |
 
 On MCP, the tool `explain_code` gives the cause and remedy of each code.
@@ -163,7 +163,7 @@ The product writes one file at a time. The folder keeps the newest five files an
 
 ## Product updates
 
-The card **Product updates** on **Settings > Licence** tells what the check at start found. See [Product updates](settings.md#product-updates).
+The card **Update check** on **Settings > Product updates** tells what the check at start found. See [Product updates](settings.md#product-updates).
 
 | The card says | What to do |
 |---|---|

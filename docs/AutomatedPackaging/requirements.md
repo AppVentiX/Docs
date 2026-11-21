@@ -12,7 +12,7 @@ Host preparation checks the host for all of the items below. It also tells you w
 | Memory | 16 GB minimum, 32 GB recommended. A worker uses 8 GB of static memory |
 | Worker volume | NTFS or ReFS. At least 60 GB free for one worker, 200 GB recommended for more. Between the two, host preparation shows a warning. exFAT and FAT32 are refused |
 | BitLocker | If the system drive is encrypted and Hyper-V is still off, suspend BitLocker for one restart. Or keep the recovery key available |
-| Runtimes | .NET 10 Desktop Runtime (x64) and ASP.NET Core 10 Runtime (x64). The installer stops without them |
+| Runtimes | .NET 10 Runtime (x64) and ASP.NET Core 10 Runtime (x64). The installer stops without them. The .NET 10 Desktop Runtime is not necessary |
 | Rights | A local administrator. The application and host preparation run elevated |
 | ADK Deployment Tools | Necessary to prepare Windows media (`oscdimg`). Host preparation can download and install them |
 

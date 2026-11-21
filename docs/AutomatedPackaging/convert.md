@@ -8,9 +8,9 @@ You can see what the product reads from an installer before you start a job.
 
 === "GUI"
 
-    Go to **Build**. Drop an MSI or EXE on the page, or click **Select file…**.
+    Click the **Build** tab (Ctrl+1). Drop an MSI or EXE on the page, or click **Select file…** (Ctrl+O).
 
-    The **Installer** card shows the file name, the size, the type and the full SHA-256. When the product knows the installer framework with high confidence, the type names it, for example "Windows executable · NSIS". The blue help mark beside it explains the silent switch of the framework.
+    The box of the installer, in column 1, shows the file name, the size, the type and the full SHA-256. When the product knows the installer framework with high confidence, the type names it, for example "Windows executable · NSIS". A line under it explains the silent switch of the framework.
 
     An MSI is also read for a driver and for a scheduled restart. A driver refuses the job before a worker is used.
 
@@ -34,51 +34,51 @@ You can see what the product reads from an installer before you start a job.
 
 === "GUI"
 
-    The Build screen is one column of cards. The bar with **Build** stays at the bottom while the page scrolls.
+    The Build screen has three columns, and each column scrolls. The bar with **Build** stays at the bottom of column 3. Until you select a file, columns 2 and 3 are grey.
 
-    ![The Build screen with an MSI selected: the installer, the package identity and the install settings](images/build-screen.png)
+    ![The Build screen with an MSI selected: the installer and its identity in column 1, the target and engine in column 2, and the program, prerequisites and Build in column 3](images/build-screen.png)
 
-    The **Installer** card shows the file, its size and type, the full SHA-256, and a check box for the installer's folder:
+    Column 1 shows the file, its size and type, the full SHA-256, and a check box for the installer's folder:
 
     | Setting | What it does |
     |---|---|
-    | Installer's folder | "Include the other files and folders in the installer's folder". Off by default: then only the installer goes to the worker |
+    | **Installer folder** | "Include the other files and folders". Off by default: then only the installer goes to the worker |
 
-    **Package identity**:
+    The identity of the package is in column 1 too:
 
     - **Publisher**, **Name** and **Version** come from the installer. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource. A value that you type wins. An EXE that only wraps the installer gives none of them: then type them.
     - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
-    - **Identity** shows beside the title. It is remembered. The same application gets the same identity next time, so a new package is an update.
-    - **Manifest publisher**, also beside the title, comes from the signing certificate, not from the **Publisher** field.
+    - **Identity** shows under **Version**. It is remembered. The same application gets the same identity next time, so a new package is an update.
+    - **Manifest publisher**, under **Identity**, comes from the signing certificate, not from the **Publisher** field.
+    - **Install command**, under the identity, shows the full command as the worker runs it.
 
-    ![The Build screen with the 7-Zip EXE selected: publisher, name and version come from the EXE, and the silent arguments are /S](images/build-screen-exe.png)
+    ![The Build screen with the 7-Zip EXE selected: publisher, name and version come from the EXE, and the arguments are /S](images/build-screen-exe.png)
 
-    **Install** shows when you select a file. Each setting has its label above it. A wide window shows three settings in a row, a narrow window two:
+    Columns 2 and 3 have the settings. You can use them after you select a file. Each setting has its label at its left:
 
     | Setting | What it does |
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
     | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job, and a busy worker refuses the job. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
-    | **Signing** | The certificate or Azure profile. A self-signed certificate shows **self-signed** |
-    | **Engine** | The conversion engine. **Microsoft's MSIX Packaging Tool** is the default, from [Settings](settings.md#advanced). **Built-in engine (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
+    | **Signing** | The certificate or Azure profile. A self-signed certificate shows **SELF-SIGNED** |
+    | **Engine** | The conversion engine. **Packaging tool** is the default, from [Settings](settings.md#advanced). **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
-    | **Program to start** | One of three. **Automatic**, the default: the job makes an application from each shortcut that the installer makes. **This program**: the job adds an application on the program that you select in the list or type, for example `Contoso\Tool\tool.exe`, and the start test starts it. **No application**: the package gets no application. See [The program to start](#the-program-to-start) |
+    | **Program to start** | In column 3. One of three. **Automatic**, the default: the job makes an application from each shortcut that the installer makes. **This program**: the job adds an application on the program that you select in the list or type, for example `Contoso\Tool\tool.exe`, and the start test starts it. **No application**: the package gets no application. See [The program to start](#the-program-to-start) |
     | **No application** | The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs the package on the worker and removes it again, instead of the start test, and warns |
-    | **Prerequisites** | **Select…** selects prerequisites for this job only. The list shows one line for each item, and the label shows how many there are |
+    | **Prerequisites** | In column 3. Tick the prerequisites for this job only. The line under the label shows how many you selected. **Library…** opens the **Prerequisites** tab |
     | **Internal** | "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. See [Settings](settings.md#improvement-data) |
 
-    The install parameters are rows under the settings. **Silent arguments** is always open. A closed row shows in one line what it holds, for example "1 of 2 on". Click the name of a row to open or close it. **Transforms** and **MSI properties** open by themselves when a row in them is ticked.
+    The install parameters are in column 2, under the settings: **Arguments**, then **More**, then **Logs**. **More** has **MSI properties…**, **Add transform…** and **Advanced…**, and each opens a window. Lines under them show what the job has, for example "MSI properties: 1 of 2 on."
 
-    ![The install parameters: silent arguments, transforms, MSI properties, logs and the install command](images/build-parameters.png)
+    ![The install parameters in column 2: Arguments, More with MSI properties…, Add transform… and Advanced…, and Logs](images/build-parameters.png)
 
-    | Row | What it does |
+    | Parameter | What it does |
     |---|---|
-    | **Silent arguments** | Filled in for a known framework, for example `/qn` for an MSI. The installers of 7-Zip and WinRAR are recognised and get `/S`. Until you edit them, the box is red and a note under it asks you to check them for your installer |
-    | **Transforms** | MSI only. Tick the `.mst` files to apply, or click **Add transform…** |
-    | **MSI properties** | MSI only. `REBOOT=ReallySuppress` is ticked. **Add properties…** opens the full list of public properties. A value with a tab is put in quotes. A value with a line break cannot go on the install command: the screen says "Remove the line break from the value of `<NAME>`." |
-    | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The blue help mark explains what the job collects |
-    | **Install command** | The full command as the worker runs it |
+    | **Arguments** | Filled in for a known framework, for example `/qn` for an MSI. The installers of 7-Zip and WinRAR are recognised and get `/S`. Until you edit them, the box has a border in the warning colour. A note under it asks you to check them for your installer |
+    | **Add transform…** | MSI only. Opens the **Transforms** window. Tick the `.mst` files to apply, or click **Browse…** to select others. Then click **Use these** |
+    | **MSI properties…** | MSI only. Opens a window, where `REBOOT=ReallySuppress` is ticked. The window has the full list of public properties of the installer, with a filter. Click **Use these**. A value with a tab is put in quotes. A value with a line break cannot go on the install command: the screen says "Remove the line break from the value of `<NAME>`." |
+    | **Logs** | "Collect the installer log and the conversion log" is on by default. Add other log paths, one on each line. The lines under the box explain what the job collects |
 
 === "CLI"
 
@@ -96,11 +96,11 @@ You can see what the product reads from an installer before you start a job.
     | `--application <path>` | **Program to start** | The program that the package starts, as a path that ends in `.exe`. `inspect` lists the programs of an MSI |
     | `--no-application` | **No application** | Builds the package with no application. The job installs and removes it instead of the start test |
     | `--internal` | **Internal** | Keeps the name of your own application out of the improvement data |
-    | `--include-folder` | "Include the other files and folders in the installer's folder" | Sends the other files and folders in the installer's folder |
+    | `--include-folder` | **Installer folder**: "Include the other files and folders" | Sends the other files and folders in the installer's folder |
     | `--interactive` | **Install mode** | You use the installer in a window onto the worker. See [Interactive installs](#interactive-installs) |
-    | `--arguments <text>` | **Silent arguments** | Necessary for an EXE, for example `"/S"` |
-    | `--msi-property <NAME=VALUE>` | **MSI properties** | MSI only. You can give it more than once. A value with a tab is put in quotes. A value with a line break is refused: `check` says "Remove the line break from the value of `<NAME>`." |
-    | `--transform <path>` | **Transforms** | MSI only. Applied in the order given |
+    | `--arguments <text>` | **Arguments** | Necessary for an EXE, for example `"/S"` |
+    | `--msi-property <NAME=VALUE>` | **MSI properties…** | MSI only. You can give it more than once. A value with a tab is put in quotes. A value with a line break is refused: `check` says "Remove the line break from the value of `<NAME>`." |
+    | `--transform <path>` | **Add transform…** | MSI only. Applied in the order given |
     | `--prerequisite <PRQ-nnn>` | **Prerequisites** | You can give it more than once |
     | `--no-install-log` | **Logs** | Does not collect the verbose conversion log |
     | `--collect-log <path>` | **Logs** | A log file in the worker to collect. You can give it more than once |
@@ -108,7 +108,7 @@ You can see what the product reads from an installer before you start a job.
     | `--publisher <text>` | **Publisher** | Default: the Manufacturer of the MSI, or the CompanyName of the EXE |
     | `--package-version <version>` | **Version** | Default: the ProductVersion of the MSI or of the EXE |
 
-    The options of the **Advanced** dialog are in the next section. [Command line](command-line.md) has all options.
+    The options of the **Advanced** window are in the next section. [Command line](command-line.md) has all options.
 
 ## The program to start
 
@@ -146,7 +146,7 @@ These settings apply to one job.
 
 === "GUI"
 
-    Click **Advanced…**. Each value shows where it comes from: "product default", or "overridden for this job". **OK** keeps the changes. **Cancel** keeps none. **Reset to defaults** clears them.
+    Click **Advanced…**, under **More** in column 2. Each value shows where it comes from: "product default", or "overridden for this job". **OK** keeps the changes. **Cancel** keeps none. **Reset to defaults** clears them.
 
 === "CLI"
 
@@ -166,7 +166,7 @@ These settings apply to one job.
 | Restarts | `--restarts <n>` | How many times the worker can restart during a capture with the built-in engine. The installer, you or a shutdown can cause a restart. One restart more stops the job with `AP-IN-020` | 1 to 10 (default 3) |
 | Wait after a restart (minutes) | `--restart-wait-minutes <n>` | How long a capture with the built-in engine waits for the worker after a restart or a shutdown. If the worker is off, start it in this time. A restart that installs updates can take longer | 5 to 30 minutes (default 5) |
 
-Network mode shows on the Advanced dialog, and only host-only is available.
+Network mode shows in the **Advanced** window, and only host-only is available.
 
 On the command line, a `--package-name` that is different from the last Name of this application is refused. Add `--change-identity` to build it. Users with the old package do not get the new package as an update.
 
@@ -176,11 +176,11 @@ On the command line, a `--package-name` that is different from the last Name of 
 
     Click **Build**.
 
-    - If **Build** is not available, the bar at the bottom shows each reason on its own line, with a warning mark.
-    - If **Build** in the navigation is not available, the host needs preparation first.
-    - Lines with an information mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
+    - If **Build** is not available, the bar at the bottom of column 3 shows each reason on its own line. Each has a red warning mark. Under the reasons, at the left of **Build**, "Captures on …" names the image that the target needs.
+    - If the **Build** tab is grey, the host needs preparation first.
+    - Lines with an orange warning mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
 
-    While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job.
+    While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job. When the job ends, its result stays at the bottom of the bar.
 
     At the end, the screen says "Built `<file>` in `<folder>`." or "Failed `<code>`: …".
 
@@ -206,7 +206,7 @@ The **Jobs** screen shows each job and its log, from the window, the command lin
 
 ## The installer and its files
 
-- **Silent arguments.** A known framework gets its usual switches. Some installers need more. An EXE with no arguments is refused, because it would wait on a dialog until the job times out.
+- **Arguments.** A known framework gets its usual switches. Some installers need more. An EXE with no arguments is refused, because it would wait on a dialog until the job times out.
 - **msiexec switches.** For an MSI, a switch that msiexec does not know is refused before the job, for example `/noreboot`. The message gives the msiexec switch when there is one, for example `/norestart`. A value with a `"` in an MSI property is written with the quote doubled, as msiexec reads it. A transform name with `;`, or that starts with `@`, `|` or `:`, is refused.
 - **The folder beside the installer.** Only the installer goes to the worker, unless you include the folder. Include it for an MSI with external `.cab` files, or a `setup.exe` with a data folder. The limits are 4 GB and 20,000 files. A drive root or a folder with a link is refused.
 - **Restarts.** `REBOOT=ReallySuppress` stops an MSI from restarting the worker. Untick it only for an installer that needs it.
@@ -236,9 +236,9 @@ The image must have the shortcut **Finish packaging** on the desktop of the work
 
 === "GUI"
 
-    1. Under **Install**, select **Interactive** for **Install mode**. The silent arguments and the MSI properties are not used.
+    1. In column 2, select **Interactive** for **Install mode**. The arguments and the MSI properties are not used.
     2. Click **Build**. When the job starts, the application shows the **Jobs** screen with the job selected. The window onto the worker opens only while the job is selected there. The job reverts the worker, copies the installer to it, and starts the capture.
-    3. The Jobs screen says "The worker waits for you", and the window onto the worker opens (**Virtual Machine Connection**). The folder with the installer is open in it. If you close the window, click **Open the worker's window** on the card of the job.
+    3. The Jobs screen says "The worker waits for you", and the window onto the worker opens (**Virtual Machine Connection**). The folder with the installer is open in it. If you close the window, click **Open the worker's window** in the detail of the job.
 
 === "CLI"
 
@@ -263,7 +263,7 @@ Everything that you do from the time that the folder opens until you click **Fin
 | When the window opens | The window opens when the worker is ready. The job log says that the worker prepares the capture. The capture first records the worker as it is. This takes some minutes. Then the window and the folder with the installer open. Do not install before this: the package would not contain it |
 | A lost worker | A job that loses the worker is not tried again. A silent job is tried one more time after a connection loss. An interactive job is not, because the revert removes what you installed. Start the job again |
 | Time | The job waits 120 minutes for **Finish packaging**, unless you set another time for the packaging tool in **Advanced** (`--timeout-minutes`). The time includes the restarts. Then it stops with `AP-IN-017` |
-| Cancel | **Cancel job** works while the job waits. The worker goes back to its baseline |
+| Cancel | **Cancel job** works while the job waits. It asks first. The worker goes back to its baseline |
 | Network | The worker reaches only the host. An installer that must activate online cannot do that |
 | A licence key | In the window onto the worker, use **Clipboard > Type clipboard text** |
 | AI agents | The MCP `convert` tool has no install mode. An agent cannot start an interactive job |
@@ -274,7 +274,7 @@ With the built-in engine, the capture continues after a restart of the worker.
 
 === "GUI"
 
-    Under **Install**, select **Interactive** for **Install mode**, and **Built-in engine (experimental)** for **Engine**. Then click **Build**.
+    In column 2, select **Interactive** for **Install mode**, and **Built-in (experimental)** for **Engine**. Then click **Build**.
 
 === "CLI"
 

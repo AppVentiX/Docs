@@ -1,14 +1,14 @@
 # Keep images current
 
-Select an image on the **Workers** screen. Its actions are on the card under its facts. **Update**, **Put it back** and **Retire** are buttons. **Rebuild from media…**, **Remove the machine…** and **Forget this image record** are in the **More actions** menu.
+Each image has a card on the **Workers** screen. **Update**, **Revert**, **Retire** and **Remove…** are buttons on the card. **Update** opens the Update window, with the facts of the image and the options of the update. **Rebuild from media…** is in the Update window. For an image with no machine, **Forget** is in the Update window in place of **Update**.
 
 | Action | Window | Command line |
 |---|---|---|
 | Update | **Update** | `worker update` |
-| Put it back | **Put it back** | Not available |
+| Revert | **Revert** | Not available |
 | Retire | **Retire** | Not available |
 | Rebuild from media | **Rebuild from media…** | Not available |
-| Remove the machine | **Remove the machine…** | `worker remove` |
+| Remove the machine | **Remove…** | `worker remove` |
 | Forget the image record | **Forget** | `image forget` |
 
 The command line acts on workers by name. Run it from an elevated prompt, with the application window closed. To list the workers:
@@ -28,11 +28,11 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
 
 === "GUI"
 
-    1. Select the image.
-    2. Optional: change the KMS server or the prerequisites on the card.
-    3. Click **Update**.
+    1. On the **Workers** screen, click **Update** on the card of the worker. The Update window opens.
+    2. Optional: change the KMS server or the prerequisites in the window.
+    3. Click **Update** in the window. The window shows the steps, and **Stop** stops the update.
 
-    ![The Workers screen: the workers with Build a worker as the last row, and the card of the selected worker with its actions](images/images-screen.png)
+    ![The Workers screen: a card for each worker, with Update, Revert, Retire and Remove…, and Build a worker… above the cards](images/workers-screen.png)
 
 === "CLI"
 
@@ -44,11 +44,11 @@ An update runs steps 6 to 12 again on the existing machine, and writes the image
     `--kms-server` changes the KMS server of a KMS image. `--activation` gives a method to an image that recorded none. The steps that an update does not run show as `skipped`.
 
 !!! warning "An update seals the machine as it is"
-    An update makes the current disk the new baseline. Do not experiment in a worker before you update it. If you did, use **Rebuild from media** instead.
+    An update makes the current disk the new baseline. Do not experiment in a worker before you update it. If you did, use **Rebuild from media…** instead.
 
 ## When an image is behind
 
-The product compares each image with this version of the product and with the settings of this host. An image that is behind shows a mark on its row, and the same mark shows after **Workers** in the menu. Select the image to see each reason and its remedy.
+The product compares each image with this version of the product and with the settings of this host. An image that is behind shows a warning line for each reason on its card, and a mark shows on the **Workers** tab. Click **Update** on the card: the Update window lists each reason with its remedy.
 
 | Mark | What it means for jobs |
 |---|---|
@@ -63,7 +63,7 @@ The product compares each image with this version of the product and with the se
 | The channel authority that signed the certificate of the worker is no longer trusted | Red | **Update** |
 | An earlier channel authority, which is still trusted, signed the certificate of the worker. The agent in the worker does not trust the current authority | Red | **Update** |
 | The image does not record its channel authority, and its last update was before this host made its current authority | Red | **Update** |
-| The packaging account of the worker is not the account of the image | Red | **Rebuild from media** |
+| The packaging account of the worker is not the account of the image | Red | **Rebuild from media…** |
 | The exclusion set does not leave out the cache of Windows Installer | Orange | **Update** |
 | The image was calibrated 180 days ago or more | Orange | **Update** |
 
@@ -79,9 +79,9 @@ An image with an older agent reads **Update recommended**, and its reason lists 
 
 The built-in engine, its restarts and the trace apply to a job on the built-in engine. Interactive installs apply to an interactive job, and their restarts to an interactive job on the built-in engine. The MakeAppx error and the PSF check never stop a job: without them, the job runs as before.
 
-## Put it back
+## Revert
 
-**Put it back** reverts the worker to its `baseline` checkpoint, and releases a hold on it. If Hyper-V has no machine of that name, it says so. Then use **Remove the machine…** to forget the worker.
+**Revert** reverts the worker to its `baseline` checkpoint, and releases a hold on it. If Hyper-V has no machine of that name, it says so. Then use **Remove…** to forget the worker.
 
 ## Retire
 
@@ -95,7 +95,7 @@ The built-in engine, its restarts and the trace apply to a job on the built-in e
 - A rebuild that would install a different edition is refused.
 - The old image record goes only when the new worker is recorded.
 
-You cannot undo a rebuild.
+Click **Update** on the card of the worker, then **Rebuild from media…** in the Update window. A question names the machine and tells what goes. Click **OK** to go on. You cannot undo a rebuild.
 
 ## Remove the machine
 
@@ -103,12 +103,11 @@ Removing deletes the machine and its disks, and forgets the worker. If no other 
 
 === "GUI"
 
-    1. Select the image.
-    2. In **More actions**, select **Remove the machine…**.
-    3. Read the confirmation. It names the machine, says what goes, and says if jobs for the target can still run.
-    4. Click the button of the confirmation. **Cancel** or **Esc** goes back.
+    1. On the **Workers** screen, click **Remove…** on the card of the worker.
+    2. Read the question. It names the machine, says what goes, and says if jobs for the target can still run.
+    3. Click **OK** to go on. **Cancel**, Enter or Esc changes nothing.
 
-    A row marked **password only** is a stored packaging-account password with no worker and no machine. An older build left it. **Remove...** deletes only that password. The product keeps it when a worker has the name, a build holds the name, or a virtual machine has the name. It also keeps it when Hyper-V does not answer.
+    **Incomplete machines…** on the **Workers** screen opens a window with the machines that no image includes. A row marked **password only** there is a stored packaging-account password with no worker and no machine. An older build left it. **Remove** in its row deletes only that password. The product keeps it when a worker has the name, a build holds the name, or a virtual machine has the name. It also keeps it when Hyper-V does not answer.
 
 === "CLI"
 
@@ -117,7 +116,7 @@ Removing deletes the machine and its disks, and forgets the worker. If no other 
     AutomatedPackaging.Cli worker remove PKGMGR-001 --confirm
     ```
 
-    Without `--confirm`, the command says what the confirmation on the screen says, and removes nothing. It exits with code 1.
+    Without `--confirm`, the command says what the question in the window says, and removes nothing. It exits with code 1.
 
     For a **password only** row, `worker remove <name> --confirm` then deletes only that password. It refuses when a worker or a virtual machine has the name, or when Hyper-V does not answer.
 
@@ -129,7 +128,7 @@ Forget removes an image record that no worker uses. It touches no machine.
 
 === "GUI"
 
-    Select the image, then **Forget this image record** in **More actions**. When it is the only action left, **Forget** is a button on the card.
+    Click **Update** on the card of the image. For an image with no registered machine, the Update window shows **Forget** in place of **Update**. Click **Forget**.
 
 === "CLI"
 
@@ -159,7 +158,7 @@ Do this when host preparation says "This host has no channel authority", or when
 2. Run host preparation, and apply the changes. It creates a new authority and puts it first in `trustedAuthorityThumbprints`. "Listener certificate" fails, because the old authority issued the certificate of the listener. Host preparation issues a new one and writes its thumbprint in `agent-channel.json`. "Certificates of the service" still fails, because the file names the old authority. At the end, host preparation restarts the service when no job runs. Then it removes the old certificate of the listener and its key. If a job stopped the restart, it removes them at the next apply after the service's restart.
 3. Open `<dataFolder>\agent-channel.json`. Remove each old thumbprint from `trustedAuthorityThumbprints`. Keep the first one.
 4. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
-5. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media**. Step 6 also removes the old authority from the Root store of the worker, when `agent-channel.json` no longer trusts it. The line of step 6 gives the number of certificates that it removed, and the thumbprint and subject of each.
+5. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media…**. Step 6 also removes the old authority from the Root store of the worker, when `agent-channel.json` no longer trusts it. The line of step 6 gives the number of certificates that it removed, and the thumbprint and subject of each.
 
 **With the window of host preparation.** On page 7, select **Create another and issue from it from now on**, then apply the changes. That does step 2 without step 1: the window creates a second authority and deletes nothing. The old certificate stays in the store of the computer, and step 3 removes its trust. Continue with step 3.
 
@@ -170,7 +169,7 @@ An update copies each trusted authority into the worker. It skips one that this 
 ## Good to know
 
 - **No action takes a worker from a running job.** These actions refuse a worker that something else holds, and name the holder.
-- **While an action runs, the image list is locked.** The result stays on the card until you select another image.
-- **Closing the window asks first** during a scan, a build, an update, a rebuild, a put back, a retire or a removal. A job continues when the window closes.
+- **While an action runs, the buttons of the other cards are off.** An Update or a Rebuild shows its steps in the Update window, and **Stop** there stops it. When an action ends, the result stays on the card.
+- **Closing the window asks first** during a scan, a build, an update, a rebuild, a revert, a retire or a removal. A job continues when the window closes.
 - **The managed prefix can change.** Earlier prefixes stay managed, so you can still see and remove the old workers.
 - The Workers screen acts on the first worker of each image. A second worker of the same image is refused on the command line.

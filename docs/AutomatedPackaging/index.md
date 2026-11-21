@@ -19,7 +19,7 @@ You build the worker once, from Windows media that you supply. The product ships
 
 | | What it is | Where to read |
 |---|---|---|
-| **The application window** | Screens for jobs, images, prerequisites and settings | All pages in this section, on the **GUI** tabs |
+| **The application window** | Six tabs, Ctrl+1 to Ctrl+6: Build, Jobs, Workers, OS media, Prerequisites and Settings | All pages in this section, on the **GUI** tabs |
 | **The command line** | `AutomatedPackaging.Cli.exe`, for scripts and pipelines | The **CLI** tabs, and [Command line](command-line.md) |
 | **MCP clients** | AI agents, such as Claude Desktop or Google Antigravity | [AI agents (MCP)](mcp.md) |
 

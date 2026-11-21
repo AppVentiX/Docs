@@ -117,7 +117,7 @@ Update the worker <worker name>. Then follow the update with worker_status until
 
 An agent cannot free up space. No MCP tool removes job files. On the **Jobs** screen, click **Free up space…**. See [Free up space](jobs.md#free-up-space).
 
-`worker_remove` removes a worker, its machine and its disks. It works only when **Agents can remove workers and forget images** is on. Use **More actions** > **Remove the machine…** on the **Workers** screen instead, where you can see what it removes. See [Keep images current](maintain-images.md).
+`worker_remove` removes a worker, its machine and its disks. It works only when **Agents can remove workers and forget images** is on. Use **Remove…** on the card of the worker on the **Workers** screen instead, where you can see what it removes. See [Keep images current](maintain-images.md).
 
 ## Fix a problem
 

@@ -6,11 +6,13 @@ The installer is `AutomatedPackaging-<version>.msi`, for example `AutomatedPacka
 
 Install two runtimes from Microsoft first. Get them on Microsoft's page [Download .NET 10.0](https://dotnet.microsoft.com/download/dotnet/10.0):
 
-1. In the section **.NET Desktop Runtime 10.0.n**, download the **x64** installer for Windows.
+1. In the section **.NET Runtime 10.0.n**, download the **x64** installer for Windows.
 2. In the section **ASP.NET Core Runtime 10.0.n**, download the **x64** installer for Windows.
 3. Run both installers. `n` is the newest patch.
 
-If a runtime is missing, the MSI stops before it installs anything. It says "Automated Packaging needs the .NET 10 Desktop Runtime (x64)…" or "Automated Packaging needs the ASP.NET Core 10 Runtime (x64)…". Install that runtime, then start the MSI again.
+The ASP.NET Core Runtime installer does not install the .NET Runtime, so you need both. The .NET 10 Desktop Runtime is not necessary.
+
+If a runtime is missing, the MSI stops before it installs anything. It says "Automated Packaging needs the .NET 10 Runtime (x64)…" or "Automated Packaging needs the ASP.NET Core 10 Runtime (x64)…". Install that runtime, then start the MSI again.
 
 ## Run the installer
 

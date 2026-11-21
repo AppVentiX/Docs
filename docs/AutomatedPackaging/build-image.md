@@ -6,22 +6,22 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
 
 === "GUI"
 
-    Go to **Workers**. The **Build a worker** card is the last row of the list of images.
+    On the **Workers** screen, click **Build a worker…** (Ctrl+N). The **Build a worker** window opens.
 
     | Field | What to enter |
     |---|---|
-    | **Windows release** | A staged release. If the list is empty, no release is staged. The card names the folder |
+    | **Windows release** | A staged release. If the list is empty, no release is staged. The window names the folder |
     | **Edition** | Shows only when the ISO has more than one edition. The default is the default of the media |
     | **Machine name** | Starts with the managed prefix, `PKGMGR-`. Add a name after it, for example `PKGMGR-001` |
     | **Address (optional)** | The address of the worker on the internal switch. Leave it empty to get the lowest free address. The box then shows **Automatic: 172.31.7.n** |
     | **Prerequisites** | **Select…** selects the prerequisites to install on the image. See [Prerequisites](prerequisites.md) |
     | **Windows activation** | **KMS server**, or **Not activated**. See [Windows activation](#windows-activation) |
 
-    When you open the Workers screen, the card reads the staged media again. Meanwhile it shows **Reading the staged media…**, and **Build image** waits.
+    When you open the Workers screen, it reads the staged media for the **Build a worker** window again. Meanwhile the window shows **Reading the staged media…**, and **Build image** waits.
 
-    Click **Build image**, at the bottom of the card. If something is in the way, the card says so before anything starts.
+    Click **Build image**, at the bottom of the window. If something is in the way, the window shows each problem at the left of the button before anything starts.
 
-    During the build, a bar of twelve segments shows the steps. Hold the pointer on a segment to see its name. Under the bar, "Step N of 12: …" shows the current step, and each completed step shows its time. **Stop**, beside the step, cancels the build.
+    During the build, a bar of twelve segments shows the steps. Hold the pointer on a segment to see its name. Under the bar, "Step N of 12: …" shows the current step, and each completed step shows its time. **Stop**, at the bottom of the window, cancels the build. You can close the window: the build goes on, and the **Workers** tab shows it.
 
 === "CLI"
 
@@ -33,7 +33,7 @@ A build takes 30 to 60 minutes. Most of that time is the Windows installation.
 
     | Option | What it does |
     |---|---|
-    | `--medium <id>` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** form lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
+    | `--medium <id>` | The Windows release to build from. The ID is the name of the release folder under `_import`, for example `Windows11-25H2`, as the **Build a worker** window lists it. Case does not matter. Necessary when more than one release is staged. When you leave it out with more than one release, or give an unknown ID, the command stops and lists the staged releases |
     | `--edition <name>` | The edition to install. Default: the default edition of the release |
     | `--account <name>` | The administrator account in the worker. Default: `pkgbuilder` |
     | `--address <IPv4>` | The address on the internal switch. Default: the next free address |
@@ -64,7 +64,7 @@ The address must be on the subnet of the internal switch. The address of the hos
 | **KMS server** | Give the name or address of your KMS server, with `:port` when it is not 1688. A worker has no DNS, so the server is necessary. Windows activates at step 9 through a relay on this host. The worker stays on the internal switch. The host needs the **KMS relay reachable** firewall rule, which host preparation makes |
 | **Not activated** | Windows stays in notification mode. You confirm that your organization has a valid Windows licence for the image. The product records who confirmed it, and when |
 
-The choice starts from the newest image. After the build, it shows read-only. You can change the KMS server later, before an **Update**.
+The choice starts from the newest image. After the build, the Update window of the worker shows it. You can change the KMS server there, before an **Update**.
 
 ## The twelve steps
 
@@ -89,9 +89,9 @@ A build always ends with the worker turned off. The full log is `<workingDir>\Lo
 
 === "GUI"
 
-    A build that worked shows all twelve steps as completed, each with its time. The new image is in the list of the Workers screen, with the state **Ready**. See [Image states](#image-states).
+    A build that worked shows all twelve steps as completed, each with its time. The new worker has a card on the Workers screen, with the state **Ready**. See [Image states](#image-states).
 
-    A build that failed shows the `AP-` code and the reason under the step list, at the step that failed. Find the step and the code in [Troubleshooting](troubleshooting.md#building-a-worker-image).
+    A build that failed shows the `AP-` code and the reason at the step that failed. They are under the step list in the **Build a worker** window. Find the step and the code in [Troubleshooting](troubleshooting.md#building-a-worker-image).
 
 === "CLI"
 
@@ -101,12 +101,12 @@ A build always ends with the worker turned off. The full log is `<workingDir>\Lo
 
 ## When a build fails
 
-A build that fails or stops after step 3 **does not remove the machine that it made**. The machine shows on the Workers screen under **Incomplete machines**.
+A build that fails or stops after step 3 **does not remove the machine that it made**. Click **Incomplete machines…** on the Workers screen. The window lists each virtual machine with the managed prefix that no image includes.
 
 === "GUI"
 
-    1. Under **Incomplete machines**, tick "I understand this permanently deletes the machine and its disks".
-    2. Click **Remove…**.
+    1. In the **Incomplete machines** window, tick "I understand this permanently deletes the machine and its disks".
+    2. Click **Remove** in the row of the machine.
 
 === "CLI"
 
@@ -123,17 +123,17 @@ The product first makes sure that it can remove the machine. It then turns the m
 
 ## Image states
 
-Each image in the list has an icon for its state:
+Each image has a card on the **Workers** screen, with the name of its worker. A chip on the card shows the state of the worker, for example **Ready**, **Updating** or **Retired**. **Updated** on the card tells how many days ago the image was calibrated.
 
-| State | Meaning |
+A warning line shows on the card when the image was calibrated 90 days ago or more, or when no active worker is built from it.
+
+An image that is behind reads one of these. The Update window of the worker says which, and lists each reason with its remedy. The card shows each reason as a warning line in that colour.
+
+| Level | Meaning |
 |---|---|
-| **Ready** | The image can serve jobs |
-| **Ageing** | Calibrated 90 days ago or more |
-| **Refresh needed** | Calibrated 180 days ago or more. Jobs still run. An update is worth doing |
-| **No worker** | No worker that is in service is built from the image |
-| **Update required** | The image is behind this product or the settings of this host. The product does not start a job on it. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
-| **Update recommended** | The image is behind, and jobs still run. An update is worth doing |
+| **Update required** (red) | The image is behind this product or the settings of this host. The product does not start a job on it. See [When an image is behind](maintain-images.md#when-an-image-is-behind) |
+| **Update recommended** (orange) | The image is behind, and jobs still run. An update is worth doing. An image calibrated 180 days ago or more reads this |
 
-The **Activation** fact shows the state of Windows when the image was sealed. A warning shows when a KMS activation ends within 30 days. **Update** renews it. See [Keep images current](maintain-images.md).
+The **Activation** fact in the Update window shows the state of Windows when the image was sealed. A warning shows when a KMS activation ends within 30 days. **Update** renews it. See [Keep images current](maintain-images.md).
 
 Next: [Signing](signing.md).

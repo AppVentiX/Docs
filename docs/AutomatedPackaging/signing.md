@@ -71,11 +71,13 @@ The smoke test trusts the certificate of the job in the worker. You do not need 
 An Azure Artifact Signing profile signs with a certificate that stays in Azure. Public Trust and Private Trust profiles are both supported.
 
 1. Go to **Settings > Signing**, card **Azure Artifact Signing**.
-2. Click **Add a profile**, or **Fill from Azure…** to fill the form from your Azure account.
+2. Click **Add a profile**. The **Add a profile** window opens. Or click **Fill from Azure…** to fill it from your Azure account.
 3. Enter **Tenant ID**, **Subscription ID**, **Resource group**, **Signing account**, **Certificate profile**, **Region** and **Trust**.
 4. Enter the **Client ID** and **Client secret** of a service principal. The service signs as this principal.
-5. Click **Save profile**.
+5. Click **Save profile**. The window closes. **Cancel** or Esc closes it and saves nothing.
 6. Click **Test** on the row of the profile.
+
+**Edit** on the row of a profile opens the **Edit profile** window for that profile.
 
 **Remove** asks first. It deletes the client secret of the profile from this host, and you cannot undo it.
 

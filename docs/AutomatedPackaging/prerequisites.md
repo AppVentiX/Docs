@@ -7,24 +7,24 @@ Some applications need a runtime before they start: the Visual C++ runtime, WebV
 
 ## The library
 
-**Prerequisites**, in the navigation, holds the library. Each item gets an ID when you add it, for example `PRQ-001`. An ID is never used again, also not after you remove the item. You manage the library in the application window. The command line uses the IDs.
+The **Prerequisites** tab (Ctrl+5), between **OS media** and **Settings**, holds the library. Each item gets an ID when you add it, for example `PRQ-001`. An ID is never used again, also not after you remove the item. You manage the library in the application window. The command line uses the IDs.
 
-The list has two groups:
+The list has two kinds of rows:
 
-- **Library**: the items stored on this host.
-- **Offered, not downloaded**: items that the product can download from the vendor.
+- The items stored on this host. Each has its ID, and its **STATE** says if its files agree with their hash.
+- The items that the product can download from the vendor. Their **STATE** says **Not downloaded**.
 
 Select an item to see its facts, how it installs, and **Used by**: the images, jobs and items that use it.
 
-The screen opens at once. While it reads the library and the files of each item, a ring shows above the list.
+The screen opens at once. While it reads the library and the files of each item, a moving bar shows "Reading the library and its files…".
 
 A newer version of the product can store an item of a kind that this version does not know. You can see this after you go back to an earlier version, or restore a backup from a newer one. The list does not show such an item, and a message names it. The product keeps the item and its files as they are. An image or a job that asks for it is refused, with that reason. Update the product to use the item again.
 
-![The Prerequisites screen, with a Visual C++ item selected](images/prerequisites.png)
+![The Prerequisites screen: the library and the offered items in one list, with a Visual C++ item selected and its facts at the right](images/prerequisites.png)
 
 ### Download from the vendor
 
-Select an item under **Offered, not downloaded**, then click **Download**. The product keeps the file only when Windows accepts it as signed by Microsoft. Where the vendor publishes a hash, the hash must also match.
+Select a row that says **Not downloaded**, then click **Download**. The product keeps the file only when Windows accepts it as signed by Microsoft. Where the vendor publishes a hash, the hash must also match.
 
 | Item | Source |
 |---|---|
@@ -36,11 +36,11 @@ Select an item under **Offered, not downloaded**, then click **Download**. The p
 
 After the download, check the **On the target** text of the item, under **Edit…**.
 
-**Check for updates**, under the list, asks the vendors for newer versions of these items. An item with an update shows an arrow, and **Update to …**.
+**Check for updates**, above the list, asks the vendors for newer versions of these items. An item with an update shows **Update available**, and a button **Update to …**.
 
 ### Add your own
 
-Click **Add a prerequisite…**. An item has one of four types:
+Click **Add…**. An item has one of four types:
 
 | Type | What runs |
 |---|---|
@@ -92,7 +92,7 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 
 === "GUI"
 
-    On the **Build a worker** card, or on the card of an image, click **Prerequisites: Select…** and tick the items. On an existing image, click **Update** to install what you added.
+    In the **Build a worker** window, or in the Update window of a worker, click **Select…** beside **Prerequisites** and tick the items. For an existing image, click **Update** in the Update window to install what you added.
 
 === "CLI"
 
@@ -102,13 +102,13 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 
     `worker update` keeps the prerequisites of the image.
 
-An update cannot remove a prerequisite from a machine. **Rebuild from media** builds a new Windows with exactly the selected items. A failure at step 7 is `AP-IM-022`.
+An update cannot remove a prerequisite from a machine. **Rebuild from media…** builds a new Windows with exactly the selected items. A failure at step 7 is `AP-IM-022`.
 
 ## For one job
 
 === "GUI"
 
-    On the **Build** screen, click **Prerequisites: Select…**.
+    On the **Build** screen, tick the items under **Prerequisites**, in column 3. **Library…** opens the **Prerequisites** tab.
 
 === "CLI"
 

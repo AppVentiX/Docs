@@ -7,9 +7,9 @@ Host preparation is `AutomatedPackaging.PrepareHost.exe`, beside the application
     1. Start **Automated Packaging** from the Start menu.
     2. Go to **Settings > This host**, and click **Prepare this host…**.
 
-    The wizard has eight pages, with a bar across the top. **Only the last page changes the host.** The blue button at the bottom right is the next step: **Next** on pages 1 to 7, then **Apply the changes**.
+    The wizard has eight pages, with a bar across the top. **Only the last page changes the host.** The coloured button at the bottom right is the next step: **Next** on pages 1 to 7, then **Apply the changes**.
 
-    ![Host preparation, page 1: What this will change](images/wizard-what-changes.png)
+    ![Host preparation, page 1: What this will change, with the eight changes that it can make](images/wizard-what-changes.png)
 
     | # | Page | What it does |
     |---|---|---|
