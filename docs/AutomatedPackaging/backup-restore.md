@@ -101,6 +101,8 @@ A worker that was updated after the backup shows its image as the backup recorde
 
 The restore keeps the managed name prefix of this host, so the product touches only machines of this host. When the backup has a different prefix, the restore says so, and **Build again** names each worker under the prefix of this host.
 
+The restore also keeps the working directory of this host. When the backup names a different one, the restore says so.
+
 ## Move to a new host
 
 A move builds each worker again from media on the new host, with the settings from the backup. The workers of the old host cannot move: the channel authority of a host cannot be exported, and the passwords of the workers open only on the old Windows.
