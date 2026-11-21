@@ -89,6 +89,7 @@ extra:
     - Keep images current: AutomatedPackaging/maintain-images.md
     - Prerequisites: AutomatedPackaging/prerequisites.md
     - Recipes: AutomatedPackaging/recipes.md
+    - Internet for a worker: AutomatedPackaging/worker-internet.md
     - AI agents (MCP): AutomatedPackaging/mcp.md
     - Example prompts for agents: AutomatedPackaging/mcp-prompts.md
     - Back up, restore and move: AutomatedPackaging/backup-restore.md

@@ -93,6 +93,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--timeout-minutes <n>` | How long the packaging tool can take. 5 to 480 (default 40, or 120 with `--interactive`) |
 | `--restarts <n>` | How many times the worker can restart during a capture with the built-in engine. 1 to 10 (default 3) |
 | `--restart-wait-minutes <n>` | How long a capture with the built-in engine waits for the worker after a restart or a shutdown. 5 to 30 (default 5) |
+| `--internet-host <name>` | A host name that the worker can reach through the host proxy while the installer runs: `download.example.com`, `*.example.com`, an optional `:port`, or `lan:name` for a host on your network. The proxy must be on. You can give it more than once. See [Internet for a worker](worker-internet.md) |
 | `--package-name <name>` | The Name of the package, instead of the name made from `--name` |
 | `--change-identity` | Allows a `--package-name` that is different from the last Name of this application |
 | `--export` | Copies the package to the export location. Refused when no location is set |

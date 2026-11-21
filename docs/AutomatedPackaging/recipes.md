@@ -51,6 +51,7 @@ You select a recipe on the **Build** screen, from the command line (`--recipe`),
 | `protocols` | No | `keep` or `drop`, not both: URL schemes, for example `sevenzip-help`. A scheme starts with a letter |
 | `executionAliases` | No | `keep` or `drop`, not both: alias names, for example `7z.exe` |
 | `comClasses` | No | `keep` or `drop`, not both: COM class IDs, with or without braces. A dropped class takes its shell menu handlers with it |
+| `internetHosts` | No | 1 to 200 host names that a job of this recipe can reach through the host proxy while it installs: `download.example.com`, `*.example.com`, `lan:fs01`. The proxy must be on. A list in the job wins over this one. See [Internet for a worker](worker-internet.md) |
 | `fixUps` | No | At most 200. Each has `kind` and `application`, the file name of the program. The kinds are in the next table |
 
 | Fix-up `kind` | `value` | What it does |

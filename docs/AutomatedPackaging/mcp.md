@@ -68,7 +68,8 @@ Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The servic
 
 1. Under **Certificates that agents can use**, tick the certificates. An agent can use only those, with each setting.
 2. Tick **Agents can remove workers and forget images** only if you want that. It is off by default. While it is off, `worker_remove` and `image_forget` stop with `AP-HV-012`.
-3. Click **Save**.
+3. Tick **Agents can give a job internet hosts** only if you want that. It is off by default. While it is off, `convert` and `check_job` refuse `internetHosts`, and a recipe that holds internet hosts. See [Internet for a worker](worker-internet.md).
+4. Click **Save**.
 
 ### The test certificate
 

@@ -134,6 +134,10 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-NW-005` | The connection to the agent was lost. Retried once |
 | `AP-NW-006` | The DNS sinkhole does not work. Run host preparation |
 | `AP-NW-007` | The job uploaded more than the host accepts |
+| `AP-NW-008` | The job names internet hosts, and the host proxy is off or could not listen. Turn it on under **Settings > Advanced > Worker internet**, and run host preparation. See [Internet for a worker](worker-internet.md) |
+| `AP-NW-009` | The worker has no address of its own. Update its image on the **Workers** screen |
+| `AP-IM-031` | An internet host of the job or its recipe is not valid. Write a host name, `*.domain` or `lan:name` |
+| `AP-PK-020` | The package holds the proxy settings of the worker. Exclude the key that the installer wrote |
 | `AP-AG-005` | The agent stopped in the worker. Retried once |
 | `AP-IM-009` | The licence of the packaging tool is not in the image |
 | `AP-IM-010` | The capture driver is not in the image |
