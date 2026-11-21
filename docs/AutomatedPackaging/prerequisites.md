@@ -32,11 +32,19 @@ Select a row that says **Not downloaded**, then click **Download**. The product 
 | Edge WebView2 Runtime (x64, x86) | The Evergreen standalone installer |
 | .NET Framework 4.8.1 | The offline installer |
 | .NET Desktop Runtime 8.0 and 10.0 (x64) | Microsoft's .NET release data |
-| PowerShell 7 (x64) | The PowerShell release on GitHub |
+| PowerShell 7 (x64) | The newest release on `github.com/PowerShell/PowerShell` that has a Windows MSI and a `hashes.sha256` file. Drafts and prereleases are not used |
+
+The product does not keep a download in these conditions:
+
+- The file is larger than 1 GiB. The largest item, the WebView2 x64 installer, was about 294 MB.
+- The file changed after the download and before the check. The product hashes the file when the download ends, and again when it opens the file for the check. The two hashes must agree.
+- The file has a second name on the drive (a hard link).
+
+In each case, click **Download** again.
 
 After the download, check the **On the target** text of the item, under **Edit…**.
 
-**Check for updates**, above the list, asks the vendors for newer versions of these items. An item with an update shows **Update available**, and a button **Update to …**.
+**Check for updates**, above the list, asks the vendors for newer versions of these items. An item with an update shows **Update available**, and a button **Update to …**. For PowerShell 7, the check uses the same rule as the download: the newest release with a Windows MSI. The result tells you which release that is.
 
 ### Add your own
 
