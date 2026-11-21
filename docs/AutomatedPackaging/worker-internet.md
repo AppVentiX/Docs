@@ -75,7 +75,7 @@ proxy: GET x1.c.lencr.org:80 refused: not on the job's list of internet hosts.
 proxy: GET ctldl.windowsupdate.com:80 refused: not on the job's list of internet hosts.
 ```
 
-Add the hosts that the log names, for example `*.c.lencr.org` and `ctldl.windowsupdate.com`, and start the job again.
+Add the hosts that the log names, for example `*.c.lencr.org` and `ctldl.windowsupdate.com`, and start the job again. A refused request that looks like such a check says so in its line: "It looks like a certificate revocation check".
 
 ## What the job log shows
 
@@ -100,6 +100,16 @@ Windows sends requests of its own too. They show as refused lines and do not sto
 Before the capture, the job sets the proxy for the whole worker: the Windows (WinINet) proxy settings, the same for all users, and the WinHTTP proxy. The host address and names without a dot bypass the proxy. The worker goes back to its checkpoint after the job, so the settings go with it.
 
 The job sets them before the capture, so the package does not hold them. Windows writes its own copy of the settings the first time a program uses them, so the job makes one request itself before the capture. The capture also leaves out the key where Windows keeps that copy (rules `PR-002` and `PR-003` in `exclusions.json`). Last, the job reads the finished package. If it holds these settings, the job fails with `AP-PK-020` and the package is not signed.
+
+The capture of a job with internet hosts also leaves out what Windows keeps of the downloads:
+
+| Rule | Leaves out |
+|---|---|
+| `PR-004` | `%USERPROFILE%\AppData\Local\Microsoft\Windows\INetCache`: the download cache, with a copy of each download |
+| `PR-005` | `%USERPROFILE%\AppData\LocalLow\Microsoft\CryptnetUrlCache`: the certificate revocation data |
+| `PR-006` | `HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\Cache`: the keys of the cache |
+
+An application that puts its own files in these folders loses them from the package too. That is rare. The `ZoneMap` key stays in the package: it holds real settings for each site.
 
 **An installer that does not use the Windows proxy settings cannot use the host proxy.** For example, a downloader that reads only the `HTTP_PROXY` environment variable, or one that connects to an address in its code. The job log then shows no request from it, and the installer fails in its own way. Use the full (offline) installer.
 
