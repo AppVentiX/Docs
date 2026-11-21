@@ -9,7 +9,8 @@
     ![The detail of a built job: the step bar with all six steps done, and the facts of the job](images/jobs-facts.png)
 
     - **Open the worker's window** shows while an interactive job waits for you. The window opens by itself one time. See [Interactive installs](convert.md#interactive-installs).
-    - **Cancel job** (Ctrl+K), on the toolbar of the Jobs screen, stops a running job. It asks first. The service puts the worker back to its baseline first. The job then shows Cancelled.
+    - **Cancel job** (Ctrl+K), on the toolbar of the Jobs screen, stops a running job. It asks first. The service puts the worker back to its baseline first. The job then shows Cancelled. On a job that waits in the queue, **Cancel job** takes it out of the queue. No worker is used.
+    - A job that waits for a worker shows **Queued**. Its detail gives its priority, its batch and why it waits. **Raise** and **Lower** under that line change its priority.
     - **Copy log** and **Open log file** give you the log. The screen shows the last 2,000 lines, and 200 lines of one entry. **Open log file** shows all lines.
     - The detail of a failed job shows the failure under the step bar: the code, a headline, what to try and **Copy diagnostic**. The step bar shows the step that failed, with the number of each step in its segment.
 
@@ -18,6 +19,8 @@
     `convert` shows the job log while the job runs, then the result. With `--json`, it shows only one JSON object at the end. See [JSON output](command-line.md#json-output).
 
     The log of each job is in `<workingDir>\jobs\<job id>\job.log`. Ctrl+C asks the service to stop the job.
+
+    `status <job-id>` shows a job: waiting, running, or how it ended. `status <job-id> --wait` waits for its end. `status <batch-id>` shows each job of a batch.
 
 The job log tags each line `host`, `agent` or `pipeline`. The last lines give the `AP-` code and the reason of a failure.
 

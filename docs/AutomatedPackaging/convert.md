@@ -60,7 +60,7 @@ You can see what the product reads from an installer before you start a job.
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
-    | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job, and a busy worker refuses the job. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
+    | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **SELF-SIGNED** |
     | **Engine** | The conversion engine. **Packaging tool** is the default, from [Settings](settings.md#advanced). **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
@@ -89,7 +89,7 @@ You can see what the product reads from an installer before you start a job.
     | Option | Build screen | What it does |
     |---|---|---|
     | `--target <target>` | **Must run on** | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
-    | `--machine <name>` | **Machine** | The worker to use, by name. See `machines`. A busy worker refuses the job |
+    | `--machine <name>` | **Machine** | The worker to use, by name. See `machines`. A job for a busy worker waits for it |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
     | `--engine <engine>` | **Engine** | `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the default of **Settings > Advanced**. A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
@@ -174,13 +174,13 @@ On the command line, a `--package-name` that is different from the last Name of 
 
 === "GUI"
 
-    Click **Build**.
+    Select **Priority** under "Captures on …": **Low**, **Normal** (the default) or **High**. Then click **Build**.
 
     - If **Build** is not available, the bar at the bottom of column 3 shows each reason on its own line. Each has a red warning mark. Under the reasons, at the left of **Build**, "Captures on …" names the image that the target needs.
     - If the **Build** tab is grey, the host needs preparation first.
     - Lines with an orange warning mark are notes that block nothing. For example, an MSI that declares a service (`AP-AN-011`), or that schedules a restart (`AP-AN-010`).
 
-    While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job. When the job ends, its result stays at the bottom of the bar.
+    The job goes into the queue of the service, and starts when a worker is free. While the job runs, the bar shows the steps, the time and the current step. **Open in Jobs** selects the job on the **Jobs** screen. **Cancel** stops the job. When the job ends, its result stays at the bottom of the bar.
 
     At the end, the screen says "Built `<file>` in `<folder>`." or "Failed `<code>`: …".
 
@@ -198,7 +198,9 @@ On the command line, a `--package-name` that is different from the last Name of 
     AutomatedPackaging.Cli convert D:\installers\setup.exe --name "Contoso Editor" --publisher Contoso --package-version 4.2 --arguments "/S" --certificate-thumbprint <thumbprint> --json
     ```
 
-    The command shows the job log while it runs, then the result. The exit code tells a script the result: 0 is built, 1 is refused, 2 is failed. See [Exit codes](command-line.md#exit-codes).
+    The job goes into the queue of the service, and starts when a worker is free. `--priority low|normal|high` sets how soon a free worker takes it. The command shows the job log while it runs, then the result. The exit code tells a script the result: 0 is built, 1 is refused, 2 is failed. See [Exit codes](command-line.md#exit-codes).
+
+    With `--no-wait`, the command gives the job ID when the job is in the queue, and does not wait. `status <job-id>` shows the job later, and `status <job-id> --wait` waits for its end.
 
     The first Ctrl+C cancels the job, and the service puts the worker back. A second Ctrl+C ends the program at once.
 
@@ -314,7 +316,11 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 
 - One job runs on one worker. Two workers can run two jobs at the same time.
 - With **Automatic**, the second job gets another free worker for its target.
-- A job for a busy, selected worker is refused with `AP-HV-007`.
+- Each job goes into one queue in the service, and gets its ID at once. A job waits when no worker for it is free. A free worker takes the highest priority job that it can build, and the oldest first. A running job is never stopped for a job with a higher priority.
+- A job that no worker can ever build is refused at once, with the reason.
+- The starter allowance counts a job when it starts to build.
+- When the service stops while a job runs, the job ends with `AP-NW-010`. The service starts it again one time, as a new job. Waiting jobs stay in the queue.
+- The command line (`batch`) and MCP (`convert_batch`) add several installers at one time. See [The queue and batches](command-line.md#the-queue-and-batches).
 - You can close the window. The job continues in the service.
 - Before a job starts, the window or the command line copies the installer to `<workingDir>\Jobs\_handover\`. The service cannot see your mapped drives.
 

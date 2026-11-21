@@ -25,6 +25,8 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | Command | What it does |
 |---|---|
 | `convert <installer> [options]` | Converts an MSI or EXE into a signed MSIX package on a worker. Shows the job log, then the result |
+| `batch <file> [--no-wait] [--json]` | Adds the installers of a batch file to the queue, all of them or none. Then it waits for each job and shows the result of the batch. See [The queue and batches](#the-queue-and-batches) |
+| `status <job-id\|batch-id> [--wait] [--json]` | Shows a job or a batch: waiting, running, or how it ended. With `--wait`, it waits for the end and gives the exit code of `convert` or `batch` |
 | `check <installer> [options]` | Lists what stops a conversion, as the Build screen lists it. Starts nothing. It asks what the job asks before it starts. Can somebody who is not an administrator change the signing tools, the packages or the jobs folder (`AP-SG-010`)? Is there an image and a worker for the target? Must the image be updated (`AP-IM-023`)? For an interactive job, does the image have **Finish packaging** (`AP-IM-024`)? Does the image record the engine (`AP-IM-026`)? Does its agent have each feature that the job uses (`AP-IM-030`)? With `--machine`, it asks about the image of that worker. It does not ask for a free worker |
 | `inspect <installer> [--certificate-thumbprint <thumbprint> \| --signing-profile <id>] [--json]` | Shows what the Build screen shows about an installer, and what `convert` uses with no options. It names the source of the name, publisher and version. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource |
 | `certificates [--json]` | Lists the certificates and the Azure Artifact Signing profiles that this host can sign with |
@@ -87,6 +89,8 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--collect-log <path>` | A log file in the worker to collect. Variables and wildcards work. You can give it more than once |
 | `--first-launch` | After the installer, the capture starts the application one time. This is **First-start capture** in Advanced |
 | `--settle-seconds <n>` | How long the application runs on its first start. Use it with `--first-launch`. 1 to 600 (default 20) |
+| `--priority <priority>` | How soon a free worker takes the job: `low`, `normal` (default) or `high` |
+| `--no-wait` | Gives the job ID when the job is in the queue, and does not wait. Exit code 0 |
 | `--exit-codes <list>` | Exit codes that mean success, for example `"0,1"`. 3010 and 1641 are refused |
 | `--exclude <path>` | A file, folder or registry key that the capture leaves out. You can give it more than once |
 | `--min-free-disk-gb <n>` | Free disk space that the worker needs. 1 to 1024 (default 10) |
@@ -121,6 +125,37 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 **Rebuild from media…**, **Revert** and **Retire** are not on the command line. Use the Workers screen.
 
+## The queue and batches
+
+Each job goes into one queue in the service, and gets its ID at once. A free worker takes the highest priority job that it can build, and the oldest first. A job that no worker can ever build is refused at once.
+
+A batch file is JSON. Each item has the installer, and the `convert` options as you type them. `sha256` makes sure that the file is the one you checked:
+
+```json
+{
+  "format": "automated-packaging-batch",
+  "formatVersion": 1,
+  "priority": "Normal",
+  "items": [
+    { "installer": "D:\\Installers\\putty-64bit-0.83-installer.msi", "sha256": "<64 hexadecimal characters>",
+      "options": ["--target", "Windows11Only", "--machine", "PKGMGR-W1125H2"] },
+    { "installer": "D:\\Installers\\7z2501-x64.msi", "priority": "High" }
+  ]
+}
+```
+
+- A field that the format does not know gives `AP-IM-036` with the name of the field. So does a field given two times, or a value of the wrong type.
+- An item cannot give `--json`, `--no-wait`, `--interactive` or `--from-capture`. At most 500 items.
+- When an item has a problem, nothing goes into the queue. Correct the items and give the batch again.
+- When the last job ends, the service writes the report `batches\batch-<id>.json` in the output folder. It gives each item's job, status, package, failure code and detail. Its `result` is `Built`, `PartlyBuilt` or `NotBuilt`.
+- Ctrl+C during `batch` cancels each job of the batch that waits or runs.
+
+```
+AutomatedPackaging.Cli batch D:\installers\batch.json
+AutomatedPackaging.Cli batch D:\installers\batch.json --no-wait --json
+AutomatedPackaging.Cli status <batch-id> --wait
+```
+
 ## Exit codes
 
 | Code | Meaning |
@@ -130,6 +165,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | 2 | The job or the command ran and failed. The `AP-` code and the detail follow |
 | 3 | Cannot run here: not elevated, the service does not run, or the host cannot run jobs yet. A worker or image command also stops here while the window or another command line is open. Each command that uses the working directory also stops here when the working directory is not safe to use |
 | 4 | Built, but the package did not reach the export location, or not completely. The warning `AP-PK-010` gives the reason |
+| 5 | `batch`: some packages were built and some were not. The report of the batch says which |
 | 64 | The command line is not correct: an unknown option, an option given twice, or a missing value |
 | 130 | Cancelled with Ctrl+C |
 
