@@ -147,7 +147,7 @@ A batch file is JSON. Each item has the installer, and the `convert` options as 
 - A field that the format does not know gives `AP-IM-036` with the name of the field. So does a field given two times, or a value of the wrong type.
 - An item cannot give `--json`, `--no-wait`, `--interactive` or `--from-capture`. At most 500 items.
 - When an item has a problem, nothing goes into the queue. Correct the items and give the batch again.
-- When the last job ends, the service writes the report `batches\batch-<id>.json` in the output folder. It gives each item's job, status, package, failure code and detail. Its `result` is `Built`, `PartlyBuilt` or `NotBuilt`.
+- When the last job ends, the service writes the report `batches\batch-<id>.json` in the output folder. It gives each item's job, status, package, failure code and detail. `machine` is the worker that ran the job, and `pinnedWorker` is the worker that the item named with `--machine`. For a job that ran during the upgrade to this version, `machine` is the pinned worker, or `not recorded`. It is empty for a job that did not start. Its `result` is `Built`, `PartlyBuilt` or `NotBuilt`.
 - Ctrl+C during `batch` cancels each job of the batch that waits or runs.
 
 ```
