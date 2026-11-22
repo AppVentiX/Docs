@@ -122,12 +122,16 @@ When the proxy is on, an update of a worker also installs its Windows updates. T
 3. Windows Update searches, downloads and installs every software update. Drivers are not installed.
 4. The proxy closes. The step puts the proxy settings of the worker back as they were, and reads them back.
 5. The step restarts the worker again, so that the install completes. The step line shows the Windows build before and after.
+6. The step waits until Windows has finished the updates. Windows can restart the worker by itself after that restart. The step continues when TrustedInstaller has stopped, no restart is pending, and the worker has run for 3 minutes.
 
 Step 8, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back at that step.
+
+Step 11, **Seal the image**, sets both to Disabled again and reads them back before it shuts the worker down. The packaging tool can set `wuauserv` to start during step 10. If one is not Disabled at step 11, the image is not sealed. This applies to every build and every update.
 
 - When the proxy is off, the step is skipped, and its line says why. The update continues without Windows updates.
 - The update log shows each update, its result and each request of the proxy.
 - If an update is not installed, the update stops with `AP-IM-037` before the seal. The worker keeps the image it had.
+- If Windows has not finished the updates after 30 minutes, the update also stops with `AP-IM-037`.
 - A cumulative update can be larger than 1 GB and take 30 minutes or more.
 - The service opens the proxy only for a worker of this product that has its own address, and only while an update of that worker runs.
 
