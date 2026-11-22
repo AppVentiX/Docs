@@ -123,7 +123,7 @@ When the proxy is on, an update of a worker also installs its Windows updates. T
 4. The proxy closes. The step puts the proxy settings of the worker back as they were, and reads them back.
 5. The step restarts the worker again, so that the install completes. The step line shows the Windows build before and after.
 
-Step 8, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back.
+Step 8, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back at that step.
 
 - When the proxy is off, the step is skipped, and its line says why. The update continues without Windows updates.
 - The update log shows each update, its result and each request of the proxy.
