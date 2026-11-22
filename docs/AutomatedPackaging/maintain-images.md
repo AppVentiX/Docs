@@ -19,7 +19,7 @@ AutomatedPackaging.Cli machines
 
 ## Update
 
-An update runs steps 6 to 12 again on the existing machine, and writes the image record again. It does not install Windows or the packaging tool again.
+An update runs steps 6 to 12 again on the existing machine, and writes the image record again. It does not install Windows or the packaging tool again. When the host proxy is on, step 13 first installs the Windows updates of the worker. See [Windows updates in an Update](worker-internet.md#windows-updates-in-an-update).
 
 - Update after you install a newer build of the product. The worker then gets the new agent.
 - For a KMS image, an update activates Windows again. This renews the activation.

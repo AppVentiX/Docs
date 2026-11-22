@@ -113,6 +113,24 @@ An application that puts its own files in these folders loses them from the pack
 
 **An installer that does not use the Windows proxy settings cannot use the host proxy.** For example, a downloader that reads only the `HTTP_PROXY` environment variable, or one that connects to an address in its code. The job log then shows no request from it, and the installer fails in its own way. Use the full (offline) installer.
 
+## Windows updates in an Update
+
+When the proxy is on, an update of a worker also installs its Windows updates. This is step 13, **Install Windows updates**. It runs after step 3 and before step 6. See [Keep images current](maintain-images.md#update).
+
+1. The step sets the services `DoSvc` (Delivery Optimization) and `wuauserv` (Windows Update) to start, and restarts the worker. The other update services and the update tasks stay off.
+2. The service opens the proxy for this worker. The hosts are always `*.update.microsoft.com`, `*.windowsupdate.com` and `*.delivery.mp.microsoft.com`. The limits are always 4096 MB and 120 minutes. The limits in Settings do not apply to an update.
+3. Windows Update searches, downloads and installs every software update. Drivers are not installed.
+4. The proxy closes. The step puts the proxy settings of the worker back as they were, and reads them back.
+5. The step restarts the worker again, so that the install completes. The step line shows the Windows build before and after.
+
+Step 8, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back.
+
+- When the proxy is off, the step is skipped, and its line says why. The update continues without Windows updates.
+- The update log shows each update, its result and each request of the proxy.
+- If an update is not installed, the update stops with `AP-IM-037` before the seal. The worker keeps the image it had.
+- A cumulative update can be larger than 1 GB and take 30 minutes or more.
+- The service opens the proxy only for a worker of this product that has its own address, and only while an update of that worker runs.
+
 ## An upstream proxy
 
 If the host reaches the internet only through a proxy, write it in **Upstream proxy** as `host:port`. The host proxy then sends each allowed request to that proxy. The list of the job still applies. A name that the host finds at an address on your network is still refused, unless the entry is marked `lan:`. A `lan:` entry goes directly, not to the upstream proxy.
@@ -129,5 +147,6 @@ The upstream proxy cannot ask for a user name and a password.
 | `AP-NW-009` | The worker has no address of its own on the internal switch |
 | `AP-IM-031` | An internet host of the job or its recipe is not valid |
 | `AP-PK-020` | The package holds the proxy settings of the worker |
+| `AP-IM-037` | An update did not install the Windows updates, so it stopped before the seal |
 
 See [Error codes](error-codes.md).
