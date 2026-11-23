@@ -138,6 +138,7 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 | `AP-NW-009` | The worker has no address of its own. Update its image on the **Workers** screen |
 | `AP-IM-031` | An internet host of the job or its recipe is not valid. Write a host name, `*.domain` or `lan:name` |
 | `AP-PK-020` | The package holds the proxy settings of the worker. Exclude the key that the installer wrote |
+| `AP-PK-021` | The application is a framework-dependent Windows App SDK build. In a package, its bootstrapper stops it before it starts. Get a self-contained build from the vendor, or use the MSIX package of the vendor. See [The Windows App SDK](prerequisites.md#the-windows-app-sdk) |
 | `AP-AG-005` | The agent stopped in the worker. Retried once |
 | `AP-IM-009` | The licence of the packaging tool is not in the image |
 | `AP-IM-010` | The capture driver is not in the image |

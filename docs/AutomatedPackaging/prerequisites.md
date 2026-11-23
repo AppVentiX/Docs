@@ -5,6 +5,17 @@ Some applications need a runtime before they start: the Visual C++ runtime, WebV
 !!! warning "A prerequisite is not in the package"
     Each machine that gets the package needs the same prerequisites first. The notes of the package say which ones.
 
+## The Windows App SDK
+
+A WinUI 3 application uses the Windows App SDK. Its vendor builds it in one of two ways:
+
+- **Self-contained.** The application has the runtime, `Microsoft.WindowsAppRuntime.dll`, beside its bootstrapper, `Microsoft.WindowsAppRuntime.Bootstrap.dll`. The product packages it, and the package needs no Windows App SDK on the target.
+- **Framework-dependent.** The application has the bootstrapper, but not the runtime. In a package, the bootstrapper stops the application before it starts. A prerequisite, or the Windows App SDK runtime on the target, does not change this. The product stops the job with `AP-PK-021` before it signs the package. The message names the bootstrapper.
+
+For a framework-dependent application, get a self-contained build from the vendor. Or use the MSIX package of the vendor, if the vendor has one.
+
+The packaging tool writes a dependency on `Microsoft.WindowsAppRuntime.1.4` into each package. The product removes it, because with it the package does not deploy. The note of step 7 in the job log tells if the package has the runtime.
+
 ## The library
 
 The **Prerequisites** tab (Ctrl+5), between **OS media** and **Settings**, holds the library. Each item gets an ID when you add it, for example `PRQ-001`. An ID is never used again, also not after you remove the item. You manage the library in the application window. The command line uses the IDs.
