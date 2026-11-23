@@ -61,7 +61,7 @@ The address must be on the subnet of the internal switch. The address of the hos
 
 | Choice | What happens |
 |---|---|
-| **KMS server** | Give the name or address of your KMS server, with `:port` when it is not 1688. A worker has no DNS, so the server is necessary. Do not give `localhost`, a loopback or link-local address, an address of this host, or an address on the internal switch. The relay does not connect to them. Windows activates at step 9 through a relay on this host. The relay accepts connections only from the address of that worker. The worker stays on the internal switch. The host needs the **KMS relay reachable** firewall rule, which host preparation makes |
+| **KMS server** | Give the name or address of your KMS server, with `:port` when it is not 1688. A worker has no DNS, so the server is necessary. Do not give `localhost`, a loopback or link-local address, an address of this host, or an address on the internal switch. The relay does not connect to them. So this host cannot be the KMS server of its workers. This host can still activate itself against a KMS server on your network: the product does not change the activation of this host. Windows activates at step 9 through a relay on this host. The relay accepts connections only from the address of that worker. The worker stays on the internal switch. The host needs the **KMS relay reachable** firewall rule, which host preparation makes |
 | **Not activated** | Windows stays in notification mode. You confirm that your organization has a valid Windows licence for the image. The product records who confirmed it, and when |
 
 The choice starts from the newest image. After the build, the Update window of the worker shows it. You can change the KMS server there, before an **Update**.
