@@ -214,7 +214,7 @@ The **Jobs** screen shows each job and its log, from the window, the command lin
 - **msiexec switches.** For an MSI, a switch that msiexec does not know is refused before the job, for example `/noreboot`. The message gives the msiexec switch when there is one, for example `/norestart`. A value with a `"` in an MSI property is written with the quote doubled, as msiexec reads it. A transform name with `;`, or that starts with `@`, `|` or `:`, is refused.
 - **The folder beside the installer.** Only the installer goes to the worker, unless you include the folder. Include it for an MSI with external `.cab` files, or a `setup.exe` with a data folder. The limits are 4 GB and 20,000 files. A drive root or a folder with a link is refused.
 - **Restarts.** `REBOOT=ReallySuppress` stops an MSI from restarting the worker. Untick it only for an installer that needs it.
-- **Logs.** For an MSI, an Inno Setup or a WiX Burn installer, the job also collects the log of the installer as `install.log`. A log larger than 32 MB is not collected. A job collects at most 64 files and 256 MB.
+- **Logs.** For an MSI, Inno Setup, WiX Burn, InstallShield or Advanced Installer setup, the job also collects the log of the installer as `install.log`. For InstallShield, the job puts `/l*v` in the `/v"..."` part of the arguments. With no `/v"..."` part, it adds no switch. A log larger than 32 MB is not collected. A job collects at most 64 files and 256 MB.
 
 Leave the installer and its folder unchanged while the job runs. The job checks each file again when it sends it, and stops with `AP-IN-015` or `AP-IN-016` if a file changed.
 
