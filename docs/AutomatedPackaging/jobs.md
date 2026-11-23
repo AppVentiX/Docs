@@ -118,7 +118,7 @@ The names of the programs come from the worker. The product reads them on the ho
 
 When a vendor releases a new installer of an application that you packaged, start from the job that built the earlier package. The product fills in the settings of that job, and you select the new installer.
 
-The job gives these settings: the name and the publisher, the arguments, the MSI properties and the transforms. It also gives the files beside the installer, the prerequisites, the logs, **Must run on**, the machine, the certificate and **Advanced**. The identity Name of the package stays the same, so the new package updates the earlier package.
+The job gives these settings: the name and the publisher, the arguments, the MSI properties and the transforms. It also gives the files beside the installer, the prerequisites, the logs, **Must run on**, the machine, the certificate and **Advanced**. The identity Name of the package stays the same, so the new package updates the earlier package. The identity comes from the earlier job, not from the name. If you change the name, the identity does not change, and a note in the box says so.
 
 === "GUI"
 

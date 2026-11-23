@@ -46,7 +46,7 @@ You can see what the product reads from an installer before you start a job.
 
     The identity of the package is in column 1 too:
 
-    - **Publisher**, **Name** and **Version** come from the installer. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource. A value that you type wins. An EXE that only wraps the installer gives none of them: then type them.
+    - **Publisher**, **Name** and **Version** come from the installer. An MSI gives its ProductName, Manufacturer and ProductVersion. An EXE gives the ProductName, CompanyName and ProductVersion of its version resource. A value that you type wins. An EXE that only wraps the installer gives none of them: then type them. When the Name holds the version of the installer, a short warning under **Name** says that the package identity is made from the name and never changes. You decide; the product changes nothing.
     - **Version** becomes four numbers, each 0 to 65535. Missing parts become zeros.
     - **Identity** shows under **Version**. It is remembered. The same application gets the same identity next time, so a new package is an update.
     - **Manifest publisher**, under **Identity**, comes from the signing certificate, not from the **Publisher** field.
