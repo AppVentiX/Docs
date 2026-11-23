@@ -201,7 +201,7 @@ The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each
 
 If the application, the service or the host stopped during a job, the **Jobs** screen shows a panel at the next start. For each job or worker operation that did not end:
 
-- **Revert worker** puts the worker back to its baseline. It asks first: the state kept for diagnosis is lost, and you cannot undo it.
+- **Revert worker** puts the worker back to its baseline. It asks first: the state kept for diagnosis is lost, and you cannot undo it. If the revert fails, the panel says why, and the worker stays kept. It takes no jobs until a revert succeeds.
 - **Keep for diagnosis** keeps the worker as it is. A kept worker takes no jobs until you revert it.
 
 Nothing is reverted without your decision, because the worker is the evidence.
