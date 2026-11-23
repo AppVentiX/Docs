@@ -85,7 +85,7 @@ The application, the host service and the command line read the value when they 
 | 6 | "This host issues certificates from channel authority …, but agent-channel.json names … first" (`AP-AG-003`) | The first thumbprint in `trustedAuthorityThumbprints` is not the newest channel authority of this host. After the update, the worker would read **Update required** again. The product stops before it changes the worker | Run host preparation and apply the changes. It puts the authority of this host first. Then update the worker again |
 | 7 | `AP-IM-022` | A prerequisite failed | Check its arguments, success codes and detection rule on the **Prerequisites** screen |
 | 8 | `AP-IM-015`, "Tamper Protection is on" | Defender Tamper Protection is on in the worker | Use **Rebuild from media…** |
-| 9 | `AP-IM-021` | Windows did not activate through the KMS server. The message gives the answer | Correct the KMS server, or apply the **KMS relay reachable** firewall rule. Then **Update** |
+| 9 | `AP-IM-021` | Windows did not activate through the KMS server. The message gives the answer. "The KMS relay does not connect to …": the server is this host, a loopback or link-local address, or on the internal switch | Correct the KMS server: give the name or the address of the KMS server itself. Or apply the **KMS relay reachable** firewall rule. Then **Update** |
 | 10 | `AP-IM-017` | Calibration recorded nothing, or recorded noise that it cannot exclude | Read the step 5 result in the preparation log. Run **Update** again |
 
 A build that fails or stops keeps its machine. Click **Incomplete machines…** on the **Workers** screen, and remove it there.
