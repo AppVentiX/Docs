@@ -129,6 +129,20 @@ First, the program fills in what the installer tells, as the Build screen does. 
 
 Each job goes into one queue in the service, and gets its ID at once. A free worker takes the highest priority job that it can build, and the oldest first. A job that no worker can ever build is refused at once.
 
+The queue has limits, so that waiting jobs and their installer copies cannot fill the host:
+
+| Limit | Value |
+|---|---|
+| Jobs from the window that wait | 500 |
+| Jobs from the command line that wait | 500 |
+| Jobs from AI agents (MCP) that wait | 100 |
+| Jobs that wait in total | 1000 |
+| Free space on the drive of the working directory after the copy of the installer | 20 GB |
+
+A job or a batch that is more than a limit is refused, and nothing of it goes into the queue. The refusal gives the number that waits and the limit. Wait until jobs start, or cancel waiting jobs, then try again. A waiting job can fail three times at its start with a fault that the queue does not know. Then the queue refuses it with `AP-IM-035` and the last fault.
+
+When a job for the same installer (the same SHA-256) waits or runs, `convert` and `batch` give a warning with the job IDs. The warning also says which of those jobs use the same recipe. The new job still goes into the queue.
+
 A batch file is JSON. Each item has the installer, and the `convert` options as you type them. `sha256` makes sure that the file is the one you checked:
 
 ```json
@@ -146,6 +160,7 @@ A batch file is JSON. Each item has the installer, and the `convert` options as 
 
 - A field that the format does not know gives `AP-IM-036` with the name of the field. So does a field given two times, or a value of the wrong type.
 - An item cannot give `--json`, `--no-wait`, `--interactive` or `--from-capture`. At most 500 items.
+- A relative `installer` path is read from the folder of the batch file, not from the current folder. A path such as `\setup.msi` or `C:setup.msi` gives `AP-IM-036`: it depends on the current drive.
 - When an item has a problem, nothing goes into the queue. Correct the items and give the batch again.
 - When the last job ends, the service writes the report `batches\batch-<id>.json` in the output folder. It gives each item's job, status, package, failure code and detail. `machine` is the worker that ran the job, and `pinnedWorker` is the worker that the item named with `--machine`. For a job that ran during the upgrade to this version, `machine` is the pinned worker, or `not recorded`. It is empty for a job that did not start. Its `result` is `Built`, `PartlyBuilt` or `NotBuilt`.
 - Ctrl+C during `batch` cancels each job of the batch that waits or runs.

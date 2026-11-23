@@ -320,10 +320,21 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 - With **Automatic**, the second job gets another free worker for its target.
 - Each job goes into one queue in the service, and gets its ID at once. A job waits when no worker for it is free. A free worker takes the highest priority job that it can build, and the oldest first. A running job is never stopped for a job with a higher priority.
 - A job that no worker can ever build is refused at once, with the reason.
+- The queue has limits: 500 waiting jobs from the window, 500 from the command line, 100 from AI agents, and 1000 in total. The copy of the installer must leave 20 GB free on the drive of the working directory. See [The queue and batches](command-line.md#the-queue-and-batches).
 - The starter allowance counts a job when it starts to build.
 - When the service stops while a job runs, the job ends with `AP-NW-010`. The service starts it again one time, as a new job. Waiting jobs stay in the queue.
 - The command line (`batch`) and MCP (`convert_batch`) add several installers at one time. See [The queue and batches](command-line.md#the-queue-and-batches).
 - You can close the window. The job continues in the service.
+
+### Other jobs for the same installer
+
+=== "GUI"
+
+    When a job for the same installer waits or runs, the Build screen says so below the installer, with the job IDs. It also says which of them use the same recipe. The job can still go into the queue: it builds the same installer again.
+
+=== "CLI"
+
+    When a job for the same installer waits or runs, `convert` and `batch` give a warning with the job IDs. The warning also says which of them use the same recipe. The job still goes into the queue.
 - Before a job starts, the window or the command line copies the installer to `<workingDir>\Jobs\_handover\`. The service cannot see your mapped drives.
 
 ## Where the results go

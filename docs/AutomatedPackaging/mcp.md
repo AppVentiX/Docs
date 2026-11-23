@@ -60,6 +60,8 @@ The AI key is for your MCP client. Automated Packaging does not keep or read AI 
 
 Go to **Settings > AI agents (MCP)**, under **What an agent may do**. The service reads these settings at each tool call. It reads them again just before it signs or starts the job. If they changed during the call, for example to **Off** while your client asks you, the tool stops. Nothing is signed and no job starts.
 
+An agent's job can wait in the queue for a free worker. The service reads the setting again when the job starts. The setting can now be **Off**, or the job's certificate is no longer selected for agents. Then the job signs with the test certificate, and the product does not export the package (`AP-SG-014`). If the service cannot make the test certificate, the job does not start (`AP-IM-035`). With **Ask**, the service does not ask again: you agreed when the job joined the queue.
+
 | Signing setting | What happens |
 |---|---|
 | **Off: agents use a test certificate** | The default. The job signs with a test certificate, not with your certificate. The product does not export the package (`AP-SG-014`). See [The test certificate](#the-test-certificate) |
@@ -111,8 +113,8 @@ These tools start or change work:
 |---|---|
 | `convert` | Adds a job to the queue of the service and gives its ID at once. The job starts when a worker is free. Use `job_status` to follow it. Set `priority` to `Low`, `Normal` (default) or `High`. A job that no worker can ever build is refused, with the reason. The job continues when the client closes. Set `internal` to true for your own application: then its name stays out of the improvement data. Set `engine` to `builtin` for the built-in engine (experimental). Without `engine`, the job uses Microsoft's MSIX Packaging Tool. The signing rules are the same for both engines. For a `builtin` job, set `restarts` (1 to 10, default 3) and `restartWaitMinutes` (5 to 30, default 5): how many times the worker can restart, and how long the job waits for it after a restart. `check_job` takes them too. Set `recipe` to a recipe from `list_recipes`: see [Recipes](recipes.md). Set `application` to the program the package starts, or `noApplication` to true for a package with no application. An MSI with no shortcut to a program needs one of the two (`AP-AN-015`). `check_job` takes them too. See [The program to start](convert.md#the-program-to-start) |
 | `convert_capture` | Starts a job from the kept capture of a job that failed with `AP-PK-005`, with `application`: the whole path of a program from `capture_programs`. Or with `noApplication`. The job does not run the installer; it installs the prerequisites of the earlier job. It signs with the certificate of the earlier job, which must be one that agents may use, as for `convert` |
-| `convert_batch` | Adds several installers to the queue as one batch, all signed with one certificate (`certificate`). Each item has the installer and the options of `convert`, and its own `priority`. With **Ask**, one question names each package and the certificate. All items join, or none. Gives the batch ID and the job IDs. At most 50 items |
-| `set_job_priority` | Changes the priority of a job that waits for a worker: `Low`, `Normal` or `High`. A running job keeps its priority |
+| `convert_batch` | Adds several installers to the queue as one batch, all signed with one certificate (`certificate`). Each item has the installer and the options of `convert`, and its own `priority`. With **Ask**, one question names the certificate and each package, with its installer file and SHA-256 hash. All items join, or none. Gives the batch ID and the job IDs. At most 50 items. At most 100 jobs of agents can wait; see [The queue and batches](command-line.md#the-queue-and-batches) for all limits |
+| `set_job_priority` | Changes the priority of a job that waits for a worker: `Low`, `Normal` or `High`. An agent can change only the jobs that agents added, not a job from the window or the command line. A running job keeps its priority |
 | `cancel_job` | Stops a running job, also a job that a person started. The service puts the worker back. A job that waits in the queue ends without a worker |
 | `retry_signing` | Signs the package of a job again, when its signing failed |
 | `resign_package` | Signs an `.msix` or `.appx` file with a certificate selected for agents, as **Re-sign a package…** does. Refused while agent signing is **Off** (`AP-SG-012`). With **Ask**, your client asks you first. The question names the certificate, the package's capabilities and extensions, who signed it before, and its SHA-256 |
@@ -123,6 +125,8 @@ These tools start or change work:
 | `worker_status` | The steps and the result of a worker operation |
 | `worker_remove` | Removes a worker and its disks, if the setting allows it |
 | `image_forget` | Forgets an image that no worker uses, if the setting allows it |
+
+When a job for the same installer waits or runs, `convert` and `convert_batch` give a warning with its job ID. The warning says if that job uses the same recipe. The new job still goes into the queue.
 
 Each tool tells the client if it only reads, and if it can stop or remove work. Some clients use this to approve a tool with no question. `cancel_job`, `worker_update`, `worker_remove` and `image_forget` are marked as tools that can stop or remove work, so such a client asks you first.
 
@@ -150,7 +154,7 @@ Agents run one worker operation at a time. The service also gives the list of er
 - The service sends a ping every minute to a client that uses an MCP revision before 2026-07-28. It closes the connection of a client that does not answer in 30 seconds.
 - A message from a client can be 1 MB at most. A text argument can have 8192 characters at most. The service refuses a call with a longer one. The recipe text of `validate_recipe` and `preview_recipe` can have 262,144 characters, the size of a recipe file.
 
-The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`, in two lines. The first line is written before the tool runs, with the result `called`. The second line gives the result: `done`, `refused` or `failed`. Each line has the time, the account, the tool and its arguments, cut to 260 characters. The service deletes a day's file after 90 days.
+The service writes each tool call to `<workingDir>\Logs\mcp-audit-<date>.log`, in two lines. The first line is written before the tool runs, with the result `called`. The second line gives the result: `done`, `refused` or `failed`. For `convert_batch`, one more line for each item, with the result `queued`, gives the job ID and the installer. Each line has the time, the account, the tool and its arguments, cut to 260 characters. The service deletes a day's file after 90 days.
 
 Each account can write 16 MB of lines in a day. After that, one line with the result `limit` says so, and the service writes no more calls of that account that day. The count starts again when the service starts.
 

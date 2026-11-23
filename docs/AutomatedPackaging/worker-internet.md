@@ -134,6 +134,7 @@ Step 11, **Seal the image**, sets both to Disabled again and reads them back bef
 - If Windows has not finished the updates after 30 minutes, the update also stops with `AP-IM-037`.
 - A cumulative update can be larger than 1 GB and take 30 minutes or more.
 - The service opens the proxy only for a worker of this product that has its own address, and only while an update of that worker runs.
+- The service opens the proxy one time for each update. It closes the proxy when the update no longer holds its worker. One failed read of the update's lease does not close the proxy: the service reads it again. When no read works for the time after which a lease is old, the service closes the proxy. The update then stops at once with `AP-NW-008` and the reason.
 
 ## An upstream proxy
 
