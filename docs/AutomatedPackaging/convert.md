@@ -174,9 +174,9 @@ On the command line, a `--package-name` that is different from the last Name of 
 
 === "GUI"
 
-    Select **Priority** under "Captures on …": **Low**, **Normal** (the default) or **High**. Then click **Build**.
+    In column 2, under **Machine**, select **Priority**: **Low**, **Normal** (the default) or **High**. Then click **Build** at the bottom of column 3.
 
-    ![The bottom of column 3: Before the job starts, Captures on Windows 10 22H2, Priority Normal and Build](images/build-priority.png)
+    ![Column 2: Machine Automatic, and Priority with Low, Normal and High](images/build-priority.png)
 
     - If **Build** is not available, the bar at the bottom of column 3 shows each reason on its own line. Each has a red warning mark. Under the reasons, at the left of **Build**, "Captures on …" names the image that the target needs.
     - If the **Build** tab is grey, the host needs preparation first.
