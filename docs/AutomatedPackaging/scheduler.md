@@ -22,9 +22,9 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
 === "GUI"
 
-    After **From WinGet…**, click **Schedule…** under **Recipe**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Set the interval and up to two times of day, then select **I accept the licence and terms of the vendor**. Click **Save**.
+    After **From WinGet…**, click **Schedule…** under **Recipe**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day, then select **I accept the licence and terms of the vendor**. Click **Save**.
 
-    The item keeps the recipe and the certificate. Other values of the **Build** screen, such as the arguments and the MSI properties, do not go to the item. Put them in the recipe.
+    The item keeps the recipe, the certificate and the name. Other values of the **Build** screen, such as the arguments and the MSI properties, do not go to the item. Put them in the recipe.
 
 === "CLI"
 
@@ -43,6 +43,23 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | `--locale <l>` | For example `en-US` |
     | `--interval-hours <n>` | The hours between two checks, 1 to 744. The default is 24 |
     | `--at <HH:mm>[,<HH:mm>]` | One or two times of day, in the local time of the host |
+    | `--name <text>` | The application name of the first job when the recipe gives none. Without it, the name comes from the package ID |
+
+### What the Scheduler checks when you add an item
+
+The window, the command line and MCP use the same checks and give the same messages. The service asks the catalogue for the newest version. It refuses the item in these cases:
+
+- No installer matches the item, or the installer has no SHA-256 in the catalogue.
+- The installer is an EXE (`exe`, `inno`, `nullsoft` or `burn`), and the catalogue names no silent switches for it.
+- The catalogue does not answer. Nothing is added. Try again later.
+
+### Arguments and name of the first job
+
+The first job of an EXE installer uses the silent switches of the catalogue as its arguments, unless the recipe gives arguments. An MSI keeps the arguments of the product. A later version uses the arguments of the job before it.
+
+The name comes from the package ID: `&` becomes `And`, and a character that a name cannot hold becomes `_`. A recipe's name comes first. A later version keeps the name of the job before it.
+
+To use another character than `_`, open **Settings** > **Configuration**, card **Names of scheduled applications**. Type one letter, digit, full stop, hyphen, underscore or space, or leave the box empty to remove such characters. Click **Save replacement**. The next item that you add uses it.
 
 ## When a version is held
 
