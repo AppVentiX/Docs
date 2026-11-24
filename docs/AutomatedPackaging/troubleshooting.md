@@ -26,6 +26,8 @@ Many failures do not look like their cause. A missing licence file looks like a 
 
     A failed `convert` exits with code 2, and shows the `AP-` code and the detail. With `--json`, the code is in `failureCode`. Exit code 1 lists what stopped the job before it started.
 
+The failure quotes what the worker or the tool said after "Observed:". A stack trace is not quoted there. The job log has it, in a line that starts with "Left out of the failure text".
+
 ### Turn off the diagnostic trace
 
 The diagnostic trace is on by default. To turn it off, set this registry value on the host:
