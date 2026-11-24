@@ -39,6 +39,12 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `recipe add <file> [--json]` | Adds a recipe file to the recipes of this host. A name and version that the host has keep their content (`AP-IM-029`) |
 | `recipe list [--json]` | Lists the recipes of this host. `--recipe` takes these names |
 | `recipe export <job-id> --out <file> [--name <name>] [--version <n>] [--json]` | Writes the settings of a finished job as a recipe file of format version 2 (`.aprecipe`). The file has no signing, no host paths and no machine. It does not write over a file. See [Recipes](recipes.md) |
+| `schedule list [--json]` | Lists the items of the Scheduler: the WinGet package, the version built last, how the last check ended and when the next check is. See [Scheduler](scheduler.md) |
+| `schedule add <winget-id> --signing-profile <id> --accept-terms [options]` | Adds a WinGet package to the Scheduler. The service checks it and builds each new version. See [Scheduler](scheduler.md) for the options |
+| `schedule remove <item-id> [--json]` | Removes an item from the Scheduler. Its jobs stay in **Jobs** |
+| `schedule check [<item-id>] [--json]` | Asks the service to check one item, or every item, in the next minute |
+| `schedule accept <item-id> <version> [--json]` | Builds a version that the Scheduler holds |
+| `schedule reject <item-id> <version> [--json]` | Does not build a version that the Scheduler holds, and does not try it again |
 | `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release…** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
 | `resign <package> [options]` | Signs an `.msix` or `.appx` file with a certificate of this host, as **Re-sign a package…** does. Options: `--certificate-thumbprint`, `--signing-profile`, `--package-version`, `--json`. See [Re-sign a package](jobs.md#re-sign-a-package) |
 | `exclusions list [--json]` | Lists every layer of the exclusion list: the built-in rules with their IDs and states, the rules of this host, and the sets of each image. See [Exclusions](settings.md#exclusions) |

@@ -1,6 +1,6 @@
 # Settings
 
-The **Settings** tab (Ctrl+6) has these sections in a list at the left. **Find a setting**, above the list, finds a setting by a word. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list and the installer repair rules are the exceptions: the command line can change them too. See [Exclusions](#exclusions) and [Installer repair rules](#installer-repair-rules).
+The **Settings** tab (Ctrl+7) has these sections in a list at the left. **Find a setting**, above the list, finds a setting by a word. Settings are set in the application window. The command line uses them, and cannot change them. The exclusion list and the installer repair rules are the exceptions: the command line can change them too. See [Exclusions](#exclusions) and [Installer repair rules](#installer-repair-rules).
 
 | Section | What it holds |
 |---|---|
@@ -65,7 +65,7 @@ The check is off, and the application sends no request, when you untick **Check 
 
 The application follows the app mode of Windows by default. **Light** or **Dark** overrides it. The choice applies at once, and only for your account. Host preparation uses the same choice when it starts.
 
-The card **Keyboard shortcuts** lists the shortcuts of the window. Ctrl+1 to Ctrl+6 open the tabs, from **Build** to **Settings**.
+The card **Keyboard shortcuts** lists the shortcuts of the window. Ctrl+1 to Ctrl+7 open the tabs, from **Build** to **Settings**.
 
 ## Exclusions
 

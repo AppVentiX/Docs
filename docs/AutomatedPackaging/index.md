@@ -5,6 +5,8 @@
 
 AppVentiX Automated Packaging converts an installer (MSI or EXE) into a signed MSIX package. It does the conversion in a Hyper-V worker that it builds and manages itself.
 
+The Scheduler finds new versions of your applications in the WinGet catalogue and packages them for you. See [Scheduler](scheduler.md).
+
 For each job, the product does these steps:
 
 1. It puts a worker back to a clean baseline.
@@ -19,7 +21,7 @@ You build the worker once, from Windows media that you supply. The product ships
 
 | | What it is | Where to read |
 |---|---|---|
-| **The application window** | Six tabs, Ctrl+1 to Ctrl+6: Build, Jobs, Workers, OS media, Prerequisites and Settings | All pages in this section, on the **GUI** tabs |
+| **The application window** | Seven tabs, Ctrl+1 to Ctrl+7: Build, Scheduler, Jobs, Workers, OS media, Prerequisites and Settings | All pages in this section, on the **GUI** tabs |
 | **The command line** | `AutomatedPackaging.Cli.exe`, for scripts and pipelines | The **CLI** tabs, and [Command line](command-line.md) |
 | **MCP clients** | AI agents, such as Claude Desktop or Google Antigravity | [AI agents (MCP)](mcp.md) |
 

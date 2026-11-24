@@ -18,7 +18,7 @@ The packaging tool writes a dependency on `Microsoft.WindowsAppRuntime.1.4` into
 
 ## The library
 
-The **Prerequisites** tab (Ctrl+5), between **OS media** and **Settings**, holds the library. Each item gets an ID when you add it, for example `PRQ-001`. An ID is never used again, also not after you remove the item. You manage the library in the application window. The command line uses the IDs.
+The **Prerequisites** tab (Ctrl+6), between **OS media** and **Settings**, holds the library. Each item gets an ID when you add it, for example `PRQ-001`. An ID is never used again, also not after you remove the item. You manage the library in the application window. The command line uses the IDs.
 
 The list has two kinds of rows:
 
