@@ -60,7 +60,7 @@ You can see what the product reads from an installer before you start a job.
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
-    | **Machine** | **Automatic** lets the product select a free worker when the job starts. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
+    | **Machine** | **Automatic** lets the product select a free worker when the job starts. It looks at the images for the target in order: the healthiest first, then the most recently calibrated. It takes the first free worker of an image that can build the job. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **SELF-SIGNED** |
     | **Engine** | The conversion engine. **Packaging tool** is the default, from [Settings](settings.md#advanced). **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
@@ -317,7 +317,7 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 ## More than one job at a time
 
 - One job runs on one worker. Two workers can run two jobs at the same time.
-- With **Automatic**, the second job gets another free worker for its target.
+- With **Automatic**, the second job gets another free worker for its target. This can be a worker of another image for the same target.
 - Each job goes into one queue in the service, and gets its ID at once. A job waits when no worker for it is free. A free worker takes the highest priority job that it can build, and the oldest first. A running job is never stopped for a job with a higher priority.
 - A job that no worker can ever build is refused at once, with the reason.
 - The queue has limits: 500 waiting jobs from the window, 500 from the command line, 100 from AI agents, and 1000 in total. The copy of the installer must leave 20 GB free on the drive of the working directory. See [The queue and batches](command-line.md#the-queue-and-batches).
