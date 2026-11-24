@@ -39,7 +39,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | `--recipe <name[@version]>` | A recipe of this host for the first job |
     | `--architecture <a>` | `x64` (the default), `x86`, `arm64` or `neutral` |
     | `--scope <s>` | `machine` or `user` |
-    | `--installer-type <t>` | For example `msi` or `exe` |
+    | `--installer-type <t>` | For example `msi` or `exe`. `msi` also takes an installer that the catalogue calls `wix` |
     | `--locale <l>` | For example `en-US` |
     | `--interval-hours <n>` | The hours between two checks, 1 to 744. The default is 24 |
     | `--at <HH:mm>[,<HH:mm>]` | One or two times of day, in the local time of the host |
