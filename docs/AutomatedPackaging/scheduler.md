@@ -55,6 +55,8 @@ The Scheduler holds a new version, and does not build it, in these cases:
 
 A version whose job failed is not tried again. A newer version is.
 
+The list updates in one minute or less after a job ends or after you remove an item.
+
 === "GUI"
 
     On the **Scheduler** tab (Ctrl+2), the item shows a warning. Select it. Click **Accept** to build the version, or **Reject**. A rejected version is not tried again. **Check now** checks the selected item; **Check all** checks every item.
