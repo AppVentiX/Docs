@@ -61,6 +61,29 @@ The name comes from the package ID: `&` becomes `And`, and a character that a na
 
 To use another character than `_`, open **Settings** > **Configuration**, card **Names of scheduled applications**. Type one letter, digit, full stop, hyphen, underscore or space, or leave the box empty to remove such characters. Click **Save replacement**. The next item that you add uses it.
 
+## A ready-made MSIX or APPX package
+
+Some vendors publish their application in WinGet as an MSIX or APPX package. The Scheduler does not convert such a package and does not sign it again. It tests the package of the vendor as it is, on a clean worker for each target.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli schedule add Mozilla.Firefox.MSIX --installer-type msix --accept-terms
+    ```
+
+    With `--installer-type msix` or `appx`, you do not give `--signing-profile`.
+
+The Scheduler checks each new version before it tests it:
+
+- The package is one `.msix` or `.appx` file. A bundle (`.msixbundle` or `.appxbundle`) is refused.
+- The subject of the signing certificate is equal to the Publisher in the AppxManifest of the package (`AP-PK-026`).
+- This computer trusts the signature (`AP-PK-027`).
+- Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md) (`AP-PK-028`). The product does not install an EXE or ZIP dependency for a test.
+
+A version that fails the signature checks is not tested, and the Scheduler does not try it again. A version with a missing dependency is tried again at the next check, so you can add the framework first. A new signer holds the version, as for an installer.
+
+The tests of one version run as one batch, with one job for each target. The version passes when all its jobs pass. See [Test a package](jobs.md#test-a-package).
+
 ## When a version is held
 
 The Scheduler holds a new version, and does not build it, in these cases:
