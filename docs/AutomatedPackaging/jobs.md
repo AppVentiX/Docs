@@ -197,6 +197,41 @@ The signed package goes to the output folder, with a `.notes.txt` file. It names
 
 The product refuses a bundle file (`.msixbundle` or `.appxbundle`): re-sign each package in it. It also refuses a test certificate for AI agents, and a package that needs more free space than the drive of the working directory has. It refuses a package whose name or version the MSIX format does not allow. A name has 3 to 50 letters, digits, dots or hyphens.
 
+## Test a package
+
+A test installs an `.msix` or `.appx` file on a clean worker, starts it and removes it. The product builds nothing and signs nothing. Test a package of a vendor before you give it to users. Or test a package of this product again after Windows updates on the workers.
+
+=== "GUI"
+
+    1. On the **Jobs** screen, click **More…**, then **Test a package…**. To test the package of a job that built, select the job, then click **More…** and **Test the package again**.
+    2. Click **Browse…** and select the package. The window shows its name and version, its Publisher, the Windows version that it needs, the frameworks that it needs and who signed it.
+    3. Under **Targets**, select Windows 10, Windows 11 or Windows Server. Each target is one job. A target that the package cannot run on shows **Not for this target** and the reason. A target with no worker on this host is not available.
+    4. Click **Start the test**. The jobs go into the queue as one batch. A job that passed reads **Test passed**.
+
+    ![The Test a package window: the package of a 7-Zip job, its Publisher, the Windows version it needs, no frameworks, the signer, and the three targets](images/test-package.png)
+
+=== "CLI"
+
+    From an elevated prompt:
+
+    ```
+    AutomatedPackaging.Cli test <package> [--target windows10,windows11,server] [--priority <p>] [--no-wait] [--json]
+    ```
+
+    Without `--target`, the test runs on each target that has a worker on this host. A target that the package cannot run on gets no job: the command writes **Not for this target** and the reason. When the jobs end, it writes one line for each target: the job, and `passed` or the code that it failed with.
+
+What the job does:
+
+- It reverts the worker to its baseline, as every job does. The agent of the worker must be of version 0.2.71 or later. A worker with an older agent gets no test (`AP-IM-030`): update the worker.
+- It installs the frameworks that the package needs, for example VCLibs or the Windows App Runtime. It takes each one from the Prerequisites library, type **Framework package (MSIX)** (see [A framework package (MSIX)](prerequisites.md#a-framework-package-msix)). When the library has no item for a framework, the test does not start (`AP-PK-024`). The message names the framework, its lowest version, its architecture, its publisher and its WinGet ID.
+- It trusts the certificate that signed the package, on the worker only. The revert at the end of the job removes this trust.
+- It installs the package, starts its first application, and removes it. A package with no application is installed and removed.
+- It builds no package. The starter allowance does not limit tests. A licence that is not valid, for example an expired licence, refuses a test as it refuses a build.
+
+The product refuses a file that is not an `.msix` or `.appx` package (`AP-PK-022`), and a bundle. It refuses a package with no signature, or with a file that changed after it was signed (`AP-PK-023`). A signer that this host does not trust is not refused: the job log warns. When no target that you selected is left, the test does not start (`AP-PK-025`).
+
+On the **Jobs** screen, a test reads **Test:** before its name. Its steps 3, 4 and 5 are **Skipped**, and its engine is **None**.
+
 ## After a crash
 
 If the application, the service or the host stopped during a job, the **Jobs** screen shows a panel at the next start. For each job or worker operation that did not end:

@@ -109,6 +109,19 @@ If DISM does not find the files, the item fails. The message names the Windows r
 
 **Limits.** A feature whose files are not in Windows and not in `sources\sxs` cannot be installed. Windows capabilities, such as language packs or RSAT tools, are not supported.
 
+### A framework package (MSIX)
+
+A package can need a framework package, such as `Microsoft.VCLibs.140.00.UWPDesktop` or the Windows App Runtime. Its AppxManifest names each one as a `PackageDependency`, with a lowest version. The [test of a package](jobs.md#test-a-package) installs these frameworks first. The product does not supply them: add each one as an item of type **Framework package (MSIX)**. The list shows the type as **Framework MSIX**.
+
+- **Files**: one `.msix` or `.appx` file, the framework package itself. Get it from Microsoft or from the vendor of the application. Use the architecture of the packages that you test, mostly x64.
+- **No arguments and no detection rule.** The worker is reverted after each test, so the framework is never on it already.
+- The host sends the file to the worker with its SHA-256. The agent checks the hash, then installs the file together with the package. A file with another hash is not installed (`AP-PK-012`).
+- **Vendor**, **Name** and **Version** are labels for you. The product does not use them to find the item. It reads the identity in the AppxManifest of the file: the name, the publisher, the version and the architecture.
+
+The test takes the item whose name and publisher are the same as the dependency. Its architecture is the architecture of the package (x64 for a neutral package), or neutral. Its version must be the lowest version of the dependency or later. When more than one item agrees, the test takes the highest version.
+
+An image, a conversion job and **Needs first** do not offer an item of this type. A choice that names one is refused.
+
 ## On an image
 
 Prerequisites on an image install at step 7, before hardening. Use this for a runtime that many applications need: it installs once.

@@ -58,6 +58,7 @@ A build that enforces a licence runs on the **starter allowance** until you inst
 
 - The count stays. When you remove an image or a package, you do not get it back.
 - An update or a rebuild of an image that you have is not a new image.
+- A [test of a package](jobs.md#test-a-package) builds no package. The starter allowance does not limit tests.
 - After the allowance, a new build stops with `AP-LC-006`. All that you built before stays available.
 - A community licence is free. The use from MCP clients needs a Basic licence.
 
