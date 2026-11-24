@@ -59,19 +59,20 @@ You can see what the product reads from an installer before you start a job.
     | Setting | What it does |
     |---|---|
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
-    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Captures on …" beside **Build** names the image that the target needs |
+    | **Arguments** | Under **Install mode**. See the install parameters below |
+    | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Windows 11 only" is the default. On a host with only a Windows 10 image, select "Windows 10 and 11". "Captures on …" beside **Build** names the image that the target needs |
     | **Machine** | **Automatic** lets the product select a free worker when the job starts. It looks at the images for the target in order: the healthiest first, then the most recently calibrated. It takes the first free worker of an image that can build the job. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **SELF-SIGNED** |
-    | **Engine** | The conversion engine. **Packaging tool** is the default, from [Settings](settings.md#advanced). **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
+    | **Engine** | A line shows the conversion engine of the job. Change it in **Advanced…**, under **Priority**. **Packaging tool** is the default, from [Settings](settings.md#advanced). **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
     | **Program to start** | In column 3. One of three. **Automatic**, the default: the job makes an application from each shortcut that the installer makes. **This program**: the job adds an application on the program that you select in the list or type, for example `Contoso\Tool\tool.exe`, and the start test starts it. **No application**: the package gets no application. See [The program to start](#the-program-to-start) |
     | **No application** | The package gets no application, so nothing in it can start. Only a service or a shell extension in it still works. The job installs the package on the worker and removes it again, instead of the start test, and warns |
     | **Prerequisites** | In column 3. Tick the prerequisites for this job only. They are in a drop-down; its face shows how many you selected. Open it with Enter, Space or Alt+Down, tick with Space, close it with Esc. **Library…** opens the **Prerequisites** tab |
     | **Internal** | In column 3, under **Prerequisites**. "Internal application: keep its name out of the improvement data". Off by default. Tick it for your own application. The improvement data then has no name and no version for its jobs, and records that the application is internal. Nothing else changes. The blue question mark after the choice gives the same help: point to it, or press Tab to it. See [Settings](settings.md#improvement-data) |
 
-    The install parameters are in column 2, under the settings: **Arguments**, then **More**, then **Logs**. **More** has **MSI properties…**, **Add transform…** and **Advanced…**, and each opens a window. Lines under them show what the job has, for example "MSI properties: 1 of 2 on."
+    **Arguments** is under **Install mode**. **More** and **Logs** are at the bottom of column 2. **More** has **MSI properties…**, **Add transform…** and **Advanced…** in one row, and each opens a window. Lines under them show what the job has, for example "MSI properties: 1 of 2 on."
 
-    ![The install parameters in column 2: Arguments, More with MSI properties…, Add transform… and Advanced…, and Logs](images/build-parameters.png)
+    ![Column 2: More with MSI properties…, Add transform… and Advanced… in one row, and Logs](images/build-parameters.png)
 
     | Parameter | What it does |
     |---|---|
@@ -88,7 +89,7 @@ You can see what the product reads from an installer before you start a job.
 
     | Option | Build screen | What it does |
     |---|---|---|
-    | `--target <target>` | **Must run on** | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
+    | `--target <target>` | **Must run on** | `Windows11Only` (default), `Windows10And11` or `WindowsServer`. On a host with only a Windows 10 image, a job without `--target` is refused: "No image can build for Windows 11 only". Give `--target Windows10And11` |
     | `--machine <name>` | **Machine** | The worker to use, by name. See `machines`. A job for a busy worker waits for it |
     | `--certificate-thumbprint <thumbprint>` | **Signing** | Necessary when the host has more than one certificate |
     | `--signing-profile <id>` | **Signing** | An Azure profile that passed **Test**, instead of a certificate |
@@ -146,7 +147,7 @@ These settings apply to one job.
 
 === "GUI"
 
-    Click **Advanced…**, under **More** in column 2. Each value shows where it comes from: "product default", or "overridden for this job". **OK** keeps the changes. **Cancel** keeps none. **Reset to defaults** clears them.
+    Click **Advanced…**, under **More** in column 2. **Priority** and **Engine** are at the top: see [Start the job](#start-the-job) and **Engine** above. Each other value shows where it comes from: "product default", or "overridden for this job". **OK** keeps the changes. **Cancel** keeps none. **Reset to defaults** clears them, and sets **Normal** and the default engine.
 
 === "CLI"
 
@@ -174,9 +175,9 @@ On the command line, a `--package-name` that is different from the last Name of 
 
 === "GUI"
 
-    In column 2, under **Machine**, select **Priority**: **Low**, **Normal** (the default) or **High**. Then click **Build** at the bottom of column 3.
+    To change the priority, click **Advanced…** in column 2. Select **Priority** at the top: **Low**, **Normal** (the default) or **High**, and click **OK**. Then click **Build** at the bottom of column 3.
 
-    ![Column 2: Machine Automatic, and Priority with Low, Normal and High](images/build-priority.png)
+    ![Advanced: Priority with Low, Normal and High, and Engine under it](images/build-priority.png)
 
     - If **Build** is not available, the bar at the bottom of column 3 shows each reason on its own line. Each has a red warning mark. Under the reasons, at the left of **Build**, "Captures on …" names the image that the target needs.
     - If the **Build** tab is grey, the host needs preparation first.
@@ -278,7 +279,7 @@ With the built-in engine, the capture continues after a restart of the worker.
 
 === "GUI"
 
-    In column 2, select **Interactive** for **Install mode**, and **Built-in (experimental)** for **Engine**. Then click **Build**.
+    In column 2, select **Interactive** for **Install mode**. In **Advanced…**, select **Built-in (experimental)** for **Engine**, and click **OK**. Then click **Build**.
 
 === "CLI"
 

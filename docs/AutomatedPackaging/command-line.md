@@ -71,7 +71,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--name <text>` | The name of the application. Default: the ProductName of the MSI or of the version resource of the EXE |
 | `--publisher <text>` | The publisher, as people know it. Default: the Manufacturer of the MSI, or the CompanyName of the EXE. The publisher of the package is always the subject of the signing certificate |
 | `--package-version <version>` | The package version, up to four numbers. The program fills missing parts with zeros. Default: the ProductVersion of the MSI or of the EXE |
-| `--target <target>` | `Windows10And11` (default), `Windows11Only` or `WindowsServer` |
+| `--target <target>` | `Windows11Only` (default), `Windows10And11` or `WindowsServer`. On a host with only a Windows 10 image, a job without `--target` is refused: give `--target Windows10And11` |
 | `--machine <name>` | The worker to use. A busy worker refuses the job. Without it, a free worker is selected |
 | `--engine <engine>` | The conversion engine: `mpt` for Microsoft's MSIX Packaging Tool, or `builtin` for the built-in engine (experimental). Without it, the job uses the default engine of **Settings > Advanced**. A `builtin` job needs a worker whose image records the built-in engine (`AP-IM-026`). A name that the product does not know is refused before a worker is touched (`AP-IM-025`) |
 | `--recipe <name[@version]>` | A recipe of this host for the job (see `recipe list`). Without `@version`, the highest version. Microsoft's MSIX Packaging Tool takes only its exclusions. The built-in engine applies all of it. A recipe that is not on this host is refused before a worker is touched (`AP-IM-029`). See [Recipes](recipes.md) |

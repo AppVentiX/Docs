@@ -63,7 +63,7 @@ The check is off, and the application sends no request, when you untick **Check 
 
 ## Appearance
 
-The application follows the app mode of Windows by default. **Light** or **Dark** overrides it. The choice applies at once, and only for your account.
+The application follows the app mode of Windows by default. **Light** or **Dark** overrides it. The choice applies at once, and only for your account. Host preparation uses the same choice when it starts.
 
 The card **Keyboard shortcuts** lists the shortcuts of the window. Ctrl+1 to Ctrl+6 open the tabs, from **Build** to **Settings**.
 
