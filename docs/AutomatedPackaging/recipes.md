@@ -76,6 +76,82 @@ Any other field is refused with `AP-IM-027`. The error names the field.
 
 A dropped shortcut is not in the package, and does not make an application.
 
+## A recipe to share: format version 2
+
+Format version 2 also holds how a job starts and how it builds. A file of this format has the extension `.aprecipe`. Give it to another host, or keep it for the next version of the installer. The product still reads format version 1.
+
+```json
+{
+  "format": "automated-packaging-recipe",
+  "formatVersion": 2,
+  "name": "7-zip",
+  "version": 3,
+  "application": "7-Zip",
+  "match": { "installerType": "msi", "fileName": "7z*-x64.msi" },
+  "start": {
+    "name": "7-Zip",
+    "publisher": "Igor Pavlov",
+    "installMode": "silent",
+    "arguments": "/qn",
+    "mustRunOn": "Windows11Only"
+  },
+  "build": {
+    "transforms": [ { "fileName": "site.mst" } ]
+  },
+  "packaging": {
+    "exclusions": [ { "rule": "HKCU\\Software\\7-Zip\\FM\\Columns" } ]
+  }
+}
+```
+
+| Part | Required | What it is |
+|---|---|---|
+| `match` | No | How the product knows the installer, also for the next versions: `installerType` (`msi` or `exe`), `fileName` (with `*` and `?`), `signerSubject`, `upgradeCode` and `productName`. Each field that the recipe gives must agree with the installer. There is no SHA-256: each new version has a new one |
+| `start` | Yes | The minimum to start a job: `name`, `publisher`, `installMode` (`silent` or `interactive`), `mustRunOn`, and optional `arguments`. The package version comes from the installer |
+| `build` | No | Values of the **Build** screen. Each field is optional on its own, for example only `transforms`. A field that is not there takes the value of the host |
+| `packaging` | No | The fields of format version 1: exclusions, shortcuts, file types, fix-ups, protocols, execution aliases, COM classes and internet hosts |
+
+A recipe never holds signing, host paths, a machine or the export. The host gives them. A field such as `certificate` or `machine` is refused with `AP-IM-027`.
+
+**Transforms by file name.** A transform is its file name, with an optional SHA-256. The product looks for it beside the installer first, then in the folders below the installer, three folders down at most. Two files with the name below the installer are refused. When the recipe gives the SHA-256, the file must have it.
+
+!!! note "A schema for AI agents"
+    The MCP tool `recipe_schema` gives the JSON Schema of format version 2. With `formatVersion` 1, it gives the first format.
+
+## Start a job from a recipe file
+
+=== "GUI"
+
+    Select the installer on the **Build** screen. Then click **Open recipe file…** under **Recipe**. The recipe fills the form. It does not start a job. You can also double-click an `.aprecipe` file: the application opens on the **Build** screen with it, also when the application is open already.
+
+    When the `match` of the recipe does not name the installer, a warning is under **Recipe**. When you click **Build**, the product asks if you want to build this installer with the recipe.
+
+    The recipe joins the recipes of this host when you click **Build**.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli convert D:\Installers\7z2601-x64.msi --recipe-file D:\Recipes\7-zip.aprecipe
+    ```
+
+    The product adds the file to the recipes of this host, as `recipe add` does. An option on the command line wins over the file. An installer that the `match` does not name is refused with `AP-IM-038`; add `--ignore-match` to use the recipe one time. A transform that is not found once is refused with `AP-IM-039`.
+
+An AI agent sets `recipe` on `convert` to a recipe of this host. A recipe of format version 2 fills the job, and the values of the call win. Set `ignoreMatch` to use it with another installer. MCP refuses a recipe with transforms or the files beside the installer: start such a job on the **Build** screen or with the command line.
+
+## Make a recipe from a job
+
+=== "GUI"
+
+    On the **Jobs** screen, select a job that built a package. Then click **More** > **Save as recipe…**. On the **Build** screen, **Save as recipe file…** saves the form.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli recipe export 20261124-101500-a1b2c3 --out D:\Recipes\7-zip.aprecipe
+    ```
+
+The file has the values of the job and the packaging rules of the recipe of the job. A transform is its file name, with its SHA-256 while the file is there. `match` has the installer type, and the signer and UpgradeCode while the installer is still there. Add a `fileName` or `productName` pattern when the next versions use the same form. An AI agent gets the text of the file with the MCP tool `export_recipe`.
+
 ## Check and add a recipe
 
 ```powershell
