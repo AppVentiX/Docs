@@ -10,7 +10,7 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 
 ## Before you start
 
-- **A licence that includes MCP.** A Basic licence includes it. The starter allowance and a community licence do not. Without it, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
+- **The starter allowance, or a licence that includes MCP.** A Basic licence includes it. A community licence includes it when its file names `mcp`. With the starter allowance, packages that a client builds count toward the same five packages. After that, the client can read but not build: a job is refused at its start with `AP-LC-006`. An expired licence works the same way. With a licence that does not include MCP, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
 - **Your account in the local group `AppVentiX Packaging Operators`.** The installer creates the group, empty. Only its members can use the service. Membership of Administrators alone is not sufficient.
 - **The account of the service in Hyper-V Administrators,** for `worker_build`. Host preparation adds it: apply **Host service in Hyper-V Administrators**. The service uses the group after it starts again.
 

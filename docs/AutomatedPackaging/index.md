@@ -52,7 +52,7 @@ After that:
 
 ## Licence
 
-A build that enforces a licence runs on the **starter allowance** until you install a licence. The starter allowance is one image and five packages.
+A build that enforces a licence runs on the **starter allowance** until you install a licence. The starter allowance is one image and five packages. It includes MCP: packages that an AI client builds count toward the five.
 
 - The count stays. When you remove an image or a package, you do not get it back.
 - An update or a rebuild of an image that you have is not a new image.
