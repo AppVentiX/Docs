@@ -1,16 +1,16 @@
 # AppVentiX Automated Packaging
 
 !!! warning "Preview documentation"
-    This section is for a limited group of testers. It describes check build 0.2.29. Check builds are for testing, not for production. Do not share this link outside the test group.
+    This section is for a limited group of testers. It describes check build 0.2.71. Check builds are for testing, not for production. Do not share this link outside the test group.
 
-AppVentiX Automated Packaging converts an installer (MSI or EXE) into a signed MSIX package. It does the conversion in a Hyper-V worker that it builds and manages itself.
+AppVentiX Automated Packaging turns an installer (MSI or EXE) into a tested, signed MSIX package. It builds and maintains its own clean packaging machines, the workers. Before you receive a package, the product installs it on a clean worker and starts the application. Each job is recorded, so you know what was built, when, and how. You can work from the application window, from scripts, or with an AI assistant, for one application or for many.
 
 The Scheduler finds new versions of your applications in the WinGet catalogue and packages them for you. See [Scheduler](scheduler.md).
 
 For each job, the product does these steps:
 
 1. It puts a worker back to a clean baseline.
-2. It installs your installer in the worker, and Microsoft's MSIX Packaging Tool records what the installer changes.
+2. It installs your installer in the worker, and a capture engine records what the installer changes. The engine is the built-in engine, the default on a new install, or Microsoft's MSIX Packaging Tool.
 3. It signs the package on the host.
 4. It installs the signed package on a clean worker and starts the application. This is the smoke test.
 5. It puts the worker back to its baseline again.
