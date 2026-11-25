@@ -35,7 +35,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | Option | What it does |
     |---|---|
     | `--signing-profile <id>` | The certificate of the first job, from `certificates`. Needed |
-    | `--accept-terms` | You accept the licence and terms of the vendor for the software that the Scheduler downloads and installs. You also accept the signer of the first version, or that it is not signed. A later version waits for a person when its signer changes or its signature does not verify. Needed |
+    | `--accept-terms` | You accept the licence and terms of the vendor for the software that the Scheduler downloads and installs. You also accept the signer of the first version, or that it is not signed. A later version waits for a person when its signer changes or its signature does not verify. Needed: without it, the command refuses and says to add it |
     | `--recipe <name[@version]>` | A recipe of this host for the first job |
     | `--architecture <a>` | `x64` (the default), `x86`, `arm64` or `neutral` |
     | `--scope <s>` | `machine` or `user` |
