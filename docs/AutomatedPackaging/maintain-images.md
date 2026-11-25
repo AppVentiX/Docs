@@ -1,11 +1,12 @@
 # Keep images current
 
-Each image has a card on the **Workers** screen. **Update**, **Revert**, **Retire** and **Remove…** are buttons on the card. **Update** opens the Update window, with the facts of the image and the options of the update. **Rebuild from media…** is in the Update window. For an image with no machine, **Forget** is in the Update window in place of **Update**.
+Each image has a card on the **Workers** screen. **Update**, **Revert**, **Pause** (or **Resume**), **Retire** and **Remove…** are buttons on the card. **Update** opens the Update window, with the facts of the image and the options of the update. **Rebuild from media…** is in the Update window. For an image with no machine, **Forget** is in the Update window in place of **Update**.
 
 | Action | Window | Command line |
 |---|---|---|
 | Update | **Update** | `worker update` |
 | Revert | **Revert** | Not available |
+| Pause and resume | **Pause**, **Resume** | `worker pause`, `worker resume` |
 | Retire | **Retire** | Not available |
 | Rebuild from media | **Rebuild from media…** | Not available |
 | Remove the machine | **Remove…** | `worker remove` |
@@ -82,6 +83,30 @@ The built-in engine, its restarts and the trace apply to a job on the built-in e
 ## Revert
 
 **Revert** reverts the worker to its `baseline` checkpoint, and releases a hold on it. If Hyper-V has no machine of that name, it says so. Then use **Remove…** to forget the worker.
+
+## Pause a worker
+
+**Pause** puts a worker in maintenance mode. The job planner gives it no new job until you resume it. Pause changes nothing on the machine, and you can undo it.
+
+- A job that runs on the worker continues to its end. The chip shows **Busy** until then, and **Paused** after.
+- **Update**, **Revert**, **Retire**, **Rebuild from media…** and **Remove…** stay available.
+- A job for the target goes to another free worker. When no other worker is free, the job waits in the queue. It starts when you resume the worker.
+- The worker stays paused when the product or the host starts again, and after an update or a revert. A rebuild or a removal ends the pause.
+- An AI agent sees a paused worker in `list_machines`. No MCP tool can pause or resume a worker.
+
+=== "GUI"
+
+    1. On the **Workers** screen, click **Pause** on the card of the worker. The chip shows **Paused**, and a line on the card tells that the worker gets no new job.
+    2. To give the worker jobs again, click **Resume** on the card.
+
+=== "CLI"
+
+    ```
+    AutomatedPackaging.Cli worker pause PKGMGR-001
+    AutomatedPackaging.Cli worker resume PKGMGR-001
+    ```
+
+    `machines` shows a paused worker as `paused`. A pause of a retired worker is refused.
 
 ## Retire
 

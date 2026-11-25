@@ -34,6 +34,8 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `worker build <name> [options]` | Builds a worker and its image, as **Build a worker** does |
 | `worker update <name> [options]` | Updates a worker, as **Update** does |
 | `worker remove <name> [--confirm]` | Removes a worker and its disks, or a machine from **Incomplete machines** |
+| `worker pause <name>` | Puts a worker in maintenance mode, as **Pause** does: the job planner gives it no new job. See [Pause a worker](maintain-images.md#pause-a-worker) |
+| `worker resume <name>` | Ends the maintenance mode of a worker, as **Resume** does |
 | `image forget <image-id>` | Forgets an image record that no worker uses |
 | `recipe validate <file> [--json]` | Checks a recipe file and changes nothing. It does not need an elevated prompt. See [Recipes](recipes.md) |
 | `recipe add <file> [--json]` | Adds a recipe file to the recipes of this host. A name and version that the host has keep their content (`AP-IM-029`) |
@@ -132,7 +134,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--confirm-licence` | with `--activation not-activated` | Confirms a valid Windows licence for the image. Your account and the time are recorded |
 | `--prerequisite <PRQ-nnn>` | `worker build` | A prerequisite to install at step 8. You can give it more than once |
 | `--confirm` | `worker remove` | Removes the machine and its disks. Without it, nothing is removed |
-| `--json` | all four | Writes the result as one JSON object |
+| `--json` | all six | Writes the result as one JSON object |
 
 **Rebuild from media…**, **Revert** and **Retire** are not on the command line. Use the Workers screen.
 
