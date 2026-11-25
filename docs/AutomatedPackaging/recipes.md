@@ -122,7 +122,7 @@ A recipe never holds signing, host paths, a machine or the export. The host give
 
 === "GUI"
 
-    Select the installer on the **Build** screen. Then click **Open file…** under **Recipe**. The recipe fills the form. It does not start a job. You can also double-click an `.aprecipe` file: the application opens on the **Build** screen with it, also when the application is open already.
+    Select the installer on the **Build** screen. Then click **Open file…** under **Recipe**. The recipe fills the form. It does not start a job. You can also double-click an `.aprecipe` file: the application opens on the **Build** screen with it, also when the application is open already. When the file gives internet hosts for the worker or fix-ups, a line under **Recipe** names them. **Build** then lists them and asks first. When you click **No**, the file is not added and no job starts.
 
     When the `match` of the recipe does not name the installer, a warning is under **Recipe**. When you click **Build**, the product asks if you want to build this installer with the recipe.
 
@@ -150,7 +150,7 @@ An AI agent sets `recipe` on `convert` to a recipe of this host. A recipe of for
     AutomatedPackaging.Cli recipe export 20261124-101500-a1b2c3 --out D:\Recipes\7-zip.aprecipe
     ```
 
-The file has the values of the job and the packaging rules of the recipe of the job. A transform is its file name, with its SHA-256 while the file is there. `match` has the installer type, and the signer and UpgradeCode while the installer is still there. Add a `fileName` or `productName` pattern when the next versions use the same form. An AI agent gets the text of the file with the MCP tool `export_recipe`.
+The file has the values of the job and the packaging rules of the recipe of the job. A transform is its file name, with its SHA-256 while the file is there. `match` has the installer type, and the signer and UpgradeCode while the installer is still there. Add a `fileName` or `productName` pattern when the next versions use the same form. The file holds the arguments and the MSI properties of the job: do not share it when they hold a key or a password. An AI agent gets the text of the file with the MCP tool `export_recipe`, for its own jobs only.
 
 ## Check and add a recipe
 

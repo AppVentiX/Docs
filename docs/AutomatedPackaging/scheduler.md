@@ -78,6 +78,7 @@ The Scheduler checks each new version before it tests it:
 - The package is one `.msix` or `.appx` file. A bundle (`.msixbundle` or `.appxbundle`) is refused.
 - The subject of the signing certificate is equal to the Publisher in the AppxManifest of the package (`AP-PK-026`).
 - This computer trusts the signature (`AP-PK-027`).
+- The certificate of the vendor is not revoked (`AP-PK-029`). The host service asks the certificate authority. When it gets no answer, the test runs, and the item's last check says that revocation was not checked.
 - Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md) (`AP-PK-028`). The product does not install an EXE or ZIP dependency for a test.
 
 A version that fails the signature checks is not tested, and the Scheduler does not try it again. A version with a missing dependency is tried again at the next check, so you can add the framework first. A new signer holds the version, as for an installer.
@@ -92,6 +93,8 @@ The Scheduler holds a new version, and does not build it, in these cases:
 - Its signer is not the signer of the version before.
 - The catalogue names a different publisher.
 - An AI agent made or changed the item, and agent signing is set to **Ask**. Then a person must accept it.
+
+An item that an AI agent made or changed shows **AI agent**. Its jobs follow agent signing. When you change its interval or times, it stays an item of the agent. To make it your item, click **Take over**. The application asks first. MCP then asks the person before it changes the item.
 
 A version whose job failed is not tried again. A newer version is.
 

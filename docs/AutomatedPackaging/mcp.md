@@ -10,7 +10,7 @@ An MCP client does not connect to the service directly. It starts the relay, `Au
 
 ## Before you start
 
-- **The starter allowance, or a licence that includes MCP.** A Basic licence includes it. A community licence includes it when its file names `mcp`. With the starter allowance, packages that a client builds count toward the same five packages. After that, the client can read but not build: a job is refused at its start with `AP-LC-006`. An expired licence works the same way. With a licence that does not include MCP, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
+- **The starter allowance, or a licence that includes MCP.** A Basic licence includes it. A community licence includes it when its file names `mcp`. With the starter allowance, packages that a client builds count toward the same five packages. After that, the client keeps every tool, but a tool that builds is refused at the call with `AP-LC-006`. An expired licence works the same way. With a licence that does not include MCP, `product_status` gives `AP-LC-007`. The service checks the licence when a client connects and again at each tool call.
 - **Your account in the local group `AppVentiX Packaging Operators`.** The installer creates the group, empty. Only its members can use the service. Membership of Administrators alone is not sufficient.
 - **The account of the service in Hyper-V Administrators,** for `worker_build`. Host preparation adds it: apply **Host service in Hyper-V Administrators**. The service uses the group after it starts again.
 
@@ -105,7 +105,7 @@ These tools read and change nothing:
 | `list_recipes` | The recipes of this host: name, version, SHA-256 and application. See [Recipes](recipes.md) |
 | `validate_recipe` | Checks the text of a recipe file, and does not add it to the host. Only a person adds a recipe |
 | `recipe_schema` | The JSON Schema of the recipe format, for an AI agent that writes a recipe: format version 2 (`.aprecipe`), or 1 with `formatVersion` 1. `validate_recipe` is the check that counts |
-| `export_recipe` | The settings of a finished job as the text of a recipe file of format version 2, between markers. It writes no file and adds nothing to the host. A person saves the text and adds it |
+| `export_recipe` | The settings of a finished job that an AI agent queued, as the text of a recipe file of format version 2, between markers. It writes no file and adds nothing to the host. A person saves the text and adds it |
 | `preview_recipe` | Runs a recipe on the capture of a finished job of the built-in engine, with no worker and no package. Gives what each rule matches and what the recipe drops or changes. See [Recipes](recipes.md) |
 
 These tools start or change work:
