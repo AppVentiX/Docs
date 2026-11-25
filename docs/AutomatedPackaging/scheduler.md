@@ -22,7 +22,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
 === "GUI"
 
-    After **From WinGet…**, click **Schedule…** next to **Build**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day, then select **I accept the licence and terms of the vendor**. Click **Save**.
+    After **From WinGet…**, click **Schedule…** next to **Build**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day. Read **Signer**: the signer of the installer that you downloaded, **Not signed**, or a signature that does not verify. The note under it says which later versions wait for a person. Then select **I accept the licence and terms of the vendor**, which also accepts the signer. Click **Save**.
 
     The item keeps the recipe, the certificate and the name. Other values of the **Build** screen, such as the arguments and the MSI properties, do not go to the item. Put them in the recipe.
 
@@ -35,7 +35,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | Option | What it does |
     |---|---|
     | `--signing-profile <id>` | The certificate of the first job, from `certificates`. Needed |
-    | `--accept-terms` | You accept the licence and terms of the vendor for the software that the Scheduler downloads and installs. Needed |
+    | `--accept-terms` | You accept the licence and terms of the vendor for the software that the Scheduler downloads and installs. You also accept the signer of the first version, or that it is not signed. A later version waits for a person when its signer changes or its signature does not verify. Needed |
     | `--recipe <name[@version]>` | A recipe of this host for the first job |
     | `--architecture <a>` | `x64` (the default), `x86`, `arm64` or `neutral` |
     | `--scope <s>` | `machine` or `user` |
