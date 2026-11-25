@@ -110,7 +110,7 @@ Update the worker <worker name>. Then follow the update with worker_status until
 ```
 
 - **Tools:** `worker_update`, `worker_status`.
-- **What it can change:** The update runs steps 6 to 12 again on the worker, and writes the image record again. The worker cannot do jobs while the update runs. An agent runs one worker operation at a time.
+- **What it can change:** The update runs steps 7 to 13 again on the worker, and writes the image record again. The worker cannot do jobs while the update runs. An agent runs one worker operation at a time.
 - **A good result:** `worker_status` gives each step, and "Done" at the end.
 
 ### Free up space

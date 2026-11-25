@@ -130,7 +130,7 @@ First, the program fills in what the installer tells, as the Build screen does. 
 | `--activation <method>` | `worker build`, `worker update` | `kms` or `not-activated` |
 | `--kms-server <host[:port]>` | `worker build`, `worker update` | The KMS server. `localhost`, a loopback or a link-local address is refused |
 | `--confirm-licence` | with `--activation not-activated` | Confirms a valid Windows licence for the image. Your account and the time are recorded |
-| `--prerequisite <PRQ-nnn>` | `worker build` | A prerequisite to install at step 7. You can give it more than once |
+| `--prerequisite <PRQ-nnn>` | `worker build` | A prerequisite to install at step 8. You can give it more than once |
 | `--confirm` | `worker remove` | Removes the machine and its disks. Without it, nothing is removed |
 | `--json` | all four | Writes the result as one JSON object |
 

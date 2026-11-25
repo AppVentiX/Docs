@@ -80,15 +80,15 @@ The application, the host service and the command line read the value when they 
 | Before | **Build image** is not available, with a message about the name | The name rules | Use the prefix, 15 characters at most, letters, digits and hyphens |
 | 1 | "This host is not ready to build" | A host check fails | **Prepare this host…** on **Settings > This host** |
 | 3 | `AP-HV-008`, "A virtual machine named … already exists" | A failed build left the machine | Remove it in **Incomplete machines…** on the **Workers** screen, or use a different name |
-| 4 | `AP-IM-014` after 60 minutes | Windows Setup waits on a dialog. Often the edition is not on the media | Open the console of the worker in Hyper-V Manager, and read it |
-| 5 | `AP-IM-010`, "The capture driver did not install" | The Features on Demand media is from a different release | Put the correct ISO in the drop folder, and scan again |
-| 5 | `AP-IM-009`, or "The packaging tool does not start" at step 11 | The licence file of the packaging tool is missing | Put the licence `.xml` beside the bundle in `Distro\Tools`, then build again |
-| 6 | `AP-AG-003` | Host preparation did not make the certificate authority | Run host preparation, start the application again, and build again |
-| 6 | "This host issues certificates from channel authority …, but agent-channel.json names … first" (`AP-AG-003`) | The first thumbprint in `trustedAuthorityThumbprints` is not the newest channel authority of this host. After the update, the worker would read **Update required** again. The product stops before it changes the worker | Run host preparation and apply the changes. It puts the authority of this host first. Then update the worker again |
-| 7 | `AP-IM-022` | A prerequisite failed | Check its arguments, success codes and detection rule on the **Prerequisites** screen |
-| 8 | `AP-IM-015`, "Tamper Protection is on" | Defender Tamper Protection is on in the worker | Use **Rebuild from media…** |
-| 9 | `AP-IM-021` | Windows did not activate through the KMS server. The message gives the answer. "The KMS relay does not connect to …": the server is this host, a loopback or link-local address, or on the internal switch | Correct the KMS server: give the name or the address of the KMS server itself. Or apply the **KMS relay reachable** firewall rule. Then **Update** |
-| 10 | `AP-IM-017` | Calibration recorded nothing, or recorded noise that it cannot exclude | Read the step 5 result in the preparation log. Run **Update** again |
+| 5 | `AP-IM-014` after 60 minutes | Windows Setup waits on a dialog. Often the edition is not on the media | Open the console of the worker in Hyper-V Manager, and read it |
+| 6 | `AP-IM-010`, "The capture driver did not install" | The Features on Demand media is from a different release | Put the correct ISO in the drop folder, and scan again |
+| 6 | `AP-IM-009`, or "The packaging tool does not start" at step 12 | The licence file of the packaging tool is missing | Put the licence `.xml` beside the bundle in `Distro\Tools`, then build again |
+| 7 | `AP-AG-003` | Host preparation did not make the certificate authority | Run host preparation, start the application again, and build again |
+| 7 | "This host issues certificates from channel authority …, but agent-channel.json names … first" (`AP-AG-003`) | The first thumbprint in `trustedAuthorityThumbprints` is not the newest channel authority of this host. After the update, the worker would read **Update required** again. The product stops before it changes the worker | Run host preparation and apply the changes. It puts the authority of this host first. Then update the worker again |
+| 8 | `AP-IM-022` | A prerequisite failed | Check its arguments, success codes and detection rule on the **Prerequisites** screen |
+| 9 | `AP-IM-015`, "Tamper Protection is on" | Defender Tamper Protection is on in the worker | Use **Rebuild from media…** |
+| 10 | `AP-IM-021` | Windows did not activate through the KMS server. The message gives the answer. "The KMS relay does not connect to …": the server is this host, a loopback or link-local address, or on the internal switch | Correct the KMS server: give the name or the address of the KMS server itself. Or apply the **KMS relay reachable** firewall rule. Then **Update** |
+| 11 | `AP-IM-017` | Calibration recorded nothing, or recorded noise that it cannot exclude | Read the step 6 result in the preparation log. Run **Update** again |
 
 A build that fails or stops keeps its machine. Click **Incomplete machines…** on the **Workers** screen, and remove it there.
 

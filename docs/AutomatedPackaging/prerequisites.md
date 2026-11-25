@@ -124,7 +124,7 @@ An image, a conversion job and **Needs first** do not offer an item of this type
 
 ## On an image
 
-Prerequisites on an image install at step 7, before hardening. Use this for a runtime that many applications need: it installs once.
+Prerequisites on an image install at step 8, before hardening. Use this for a runtime that many applications need: it installs once.
 
 === "GUI"
 
@@ -138,7 +138,7 @@ Prerequisites on an image install at step 7, before hardening. Use this for a ru
 
     `worker update` keeps the prerequisites of the image.
 
-An update cannot remove a prerequisite from a machine. **Rebuild from media…** builds a new Windows with exactly the selected items. A failure at step 7 is `AP-IM-022`.
+An update cannot remove a prerequisite from a machine. **Rebuild from media…** builds a new Windows with exactly the selected items. A failure at step 8 is `AP-IM-022`.
 
 ## For one job
 

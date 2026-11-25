@@ -115,7 +115,7 @@ An application that puts its own files in these folders loses them from the pack
 
 ## Windows updates in an Update
 
-When the proxy is on, an update of a worker also installs its Windows updates. This is step 13, **Install Windows updates**. It runs after step 3 and before step 6. See [Keep images current](maintain-images.md#update).
+When the proxy is on, an update of a worker also installs its Windows updates. This is step 4, **Install Windows updates**. It runs after step 3 and before step 7. A new build lists step 4 as skipped. See [Keep images current](maintain-images.md#update).
 
 1. The step sets the services `DoSvc` (Delivery Optimization) and `wuauserv` (Windows Update) to start, and restarts the worker. The other update services and the update tasks stay off.
 2. The service opens the proxy for this worker. The hosts are always `*.update.microsoft.com`, `*.windowsupdate.com`, `*.delivery.mp.microsoft.com` and, for the Edge update, `msedge.api.cdp.microsoft.com`. The limits are always 4096 MB and 120 minutes. The limits in Settings do not apply to an update.
@@ -126,7 +126,7 @@ When the proxy is on, an update of a worker also installs its Windows updates. T
 
 ### The Edge update in the same step
 
-After the Windows updates, step 13 updates Microsoft Edge and the WebView2 Runtime while the proxy is still open.
+After the Windows updates, step 4 updates Microsoft Edge and the WebView2 Runtime while the proxy is still open.
 
 1. The step turns on the scheduled tasks of the Edge updater (`MicrosoftEdgeUpdateTask*`). It sets the services `edgeupdate` and `edgeupdatem` back to the defaults of Windows.
 2. The step starts the task `MicrosoftEdgeUpdateTaskMachineUA`. The Edge updater runs as SYSTEM.
@@ -137,11 +137,11 @@ The step line shows the versions of Edge and WebView2 before and after. If the E
 
 The Edge updater decides by itself when it checks for a new version. It can skip the check, and then the step line says that it did not reach its update service. An update of Edge through this step is not verified yet: on our test worker, the updater did not complete an update.
 
-Step 8, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back at that step.
+Step 9, **Harden the image**, then sets `DoSvc` and `wuauserv` to Disabled again, and reads both back at that step.
 
-Step 11, **Seal the image**, sets both to Disabled again and reads them back before it shuts the worker down. The packaging tool can set `wuauserv` to start during step 10. If one is not Disabled at step 11, the image is not sealed. This applies to every build and every update.
+Step 12, **Seal the image**, sets both to Disabled again and reads them back before it shuts the worker down. The packaging tool can set `wuauserv` to start during step 11. If one is not Disabled at step 12, the image is not sealed. This applies to every build and every update.
 
-Steps 8 and 11 do the same for the Edge updater: its tasks must be disabled and its two services set to Manual. There is no Edge policy on the worker, because a policy also stops an installer that brings Edge or the WebView2 Runtime.
+Steps 9 and 12 do the same for the Edge updater: its tasks must be disabled and its two services set to Manual. There is no Edge policy on the worker, because a policy also stops an installer that brings Edge or the WebView2 Runtime.
 
 - When the proxy is off, the step is skipped, and its line says why. The update continues without Windows updates.
 - The update log shows each update, its result and each request of the proxy.

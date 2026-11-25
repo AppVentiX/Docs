@@ -19,7 +19,7 @@ AutomatedPackaging.Cli machines
 
 ## Update
 
-An update runs steps 6 to 12 again on the existing machine, and writes the image record again. It does not install Windows or the packaging tool again. When the host proxy is on, step 13 first installs the Windows updates of the worker, and then updates Microsoft Edge and the WebView2 Runtime. See [Windows updates in an Update](worker-internet.md#windows-updates-in-an-update).
+An update runs steps 7 to 13 again on the existing machine, and writes the image record again. It does not install Windows or the packaging tool again. When the host proxy is on, step 4 first installs the Windows updates of the worker, and then updates Microsoft Edge and the WebView2 Runtime. See [Windows updates in an Update](worker-internet.md#windows-updates-in-an-update).
 
 - Update after you install a newer build of the product. The worker then gets the new agent.
 - For a KMS image, an update activates Windows again. This renews the activation.
@@ -159,13 +159,13 @@ Do this when host preparation says "This host has no channel authority", or when
 2. Run host preparation, and apply the changes. It creates a new authority and puts it first in `trustedAuthorityThumbprints`. "Listener certificate" fails, because the old authority issued the certificate of the listener. Host preparation issues a new one and writes its thumbprint in `agent-channel.json`. "Certificates of the service" still fails, because the file names the old authority. At the end, host preparation restarts the service when no job runs. Then it removes the old certificate of the listener and its key. If a job stopped the restart, it removes them at the next apply after the service's restart.
 3. Open `<dataFolder>\agent-channel.json`. Remove each old thumbprint from `trustedAuthorityThumbprints`. Keep the first one.
 4. Run host preparation again. All checks pass. Restart the service **AppVentiX Automated Packaging**.
-5. Click **Update** for each worker on the Workers screen. Step 6 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media…**. Step 6 also removes the old authority from the Root store of the worker, when `agent-channel.json` no longer trusts it. The line of step 6 gives the number of certificates that it removed, and the thumbprint and subject of each.
+5. Click **Update** for each worker on the Workers screen. Step 7 of the update gives the worker a certificate from the new authority. If an update fails, use **Rebuild from media…**. Step 7 also removes the old authority from the Root store of the worker, when `agent-channel.json` no longer trusts it. The line of step 7 gives the number of certificates that it removed, and the thumbprint and subject of each.
 
 **With the window of host preparation.** On page 7, select **Create another and issue from it from now on**, then apply the changes. That does step 2 without step 1: the window creates a second authority and deletes nothing. The old certificate stays in the store of the computer, and step 3 removes its trust. Continue with step 3.
 
 After step 2, each worker that is not updated reads **Update required**, and the product starts no job on it (`AP-IM-023`). An older image does not record its channel authority. It also reads **Update required**, because its last update was before this host made the new authority.
 
-An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 6 names it. Step 6 stops before it changes the worker when the first thumbprint in `trustedAuthorityThumbprints` is not the newest authority of this host. Then run host preparation.
+An update copies each trusted authority into the worker. It skips one that this host does not have, and its step 7 names it. Step 7 stops before it changes the worker when the first thumbprint in `trustedAuthorityThumbprints` is not the newest authority of this host. Then run host preparation.
 
 ## Good to know
 
