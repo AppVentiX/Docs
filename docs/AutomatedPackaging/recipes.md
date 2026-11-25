@@ -122,7 +122,7 @@ A recipe never holds signing, host paths, a machine or the export. The host give
 
 === "GUI"
 
-    Select the installer on the **Build** screen. Then click **Open recipe file…** under **Recipe**. The recipe fills the form. It does not start a job. You can also double-click an `.aprecipe` file: the application opens on the **Build** screen with it, also when the application is open already.
+    Select the installer on the **Build** screen. Then click **Open file…** under **Recipe**. The recipe fills the form. It does not start a job. You can also double-click an `.aprecipe` file: the application opens on the **Build** screen with it, also when the application is open already.
 
     When the `match` of the recipe does not name the installer, a warning is under **Recipe**. When you click **Build**, the product asks if you want to build this installer with the recipe.
 
@@ -142,7 +142,7 @@ An AI agent sets `recipe` on `convert` to a recipe of this host. A recipe of for
 
 === "GUI"
 
-    On the **Jobs** screen, select a job that built a package. Then click **More** > **Save as recipe…**. On the **Build** screen, **Save as recipe file…** saves the form.
+    On the **Jobs** screen, select a job that built a package. Then click **More** > **Save as recipe…**. On the **Build** screen, **Save as file…** under **Recipe** saves the form.
 
 === "CLI"
 
