@@ -1,7 +1,7 @@
 # AppVentiX Automated Packaging
 
 !!! warning "Preview documentation"
-    This section is for a limited group of testers. It describes check build 0.2.71. Check builds are for testing, not for production. Do not share this link outside the test group.
+    This section is for a limited group of testers. It describes check build 0.2.72. Check builds are for testing, not for production. Do not share this link outside the test group.
 
 AppVentiX Automated Packaging turns an installer (MSI or EXE) into a tested, signed MSIX package. It builds and maintains its own clean packaging machines, the workers. Before you receive a package, the product installs it on a clean worker and starts the application. Each job is recorded, so you know what was built, when, and how. You can work from the application window, from scripts, or with an AI assistant, for one application or for many.
 
