@@ -22,7 +22,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
 === "GUI"
 
-    After **From WinGet…**, click **Schedule…** under **Recipe**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day, then select **I accept the licence and terms of the vendor**. Click **Save**.
+    After **From WinGet…**, click **Schedule…** next to **Build**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day, then select **I accept the licence and terms of the vendor**. Click **Save**.
 
     The item keeps the recipe, the certificate and the name. Other values of the **Build** screen, such as the arguments and the MSI properties, do not go to the item. Put them in the recipe.
 
