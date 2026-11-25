@@ -95,6 +95,8 @@ The Scheduler holds a new version, and does not build it, in these cases:
 
 A version whose job failed is not tried again. A newer version is.
 
+When a person accepts a version, its signer and publisher are the ones that the next version is compared with. When only an AI agent accepted it, the job is a job of an agent, and the comparison does not change: the next version of the new signer is held again. While agent signing is set to **Ask**, the acceptance of an agent builds nothing. The version stays held with its cause.
+
 The list updates in one minute or less after a job ends or after you remove an item.
 
 === "GUI"
@@ -112,4 +114,4 @@ The list updates in one minute or less after a job ends or after you remove an i
 
 ## Internet for the host
 
-The service connects to the WinGet catalogue directly. If this host reaches the internet only through a proxy, write it in **Upstream proxy** (see [Internet for a worker](worker-internet.md)). The Scheduler uses it too.
+The service connects to the WinGet catalogue directly. If this host reaches the internet only through a proxy, write it in **Upstream proxy** (see [Internet for a worker](worker-internet.md)). The Scheduler uses it too. The proxy can be on the local network. With a proxy, the proxy decides which addresses the service reaches.
