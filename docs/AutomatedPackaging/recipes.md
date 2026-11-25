@@ -134,7 +134,7 @@ A recipe never holds signing, host paths, a machine or the export. The host give
     AutomatedPackaging.Cli convert D:\Installers\7z2601-x64.msi --recipe-file D:\Recipes\7-zip.aprecipe
     ```
 
-    The product adds the file to the recipes of this host, as `recipe add` does. An option on the command line wins over the file. An installer that the `match` does not name is refused with `AP-IM-038`; add `--ignore-match` to use the recipe one time. A transform that is not found once is refused with `AP-IM-039`.
+    The product adds the file to the recipes of this host, as `recipe add` does. An option on the command line wins over the file. An installer that the `match` does not name is refused with `AP-IM-038`; add `--ignore-match` to use the recipe one time. A transform that is not found once is refused with `AP-IM-039`. A file that gives internet hosts or fix-ups is refused until you add `--accept-recipe`; the refusal names each host and each fix-up.
 
 An AI agent sets `recipe` on `convert` to a recipe of this host. A recipe of format version 2 fills the job, and the values of the call win. Set `ignoreMatch` to use it with another installer. MCP refuses a recipe with transforms or the files beside the installer: start such a job on the **Build** screen or with the command line.
 
