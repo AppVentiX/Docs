@@ -12,7 +12,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
     On the **Build** tab, click **From WinGet…**. Type a part of the name or the ID, and click **Search**. Select the package. The list shows its installers, and one is marked **Recommended**. An installer without a SHA-256 in the catalogue cannot be selected.
 
-    Click **Use installer**. The service downloads the installer and checks it. The window shows how much it downloaded; **Cancel** stops the download. The **Build** screen then fills from the installer, as for a file that you select. A box shows the signer of the installer, or says that it is not signed or that its signature is not valid. For an EXE-type installer, **Arguments** gets the silent switches of the catalogue. Arguments that you typed stay.
+    Click **Use selected**. The service downloads the installer and checks it. The window shows how much it downloaded; **Cancel** stops the download. The **Build** screen then fills from the installer, as for a file that you select. A box shows the signer of the installer, or says that it is not signed or that its signature is not valid. For an EXE-type installer, **Arguments** gets the silent switches of the catalogue. Arguments that you typed stay.
 
 === "CLI"
 
