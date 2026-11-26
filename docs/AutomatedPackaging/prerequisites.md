@@ -142,7 +142,7 @@ The [Scheduler](scheduler.md) tests a vendor MSIX from WinGet as it is. WinGet c
 
 - The test takes the newest item of that download that is not retired. It installs the item as a conversion installs a prerequisite, with its arguments, success codes and detection rule. Then the worker restarts one time, before the test installs the package. The worker is reverted after the test.
 - An item that its detection rule finds on the worker does not run, and the worker does not restart.
-- With no such item in the library, the version is not tested (`AP-PK-028`). The message names the item to download.
+- With no such item in the library, the version is not tested (`AP-PK-028`). The message names the library entry with its vendor, as the list shows it. For `Microsoft.DotNet.DesktopRuntime.8`, download "Microsoft .NET Desktop Runtime 8.0 (x64)" on the **Prerequisites** screen.
 - The product does not install other packages that WinGet names, for example PowerToys, Teams or Intel OpenVINO.
 
 ## On an image

@@ -124,6 +124,7 @@ A build that fails or stops keeps its machine. Click **Incomplete machines…** 
 | `AP-VF-002` or `AP-VF-003` | The application did not start, or closed at once | Often an application that writes to its own folder. Try the Package Support Framework |
 | "The smoke test did not find the PSF fixup …" | The application started, but the fixup of the Package Support Framework did not load in it. The package was built | Test the package on a target computer before you use it. Without the fixup, the application cannot write in its own folder |
 | `AP-AG-008` | The worker refused its password. Workers built before 0.2.14 have a password that expires after 42 days | Run `Repair-WorkerPassword.ps1` from the product `scripts\image` folder, then **Update** the worker. Or use **Rebuild from media…** |
+| "Waiting for memory: Hyper-V did not start …", and the job stays Running | The host does not have the memory for the worker (`0x800705AA`). Usually, other workers of the same batch run. The job keeps its worker and tries again every 30 seconds, for at most 60 minutes. This time does not count against the time limit of the job | Nothing: the job starts when another job ends. **Cancel** stops the wait. After 60 minutes, the job fails with `AP-HV-013` |
 | "Attempt 1 of 2 hit a transient infrastructure failure…" | One automatic retry after a lost connection | Nothing, unless the second attempt also fails |
 
 ## Common error codes
@@ -134,6 +135,7 @@ This is the short list. [Error codes](error-codes.md) has every code, with its c
 |---|---|
 | `AP-HV-007` | The worker runs a job, or is held |
 | `AP-HV-008` | The worker could not be created |
+| `AP-HV-013` | The host does not have the memory to start the worker. A job waited 60 minutes; a worker build or Update stops at once. Let other jobs finish, or turn off other virtual machines |
 | `AP-NW-005` | The connection to the agent was lost. Retried once |
 | `AP-NW-006` | The DNS sinkhole does not work. Run host preparation |
 | `AP-NW-007` | The job uploaded more than the host accepts |

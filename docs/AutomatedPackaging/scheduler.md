@@ -79,11 +79,15 @@ The Scheduler checks each new version before it tests it:
 - The subject of the signing certificate is equal to the Publisher in the AppxManifest of the package (`AP-PK-026`).
 - This computer trusts the signature (`AP-PK-027`).
 - The certificate of the vendor is not revoked (`AP-PK-029`). The host service asks the certificate authority. When it gets no answer, the test runs, and the item's last check says that revocation was not checked.
-- Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md), or a runtime that the product installs from the library, such as the Visual C++ Redistributable or a .NET runtime (`AP-PK-028`). See [A runtime that a WinGet package needs](prerequisites.md#a-runtime-that-a-winget-package-needs). The product does not install other dependencies, such as PowerToys or a ZIP file, for a test.
+- Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md), or a runtime that the product installs from the library, such as the Visual C++ Redistributable or a .NET runtime (`AP-PK-028`). The message names the library entry with its vendor, as the **Prerequisites** list shows it. For `Microsoft.DotNet.DesktopRuntime.8`, download "Microsoft .NET Desktop Runtime 8.0 (x64)". See [A runtime that a WinGet package needs](prerequisites.md#a-runtime-that-a-winget-package-needs). The product does not install other dependencies, such as PowerToys or a ZIP file, for a test.
 
 A version that fails the signature checks is not tested, and the Scheduler does not try it again. A version with a missing dependency is tried again at the next check, so you can add the framework or download the runtime first. A new signer holds the version, as for an installer.
 
 The tests of one version run as one batch, with one job for each target. The version passes when all its jobs pass. See [Test a package](jobs.md#test-a-package).
+
+When a test passes and **Settings > Export** is on, the package goes to the export folder. It goes into the folder `<Name>_<Version>_<Architecture>`, as an exported conversion does. The file `SourceInfo.txt` is beside it. It says where the package came from: the source (WinGet), the package ID, the version, the installer URL and the SHA-256 of the file. It also names the publisher, the test job and the target. The package keeps the vendor's signature. The product did not build it and did not sign it. A test that failed exports nothing. A test that you start from the **Test a package** window, the command line or MCP exports nothing.
+
+A later pass of the same version, and the test on another target, put the same file there again and replace it and `SourceInfo.txt`. The product never replaces another package. If the folder holds a package with the same name and version and other bytes, and `SourceInfo.txt` does not name its SHA-256, the product exports nothing. The job still passed, and it carries a warning with `AP-PK-010` that says which file it kept. Remove or rename that file, then test again. A conversion that you export into that folder later removes `SourceInfo.txt`.
 
 ## When a version is held
 
@@ -103,6 +107,8 @@ When a person accepts a version, its signer and publisher are the ones that the 
 The list updates in one minute or less after a job ends or after you remove an item.
 
 === "GUI"
+
+    The **Scheduler** tab shows one row for each item. The row shows the **Package**, its **Source** (WinGet), **Enabled** and the version built last. It also shows the last check and the next check, in local time.
 
     On the **Scheduler** tab (Ctrl+2), the item shows a warning. Select it. Click **Accept** to build the version, or **Reject**. A rejected version is not tried again. **Check now** checks the selected item; **Check all** checks every item.
 

@@ -196,6 +196,7 @@ An update copies each trusted authority into the worker. It skips one that this 
 
 - **No action takes a worker from a running job.** These actions refuse a worker that something else holds, and name the holder.
 - **While an action runs, the buttons of the other cards are off.** An Update or a Rebuild shows its steps in the Update window, and **Stop** there stops it. When an action ends, the result stays on the card.
+- **While an action runs on a worker, Update on its card reads Progress.** It opens the window that shows the steps of the action. The card says: "An action runs on this worker. Click Progress to see its steps." A step shows its time as `hh:mm:ss`, for example `00:02:30`.
 - **Closing the window asks first** during a scan, a build, an update, a rebuild, a revert, a retire or a removal. A job continues when the window closes.
 - **The managed prefix can change.** Earlier prefixes stay managed, so you can still see and remove the old workers.
 - The Workers screen acts on the first worker of each image. A second worker of the same image is refused on the command line.
