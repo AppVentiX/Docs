@@ -42,8 +42,12 @@ Select a row that says **Not downloaded**, then click **Download**. The product 
 | Visual C++ v14 Redistributable (x64, x86) | Microsoft's permanent links |
 | Edge WebView2 Runtime (x64, x86) | The Evergreen standalone installer |
 | .NET Framework 4.8.1 | The offline installer |
-| .NET Desktop Runtime 8.0 and 10.0 (x64) | Microsoft's .NET release data |
+| .NET Desktop Runtime 6.0, 7.0, 8.0, 9.0 and 10.0 (x64) | Microsoft's .NET release data |
+| .NET Runtime 6.0, 7.0, 8.0, 9.0 and 10.0 (x64) | Microsoft's .NET release data |
+| ASP.NET Core Runtime 6.0, 7.0, 8.0, 9.0 and 10.0 (x64) | Microsoft's .NET release data |
 | PowerShell 7 (x64) | The newest release on `github.com/PowerShell/PowerShell` that has a Windows MSI and a `hashes.sha256` file. Drafts and prereleases are not used |
+
+An item that Microsoft no longer supports shows **End of life** beside its name, before and after the download. The product uses the end date that Microsoft gives for each .NET version: 6.0 on 2024-11-12, 7.0 on 2024-05-14, 8.0 and 9.0 on 2026-11-10, and 10.0 on 2028-11-14. You can still use the item. Use it only for an application that needs that version.
 
 The product does not keep a download in these conditions:
 
@@ -121,6 +125,25 @@ A package can need a framework package, such as `Microsoft.VCLibs.140.00.UWPDesk
 The test takes the item whose name and publisher are the same as the dependency. Its architecture is the architecture of the package (x64 for a neutral package), or neutral. Its version must be the lowest version of the dependency or later. When more than one item agrees, the test takes the highest version.
 
 An image, a conversion job and **Needs first** do not offer an item of this type. A choice that names one is refused.
+
+### A runtime that a WinGet package needs
+
+The [Scheduler](scheduler.md) tests a vendor MSIX from WinGet as it is. WinGet can name a runtime that the package needs, such as the Visual C++ Redistributable or a .NET runtime. The test installs these runtimes from the library, with the item that came from the download in the table.
+
+| WinGet names | Item to download |
+|---|---|
+| `Microsoft.VCRedist.2015+.x64` | Visual C++ v14 Redistributable (x64) |
+| `Microsoft.VCRedist.2015+.x86` | Visual C++ v14 Redistributable (x86) |
+| `Microsoft.EdgeWebView2Runtime` | Edge WebView2 Runtime (x64) |
+| `Microsoft.DotNet.Framework.DeveloperPack_4`, `.DeveloperPack.4.5`, `.DeveloperPack.4.6` | .NET Framework 4.8.1 |
+| `Microsoft.DotNet.Runtime.6` to `.10` | .NET Runtime 6.0 to 10.0 (x64) |
+| `Microsoft.DotNet.DesktopRuntime.6` to `.10` | .NET Desktop Runtime 6.0 to 10.0 (x64) |
+| `Microsoft.DotNet.AspNetCore.6` to `.10` | ASP.NET Core Runtime 6.0 to 10.0 (x64) |
+
+- The test takes the newest item of that download that is not retired. It installs the item as a conversion installs a prerequisite, with its arguments, success codes and detection rule. Then the worker restarts one time, before the test installs the package. The worker is reverted after the test.
+- An item that its detection rule finds on the worker does not run, and the worker does not restart.
+- With no such item in the library, the version is not tested (`AP-PK-028`). The message names the item to download.
+- The product does not install other packages that WinGet names, for example PowerToys, Teams or Intel OpenVINO.
 
 ## On an image
 

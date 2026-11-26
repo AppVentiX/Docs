@@ -79,9 +79,9 @@ The Scheduler checks each new version before it tests it:
 - The subject of the signing certificate is equal to the Publisher in the AppxManifest of the package (`AP-PK-026`).
 - This computer trusts the signature (`AP-PK-027`).
 - The certificate of the vendor is not revoked (`AP-PK-029`). The host service asks the certificate authority. When it gets no answer, the test runs, and the item's last check says that revocation was not checked.
-- Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md) (`AP-PK-028`). The product does not install an EXE or ZIP dependency for a test.
+- Each package that WinGet names as a dependency is a Framework MSIX item in [Prerequisites](prerequisites.md), or a runtime that the product installs from the library, such as the Visual C++ Redistributable or a .NET runtime (`AP-PK-028`). See [A runtime that a WinGet package needs](prerequisites.md#a-runtime-that-a-winget-package-needs). The product does not install other dependencies, such as PowerToys or a ZIP file, for a test.
 
-A version that fails the signature checks is not tested, and the Scheduler does not try it again. A version with a missing dependency is tried again at the next check, so you can add the framework first. A new signer holds the version, as for an installer.
+A version that fails the signature checks is not tested, and the Scheduler does not try it again. A version with a missing dependency is tried again at the next check, so you can add the framework or download the runtime first. A new signer holds the version, as for an installer.
 
 The tests of one version run as one batch, with one job for each target. The version passes when all its jobs pass. See [Test a package](jobs.md#test-a-package).
 
