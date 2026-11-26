@@ -12,7 +12,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
     On the **Build** tab, click **From WinGet…**. Type a part of the name or the ID, and click **Search**. Select the package. The list shows its installers, and one is marked **Recommended**. An installer without a SHA-256 in the catalogue cannot be selected.
 
-    Click **Use selected**. The service downloads the installer and checks it. The window shows how much it downloaded; **Cancel** stops the download. The **Build** screen then fills from the installer, as for a file that you select. A box shows the signer of the installer, or says that it is not signed or that its signature is not valid. For an EXE-type installer, **Arguments** gets the silent switches of the catalogue. Arguments that you typed stay.
+    Click **Use selected**. The service downloads the installer and checks it. The window shows how much it downloaded; **Cancel** stops the download. The **Build** screen then fills from the installer, as for a file that you select. A box shows the signer of the installer, or says that it is not signed or that its signature is not valid. For an EXE-type installer, **Arguments** gets the silent switches of the catalogue. The **Silent switches** column shows the default of the type, marked "(default)", when the catalogue names none for a Nullsoft, Inno Setup or Burn installer. Arguments that you typed stay.
 
 === "CLI"
 
@@ -50,12 +50,12 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 The window, the command line and MCP use the same checks and give the same messages. The service asks the catalogue for the newest version. It refuses the item in these cases:
 
 - No installer matches the item, or the installer has no SHA-256 in the catalogue.
-- The installer is an EXE (`exe`, `inno`, `nullsoft` or `burn`), and the catalogue names no silent switches for it.
+- The installer is an `exe`, and the catalogue names no silent switches for it. A `nullsoft`, `inno` or `burn` installer with none uses the default of its type.
 - The catalogue does not answer. Nothing is added. Try again later.
 
 ### Arguments and name of the first job
 
-The first job of an EXE installer uses the silent switches of the catalogue as its arguments, unless the recipe gives arguments. An MSI keeps the arguments of the product. A later version uses the arguments of the job before it.
+The first job of an EXE installer uses the silent switches of the catalogue as its arguments. When the catalogue names none, the job uses the default of the type: `/S` for `nullsoft`, `/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-` for `inno`, `/quiet /norestart` for `burn`. The first job shows whether the default works. It uses these switches, unless the recipe gives arguments. An MSI keeps the arguments of the product. A later version uses the arguments of the job before it.
 
 The name comes from the package ID: `&` becomes `And`, and a character that a name cannot hold becomes `_`. A recipe's name comes first. A later version keeps the name of the job before it.
 
