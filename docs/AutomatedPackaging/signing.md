@@ -29,6 +29,8 @@ Only the **computer** store signs a job: `LocalMachine\My`. The Automated Packag
 
     - **Signing certificates** lists each certificate in the computer store that has a private key and can sign code.
     - **Test** signs a scratch file with the certificate. It shows the subject and the publisher that the certificate gives.
+    - Each row shows the thumbprint and the expiry date. Two certificates with the same subject can be told apart.
+    - **Remove** deletes a test certificate that this host made, with its private key. See [Remove a test certificate](#remove-a-test-certificate).
     - **In your own certificate store** lists code signing certificates that are only in your own store. **Move to this computer** moves the certificate and its private key to the computer store.
 
     A key that you cannot export cannot move. Import the certificate again from its PFX file into the computer store.
@@ -45,6 +47,8 @@ Only the **computer** store signs a job: `LocalMachine\My`. The Automated Packag
     Give the thumbprint to `convert` with `--certificate-thumbprint`. When the host has exactly one certificate, `convert` uses it. Give the ID of an Azure profile with `--signing-profile` instead.
 
     The JSON output is one array. Certificates come first, with `"kind": "Certificate"`, `thumbprint`, `name`, `subject`, `selfSigned`, `expires` and `expired`. Then the Azure profiles, with `"kind": "AzureArtifactSigning"`, `id`, `name`, `subject` and `tested`.
+
+    The command line lists certificates. It does not remove them. Use **Settings > Signing** in the application.
 
 ## A test certificate
 
@@ -65,6 +69,21 @@ Import-Certificate -FilePath '<path to the .cer>' -CertStoreLocation Cert:\Local
 On a machine that does not trust the certificate, the package does not install. The package itself is correct. The product's code for this is `AP-VF-004`.
 
 The smoke test trusts the certificate of the job in the worker. You do not need to do this for the worker.
+
+### Remove a test certificate
+
+Go to **Settings > Signing** and click **Remove** on the row of the certificate. **Remove** is also on the rows under **In your own certificate store**.
+
+- **Only a test certificate that this host made is removed.** For another certificate, the product says that this host did not make it. It removes nothing. To remove such a certificate, use `certlm.msc`.
+- **A certificate in use is not removed.** The product names each item that uses it:
+    - **Settings > AI agents (MCP)**, when AI agents can sign with it. Clear its tick and click **Save**.
+    - A **Scheduler** item that signs with it. Give the item a different certificate, or remove the item.
+    - Jobs in the queue that sign with it. Wait for them, or cancel them.
+- **A question names the subject, the thumbprint and the expiry date.** You cannot undo the removal. Click **OK** to remove the certificate and its private key.
+
+The public certificate (`<thumbprint>.cer`), the Trusted People entries and the packages that it signed stay. A machine that trusts the certificate still installs those packages.
+
+AI agents (MCP) cannot remove a certificate.
 
 ## Azure Artifact Signing
 
