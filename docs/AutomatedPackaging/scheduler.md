@@ -161,7 +161,7 @@ The Scheduler holds a new version, and does not build it, in these cases:
 - The catalogue names a different publisher.
 - An AI agent made or changed the item, and agent signing is set to **Ask**. Then a person must accept it.
 
-An item that an AI agent made or changed shows **AI agent**. Its jobs follow agent signing. When you change its interval or times, it stays an item of the agent. To make it your item, click **Take over**. The application asks first. MCP then asks the person before it changes the item.
+An item that an AI agent made or changed shows **AI agent**. Its jobs follow agent signing. When you change its interval or times, it stays an item of the agent. To make it your item, click **Take over**. The application asks first. An AI agent then cannot change the item, and MCP asks the person before it removes the item.
 
 A version whose job failed is not tried again. A newer version is.
 

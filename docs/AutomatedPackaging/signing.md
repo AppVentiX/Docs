@@ -79,7 +79,11 @@ Go to **Settings > Signing** and click **Remove** on the row of the certificate.
     - **Settings > AI agents (MCP)**, when AI agents can sign with it. Clear its tick and click **Save**.
     - A **Scheduler** item that signs with it. Give the item a different certificate, or remove the item.
     - Jobs in the queue that sign with it. Wait for them, or cancel them.
+    - A job that failed at signing and waits for **Retry signing**, or a test-signed job that waits for **Sign for release**. The product names each job by its application and ID. Sign it, or remove the job on the **Jobs** screen. A job whose package is no longer in its folder does not count.
+    - A **Scheduler** item with no certificate of its own, whose earlier job signed with it. Its next version signs as that job did. Give the item a certificate, or remove the item.
 - **A question names the subject, the thumbprint and the expiry date.** You cannot undo the removal. Click **OK** to remove the certificate and its private key.
+
+When the same certificate is in the computer's store and in your own store, one **Remove** removes the computer's copy. The message says that your copy stays. To remove it too, click **Remove** on its row under **In your own certificate store**. A certificate whose private key is already gone is removed too.
 
 The public certificate (`<thumbprint>.cer`), the Trusted People entries and the packages that it signed stay. A machine that trusts the certificate still installs those packages.
 

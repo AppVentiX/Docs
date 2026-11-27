@@ -122,7 +122,8 @@ A job makes one package. **Output** is the first row of column 2:
   worker: the job ends with the warning "Not tested". Test the package with AppVentiX before you give it to users.
 - **App Attach**: an App Attach image of the signed MSIX package, as a VHDX or CIM file, with an AppVentiX
   `.appattach` file. The job builds, signs and tests the MSIX package as usual. Then the host writes the image from
-  it. No Microsoft tool is used. The worker then starts the package from the image.
+  it. No Microsoft tool is used. The worker then starts the package from the image. The `.appattach` file takes at
+  most 100 applications and 32 MiB of icons in all. A package over a limit fails the job (`AP-PK-035`).
 
 For AppGo and App Attach, select the **Disk format**:
 
@@ -435,7 +436,8 @@ An App Attach job puts a folder `<Name>_<Version>_<arch>\` in the output folder,
 - `Backup\<Name>_<Version>_<arch>.msix`, the signed MSIX package.
 
 When a folder of that name is already there, the new folder gets `_2`. The export copies the whole folder to the
-export location. It checks every file against the job first, and copies the `.appattach` file last. The folder stays
+export location. It checks every file against the job first, and copies the `.appattach` file last. If the copy stops, the files
+at the export location stay as they were. The folder stays
 in the output folder after the export, also after **Export again**. **Settings > Export**, "remove exported packages", does
 not remove it, and **Free up space** does not offer it. Remove it by hand when you no longer need it.
 
