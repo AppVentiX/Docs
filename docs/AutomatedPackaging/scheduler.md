@@ -46,6 +46,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | `--interval-hours <n>` | The hours between two checks, 1 to 744. The default is 24 |
     | `--at <HH:mm>[,<HH:mm>]` | One or two times of day, in the local time of the host |
     | `--output <format>`, `--disk-format <format>` | The output (MSIX, AppGo or App Attach) and its disk format. An AppGo item needs no `--signing-profile` |
+    | `--appgo-files-gb <n>`, `--appgo-files-most <n>` | With `--output appgo`: the item's own limits on the files beside the `.appgo` file, 1 to 1024 GB and 1 to 10000 files. Without them, a job uses the values of the job before it, else Settings |
     | `--name <text>` | The application name of the first job when the recipe gives none. Without it, the name comes from the package ID |
 
 ### What the Scheduler checks when you add an item
