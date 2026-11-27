@@ -111,6 +111,42 @@ You can see what the product reads from an installer before you start a job.
 
     The options of the **Advanced** window are in the next section. [Command line](command-line.md) has all options.
 
+## The output: MSIX or AppGo
+
+A job makes one package. **Output** is the first row of column 2:
+
+- **MSIX**: a signed MSIX package. The job starts it on a clean worker before it ends. This is the default.
+- **AppGo**: an AppVentiX AppGo package, one `.appgo` file. The AppGo Capture Tool of AppVentiX records the
+  installation. An AppGo package is for Windows 11 only. It is not signed. This version does not start it on a clean
+  worker: the job ends with the warning "Not tested". Test the package with AppVentiX before you give it to users.
+- **App Attach** comes in a later version.
+
+For AppGo, select the **Disk format**:
+
+- **VHDX** (the default).
+- **CIM**. A CIM job needs a worker of Windows 11 24H2 (build 26100) or later. The product gives the job the worker
+  with the lowest such build. When no worker has that build, the job is refused (`AP-PK-030`).
+
+An AppGo job is silent. It cannot be interactive, continue from an earlier capture, or test a package. A recipe fills
+the values of the job, but its packaging rules are for MSIX and are not used. The job installs its prerequisites
+before the capture.
+
+=== "GUI"
+
+    Click **AppGo** in the **Output** row. **Disk format** shows under it. The MSIX settings are not used for AppGo:
+    **Engine** and **Signing** go away, and **Publisher**, the identity and **Program to start** are grey.
+    **Must run on** must be **Windows 11 only**.
+
+=== "CLI"
+
+    Give `--output appgo`, and `--disk-format cim` for CIM. Without `--target`, the target is `windows11only`.
+    An AppGo job needs no certificate.
+
+        AutomatedPackaging.Cli convert D:\Installers\7z2603-x64.msi --output appgo --disk-format cim
+
+    `check` takes the same options. `schedule add` takes `--output appgo` and `--disk-format`, and then needs no
+    `--signing-profile`. MCP `convert`, `check_job` and `schedule_package` take `output` and `diskFormat`.
+
 ## The program to start
 
 A package starts a program through an application in its manifest. The product makes an application from each shortcut that the installer makes. An installer with no shortcut gives a package with no application, and the job fails with `AP-PK-005`.
@@ -347,6 +383,10 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 | The job log | `<workingDir>\jobs\<job id>\job.log`, and on the **Jobs** screen |
 | Collected logs | `<workingDir>\jobs\<job id>\Collected files\` |
 | What the built-in engine found | `<workingDir>\jobs\<job id>\engine\`. See below |
+
+An AppGo job puts its `<Name>_<Version>.appgo` file in the output folder, as a package. The export copies it to
+`<export location>\<Name>_<Version>\`, with no certificate and no list of dependencies. Import the file in
+AppVentiX Central View.
 
 ### What the built-in engine found
 

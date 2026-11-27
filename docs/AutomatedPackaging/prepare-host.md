@@ -108,4 +108,15 @@ What this means every day:
 - An Explorer window that is not elevated cannot open these folders. Use an elevated Explorer or PowerShell, or the application.
 - If Explorer offers **Continue**, it adds an entry for your account. The checks accept this for an account that is directly a member of `Administrators`.
 
+### The AppGo Capture Tool
+
+An AppGo job needs the AppGo Capture Tool of AppVentiX. The product does not install it. Copy the file that
+AppVentiX gave you to:
+
+    <working directory>\Tools\appgo\AppGo Capture Tool.exe
+
+Only an administrator can write in the `Tools` folder. Each job checks the file before it uses it: it must be signed
+by AppVentiX B.V., or be a build that the product knows. Otherwise the job stops before a worker starts
+(`AP-PK-031`). The workers need the agent of this version: update each Windows 11 worker on the **Workers** screen.
+
 Next: [Stage media](stage-media.md).
