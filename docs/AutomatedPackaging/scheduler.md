@@ -111,6 +111,7 @@ An item that an AI agent added or changed last keeps the mark **AI agent**. You 
         - **Times of day**: none, or one or two times as `HH:mm`.
         - **Recipe** and **Certificate**. When the item has no certificate, **Certificate** shows the certificate of the job that was built last. The next job signs with that certificate. If you keep it, the item continues to use the certificate of its last job.
         - **Output** and **Disk format**. An AppGo item signs nothing, so its certificate goes.
+        - **AppGo files** (an AppGo item only): the limits on the files beside the `.appgo` file that the next job uses. They are the item's own, else those of the job built last, else those of Settings. Leave them as shown, and nothing changes. Type other values (1 to 1024 GB, 1 to 10000 files), and each next job uses them. Type the values that the item followed, and the item follows them again.
     4. Click **Save**.
 
     The window does not ask you to accept the terms again. You accepted them when you added the item. If somebody changes the item while the window is open, **Save** refuses. Close the window and click **Edit** again.
@@ -131,11 +132,15 @@ An item that an AI agent added or changed last keeps the mark **AI agent**. You 
     | `--signing-profile <id>` | Another certificate: an ID from `certificates` |
     | `--output msix\|appgo\|appattach` | Another output |
     | `--disk-format vhdx\|cim` | The disk format of an AppGo or App Attach item. When `--output` changes without it, VHDX |
+    | `--appgo-files-gb <n>` | The item's own limit for all files beside the `.appgo` file, 1 to 1024 GB. AppGo items only |
+    | `--appgo-files-most <n>` | The item's own limit for the number of files beside the `.appgo` file, 1 to 10000. AppGo items only |
     | `--json` | Writes the item after the change as JSON |
 
     An option that you do not give keeps the value of the item. Exit code 0 when the item is changed or nothing changed, 1 when the change was refused.
 
-    AI agents use the MCP tool `change_scheduled_item`. It takes `output` and `diskFormat` too.
+    When the output changes from AppGo, the item's own AppGo files limits go. `schedule add` takes `--appgo-files-gb` and `--appgo-files-most` too.
+
+    AI agents use the MCP tool `change_scheduled_item`. It takes `output`, `diskFormat`, `appGoFilesGigabytes` and `appGoFilesMost` too, on an item of an AI agent only.
 
 ## Build a version again
 

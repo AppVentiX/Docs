@@ -427,6 +427,34 @@ built, with a warning. For a large application, for example AutoCAD, raise the l
 [Settings > Advanced](settings.md#advanced), under **AppGo files**. These limits are not for the `.appgo` file itself:
 see [Worker limits](settings.md#worker-limits).
 
+You can also set the limits for one job. A value that you leave as shown uses Settings. **New version...** and
+`convert --from-job` keep the values of the earlier job. A recipe does not set them. The job log shows the limits and
+where they come from.
+
+=== "GUI"
+
+    1. On the **Build** screen, set **Output** to **AppGo**.
+    2. Click **Advanced...**. The window has an **AppGo files** card.
+    3. Set **All files together** (1 to 1024 GB) and **Most files** (1 to 10000). Each value shows where it comes
+       from: **From Settings**, **Product default** or **Overridden for this job**.
+    4. Click **OK**. The values are for this job only.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli convert <installer> --output appgo --appgo-files-gb 40 --appgo-files-most 500
+    ```
+
+    | Option | What it does |
+    |---|---|
+    | `--appgo-files-gb <n>` | The gigabytes of all files beside the `.appgo` file, for this job. 1 to 1024 |
+    | `--appgo-files-most <n>` | The most files beside the `.appgo` file, for this job. 1 to 10000 |
+
+    The command refuses these options with another output. AI agents use `appGoFilesGigabytes` and
+    `appGoFilesMost` of the MCP tools `convert` and `check_job`.
+
+A Scheduler item can have its own limits too: see [Change a scheduled item](scheduler.md#change-a-scheduled-item).
+
 From 0.2.79 an AppGo job needs an agent of version 0.2.79 or later, so that these files come back. On a worker with an
 older agent the job is refused before it starts: click **Update** for the worker on the **Workers** screen, or run
 `worker update <name>`.
