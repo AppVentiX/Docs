@@ -416,14 +416,19 @@ no list of dependencies. Import the file in AppVentiX Central View.
 A job whose package name or version cannot name a file is refused before the worker starts (`AP-PK-030`). A file from the
 worker that is empty or not a zip file fails the job (`AP-PK-013`).
 
-A newer AppGo Capture Tool also writes a companion file, `<name>.appgo.json`, beside the package. The job brings it back
-with the package, and the host names it after the package: `<Name>_<Version>.appgo.json`. When the output folder adds a
-number to the package (`_2`), the companion gets the same number. The host keeps it only when it is 4 MiB at most and
-one JSON object; it does not read what it says. When the check fails, the job keeps the package without the companion
-and shows a warning. An older tool writes no companion: then the job makes the package only.
+The job also brings back each file that the AppGo Capture Tool writes beside the `.appgo` file. Files in a folder
+below it do not come back. Each file keeps its name and its bytes, and the host does not open it. The files go beside
+the package in the output folder and in the export folder. When the output folder has a file with that name, the new
+file gets `_2`, as the package does. When the package is removed after the export, or with **Free up space**, its files
+are removed too. The AppGo Capture Tool 6.0.4 writes only the `.appgo` file there.
 
-From 0.2.77 an AppGo job needs an agent of version 0.2.77 or later, so that the companion comes back. On a worker with
-an older agent the job is refused before it starts: click **Update** for the worker on the **Workers** screen, or run
+At most 100 files and 4 GB for all files together come back. The host refuses a file above a limit, and the job is still
+built, with a warning. For a large application, for example AutoCAD, raise the limits in
+[Settings > Advanced](settings.md#advanced), under **AppGo files**. These limits are not for the `.appgo` file itself:
+see [Worker limits](settings.md#worker-limits).
+
+From 0.2.79 an AppGo job needs an agent of version 0.2.79 or later, so that these files come back. On a worker with an
+older agent the job is refused before it starts: click **Update** for the worker on the **Workers** screen, or run
 `worker update <name>`.
 
 The export copies the companion beside the `.appgo`. **Free up space** and "remove the package after the export"

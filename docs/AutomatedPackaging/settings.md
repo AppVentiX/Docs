@@ -464,13 +464,15 @@ The installer writes the answer to `HKEY_LOCAL_MACHINE\SOFTWARE\AppVentiX\Automa
 
 ## Advanced
 
-**Settings > Advanced** has three cards.
+**Settings > Advanced** has four cards.
 
 **The managed name prefix** is the prefix that each worker name must have, `PKGMGR-` by default. The product creates, changes and removes only machines with this prefix. Change it only if it is the same as names that you use. The prefix has 1 to 11 characters: letters, digits and hyphens. Click **Save prefix**, then start the application again. Earlier prefixes stay managed.
 
 **The conversion engine** is the engine that converts the installer to a package. A job uses it when nobody selects an engine on the Build screen or on the command line. An MCP job uses Microsoft's MSIX Packaging Tool when the client gives no engine. A new installation starts with **Built-in engine (experimental)**. An upgrade keeps the default of the host: **Microsoft's MSIX Packaging Tool** if nobody saved one. **Built-in engine (experimental)** is the product's own engine. A job on it needs a worker whose image records it. Select an engine under **Default conversion engine** and click **Save engine**.
 
 **Worker internet** turns on the proxy that lets a job's worker reach the internet hosts that the job names. It is off by default. It also holds the port (default 3128), an optional upstream proxy (`host:port`), and the limit per job (default 2048 MB and 30 minutes). Click **Save worker internet**, then run host preparation for the firewall rule. See [Internet for a worker](worker-internet.md).
+
+**AppGo files** holds the limits for the files that an AppGo job brings back beside the `.appgo` file: **All files together** (1 to 1024 GB, default 4) and **Most files** (1 to 10000, default 100). Click **Save limits**. The next job uses them. Raise them for a large application, for example AutoCAD. A file above a limit is left out with a warning, and the job is still built. See [The output](convert.md#the-output-msix-appgo-or-app-attach).
 
 **Settings > Configuration** has the card **Configuration bundle**. It holds the configuration of this host, with its package identities. A package identity is how Windows knows that a new package updates an installed application. **Export configuration…** writes it, and **Import configuration…** reads it. The bundle holds no passwords, no private keys and no certificates.
 
