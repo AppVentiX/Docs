@@ -109,7 +109,7 @@ An item that an AI agent added or changed last keeps the mark **AI agent**. You 
         - **Enabled**: clear it to stop the checks of the item.
         - **Interval (hours)**: 1 to 744.
         - **Times of day**: none, or one or two times as `HH:mm`.
-        - **Recipe** and **Certificate**.
+        - **Recipe** and **Certificate**. When the item has no certificate, **Certificate** shows the certificate of the job that was built last. The next job signs with that certificate. If you keep it, the item continues to use the certificate of its last job.
         - **Output** and **Disk format**. An AppGo item signs nothing, so its certificate goes.
     4. Click **Save**.
 
