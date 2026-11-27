@@ -40,9 +40,9 @@ The smoke test checks the fixup. It reads the modules of the started application
 
 After the download of PSF, the product asks GitHub at start if the fork has published a newer release. If it has, the product downloads that release one time, in the background. It checks that TMurgent Technologies LLP signed each of the eight files, and it keeps nothing. The product remembers the result for that release.
 
-- **The files are signed.** A notice above each screen says that the release is available. The card offers **Adopt** with the name of the release. Jobs continue to use your release until you adopt the new one. Adopt downloads the release again and runs the same checks.
-- **The files are not signed.** No notice shows. The card on **Settings > This host** shows one line: the release, the date of the release, and that it cannot be adopted. The card shows no **Adopt** button for that release. A newer release gets a new check.
-- **Not now** hides the notice for that release. The notice shows again only for a newer release.
+- **The files are signed.** A notification in the bell says that the release is available. The card offers **Adopt** with the name of the release. Jobs continue to use your release until you adopt the new one. Adopt downloads the release again and runs the same checks.
+- **The files are not signed.** No notification shows. The card on **Settings > This host** shows one line: the release, the date of the release, and that it cannot be adopted. The card shows no **Adopt** button for that release. A newer release gets a new check.
+- **Not now** hides the notification for that release. It comes again only for a newer release.
 - **On a host with no internet**, the question gets no answer, and nothing shows.
 - If **Adopt** refuses a release, the product says why, under **LAST ACTION** at the right of the section. It gives each reason one time, with the files under it. The product keeps the release that you have, and it does not offer the refused release again.
 
@@ -54,9 +54,9 @@ When the check is on, the application sends one request when it starts. The requ
 
 The answer is a file that AppVentiX signs with the key that also signs licences. The application uses the file only when the signature is correct. It also refuses a file with a lower issue number than the last file that it used. Thus an old file cannot hide a security update.
 
-- **A newer version is available.** A notice shows above each screen. For a security update, the notice says so. Click **Download page…** or **Release notes…** to open the page in your browser.
+- **A newer version is available.** A notification shows in the bell. For a security update, it has a warning mark. Click **Download page…** or **Release notes…** to open the page in your browser.
 - **The application does not download or install the update.** You download the MSI and install it yourself.
-- **Not now** hides the notice until the next start.
+- **Not now** hides the notification until the next start.
 - **On a host with no internet**, the check gets no answer, and nothing shows. It tries again at the next start.
 
 The check is off, and the application sends no request, when you untick **Check for product updates**. It is also off in a build without an address for the update information: only a release of the product sets the address. Then the box is not available, and the card says why.

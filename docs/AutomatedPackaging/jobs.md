@@ -27,6 +27,25 @@
 
 The job log tags each line `host`, `agent` or `pipeline`. The last lines give the `AP-` code and the reason of a failure.
 
+## Notifications: the bell
+
+The bell at the right of the top bar collects what the application has to tell you. A red bubble on the bell shows the number of new notifications. When a new one comes, the bell moves and a short message shows under it for a few seconds. The bell does not move when **Animation effects** is off in Windows (**Settings > Accessibility > Visual effects**).
+
+Click the bell to open the list. The list shows the newest 50 notifications, the newest first. When you open the list, all its notifications are read, and the bubble goes. Press **Esc** or click outside the list to close it.
+
+The bell collects these notifications:
+
+- A job is complete, fails, is cancelled, or stops before its end. Click **Open in Jobs** to see the job.
+- The Scheduler held a new version. It waits for your answer on the **Scheduler** screen.
+- The licence expires soon or is in its grace period. Click **Licence…** to open **Settings > Licence**.
+- A newer release of the Package Support Framework is available (**This host…**, **Not now**). See [Settings](settings.md).
+- A newer version of the product is available (**Download page…**, **Release notes…**, **Not now**).
+- What an action did, for example that a tab is not available until this host is prepared.
+
+A notification that ends, for example after **Not now**, goes out of the list. When the licence refuses new builds, a red notice also shows above each screen until you install a licence. The message line of a screen stays on that screen.
+
+The list is kept only while the application is open. A job that ended before the application started is not in the list: the **Jobs** screen shows it.
+
 ## Results on the Jobs screen
 
 | Result | Meaning |
