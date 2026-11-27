@@ -61,7 +61,7 @@ You can see what the product reads from an installer before you start a job.
     | **Install mode** | **Silent** runs the installer with its arguments. **Interactive** opens a window onto the worker, and you use the installer. See [Interactive installs](#interactive-installs) |
     | **Arguments** | Under **Install mode**. See the install parameters below |
     | **Must run on** | The target: "Windows 10 and 11", "Windows 11 only" or "Windows Server". "Windows 11 only" is the default. On a host with only a Windows 10 image, select "Windows 10 and 11". "Captures on …" beside **Build** names the image that the target needs |
-    | **Machine** | **Automatic** lets the product select a free worker when the job starts. It looks at the images for the target in order: the healthiest first, then the most recently calibrated. It takes the first free worker of an image that can build the job. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job |
+    | **Machine** | **Automatic** lets the product select a free worker when the job starts. It looks at the images for the target in order: the healthiest first, then the most recently calibrated. It takes the first free worker of an image that can build the job. Or select one worker. **Recommended** marks the worker that Automatic would select for the selected **Engine** and **Install mode**. The mark moves when you change one of them. **busy** marks a worker that runs a job. A job for a busy worker waits in the queue for that worker. A worker that the job cannot use is in the list too, without the mark. For example, its agent is too old for the job. With the **CIM** disk format, the list leaves out a worker of a build below 26100. The planner would refuse it (`AP-PK-030`) |
     | **Signing** | The certificate or Azure profile. A self-signed certificate shows **SELF-SIGNED** |
     | **Engine** | A line shows the conversion engine of the job. Change it in **Advanced…**, under **Priority**. The default is in [Settings](settings.md#advanced). A new installation starts with **Built-in (experimental)**. An upgrade keeps the default of the host: **Packaging tool** if nobody saved one. **Built-in (experimental)** is the product's own engine. It records what the installer changes, also across restarts of the worker, and writes the package on the host. It needs a worker whose image records the engine; other workers refuse the job (`AP-IM-026`). **Update** the worker to add it. A new version of an application uses the engine of the earlier job |
     | **Recipe** | **None** by default, or a recipe of this host. The line under the list shows its SHA-256. A new version of an application shows the recipe of the earlier job; **None** removes it. See [Recipes](recipes.md) |
@@ -117,7 +117,8 @@ A job makes one package. **Output** is the first row of column 2:
 
 - **MSIX**: a signed MSIX package. The job starts it on a clean worker before it ends. This is the default.
 - **AppGo**: an AppVentiX AppGo package, one `.appgo` file. The AppGo Capture Tool of AppVentiX records the
-  installation. An AppGo package is for Windows 11 only. It is not signed. This version does not start it on a clean
+  installation. The host names the file `<PackageName>_<Version>.appgo` from the job's package name and four-part
+  version, for example `7-Zip-26.03-x64-edition_26.3.0.0.appgo`. It does not use the name that the tool gave. An AppGo package is for Windows 11 only. It is not signed. This version does not start it on a clean
   worker: the job ends with the warning "Not tested". Test the package with AppVentiX before you give it to users.
 - **App Attach**: an App Attach image of the signed MSIX package, as a VHDX or CIM file, with an AppVentiX
   `.appattach` file. The job builds, signs and tests the MSIX package as usual. Then the host writes the image from
@@ -221,7 +222,7 @@ These settings apply to one job.
 | Packaging tool timeout | `--timeout-minutes <n>` | How long the packaging tool can take | 5 to 480 minutes (default 40) |
 | Package identity | `--package-name <name>` | The Name of the package. To Windows, a different Name is a different application | 3 to 50 characters: letters, digits, `.` and `-` |
 | Export the package | `--export`, `--no-export` | Copies the package to the export location. See [Export packages](export.md) | Default: the Settings value |
-| Package Support Framework | `--psf`, `--no-psf` | Puts PSF in front of the programs of the package. See [Package Support Framework](settings.md#package-support-framework). Without PSF on this host, the job stops with `AP-PK-011` after the capture | On or off (default off) |
+| Package Support Framework | `--psf`, `--no-psf` | Puts PSF in front of the programs of the package. See [Package Support Framework](settings.md#package-support-framework). Without PSF on this host, the job stops with `AP-PK-011` after the capture. An AppGo job does not use PSF. The window shows the choice as off, with a line that says so | On or off (default off) |
 | Restarts | `--restarts <n>` | How many times the worker can restart during a capture with the built-in engine. The installer, you or a shutdown can cause a restart. One restart more stops the job with `AP-IN-020` | 1 to 10 (default 3) |
 | Wait after a restart (minutes) | `--restart-wait-minutes <n>` | How long a capture with the built-in engine waits for the worker after a restart or a shutdown. If the worker is off, start it in this time. A restart that installs updates can take longer | 5 to 30 minutes (default 5) |
 
@@ -406,9 +407,13 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 | Collected logs | `<workingDir>\jobs\<job id>\Collected files\` |
 | What the built-in engine found | `<workingDir>\jobs\<job id>\engine\`. See below |
 
-An AppGo job puts its `<Name>_<Version>.appgo` file in the output folder, as a package. The export copies it to
-`<export location>\<Name>_<Version>\`, with no certificate and no list of dependencies. Import the file in
-AppVentiX Central View.
+An AppGo job puts its `<Name>_<Version>.appgo` file in the output folder, as a package. The host gives the file this name
+from the package name and version of the job, not from the name that the AppGo Capture Tool gave. The export folder is
+that name without `.appgo`. The export copies the file to `<export location>\<Name>_<Version>\`, with no certificate and
+no list of dependencies. Import the file in AppVentiX Central View.
+
+A job whose package name or version cannot name a file is refused before the worker starts (`AP-PK-030`). A file from the
+worker that is empty or not a zip file fails the job (`AP-PK-013`).
 
 An App Attach job puts a folder `<Name>_<Version>_<arch>\` in the output folder, as AppVentiX lays it out:
 
@@ -418,7 +423,11 @@ An App Attach job puts a folder `<Name>_<Version>_<arch>\` in the output folder,
 
 When a folder of that name is already there, the new folder gets `_2`. The export copies the whole folder to the
 export location. It checks every file against the job first, and copies the `.appattach` file last. The folder stays
-in the output folder after the export.
+in the output folder after the export, also after **Export again**. **Settings > Export**, "remove exported packages", does
+not remove it, and **Free up space** does not offer it. Remove it by hand when you no longer need it.
+
+When an App Attach job fails after its folder was placed (start test, revert or cancel), the folder is renamed
+`<folder>.<job ID>.failed`, so it does not look finished. The product keeps it for the log.
 
 ### What the built-in engine found
 

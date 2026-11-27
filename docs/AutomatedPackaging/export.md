@@ -11,7 +11,7 @@ Set the export location in the application. The command line uses it, but cannot
 3. Set **Export every successful package**:
     - On: each job exports, unless its **Advanced** setting is off.
     - Off: a job exports only when its **Advanced** setting is on.
-4. Optional: tick **Remove a package and its notes from the output folder after the export**.
+4. Optional: tick **Remove a package and its notes from the output folder after the export**. This does not remove an App Attach folder. Remove it by hand when you no longer need it.
 5. Click **Save export**. The next job uses the settings. No restart is necessary.
 
 ![Settings, Export: the export location, Every package and Output folder, with Save export and Check location](images/settings-export.png)
@@ -77,7 +77,7 @@ To try again:
 2. Select the job on the **Jobs** screen.
 3. Click **Export again**.
 
-**Export again** copies the package that the job built, with no worker and no new build. It works only while the package is still in the output folder.
+**Export again** copies the package that the job built, with no worker and no new build. It works only while the package is still in the output folder. An App Attach folder stays in the output folder after **Export again**. Remove it by hand when you no longer need it.
 
 Two jobs with the same name and version write the same file in the output folder. Each job records the SHA-256 of its package. Each export compares it first. If the file is another package, the reason is "is not the package this job built". Then build the job again. A job built before version 0.2.35 has no recorded SHA-256: build it again to export it.
 

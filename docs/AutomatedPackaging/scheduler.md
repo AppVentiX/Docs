@@ -24,6 +24,8 @@ A scheduled job counts toward the starter allowance, as every other job. When no
 
     After **From WinGet…**, click **Schedule…** next to **Build**. The window shows the package, the installer, the recipe and the certificate of the **Build** screen, and the target of the first job. Read the warnings. Check **Name**: the application name of the first job when the recipe gives none. You can change it. Set the interval and up to two times of day. Read **Signer**: the signer of the installer that you downloaded, **Not signed**, or a signature that does not verify. The note under it says which later versions wait for a person. Then select **I accept the licence and terms of the vendor**, which also accepts the signer. Click **Save**.
 
+    Check **Output**. It starts as the **Output** of the **Build** screen: **MSIX**, **AppGo** or **App Attach**. For AppGo and App Attach, choose the **Disk format**: **VHDX** or **CIM**. The window refuses what the **Build** screen refuses: AppGo, and App Attach with CIM, are for Windows 11 only (the window shows it under **Target**). An item for an `msix` or `appx` installer type makes MSIX only. An AppGo item needs no certificate.
+
     The item keeps the recipe, the certificate and the name. Other values of the **Build** screen, such as the arguments and the MSI properties, do not go to the item. Put them in the recipe.
 
 === "CLI"
@@ -43,6 +45,7 @@ A scheduled job counts toward the starter allowance, as every other job. When no
     | `--locale <l>` | For example `en-US` |
     | `--interval-hours <n>` | The hours between two checks, 1 to 744. The default is 24 |
     | `--at <HH:mm>[,<HH:mm>]` | One or two times of day, in the local time of the host |
+    | `--output <format>`, `--disk-format <format>` | The output (MSIX, AppGo or App Attach) and its disk format. An AppGo item needs no `--signing-profile` |
     | `--name <text>` | The application name of the first job when the recipe gives none. Without it, the name comes from the package ID |
 
 ### What the Scheduler checks when you add an item
