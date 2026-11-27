@@ -111,7 +111,7 @@ You can see what the product reads from an installer before you start a job.
 
     The options of the **Advanced** window are in the next section. [Command line](command-line.md) has all options.
 
-## The output: MSIX or AppGo
+## The output: MSIX, AppGo or App Attach
 
 A job makes one package. **Output** is the first row of column 2:
 
@@ -119,9 +119,11 @@ A job makes one package. **Output** is the first row of column 2:
 - **AppGo**: an AppVentiX AppGo package, one `.appgo` file. The AppGo Capture Tool of AppVentiX records the
   installation. An AppGo package is for Windows 11 only. It is not signed. This version does not start it on a clean
   worker: the job ends with the warning "Not tested". Test the package with AppVentiX before you give it to users.
-- **App Attach** comes in a later version.
+- **App Attach**: an App Attach image of the signed MSIX package, as a VHDX or CIM file, with an AppVentiX
+  `.appattach` file. The job builds, signs and tests the MSIX package as usual. Then the host writes the image from
+  it. No Microsoft tool is used. The worker then starts the package from the image.
 
-For AppGo, select the **Disk format**:
+For AppGo and App Attach, select the **Disk format**:
 
 - **VHDX** (the default).
 - **CIM**. A CIM job needs a worker of Windows 11 24H2 (build 26100) or later. The product gives the job the worker
@@ -131,11 +133,24 @@ An AppGo job is silent. It cannot be interactive, continue from an earlier captu
 the values of the job, but its packaging rules are for MSIX and are not used. The job installs its prerequisites
 before the capture.
 
+An App Attach job is an MSIX job first: it needs a signing certificate, and every MSIX setting applies. A VHDX image
+runs on the targets of the MSIX package. A CIM image runs on Windows 11 only. An App Attach job cannot be signed with a
+test certificate of an AI agent, and cannot test a package (`AP-PK-030`). Retry signing and Sign for release are not
+offered for an App Attach job: build it again.
+
+After the smoke test of the MSIX package, the worker goes back to its baseline once more. It mounts the image, stages
+and registers the package from it, and starts its application. This takes about a minute more than an MSIX job. When
+the worker cannot stage the package from the image, the job stops with `AP-PK-036`. When the application does not
+start, it stops with `AP-PK-037`.
+
 === "GUI"
 
     Click **AppGo** in the **Output** row. **Disk format** shows under it. The MSIX settings are not used for AppGo:
     **Engine** and **Signing** go away, and **Publisher**, the identity and **Program to start** are grey.
     **Must run on** must be **Windows 11 only**.
+
+    For App Attach, click **App Attach** in the **Output** row. **Disk format** shows under it. The MSIX settings stay,
+    with **Signing**. For CIM, set **Must run on** to **Windows 11 only**.
 
 === "CLI"
 
@@ -146,6 +161,13 @@ before the capture.
 
     `check` takes the same options. `schedule add` takes `--output appgo` and `--disk-format`, and then needs no
     `--signing-profile`. MCP `convert`, `check_job` and `schedule_package` take `output` and `diskFormat`.
+
+    For App Attach, give `--output appattach`, and `--disk-format cim` for CIM. Without `--target`, a CIM job gets
+    `windows11only`. Name the certificate as for an MSIX job.
+
+        AutomatedPackaging.Cli convert D:\Installers\7z2603-x64.msi --output appattach --disk-format vhdx --certificate-thumbprint <thumbprint>
+
+    `check`, `schedule add` and MCP `convert`, `check_job` and `schedule_package` take the same values.
 
 ## The program to start
 
@@ -387,6 +409,16 @@ An installer that restarts Windows by itself fails the job with `AP-IN-009`. Use
 An AppGo job puts its `<Name>_<Version>.appgo` file in the output folder, as a package. The export copies it to
 `<export location>\<Name>_<Version>\`, with no certificate and no list of dependencies. Import the file in
 AppVentiX Central View.
+
+An App Attach job puts a folder `<Name>_<Version>_<arch>\` in the output folder, as AppVentiX lays it out:
+
+- the image: `<Name>_<Version>.vhdx`, or `<Name>_<Version>.cim` with its `region_` and `objectid_` files;
+- `<Name>_<Version>.appattach`, the AppVentiX file with the names and icons of the package;
+- `Backup\<Name>_<Version>_<arch>.msix`, the signed MSIX package.
+
+When a folder of that name is already there, the new folder gets `_2`. The export copies the whole folder to the
+export location. It checks every file against the job first, and copies the `.appattach` file last. The folder stays
+in the output folder after the export.
 
 ### What the built-in engine found
 
