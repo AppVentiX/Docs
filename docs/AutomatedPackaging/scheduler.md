@@ -173,6 +173,8 @@ The list updates in one minute or less after a job ends or after you remove an i
 
     The **Scheduler** tab shows one row for each item. The row shows the **Package**, its **Source** (WinGet), **Enabled** and the version built last. It also shows the last check and the next check, in local time.
 
+    **Output** shows what the jobs of the item make: MSIX, AppGo or App Attach, with the disk format. A ready-made MSIX or APPX shows **Vendor package**. **Certificate** shows the certificate that the next job signs with. This is the certificate of the item. If the item has no certificate, it is the certificate of the job that was built last. An AppGo item shows **Not signed**, and a vendor package shows **Vendor signature**. If this host does not have the certificate, the column shows its thumbprint and "(not on this host)".
+
     On the **Scheduler** tab (Ctrl+2), the item shows a warning. Select it. Click **Accept** to build the version, or **Reject**. A rejected version is not tried again. **Check now** checks the selected item; **Check all** checks every item.
 
 === "CLI"
