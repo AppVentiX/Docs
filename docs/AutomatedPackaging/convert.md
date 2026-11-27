@@ -415,6 +415,19 @@ no list of dependencies. Import the file in AppVentiX Central View.
 A job whose package name or version cannot name a file is refused before the worker starts (`AP-PK-030`). A file from the
 worker that is empty or not a zip file fails the job (`AP-PK-013`).
 
+A newer AppGo Capture Tool also writes a companion file, `<name>.appgo.json`, beside the package. The job brings it back
+with the package, and the host names it after the package: `<Name>_<Version>.appgo.json`. When the output folder adds a
+number to the package (`_2`), the companion gets the same number. The host keeps it only when it is 4 MiB at most and
+one JSON object; it does not read what it says. When the check fails, the job keeps the package without the companion
+and shows a warning. An older tool writes no companion: then the job makes the package only.
+
+From 0.2.77 an AppGo job needs an agent of version 0.2.77 or later, so that the companion comes back. On a worker with
+an older agent the job is refused before it starts: click **Update** for the worker on the **Workers** screen, or run
+`worker update <name>`.
+
+The export copies the companion beside the `.appgo`. **Free up space** and "remove the package after the export"
+remove it with the package.
+
 An App Attach job puts a folder `<Name>_<Version>_<arch>\` in the output folder, as AppVentiX lays it out:
 
 - the image: `<Name>_<Version>.vhdx`, or `<Name>_<Version>.cim` with its `region_` and `objectid_` files;
