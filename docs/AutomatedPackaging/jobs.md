@@ -232,6 +232,26 @@ The product refuses a file that is not an `.msix` or `.appx` package (`AP-PK-022
 
 On the **Jobs** screen, a test reads **Test:** before its name. Its steps 3, 4 and 5 are **Skipped**, and its engine is **None**.
 
+## The right-click menu of a list
+
+Right-click a row of the **Scheduler**, **Jobs**, **Workers**, **OS media** or **Prerequisites** list. A menu opens with the actions of the buttons for that row. Each item does the same as its button, and asks the same questions. An item is not available when its button is not available. The tooltip of the item then tells why, where the button has a tooltip.
+
+The right click selects the row first, because most buttons act on the selected row. A worker has no selection: the menu acts on the worker that you right-clicked.
+
+Under the actions are **Copy name** and **Copy ID**, where the row has them. On the **Scheduler**, they are **Copy package ID** and **Copy item ID**. A prerequisite also has **Copy SHA-256**. Where a row can be removed, the remove item is the last item.
+
+To open the menu with the keyboard, select the row. Then press the Menu key or Shift+F10. The command line has no lists, so this is for the window only.
+
+| List | Items |
+|---|---|
+| Scheduler | Check now, Edit, Build again, Take over (an AI agent's item), Accept and Reject (a held version), Copy package ID, Copy item ID, Remove |
+| Jobs | Cancel job, New version…, Raise, Lower, Retry signing, Select the program, Open the worker's window, Export again, Sign for release, Open log file, Test the package again, Save as recipe…, Copy name, Copy ID, Remove… |
+| Workers | Build again, Update, Revert, Pause or Resume, Retire, Copy name, Remove… |
+| OS media | Scan and prepare…, Open drop folder, Copy name |
+| Prerequisites | Update to…, Download, Edit…, New version…, Copy name, Copy ID, Copy SHA-256, Remove… |
+
+A Jobs item shows only where its button shows for that job, as in the job's panel.
+
 ## After a crash
 
 If the application, the service or the host stopped during a job, the **Jobs** screen shows a panel at the next start. For each job or worker operation that did not end:

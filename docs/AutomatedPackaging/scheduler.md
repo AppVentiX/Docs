@@ -95,6 +95,63 @@ When a test passes and **Settings > Export** is on, the package goes to the expo
 
 A later pass of the same version, and the test on another target, put the same file there again and replace it and `SourceInfo.txt`. The product never replaces another package. If the folder holds a package with the same name and version and other bytes, and `SourceInfo.txt` does not name its SHA-256, the product exports nothing. The job still passed, and it carries a warning with `AP-PK-010` that says which file it kept. Remove or rename that file, then test again. A conversion that you export into that folder later removes `SourceInfo.txt`.
 
+## Change a scheduled item
+
+You can change an item after you add it. The package, the source and the installer stay as they are. To change them, remove the item and add it again. A change goes through the checks of an add, with the same words. The next job of the item uses a changed certificate, recipe or output, also for a new version.
+
+An item that an AI agent added or changed last keeps the mark **AI agent**. You can change its schedule and its output. To change its recipe or its certificate, take over the item first.
+
+=== "GUI"
+
+    1. On the **Scheduler** screen, select the item.
+    2. Click **Edit**. The **Edit scheduled item** window opens, filled with the item.
+    3. Change what you need:
+        - **Enabled**: clear it to stop the checks of the item.
+        - **Interval (hours)**: 1 to 744.
+        - **Times of day**: none, or one or two times as `HH:mm`.
+        - **Recipe** and **Certificate**.
+        - **Output** and **Disk format**. An AppGo item signs nothing, so its certificate goes.
+    4. Click **Save**.
+
+    The window does not ask you to accept the terms again. You accepted them when you added the item. If somebody changes the item while the window is open, **Save** refuses. Close the window and click **Edit** again.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli schedule change <item-id> [options]
+    ```
+
+    | Option | What it does |
+    |---|---|
+    | `--enabled on\|off` | `off` stops the checks of the item. `on` starts them again |
+    | `--interval-hours <n>` | The hours between two checks, 1 to 744 |
+    | `--at <HH:mm>[,<HH:mm>]` | One or two times of day. `--at ""` removes the times |
+    | `--recipe <name[@version]>` | Another recipe of this host |
+    | `--no-recipe` | Removes the recipe of the item. Not with `--recipe` |
+    | `--signing-profile <id>` | Another certificate: an ID from `certificates` |
+    | `--output msix\|appgo\|appattach` | Another output |
+    | `--disk-format vhdx\|cim` | The disk format of an AppGo or App Attach item. When `--output` changes without it, VHDX |
+    | `--json` | Writes the item after the change as JSON |
+
+    An option that you do not give keeps the value of the item. Exit code 0 when the item is changed or nothing changed, 1 when the change was refused.
+
+    AI agents use the MCP tool `change_scheduled_item`. It takes `output` and `diskFormat` too.
+
+## Build a version again
+
+The Scheduler does not try again a version whose job failed or was cancelled. **Build again** builds it. It has no command-line form.
+
+=== "GUI"
+
+    1. On the **Scheduler** screen, select the item.
+    2. Click **Build again**. The tip of the button names the version.
+
+    **Build again** takes the newer of the version built last and the version whose job failed or was cancelled. The job follows the rules of a new version: the Scheduler can hold it, and an AI agent's item follows agent signing. A version that was built before gets a higher package version.
+
+    **Build again** is not available when the item has no version yet, when a version is held, or while a job of the item waits or runs. The tip of the button says why. If the catalogue does not list the version any more, the last check of the item says so.
+
+In the window, a right-click on a row of the Scheduler list opens a menu with **Edit**, **Build again** and the other actions of the buttons. See [The right-click menu of a list](jobs.md#the-right-click-menu-of-a-list).
+
 ## When a version is held
 
 The Scheduler holds a new version, and does not build it, in these cases:

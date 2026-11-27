@@ -33,6 +33,8 @@ A newer version of the product can store an item of a kind that this version doe
 
 ![The Prerequisites screen: the library and the offered items in one list, with a Visual C++ item selected and its facts at the right](images/prerequisites.png)
 
+In the window, a right-click on a row of the library opens a menu with the actions of its buttons, such as **Update to…**, **Download** and **Remove…**. See [The right-click menu of a list](jobs.md#the-right-click-menu-of-a-list).
+
 ### Download from the vendor
 
 Select a row that says **Not downloaded**, then click **Download**. The product keeps the file only when Windows accepts it as signed by Microsoft. Where the vendor publishes a hash, the hash must also match.

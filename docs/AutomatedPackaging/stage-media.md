@@ -77,6 +77,8 @@ For each release, put **both** ISOs in `<workingDir>\_import\<release>`. For exa
 
 The folder name tells the product the release of the two ISOs. See [Supported Windows releases](requirements.md#supported-windows-releases) for the folder names.
 
+In the window, a right-click on a row of the **OS media** list opens a menu with **Scan and prepare…**, **Open drop folder** and **Copy name**. See [The right-click menu of a list](jobs.md#the-right-click-menu-of-a-list).
+
 ## 4. Scan and prepare
 
 1. In the application, click the **OS media** tab (Ctrl+5). While a release is not ready, the **OS media** tab shows a count, for example **2 waiting**. You see the count from all screens. The tab is grey until this host is prepared, as **Build** and **Workers** are.

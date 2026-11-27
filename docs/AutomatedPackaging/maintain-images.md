@@ -18,6 +18,8 @@ The command line acts on workers by name. Run it from an elevated prompt, with t
 AutomatedPackaging.Cli machines
 ```
 
+In the window, a right-click on a worker opens a menu with **Build again**, **Update**, **Revert**, **Pause**, **Retire** and **Remove…**. See [The right-click menu of a list](jobs.md#the-right-click-menu-of-a-list).
+
 ## Update
 
 An update runs steps 7 to 13 again on the existing machine, and writes the image record again. It does not install Windows or the packaging tool again. When the host proxy is on, step 4 first installs the Windows updates of the worker, and then updates Microsoft Edge and the WebView2 Runtime. See [Windows updates in an Update](worker-internet.md#windows-updates-in-an-update).

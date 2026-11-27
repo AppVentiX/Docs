@@ -45,6 +45,7 @@ Before it converts, `convert` finds jobs that a stopped program left. It marks t
 | `schedule add <winget-id> --signing-profile <id> --accept-terms [options]` | Adds a WinGet package to the Scheduler. The service checks it and builds each new version. See [Scheduler](scheduler.md) for the options |
 | `schedule remove <item-id> [--json]` | Removes an item from the Scheduler. Its jobs stay in **Jobs** |
 | `schedule check [<item-id>] [--json]` | Asks the service to check one item, or every item, in the next minute |
+| `schedule change <item-id> [options]` | Changes an item of the Scheduler: `--enabled`, `--interval-hours`, `--at`, `--recipe`, `--no-recipe`, `--signing-profile`, `--output`, `--disk-format`, `--json`. An option that you do not give keeps its value. See [Change a scheduled item](scheduler.md#change-a-scheduled-item) |
 | `schedule accept <item-id> <version> [--json]` | Builds a version that the Scheduler holds |
 | `schedule reject <item-id> <version> [--json]` | Does not build a version that the Scheduler holds, and does not try it again |
 | `sign-for-release <job-id> [--confirm] [--json]` | Signs the package of a job that an AI agent built with a test certificate, as **Sign for release…** does. Without `--confirm`, it shows what it signs and signs nothing. See [Sign a package for release](jobs.md#sign-a-package-for-release) |
