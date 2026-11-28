@@ -133,7 +133,8 @@ For AppGo and App Attach, select the **Disk format**:
   with the lowest such build. When no worker has that build, the job is refused (`AP-PK-030`).
 
 An AppGo job is silent. It cannot be interactive, continue from an earlier capture, or test a package. A recipe fills
-the values of the job, but its packaging rules are for MSIX and are not used. The job installs its prerequisites
+the values of the job, and its exclusions go to the AppGo Capture Tool. Its other packaging rules are for MSIX and are
+not used. The job installs its prerequisites
 before the capture.
 
 An App Attach job is an MSIX job first: it needs a signing certificate, and every MSIX setting applies. A VHDX image
