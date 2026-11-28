@@ -194,7 +194,7 @@ The host keeps the recipe of each job that succeeds, also after housekeeping rem
 
 - **Application.** An MSI is known by its UpgradeCode. A signed EXE is known by its signer and the product name of its version information. Any other installer is known by the application name.
 - **Variant.** Other arguments, MSI properties or transforms make a new variant of the application.
-- **Revision.** Any other change makes a new revision of the variant, for example another engine, other exclusions or another program to start. A job with the same settings adds a job to the newest revision. The host keeps every revision.
+- **Revision.** Any other change makes a new revision of the variant, for example another engine, other exclusions or another program to start. A job with the settings of a revision adds a job to that revision. The host keeps every revision.
 - **Not kept:** the certificate, the output (MSIX, AppGo or App Attach) and the machine. The engine is kept.
 
 **Settings > Recipes** has the card **Built before**. It shows each revision with its arguments and MSI properties, its engine and its jobs. A value whose name looks like a password, key, serial, licence, token or credential is hidden. Click **Show** to see it. The host keeps the value as the job used it, because a new job needs it.
@@ -205,7 +205,7 @@ On the Build screen, a line **Built before** shows after you select an installer
 - **This application**: the same UpgradeCode, or the same signer and product name.
 - **The same name only**: only the application name is the same.
 
-When one variant fits as the same file or the same application, the line names its newest revision. Click **Fill from it** to put its settings into the form. Nothing changes before you click. When more variants fit, or only the name, click **Choose...** and select a revision. **Fill from it** in that window fills the form. The certificate and the output on the form stay as they are. The form uses the recipe of this host that the earlier job used, when this host still has the same file. If not, the form has no recipe, and the line says so. The line does not show for a new version of a job (Jobs > **New version...**) or while a recipe file that you opened fills the form.
+When one variant fits as the same file or the same application, the line names the revision that a job used last. Click **Fill from it** to put its settings into the form. Nothing changes before you click. When more variants fit, or only the name, click **Choose...** and select a revision. **Fill from it** in that window fills the form. The certificate and the output on the form stay as they are. The form uses the recipe of this host that the earlier job used, when this host still has the same file. If not, the form has no recipe, and the line says so. The line does not show for a new version of a job (Jobs > **New version...**) or while a recipe file that you opened fills the form.
 
 The command line and MCP do not show the kept recipes.
 
