@@ -79,7 +79,7 @@ An exclusion is a path that a capture leaves out of a package. **Settings > Excl
 | **Rules of this host** | You | Add, change and remove rules. Export them to a file, and import them on a different host |
 | **Image** | The calibration of the image, when it was built or updated | Read them. An **Update** of the image calibrates them again |
 | **Job** | The **Additional exclusions** of the job, in its **Advanced** settings | Change them for each job |
-| **Recipes** | The recipes of this host, with the name, version, application, SHA-256 and problems of each. See [Recipes](recipes.md) | Read them. Add a recipe with the command line |
+| **Recipes** | The recipes of this host, with the name, version, application, SHA-256 and problems of each. They are on **Settings > Recipes**. See [Recipes](recipes.md) | Read them. Add a recipe with **Add recipe...** or the command line |
 
 === "GUI"
 

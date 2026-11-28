@@ -154,13 +154,21 @@ The file has the values of the job and the packaging rules of the recipe of the 
 
 ## Check and add a recipe
 
-```powershell
-AutomatedPackaging.Cli recipe validate D:\Recipes\7-zip.json
-AutomatedPackaging.Cli recipe add D:\Recipes\7-zip.json
-AutomatedPackaging.Cli recipe list
-```
+=== "GUI"
 
-`recipe validate` changes nothing and does not need an elevated prompt. `recipe add` puts the file in the `recipes` folder of the data folder. Only administrators can add a recipe.
+    Open **Settings > Recipes** and click **Add recipe...**. Select the file. The application checks the file first. A file with internet hosts or fix-ups shows a question that names each host and each fix-up, as **Open recipe file** on the Build screen does. Click **Yes** to add the file, or **No** to add nothing. **LAST ACTION** on the page says what happened.
+
+=== "CLI"
+
+    ```powershell
+    AutomatedPackaging.Cli recipe validate D:\Recipes\7-zip.json
+    AutomatedPackaging.Cli recipe add D:\Recipes\7-zip.json
+    AutomatedPackaging.Cli recipe list
+    ```
+
+    `recipe validate` changes nothing and does not need an elevated prompt. `recipe add` puts the file in the `recipes` folder of the data folder.
+
+Only administrators can add a recipe.
 
 A version never changes. `recipe add` refuses other content under a name and version that the host has (`AP-IM-029`). Give the recipe a higher version.
 
@@ -172,13 +180,34 @@ An AI agent can see what a recipe changes before a job, with the MCP tool `previ
 
 === "GUI"
 
-    Open **Settings > Exclusions**. The **Recipes** card shows each file of the `recipes` folder: the name, the version, the application and the SHA-256. A file that a job cannot use shows why, for example `AP-IM-027`. You cannot change a recipe there.
+    Open **Settings > Recipes**. The **Recipes** card shows each file of the `recipes` folder: the name, the version, the application and the SHA-256. A file that a job cannot use shows why, for example `AP-IM-027`. You cannot change a recipe there.
 
 === "CLI"
 
     ```powershell
     AutomatedPackaging.Cli recipe list
     ```
+
+## The recipes of earlier jobs: Built before
+
+The host keeps the recipe of each job that succeeds, also after housekeeping removes the job. A test job and a job from an earlier capture are not kept. Jobs that succeeded before the product kept recipes are not kept.
+
+- **Application.** An MSI is known by its UpgradeCode. A signed EXE is known by its signer and the product name of its version information. Any other installer is known by the application name.
+- **Variant.** Other arguments, MSI properties or transforms make a new variant of the application.
+- **Revision.** Any other change makes a new revision of the variant, for example another engine, other exclusions or another program to start. A job with the same settings adds a job to the newest revision. The host keeps every revision.
+- **Not kept:** the certificate, the output (MSIX, AppGo or App Attach) and the machine. The engine is kept.
+
+**Settings > Recipes** has the card **Built before**. It shows each revision with its arguments and MSI properties, its engine and its jobs. A value whose name looks like a password, key, serial, licence, token or credential is hidden. Click **Show** to see it. The host keeps the value as the job used it, because a new job needs it.
+
+On the Build screen, a line **Built before** shows after you select an installer, when a kept recipe can fit it:
+
+- **This same file**: a job built this file before.
+- **This application**: the same UpgradeCode, or the same signer and product name.
+- **The same name only**: only the application name is the same.
+
+When one variant fits as the same file or the same application, the line names its newest revision. Click **Fill from it** to put its settings into the form. Nothing changes before you click. When more variants fit, or only the name, click **Choose...** and select a revision. **Fill from it** in that window fills the form. The certificate and the output on the form stay as they are. The form uses the recipe of this host that the earlier job used, when this host still has the same file. If not, the form has no recipe, and the line says so. The line does not show for a new version of a job (Jobs > **New version...**) or while a recipe file that you opened fills the form.
+
+The command line and MCP do not show the kept recipes.
 
 ## Use a recipe for a job
 
